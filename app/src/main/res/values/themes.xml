@@ -1,0 +1,123 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.SudokuMobDevKZ" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">#C5ECBF</item>
+        <item name="colorPrimaryVariant">#96B391</item>
+        <item name="colorOnPrimary">#546E7A</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/gray</item>
+        <item name="colorOnSecondary">@color/gray</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" >?attr/pageBackground</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">?attr/pageBackground</item>
+        <!-- Customize your theme here. -->
+        <item name="themeName">Green</item>
+        <item name="areaColorTheme">#D6EBD2</item>
+        <item name="selectedColorTheme">#B6DAB3</item>
+        <item name="theSameNumberColorTheme">#C0E1BB</item>
+        <item name="grayNumberColorTheme">#999DA8</item>
+        <item name="otherCellsColorTheme">@color/white</item>
+        <item name="itemBumberColorTheme">?attr/colorOnPrimary</item>
+        <item name="solvedNumberColorTheme">#70856D</item>
+        <item name="draftOfColorTheme">?attr/colorOnPrimary</item>
+        <item name="draftOnColorTheme">@color/light_gray</item>
+        <item name="draftTheSameTheme">@color/black</item>
+        <item name="pencilLogoTheme">@color/blue</item>
+        <item name="draftNumbersColorTheme">#868991</item>
+        <item name="logoTextColorTheme">#546E7A</item>
+        <item name="lampColorTheme">#FAC546</item>
+
+        <item name="bordersBackground">?attr/CardBordersBackground</item>
+        <item name="bordersInsideBackground">?attr/colorPrimaryVariant</item>
+        <item name="CardBordersBackground">#546E7A</item>
+        <item name="pageBackground">#C5ECBF</item>
+        <item name="pencilCenterColorTheme">#4b76d2</item>
+        <item name="pencilHeadColorTheme">#595A59</item>
+        <item name="pencilHeaderColorTheme">#FBE6B7</item>
+        <item name="newGameMenuBackground">@color/new_game_color_green</item>
+        <item name="buttonShadowLightTheme">#E0F7DC</item>
+        <item name="buttonShadowDarkTheme">#A0C39B</item>
+        <item name="buttonBodyColorTheme">#C5ECBF</item>
+        <item name="buttonTextColorTheme">?attr/colorOnPrimary</item>
+
+        <item name="fullscreenBackgroundColor">?attr/colorPrimary</item>
+        <item name="fullscreenTextColor">?attr/colorPrimary</item>
+
+        <item name="textButtonsSize">19sp</item>
+        <item name="fontFamily">@font/ibm_plex</item>
+        <item name="logoSize">64sp</item>
+        <item name="textOverGridSize">18sp</item>
+        <item name="gridAlpha" format="float">0.4</item>
+
+<!--        <item name="android:windowTranslucentNavigation">true</item>-->
+<!--        <item name="android:fitsSystemWindows">true</item>-->
+<!--        <item name="android:statusBarColor">@color/status_bar_scrim</item>-->
+<!--        <item name="android:navigationBarColor">@color/nav_bar_scrim</item>-->
+<!--        <item name="android:windowBackground">?attr/pageBackground</item>-->
+    </style>
+
+
+    <style name="Theme.MyLight" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/gray</item>
+        <item name="colorPrimaryVariant">@color/gray</item>
+        <item name="colorOnPrimary">@color/gray</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/gray</item>
+        <item name="colorSecondaryVariant">@color/gray</item>
+        <item name="colorOnSecondary">@color/gray</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" >?attr/pageBackground</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">?attr/pageBackground</item>
+        <!-- Customize your theme here. -->
+        <item name="themeName">Light</item>
+        <item name="areaColorTheme">#E6E5E5</item>
+        <item name="selectedColorTheme">#DCDBDB</item>
+        <item name="theSameNumberColorTheme">#D5D3D3</item>
+        <item name="grayNumberColorTheme">#999DA8</item>
+        <item name="otherCellsColorTheme">#EFEEEE</item>
+        <item name="itemBumberColorTheme">@color/black</item>
+        <item name="solvedNumberColorTheme">@color/gray</item>
+        <item name="draftOfColorTheme">@color/gray</item>
+        <item name="draftOnColorTheme">@color/light_gray</item>
+        <item name="draftTheSameTheme">@color/black</item>
+        <item name="pencilLogoTheme">@color/blue</item>
+        <item name="draftNumbersColorTheme">#999DA8</item>
+        <item name="logoTextColorTheme">?attr/colorPrimary</item>
+        <item name="lampColorTheme">#FAC546</item>
+
+        <item name="bordersBackground">@color/black</item>
+        <item name="bordersInsideBackground">?attr/bordersBackground</item>
+        <item name="CardBordersBackground">@android:color/transparent</item>
+        <item name="pageBackground">#EFEEEE</item>
+        <item name="pencilCenterColorTheme">#4b76d2</item>
+        <item name="pencilHeadColorTheme">#595A59</item>
+        <item name="pencilHeaderColorTheme">#FBE6B7</item>
+        <item name="newGameMenuBackground">#FFFFFF</item>
+        <item name="buttonShadowLightTheme">?colorShadowLight</item>
+        <item name="buttonShadowDarkTheme">?colorShadowDark</item>
+        <item name="buttonBodyColorTheme">#EFEEEE</item>
+        <item name="buttonTextColorTheme">?attr/colorPrimary</item>
+
+        <item name="fullscreenBackgroundColor">?attr/pageBackground</item>
+        <item name="fullscreenTextColor">?attr/colorPrimary</item>
+
+        <item name="textButtonsSize">18sp</item>
+        <item name="fontFamily">sans-serif</item>
+        <item name="logoSize">64sp</item>
+        <item name="textOverGridSize">18sp</item>
+        <item name="gridAlpha" format="float">0.4</item>
+
+<!--        <item name="android:statusBarColor">@color/status_bar_scrim</item>-->
+<!--        <item name="android:navigationBarColor">@color/nav_bar_scrim</item>-->
+<!--        <item name="android:windowBackground">?attr/pageBackground</item>-->
+    </style>
+
+
+
+</resources>
+

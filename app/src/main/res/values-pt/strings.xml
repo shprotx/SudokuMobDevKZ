@@ -1,0 +1,66 @@
+<resources>
+    <string name="app_name">Sudoku</string>
+    <string name="mistakes_start">Erros 0/3</string>
+    <string name="mistakes">Erros </string>
+    <string name="difficulty_easy">Fácil</string>
+    <string name="difficulty_middle">Médio</string>
+    <string name="difficulty_expert">Difícil</string>
+    <string name="cancel">Cancelar</string>
+    <string name="hint">Dica</string>
+    <string name="new_game">Novo Jogo</string>
+    <string name="settings">Configurações</string>
+    <string name="how_to_play">Como Jogar</string>
+    <string name="statistic">Estatísticas</string>
+    <string name="pause">PAUSA</string>
+    <string name="continue_game">Continuar Jogo</string>
+    <string name="hint_used">Dica utilizada</string>
+    <string name="hins_over">Dicas acabaram :(</string>
+    <string name="win">Você venceu :)</string>
+    <string name="lose">Fim de jogo</string>
+    <string name="unknown">Indefinido</string>
+    <string name="game_over">Fim do jogo</string>
+    <string name="main_page">Página principal</string>
+    <string name="game">Sudoku</string>
+    <string name="average_time">Tempo médio:</string>
+    <string name="best_time">Melhor tempo:</string>
+    <string name="game_started">Jogos iniciados:</string>
+    <string name="game_won">Jogos vencidos:</string>
+    <string name="wins_without_mistakes">Vitórias sem erros:</string>
+    <string name="best_wins_line">Melhor sequência de vitórias:</string>
+    <string name="current_wins_line">Sequência atual de vitórias:</string>
+    <string name="percent_of_wins">Porcentagem de vitórias:</string>
+    <string name="clear_statistic">Limpar estatísticas</string>
+    <string name="go_to_main_page">Ir para página principal</string>
+    <string name="full_statistic">Estatísticas completas</string>
+    <string name="you_won">Você venceu!</string>
+    <string name="go_back">Voltar</string>
+    <string name="app_language">Idioma do aplicativo:</string>
+    <string name="support_the_developer">Apoie o desenvolvedor</string>
+    <string name="change_theme">Alterar tema</string>
+    <string name="rate_app">Avalie o aplicativo</string>
+    <string name="remove_ads">Remover anúncios</string>
+    <string name="support_ololo">Apoiar ololo</string>
+    <string name="rate_ololo">Avaliar ololo</string>
+    <string name="skip">Pular</string>
+    <string name="finish">Concluir</string>
+    <string name="no_repetitions">Sem repetições</string>
+    <string name="always_unique">Solução sempre única</string>
+    <string name="use_notes">Use notas</string>
+    <string name="to_the_begining">Voltar ao início</string>
+    <string name="light_theme">Tema claro</string>
+    <string name="dark_theme">Tema escuro</string>
+    <string name="undo">Desfazer</string>
+    <string name="erase">Apagar</string>
+    <string name="note">Notas</string>
+    <string name="green">Verde</string>
+    <string name="play_market">Se você gostou do aplicativo, pode apoiar o desenvolvedor dando uma avaliação justa no Play Market e compartilhando o aplicativo com amigos.</string>
+
+    <string name="unlimited_hints">Unlimited hints</string>
+    <string name="unlimited_mistakes">Don\'t count mistakes</string>
+
+    <string name="how_desc_one">O objetivo do jogo é preencher todas as células com números de 1 a 9. Os números não podem se repetir em nenhuma das linhas, colunas ou blocos. Observe cuidadosamente o campo de jogo e preencha os quadrados vazios com números.</string>
+
+    <string name="how_desc_two">Cada jogo tem apenas uma solução única. A ilustração mostra que apenas o número 5 se encaixa na célula selecionada. Mas a solução nem sempre é tão óbvia. Para inserir o valor correto, toque na célula vazia e, em seguida, selecione o número apropriado abaixo do campo de jogo.</string>
+
+    <string name="how_desc_three">Quando você resolve um sudoku em papel, faz anotações a lápis. Você também pode fazer isso aqui :) O modo de anotações é ativado pelo botão correspondente na parte inferior da tela. As anotações são seus melhores amigos. Além disso, não há necessidade de apagá-las posteriormente - no momento em que você inserir sua solução final na célula, as anotações desaparecerão automaticamente.</string>
+</resources>

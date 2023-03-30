@@ -1,0 +1,53 @@
+<resources>
+    
+    <declare-styleable name="FullscreenAttrs">
+        <attr name="fullscreenBackgroundColor" format="color" />
+        <attr name="fullscreenTextColor" format="color" />
+    </declare-styleable>
+    
+    <declare-styleable name="THemeColors">
+        <attr name="areaColorTheme" format="color|reference" />
+        <attr name="selectedColorTheme" format="color|reference" />
+        <attr name="theSameNumberColorTheme" format="color|reference" />
+        <attr name="grayNumberColorTheme" format="color|reference" />
+        <attr name="otherCellsColorTheme" format="color|reference" />
+        <attr name="itemBumberColorTheme" format="color|reference" />
+        <attr name="solvedNumberColorTheme" format="color|reference" />
+        <attr name="draftOfColorTheme" format="color|reference" />
+        <attr name="draftOnColorTheme" format="color|reference" />
+        <attr name="draftTheSameTheme" format="color|reference" />
+        <attr name="pencilLogoTheme" format="color|reference" />
+        <attr name="draftNumbersColorTheme" format="color|reference" />
+        <attr name="logoTextColorTheme" format="color|reference" />
+        <attr name="lampColorTheme" format="color|reference" />
+
+        <attr name="bordersBackground" format="color|reference" />
+        <attr name="bordersInsideBackground" format="color|reference" />
+        <attr name="CardBordersBackground" format="color|reference" />
+        <attr name="pageBackground" format="color|reference" />
+        <attr name="pencilCenterColorTheme" format="color|reference" />
+        <attr name="pencilHeadColorTheme" format="color|reference" />
+        <attr name="pencilHeaderColorTheme" format="color|reference" />
+
+        <attr name="buttonShadowLightTheme" format="color|reference" />
+        <attr name="buttonShadowDarkTheme" format="color|reference" />
+        <attr name="buttonBodyColorTheme" format="color|reference" />
+        <attr name="buttonTextColorTheme" format="color|reference" />
+
+    </declare-styleable>
+
+    <declare-styleable name="ButtonsBehaivor">
+        <attr name="IconUndo" format="reference" />
+        <attr name="IconErase" format="reference" />
+        <attr name="IconDraft" format="reference" />
+        <attr name="IconLight" format="reference" />
+    </declare-styleable>
+
+    <attr name="themeName" format="string"/>
+    <attr name="logoSize" format="dimension"/>
+    <attr name="newGameMenuBackground" format="color|reference"/>
+    <attr name="textOverGridSize" format="dimension"/>
+    <attr name="textButtonsSize" format="dimension" />
+    <attr name="gridAlpha" format="float" />
+
+</resources>

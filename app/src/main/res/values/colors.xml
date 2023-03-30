@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- custom colors -->
+
+    <color name="selectedColor">#BBDEFA</color>
+    <color name="areaColor">#E2EBF3</color> <!-- #E2E7ED -->
+    <color name="theSameNumberColor">#DDE7FF</color> <!-- #C9CFDD -->
+    <color name="grayNumberColor">#999DA8</color>
+    <color name="otherCellsColor">#FFFFFFFF</color>
+
+    <color name="darkThemeColor">#2B2B2B</color>
+    <color name="greenThemeColor">#D0FAC9</color>
+    <color name="greenThemeColorLight">#E6FDE2</color>
+    <color name="greenThemeColorDark">#A0C39B</color>
+    <color name="selectedColorDark">#BBDEFA</color>
+    <color name="areaColorDark">#252525</color> <!-- #E2E7ED -->
+    <color name="theSameNumberColorDark">#DDE7FF</color> <!-- #C9CFDD -->
+    <color name="grayNumberColorDark">#999DA8</color>
+    <color name="otherCellsColorDark">#999DA8</color>
+
+    <color name="blue">#385AA4</color>
+    <color name="blue_500">#4573D6</color>
+    <color name="gray">#747577</color>
+    <color name="light_gray">#C4C4C4</color>
+    <color name="light_gray2">#999DA8</color>
+    <color name="blue_gray">#F0F3FA</color>
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="light_blue_900">#FF01579B</color>
+    <color name="light_blue_A200">#FF40C4FF</color>
+    <color name="light_blue_A400">#FF00B0FF</color>
+    <color name="black_overlay">#66000000</color>
+    <color name="selected_item_color">#CFCFCF</color>
+    <color name="red">#D80000</color>
+    <color name="color0">#385AA4</color>
+    <color name="color1">#FFFFFF</color>
+
+    <color name="new_game_color_green">#ECFFEA</color>
+</resources>

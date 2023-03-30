@@ -1,0 +1,63 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.SudokuMobDevKZ" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/light_gray</item>
+        <item name="colorPrimaryVariant">@color/light_gray</item>
+        <item name="colorOnPrimary">@color/light_gray</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">#C55B3C</item>
+        <item name="colorSecondaryVariant">#C55B3C</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" >?attr/pageBackground</item>
+        <item name="android:navigationBarColor">?attr/pageBackground</item>
+        <!-- Customize your theme here. -->
+        <item name="themeName">Dark</item>
+        <item name="areaColorTheme">#1B1B1B</item>
+        <item name="selectedColorTheme">#514C21</item>  <!-- #5E5825 -->
+        <item name="theSameNumberColorTheme">#000000</item> <!-- #344257 -->
+        <item name="grayNumberColorTheme">#999DA8</item>
+        <item name="otherCellsColorTheme">@color/darkThemeColor</item>
+        <item name="itemBumberColorTheme">@color/light_gray</item>
+        <item name="solvedNumberColorTheme">#989898</item>
+        <item name="draftOfColorTheme">@color/light_gray</item>
+        <item name="draftOnColorTheme">#4B5863</item>
+        <item name="draftTheSameTheme">@color/light_gray</item>
+        <item name="pencilLogoTheme">#C55B3C</item>
+        <item name="draftNumbersColorTheme">#828283</item> <!-- #5D5D5E -->
+        <item name="logoTextColorTheme">@color/white</item>
+        <item name="lampColorTheme">#937327</item>
+
+        <item name="bordersBackground">@color/gray</item>
+        <item name="bordersInsideBackground">?attr/bordersBackground</item>
+        <item name="CardBordersBackground">@color/gray</item>
+        <item name="pageBackground">@color/darkThemeColor</item>
+        <item name="pencilCenterColorTheme">#979696</item>
+        <item name="pencilHeadColorTheme">@color/light_gray</item>
+        <item name="pencilHeaderColorTheme">#81704A</item>
+        <item name="newGameMenuBackground">#4C4C4C</item>
+        <item name="buttonShadowLightTheme">#606060</item>
+        <item name="buttonShadowDarkTheme">#0C0C0C</item>
+        <item name="buttonBodyColorTheme">?attr/pageBackground</item>
+        <item name="buttonTextColorTheme">?attr/colorPrimary</item>
+
+        <item name="fullscreenBackgroundColor">?attr/pageBackground</item>
+        <item name="fullscreenTextColor">@color/light_blue_A400</item>
+
+        <item name="textButtonsSize">18sp</item>
+        <item name="fontFamily">sans-serif</item>
+        <item name="logoSize">64sp</item>
+        <item name="textOverGridSize">18sp</item>
+        <item name="gridAlpha" format="float">0.1</item>
+<!--        <item name="android:statusBarColor">@color/status_bar_scrim</item>-->
+<!--        <item name="android:navigationBarColor">@color/nav_bar_scrim</item>-->
+<!--        <item name="android:windowBackground">?attr/pageBackground</item>-->
+    </style>
+
+
+
+
+
+
+</resources>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ru.shprot.sudokumobdevkz.model.game.utils.SquareCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/_33sdp"
+    android:layout_height="@dimen/_33sdp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="0dp"
+    android:layout_margin="0dp"
+    app:layout_constraintDimensionRatio="1:1"
+    >
+
+    <TextView
+        android:id="@+id/bigNumber"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/eight"
+        android:textColor="?attr/itemBumberColorTheme"
+        android:textSize="@dimen/_20ssp"
+        android:gravity="center"
+        />
+
+    <GridLayout
+        android:id="@+id/itemGridLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnCount="3"
+        android:rowCount="3"
+        android:layout_gravity="center"
+        android:foregroundGravity="center"
+        android:orientation="horizontal"
+        android:padding="2dp"
+        android:layout_marginTop="-2dp"
+        >
+
+        <TextView
+            android:id="@+id/smallOne"
+            android:text="@string/one"
+            style="@style/DraftNumbers"
+            />
+
+        <TextView
+            android:id="@+id/smallTwo"
+            android:text="@string/two"
+            style="@style/DraftNumbers"
+            />
+
+        <TextView
+            android:id="@+id/smallTree"
+            android:text="@string/tree"
+            style="@style/DraftNumbers"
+            />
+
+        <TextView
+            android:id="@+id/smallFour"
+            android:text="@string/four"
+            style="@style/DraftNumbers"
+            />
+
+        <TextView
+            android:id="@+id/smallFive"
+            android:text="@string/five"
+            style="@style/DraftNumbers"
+            />
+
+        <TextView
+            android:id="@+id/smallSix"
+            android:text="@string/six"
+            style="@style/DraftNumbers"
+            />
+
+        <TextView
+            android:id="@+id/smallSeven"
+            android:text="@string/seven"
+            style="@style/DraftNumbers"
+            />
+
+        <TextView
+            android:id="@+id/smallEight"
+            android:text="@string/eight"
+            style="@style/DraftNumbers"
+            />
+
+        <TextView
+            android:id="@+id/smallNine"
+            android:text="@string/nine"
+            style="@style/DraftNumbers"
+            />
+    </GridLayout>
+</ru.shprot.sudokumobdevkz.model.game.utils.SquareCardView>

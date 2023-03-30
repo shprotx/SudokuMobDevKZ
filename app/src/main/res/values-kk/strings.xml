@@ -1,0 +1,67 @@
+<resources>
+    <string name="app_name">СУДОКУ</string>
+    <string name="mistakes_start">Қателер 0/3</string>
+    <string name="mistakes">Қателер </string>
+    <string name="difficulty_easy">Жеңіл</string>
+    <string name="difficulty_middle">Орташа</string>
+    <string name="difficulty_expert">Сарапшы</string>
+    <string name="cancel">Бас тарту</string>
+    <string name="hint">Кеңес</string>
+    <string name="new_game">Жаңа Ойын</string>
+    <string name="settings">Параметрлер</string>
+    <string name="how_to_play">Қалай ойнауға болады</string>
+    <string name="statistic">Статистика</string>
+    <string name="pause">Кідірту</string>
+    <string name="continue_game">Ойынды жалғастыру</string>
+    <string name="hint_used">Кеңес қолданылды</string>
+    <string name="hins_over">Кеңестер аяқталды</string>
+    <string name="win">Сіз жеңдіңіз :)</string>
+    <string name="lose">Тағы бір рет :(</string>
+    <string name="unknown">Белгісіздік</string>
+    <string name="game_over">Ойын аяқталды</string>
+    <string name="main_page">Басты бет</string>
+    <string name="game">Судоку</string>
+    <string name="average_time">Орташа уақыт:</string>
+    <string name="best_time">Ең жақсы уақыт:</string>
+    <string name="game_started">Ойын басталды:</string>
+    <string name="game_won">Ойын жеңілді:</string>
+    <string name="wins_without_mistakes">Қателіксіз жеңістер:</string>
+    <string name="best_wins_line">Ең жақсы жеңістер дәрежесі:</string>
+    <string name="current_wins_line">Қазіргі жеңістер дәрежесі:</string>
+    <string name="percent_of_wins">Жеңіс пайызы:</string>
+    <string name="clear_statistic">Статистиканы тазарту</string>
+    <string name="go_to_main_page">Басты бетке өту</string>
+    <string name="full_statistic">Барлық статистика</string>
+    <string name="you_won">Жеңілді!</string>
+    <string name="go_back">Артқа</string>
+    <string name="app_language">Қолданба тілі:</string>
+    <string name="support_the_developer">Әзірлеушіге көмек көрсету</string>
+    <string name="change_theme">Тақырыпты өзгерту</string>
+    <string name="rate_app">Қолданбаны бағалау</string>
+    <string name="remove_ads">Рекламаны алып тастау</string>
+    <string name="support_ololo">Ололоға көмектесу</string>
+    <string name="rate_ololo">Ololoға баға беру</string>
+    <string name="skip">Өткізіп өту</string>
+    <string name="finish">Аяқтау</string>
+    <string name="no_repetitions">Қайталап жоқ</string>
+    <string name="always_unique">Шешім әрдайым уникалды</string>
+    <string name="use_notes">Түсіндірмелерді пайдаланыңыз</string>
+    <string name="to_the_begining">Бастапқыға</string>
+    <string name="light_theme">Жарық</string>
+    <string name="dark_theme">Қарау</string>
+    <string name="undo">Болдырмау</string>
+    <string name="erase">Тазалау</string>
+    <string name="note">Түсіндірме</string>
+    <string name="green">Жасыл</string>
+    <string name="play_market">Әгәр сізге бұл қосымша ұнатса, Play Market-те тиімді бағалауға болатын нысан туралы пікір білдіріп, оны досыңызбен бөлісе аласыз.</string>
+
+    <string name="unlimited_hints">Unlimited hints</string>
+    <string name="unlimited_mistakes">Don\'t count mistakes</string>
+
+    <string name="how_desc_one">Ойын мақсаты - барлық қатынастарда, жолдарда және блоктарда 1-ден 9-ға дейін сандармен бос орындарды толтыру. Сандар қайталанбауышы керек. Ойын кесірліктерін көріп, бос квадраттарды сандармен толтырыңыз.</string>
+
+    <string name="how_desc_two">Әр бір ойында тек бір ерекше шешім бар. Суретте көрсетілгендей, таңдалған терізге тек 5 саны қатысты. Бірақ әрқашан шешім әдісі боса өте қиын. Мұндай сандарды енгізу үшін тікелей бос орынды түсіру үшін экран төменгі жағындағы қосымшаны басыңыз және сонан соң, ойын астындағы қажетті санны таңдаңыз.</string>
+
+    <string name="how_desc_three">Судокуны көрме және қарындастырылған сандармен шешу кезінде қарындастырулардың тізіміне жазуыңыз қажет. Мұнда да сол шығармашылық қосымшаны басу арқылы жазу әдісін қоса аласыз. Қосымшада көрсетілген сандар жазылады. Сонан соң, бір орынға жазбаңызды енгізу кезінде, қажетті сандар өзіңіздің есептеріңізден автоматты түрде өшіріледі.</string>
+
+</resources>

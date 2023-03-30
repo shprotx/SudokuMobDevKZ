@@ -1,0 +1,65 @@
+<resources>
+    <string name="app_name">SUDOKU</string>
+    <string name="mistakes_start">Помилки 0/3</string>
+    <string name="mistakes">Помилки </string>
+    <string name="difficulty_easy">Легкий</string>
+    <string name="difficulty_middle">Середня</string>
+    <string name="difficulty_expert">Експертний</string>
+    <string name="cancel">Скасування</string>
+    <string name="hint">Підказка</string>
+    <string name="new_game">Нова Гра</string>
+    <string name="settings">Настройка</string>
+    <string name="how_to_play">Як Грати</string>
+    <string name="statistic">Статистика</string>
+    <string name="pause">ПАУЗА</string>
+    <string name="continue_game">Продовжити Гру</string>
+    <string name="hint_used">Підказка використана</string>
+    <string name="hins_over">Підказки закінчилися :(</string>
+    <string name="win">Перемога!</string>
+    <string name="lose">Гра завершена</string>
+    <string name="unknown">Невизначеність</string>
+    <string name="game_over">Гра завершена</string>
+    <string name="main_page">Головна сторінка</string>
+    <string name="game">Судоку</string>
+    <string name="average_time">Середній час:</string>
+    <string name="best_time">Найкращий час:</string>
+    <string name="game_started">Почато ігор:</string>
+    <string name="game_won">Виграно ігор:</string>
+    <string name="wins_without_mistakes">Перемог без помилок:</string>
+    <string name="best_wins_line">Найкраща серія перемог:</string>
+    <string name="current_wins_line">Поточна серія перемог:</string>
+    <string name="percent_of_wins">Відсоток перемог:</string>
+    <string name="clear_statistic">Скинути статистику</string>
+    <string name="go_to_main_page">На головну</string>
+    <string name="full_statistic">Вся статистика</string>
+    <string name="you_won">Перемога!</string>
+    <string name="go_back">Назад</string>
+    <string name="app_language">Мова додатка:</string>
+    <string name="support_the_developer">Підтримати розробника</string>
+    <string name="change_theme">Вибрати тему</string>
+    <string name="rate_app">Оцінити додаток</string>
+    <string name="remove_ads">Прибрати рекламу</string>
+    <string name="support_ololo">Підтримка, ололо</string>
+    <string name="rate_ololo">оцініть ololo</string>
+    <string name="skip">Пропустити</string>
+    <string name="finish">Готово</string>
+    <string name="no_repetitions">Немає повторів</string>
+    <string name="always_unique">Рішення завжди унікальне</string>
+    <string name="use_notes">Використовуйте нотатки</string>
+    <string name="to_the_begining">До початку</string>
+    <string name="light_theme">Світла</string>
+    <string name="dark_theme">Темна</string>
+    <string name="undo">Скасувати</string>
+    <string name="erase">Видалити</string>
+    <string name="note">Нотатки</string>
+    <string name="green">Зелена</string>
+    <string name="play_market">Якщо вам сподобалося додаток, ви можете підтримати розробника, поставивши справедливу оцінку в Play Market, а також поділитися додатком з друзями.</string>
+
+    <string name="unlimited_hints">Unlimited hints</string>
+    <string name="unlimited_mistakes">Don\'t count mistakes</string>
+
+    <string name="how_desc_one">Мета гри - заповнити всі комірки цифрами від 1 до 9. Цифри не можуть повторюватися ні в одному рядку, стовпці або блоку. Уважно стежте за гральним полем та заповнюйте порожні квадрати цифрами.</string>
+    <string name="how_desc_two">Кожна гра має лише одне унікальне рішення. Ілюстрація показує, що в обрану комірку підходить лише цифра 5. Але далеко не завжди рішення так очевидне. Щоб вписати підходяще значення, доторкніться до вільної комірки, а після цього виберіть потрібну цифру під гральним полем.</string>
+    <string name="how_desc_three">Коли ви розв\'язуєте судоку на папері, ви залишаєте замітки олівцем. Тут теж так можна :) Режим заміток включається відповідною кнопкою внизу екрана. Замітка - ваш кращий помічник. Крім того, немає необхідності їх пізніше стирати - в той момент, коли ви вписуєте в комірку своє остаточне рішення, замітки автоматично зникнуть.</string>
+
+</resources>

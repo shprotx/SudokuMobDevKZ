@@ -1,0 +1,67 @@
+<resources>
+    <string name="app_name">Sudoku</string>
+    <string name="mistakes_start">Fehler 0/3</string>
+    <string name="mistakes">Fehler </string>
+    <string name="difficulty_easy">Leicht</string>
+    <string name="difficulty_middle">Mittel</string>
+    <string name="difficulty_expert">Experte</string>
+    <string name="hint">Hinweis</string>
+    <string name="new_game">Neues Spiel</string>
+    <string name="settings">Einstellungen</string>
+    <string name="how_to_play">Spielanleitung</string>
+    <string name="statistic">Statistik</string>
+    <string name="pause">PAUSE</string>
+    <string name="continue_game">Spiel fortsetzen</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="hint_used">Hinweis benutzt</string>
+    <string name="hins_over">Keine Hinweise mehr :(</string>
+    <string name="win">Gewonnen!</string>
+    <string name="lose">Spiel beendet</string>
+    <string name="unknown">Unbekannt</string>
+    <string name="game_over">Spiel beendet</string>
+    <string name="main_page">Hauptseite</string>
+    <string name="game">Sudoku</string>
+    <string name="average_time">Durchschnittliche Zeit:</string>
+    <string name="best_time">Beste Zeit:</string>
+    <string name="game_started">Begonnene Spiele:</string>
+    <string name="game_won">Gewonnene Spiele:</string>
+    <string name="wins_without_mistakes">Gewonnene Spiele ohne Fehler:</string>
+    <string name="best_wins_line">Beste Serie von Gewinnen:</string>
+    <string name="current_wins_line">Aktuelle Serie von Gewinnen:</string>
+    <string name="percent_of_wins">Prozent der Gewinne:</string>
+    <string name="clear_statistic">Statistik zurücksetzen</string>
+    <string name="go_to_main_page">Zurück zur Hauptseite</string>
+    <string name="full_statistic">Komplette Statistik</string>
+    <string name="you_won">Gewonnen!</string>
+    <string name="go_back">Zurück</string>
+    <string name="app_language">App-Sprache:</string>
+    <string name="support_the_developer">Entwickler unterstützen</string>
+    <string name="change_theme">Thema ändern</string>
+    <string name="rate_app">App bewerten</string>
+    <string name="remove_ads">Werbung entfernen</string>
+    <string name="support_ololo">Unterstützung für ololo</string>
+    <string name="rate_ololo">ololo bewerten</string>
+    <string name="skip">Überspringen</string>
+    <string name="finish">Fertig</string>
+    <string name="no_repetitions">Keine Wiederholungen</string>
+    <string name="always_unique">Lösung ist immer einzigartig</string>
+    <string name="use_notes">Notizen verwenden</string>
+    <string name="to_the_begining">Zum Anfang</string>
+    <string name="light_theme">Heller</string>
+    <string name="dark_theme">Dunkle</string>
+    <string name="undo">Rückgängig</string>
+    <string name="erase">Löschen</string>
+    <string name="note">Notiz</string>
+    <string name="green">Grün</string>
+    <string name="play_market">Wenn Ihnen die App gefallen hat, können Sie den Entwickler unterstützen, indem Sie eine faire Bewertung im Play Market abgeben und die App auch mit Freunden teilen.</string>
+
+    <string name="unlimited_hints">Unlimited hints</string>
+    <string name="unlimited_mistakes">Don\'t count mistakes</string>
+
+    <string name="how_desc_one">Das Ziel des Spiels ist es, alle Zellen mit Zahlen von 1 bis 9 zu füllen. Zahlen dürfen weder in Zeilen, Spalten noch in Blöcken wiederholt werden. Achten Sie genau auf das Spielfeld und füllen Sie leere Quadrate mit Zahlen aus.</string>
+
+    <string name="how_desc_two">Jedes Spiel hat nur eine einzigartige Lösung. Das Bild zeigt, dass nur die Zahl 5 in die ausgewählte Zelle passt. Aber die Lösung ist nicht immer so offensichtlich. Um den passenden Wert einzutragen, tippen Sie auf eine leere Zelle und wählen Sie dann die entsprechende Zahl unter dem Spielfeld aus. </string>
+
+    <string name="how_desc_three">Wenn Sie Sudoku auf Papier lösen, machen Sie Notizen mit einem Bleistift. Sie können es auch hier tun :) Der Notizmodus wird durch die entsprechende Schaltfläche am unteren Bildschirmrand aktiviert. Eine Notiz ist Ihr bester Helfer. Außerdem müssen Sie sie später nicht löschen - wenn Sie Ihre endgültige Lösung in eine Zelle eintragen, verschwinden die Notizen automatisch.</string>
+
+</resources>

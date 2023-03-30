@@ -1,0 +1,67 @@
+<resources>
+
+    <string name="app_name">Судоку</string>
+    <string name="mistakes_start">Ошибки 0/3</string>
+    <string name="mistakes">Ошибки </string>
+    <string name="difficulty_easy">Легкая</string>
+    <string name="difficulty_middle">Средняя</string>
+    <string name="difficulty_expert">Экспертная</string>
+    <string name="hint">Подсказка</string>
+    <string name="new_game">Новая Игра</string>
+    <string name="settings">Настройки</string>
+    <string name="how_to_play">Как Играть</string>
+    <string name="statistic">Статистика</string>
+    <string name="pause">ПАУЗА</string>
+    <string name="continue_game">Продолжить Игру</string>
+    <string name="cancel">Отмена</string>
+    <string name="hint_used">Подсказка использована</string>
+    <string name="hins_over">Подсказки закончились :(</string>
+    <string name="win">Победа!</string>
+    <string name="lose">Игра окончена</string>
+
+    <string name="unknown">Неопределенность</string>
+    <string name="game_over">Игра окончена</string>
+    <string name="main_page">Главная страница</string>
+    <string name="game">Судоку</string>
+    <string name="average_time">Среднее время:</string>
+    <string name="best_time">Лучшее время:</string>
+    <string name="game_started">Начато игр:</string>
+    <string name="game_won">Выиграно игр:</string>
+    <string name="wins_without_mistakes">Побед без ошибок:</string>
+    <string name="best_wins_line">Лучшая серия побед:</string>
+    <string name="current_wins_line">Текущая серия побед:</string>
+    <string name="percent_of_wins">Процент побед:</string>
+    <string name="clear_statistic">Сбросить статистику</string>
+    <string name="go_to_main_page">На главную</string>
+    <string name="full_statistic">Вся статистика</string>
+    <string name="you_won">Победа!</string>
+    <string name="go_back">Назад</string>
+    <string name="app_language">Язык приложения:</string>
+    <string name="support_the_developer">Поддержать разработчика</string>
+    <string name="change_theme">Выбрать тему</string>
+    <string name="rate_app">Оценить приложение</string>
+    <string name="remove_ads">Убрать рекламу</string>
+    <string name="support_ololo">Поддержка, ололо</string>
+    <string name="rate_ololo">rate ololo</string>
+    <string name="skip">Пропустить</string>
+    <string name="finish">Готово</string>
+    <string name="no_repetitions">Никаких повторов</string>
+    <string name="always_unique">Решение всегда уникально</string>
+    <string name="use_notes">Используй заметки</string>
+    <string name="to_the_begining">В начало</string>
+    <string name="light_theme">Светлая</string>
+    <string name="dark_theme">Темная</string>
+    <string name="undo">Отменить</string>
+    <string name="erase">Стереть</string>
+    <string name="note">Заметки</string>
+    <string name="green">Зеленая</string>
+    <string name="play_market">Если вам понравилось приложение, вы можете поддержать разработчика, поставив справедливую оценку в Play Market, а так же поделиться приложением с друзьями.</string>
+
+
+    <string name="unlimited_hints">Бесконечные подсказки</string>
+    <string name="unlimited_mistakes">Не считать ошибки</string>
+
+    <string name="how_desc_one">Цель игры - заполнить все ячейки цифрами от 1 до 9. Цифры не могут повторяться ни в одной из девяти строк, столбцов или блоков. Внимательно следите за игровым полем и заполняйте пустые квадраты цифрами.</string>
+    <string name="how_desc_two">Каждая игра имеет только одно уникальное решение. Иллюстрация показывает, что в выбранную ячейку подходит только цифра 5. Но далеко не всегда решение так очевидно. Чтобы вписать подходящее значение, коснитесь свободной ячейки, и после этого выберите нужную цифру под игровым полем. </string>
+    <string name="how_desc_three">Когда вы решаете судоку на бумаге, вы оставляете заметки карандашом. Тут тоже так можно :) Режим заметок включается соответствующей кнопкой внизу экрана. Заметка - ваш лучший помощник. К тому же, нет необходимости их впоследствии стирать - в тот момент, когда вы вписываете в ячейку свое окончательное решение, заметки автоматически исчезнут.</string>
+</resources>

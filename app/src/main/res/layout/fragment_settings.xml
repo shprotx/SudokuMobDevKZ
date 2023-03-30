@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/pageBackground">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.SettingsFragment">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/langCardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="48dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="48dp"
+            android:backgroundTint="?attr/pageBackground"
+            android:padding="20dp"
+            app:cardCornerRadius="25dp"
+            app:cardElevation="5dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="?attr/CardBordersBackground"
+            app:strokeWidth="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/app_language"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/langSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="46dp"
+                    android:layout_marginBottom="5dp"
+                    android:entries="@array/languages" />
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/themeCardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="48dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="48dp"
+            android:backgroundTint="?attr/pageBackground"
+            android:padding="20dp"
+            app:cardCornerRadius="25dp"
+            app:cardElevation="5dp"
+            app:layout_constraintTop_toBottomOf="@id/langCardView"
+            app:strokeColor="?attr/CardBordersBackground"
+            app:strokeWidth="4dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_horizontal"
+                android:text="@string/change_theme"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <ImageView
+                    android:id="@+id/cardLightTheme"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/theme_oval_blue" />
+
+                <ImageView
+                    android:id="@+id/cardGreenTheme"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:src="@drawable/theme_oval_green" />
+
+                <ImageView
+                    android:id="@+id/cardDarkTheme"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/theme_oval_dark" />
+            </LinearLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <soup.neumorphism.NeumorphButton
+            android:id="@+id/supportButton"
+            style="@style/NeoButtons"
+            android:layout_marginTop="17dp"
+            android:fontFamily="?attr/fontFamily"
+            android:text="@string/support_the_developer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/checkboxCardView"
+            app:neumorph_backgroundColor="?attr/buttonBodyColorTheme"
+            app:neumorph_inset="12dp"
+            app:neumorph_lightSource="leftTop"
+            app:neumorph_shadowColorDark="?attr/buttonShadowDarkTheme"
+            app:neumorph_shadowColorLight="?attr/buttonShadowLightTheme"
+            app:neumorph_shadowElevation="6dp"
+            app:neumorph_shapeAppearance="@style/CustomShapeAppearance"
+            app:neumorph_shapeType="flat" />
+
+
+        <soup.neumorphism.NeumorphButton
+            android:id="@+id/rateButton"
+            style="@style/NeoButtons"
+            android:layout_marginTop="17dp"
+            android:fontFamily="?attr/fontFamily"
+            android:text="@string/rate_app"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/supportButton"
+            app:neumorph_backgroundColor="?attr/buttonBodyColorTheme"
+            app:neumorph_inset="12dp"
+            app:neumorph_lightSource="leftTop"
+            app:neumorph_shadowColorDark="?attr/buttonShadowDarkTheme"
+            app:neumorph_shadowColorLight="?attr/buttonShadowLightTheme"
+            app:neumorph_shadowElevation="6dp"
+            app:neumorph_shapeAppearance="@style/CustomShapeAppearance"
+            app:neumorph_shapeType="flat" />
+
+        <soup.neumorphism.NeumorphCardView
+            android:id="@+id/checkboxCardView"
+            style="@style/Widget.MaterialComponents.CardView.Statistic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/themeCardView">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:padding="12dp">
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/adCheckBox"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginEnd="-25dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/removeAdsTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|end"
+                    android:padding="20dp"
+                    android:text="@string/remove_ads"
+                    android:textSize="20sp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toStartOf="@id/adCheckBox"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/hintCheckBox"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginEnd="-25dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/removeAdsTextView" />
+
+                <TextView
+                    android:id="@+id/hintTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|end"
+                    android:padding="20dp"
+                    android:text="@string/unlimited_hints"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toStartOf="@id/hintCheckBox"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/removeAdsTextView" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/mistakeCheckBox"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginEnd="-25dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/hintTextView" />
+
+                <TextView
+                    android:id="@+id/removeMistakesTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|end"
+                    android:padding="20dp"
+                    android:text="@string/unlimited_mistakes"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toStartOf="@id/mistakeCheckBox"
+                    app:layout_constraintStart_toStartOf="parent"
+
+                    app:layout_constraintTop_toBottomOf="@id/hintTextView" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </soup.neumorphism.NeumorphCardView>
+
+
+        <soup.neumorphism.NeumorphButton
+            android:id="@+id/buttonBackFromSettings"
+            style="@style/NeoButtons"
+            android:layout_marginTop="28dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="?attr/fontFamily"
+            android:text="@string/go_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rateButton"
+            app:neumorph_backgroundColor="?attr/buttonBodyColorTheme"
+            app:neumorph_inset="12dp"
+            app:neumorph_lightSource="leftTop"
+            app:neumorph_shadowColorDark="?attr/buttonShadowDarkTheme"
+            app:neumorph_shadowColorLight="?attr/buttonShadowLightTheme"
+            app:neumorph_shadowElevation="6dp"
+            app:neumorph_shapeAppearance="@style/CustomShapeAppearance"
+            app:neumorph_shapeType="flat" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

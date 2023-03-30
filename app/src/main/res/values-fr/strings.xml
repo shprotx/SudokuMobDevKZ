@@ -1,0 +1,67 @@
+<resources>
+    <string name="app_name">Sudoku</string>
+    <string name="mistakes_start">Erreurs 0/3</string>
+    <string name="mistakes">Erreurs </string>
+    <string name="difficulty_easy">Facile</string>
+    <string name="difficulty_middle">Moyenne</string>
+    <string name="difficulty_expert">Expert</string>
+    <string name="hint">Indice</string>
+    <string name="new_game">Nouveau jeu</string>
+    <string name="settings">Paramètres</string>
+    <string name="how_to_play">Comment jouer</string>
+    <string name="statistic">Statistiques</string>
+    <string name="pause">PAUSE</string>
+    <string name="continue_game">Continuer le jeu</string>
+    <string name="cancel">Annuler</string>
+    <string name="hint_used">Indice utilisé</string>
+    <string name="hins_over">Aucun indice restant :(</string>
+    <string name="win">Victoire!</string>
+    <string name="lose">Jeu terminé</string>
+    <string name="unknown">Inconnu</string>
+    <string name="game_over">Jeu terminé</string>
+    <string name="main_page">Page principale</string>
+    <string name="game">Sudoku</string>
+    <string name="average_time">Temps moyen :</string>
+    <string name="best_time">Meilleur temps :</string>
+    <string name="game_started">Jeux commencés :</string>
+    <string name="game_won">Jeux gagnés :</string>
+    <string name="wins_without_mistakes">Victoires sans erreurs :</string>
+    <string name="best_wins_line">Meilleure série de victoires :</string>
+    <string name="current_wins_line">Série de victoires en cours :</string>
+    <string name="percent_of_wins">Pourcentage de victoires :</string>
+    <string name="clear_statistic">Réinitialiser les statistiques</string>
+    <string name="go_to_main_page">Aller à la page principale</string>
+    <string name="full_statistic">Statistiques complètes</string>
+    <string name="you_won">Victoire !</string>
+    <string name="go_back">Retour</string>
+    <string name="app_language">Langue de l\'application :</string>
+    <string name="support_the_developer">Soutenir le développeur</string>
+    <string name="change_theme">Changer le thème</string>
+    <string name="rate_app">Noter l\'application</string>
+    <string name="remove_ads">Supprimer les publicités</string>
+    <string name="support_ololo">Soutenir Ololo</string>
+    <string name="rate_ololo">Noter Ololo</string>
+    <string name="skip">Passer</string>
+    <string name="finish">Terminé</string>
+    <string name="no_repetitions">Pas de répétitions</string>
+    <string name="always_unique">Solution toujours unique</string>
+    <string name="use_notes">Utiliser les notes</string>
+    <string name="to_the_begining">Au début</string>
+    <string name="light_theme">Clair</string>
+    <string name="dark_theme">Sombre</string>
+    <string name="undo">Annuler</string>
+    <string name="erase">Effacer</string>
+    <string name="note">Note</string>
+    <string name="green">Vert</string>
+    <string name="play_market">Si vous avez aimé l\'application, vous pouvez soutenir le développeur en lui donnant une note juste sur le Play Market, ainsi qu\'en partageant l\'application avec vos amis.</string>
+
+    <string name="unlimited_hints">Unlimited hints</string>
+    <string name="unlimited_mistakes">Don\'t count mistakes</string>
+
+    <string name="how_desc_one">Le but du jeu est de remplir toutes les cellules avec des chiffres de 1 à 9. Les chiffres ne doivent pas être répétés dans chaque ligne, colonne ou bloc. Surveillez attentivement le terrain de jeu et remplissez les carrés vides avec des chiffres.</string>
+
+    <string name="how_desc_two">Chaque jeu n\'a qu\'une seule solution unique. L\'illustration montre que seule la chiffre 5 convient à la cellule sélectionnée. Mais la solution n\'est pas toujours aussi évidente. Pour insérer la valeur appropriée, touchez la cellule libre, puis sélectionnez le chiffre approprié sous le terrain de jeu.</string>
+
+    <string name="how_desc_three">Lorsque vous résolvez un sudoku sur papier, vous laissez des notes avec un crayon. Vous pouvez également le faire ici :) Le mode note est activé avec le bouton correspondant en bas de l\'écran. Les notes sont votre meilleur allié. De plus, il n\'est pas nécessaire de les effacer plus tard - au moment où vous entrez votre solution finale dans la cellule, les notes disparaissent automatiquement.</string>
+
+</resources>

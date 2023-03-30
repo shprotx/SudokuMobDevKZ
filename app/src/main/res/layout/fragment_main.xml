@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/pageBackground"
+    tools:context=".ui.MainFragment">
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/logoText"
+        style="?attr/textAppearanceHeadline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="17dp"
+        android:text="@string/app_name"
+        android:textColor="?attr/buttonTextColorTheme"
+        android:textSize="46sp"
+        app:layout_constraintBottom_toTopOf="@id/howtoplayButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <soup.neumorphism.NeumorphButton
+        android:id="@+id/howtoplayButton"
+        style="@style/NeoButtons"
+        android:layout_marginBottom="17dp"
+        android:fontFamily="?attr/fontFamily"
+        android:text="@string/how_to_play"
+        app:layout_constraintBottom_toTopOf="@+id/statisticButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:neumorph_backgroundColor="?attr/buttonBodyColorTheme"
+        app:neumorph_inset="12dp"
+        app:neumorph_lightSource="leftTop"
+        app:neumorph_shadowColorDark="?attr/buttonShadowDarkTheme"
+        app:neumorph_shadowColorLight="?attr/buttonShadowLightTheme"
+        app:neumorph_shadowElevation="6dp"
+        app:neumorph_shapeAppearance="@style/CustomShapeAppearance"
+        app:neumorph_shapeType="flat" />
+
+    <soup.neumorphism.NeumorphButton
+        android:id="@+id/statisticButton"
+        style="@style/NeoButtons"
+        android:layout_marginTop="-55dp"
+        android:fontFamily="?attr/fontFamily"
+        android:text="@string/statistic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/howtoplayButton"
+        app:layout_constraintTop_toTopOf="parent"
+        app:neumorph_backgroundColor="?attr/buttonBodyColorTheme"
+        app:neumorph_inset="12dp"
+        app:neumorph_lightSource="leftTop"
+        app:neumorph_shadowColorDark="?attr/buttonShadowDarkTheme"
+        app:neumorph_shadowColorLight="?attr/buttonShadowLightTheme"
+        app:neumorph_shadowElevation="6dp"
+        app:neumorph_shapeAppearance="@style/CustomShapeAppearance"
+        app:neumorph_shapeType="flat"
+
+        />
+
+    <soup.neumorphism.NeumorphButton
+        android:id="@+id/newGameButton"
+        style="@style/NeoButtons"
+        android:layout_marginTop="17dp"
+        android:fontFamily="?attr/fontFamily"
+        android:text="@string/new_game"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statisticButton"
+        app:neumorph_backgroundColor="?attr/buttonBodyColorTheme"
+        app:neumorph_inset="12dp"
+        app:neumorph_lightSource="leftTop"
+        app:neumorph_shadowColorDark="?attr/buttonShadowDarkTheme"
+        app:neumorph_shadowColorLight="?attr/buttonShadowLightTheme"
+        app:neumorph_shadowElevation="6dp"
+        app:neumorph_shapeAppearance="@style/CustomShapeAppearance"
+        app:neumorph_shapeType="flat" />
+
+    <soup.neumorphism.NeumorphButton
+        android:id="@+id/continueGameButton"
+        style="@style/NeoButtons"
+        android:fontFamily="?attr/fontFamily"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newGameButton"
+        app:neumorph_backgroundColor="?attr/buttonBodyColorTheme"
+        app:neumorph_inset="12dp"
+        app:neumorph_lightSource="leftTop"
+        app:neumorph_shadowColorDark="?attr/buttonShadowDarkTheme"
+        app:neumorph_shadowColorLight="?attr/buttonShadowLightTheme"
+        app:neumorph_shadowElevation="6dp"
+        app:neumorph_shapeAppearance="@style/CustomShapeAppearance"
+        app:neumorph_shapeType="flat"
+        tools:text="Continue Game" />
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/newGameMenu"
+        android:layout_width="197dp"
+        android:layout_height="132dp"
+        android:backgroundTint="?attr/newGameMenuBackground"
+        android:visibility="gone"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/newGameButton">
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="44dp" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="88dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="3">
+
+            <TextView
+                android:id="@+id/buttonNewGameEasy"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/difficulty_easy"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/buttonNewGameMedium"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/difficulty_middle"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/buttonNewGameExpert"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/difficulty_expert"
+                android:textSize="22sp" />
+
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/logoText"
+        app:layout_constraintStart_toEndOf="@id/logoText" />
+
+
+    <!-- Rate App -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rateFirstStep"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/pageBackground"
+        android:elevation="20dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/doYouLikeTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingTop="13dp"
+            android:text="Do you like sudoku?"
+            android:textColor="?attr/colorOnPrimary"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/likeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            app:layout_constraintTop_toBottomOf="@id/doYouLikeTextView">
+
+            <soup.neumorphism.NeumorphButton
+                android:id="@+id/noLikeButton"
+                style="@style/NeoRateButtons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="No" />
+
+            <soup.neumorphism.NeumorphButton
+                android:id="@+id/yesLikeButton"
+                style="@style/NeoRateButtons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="Yes" />
+        </LinearLayout>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="3dp"
+            app:layout_constraintTop_toBottomOf="@id/likeLayout" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rateSecondStep"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/pageBackground"
+        android:elevation="20dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/ratePleaseTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingTop="13dp"
+            android:text="Than rate us?"
+            android:textColor="?attr/colorOnPrimary"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/likeLayoutTwo"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            app:layout_constraintTop_toBottomOf="@id/ratePleaseTextView">
+
+            <soup.neumorphism.NeumorphButton
+                android:id="@+id/noRateButton"
+                style="@style/NeoRateButtons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="Later" />
+
+            <soup.neumorphism.NeumorphButton
+                android:id="@+id/yesRateButton"
+                style="@style/NeoRateButtons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="Of course!" />
+        </LinearLayout>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="3dp"
+            app:layout_constraintTop_toBottomOf="@id/likeLayoutTwo" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

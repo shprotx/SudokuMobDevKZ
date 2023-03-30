@@ -1,0 +1,65 @@
+<resources>
+    <string name="app_name">Sudoku</string>
+    <string name="mistakes_start">Errores 0/3</string>
+    <string name="mistakes">Errores </string>
+    <string name="difficulty_easy">Fácil</string>
+    <string name="difficulty_middle">Intermedio</string>
+    <string name="difficulty_expert">Experto</string>
+    <string name="hint">Pista</string>
+    <string name="new_game">Nuevo Juego</string>
+    <string name="settings">Configuración</string>
+    <string name="how_to_play">Cómo Jugar</string>
+    <string name="statistic">Estadísticas</string>
+    <string name="pause">PAUSA</string>
+    <string name="continue_game">Continuar Juego</string>
+    <string name="cancel">Cancelar</string>
+    <string name="hint_used">Pista utilizada</string>
+    <string name="hins_over">Se han agotado las pistas :(</string>
+    <string name="win">¡Victoria!</string>
+    <string name="lose">Juego terminado</string>
+    <string name="unknown">Desconocido</string>
+    <string name="game_over">Juego terminado</string>
+    <string name="main_page">Página Principal</string>
+    <string name="game">Sudoku</string>
+    <string name="average_time">Tiempo Promedio:</string>
+    <string name="best_time">Mejor Tiempo:</string>
+    <string name="game_started">Juegos Iniciados:</string>
+    <string name="game_won">Juegos Ganados:</string>
+    <string name="wins_without_mistakes">Victorias sin Errores:</string>
+    <string name="best_wins_line">Mejor Racha de Victorias:</string>
+    <string name="current_wins_line">Racha Actual de Victorias:</string>
+    <string name="percent_of_wins">Porcentaje de Victorias:</string>
+    <string name="clear_statistic">Borrar Estadísticas</string>
+    <string name="go_to_main_page">Ir a la Página Principal</string>
+    <string name="full_statistic">Estadísticas Completas</string>
+    <string name="you_won">¡Has Ganado!</string>
+    <string name="go_back">Volver</string>
+    <string name="app_language">Idioma de la Aplicación:</string>
+    <string name="support_the_developer">Apoya al Desarrollador</string>
+    <string name="change_theme">Cambiar Tema</string>
+    <string name="rate_app">Calificar Aplicación</string>
+    <string name="remove_ads">Eliminar Anuncios</string>
+    <string name="support_ololo">Apoya a ololo</string>
+    <string name="rate_ololo">Califica ololo</string>
+    <string name="skip">Saltar</string>
+    <string name="finish">Finalizar</string>
+    <string name="no_repetitions">Sin Repetición</string>
+    <string name="always_unique">Solución Siempre Única</string>
+    <string name="use_notes">Usar Notas</string>
+    <string name="to_the_begining">Ir al Comienzo</string>
+    <string name="light_theme">Claro</string>
+    <string name="dark_theme">Modo oscuro</string>
+    <string name="undo">Deshacer</string>
+    <string name="erase">Borrar</string>
+    <string name="note">Nota</string>
+    <string name="green">Verde</string>
+    <string name="play_market">Si te gustó la aplicación, puedes apoyar al desarrollador dejando una calificación justa en Play Market, y también compartiendo la aplicación con tus amigos.</string>
+
+    <string name="unlimited_hints">Unlimited hints</string>
+    <string name="unlimited_mistakes">Don\'t count mistakes</string>
+
+    <string name="how_desc_one">El objetivo del juego es llenar todas las casillas con números del 1 al 9. Los números no pueden repetirse en ninguna fila, columna o bloque. Presta atención al campo de juego y llena los cuadrados vacíos con números adecuados.</string>
+    <string name="how_desc_two">Cada juego tiene solo una solución única. La ilustración muestra que solo el número 5 es adecuado para la celda seleccionada. Pero la solución no siempre es tan obvia. Para ingresar un valor adecuado, toca una celda vacía y luego selecciona el número necesario debajo del campo de juego.</string>
+    <string name="how_desc_three">Cuando resuelves un sudoku en papel, dejas notas con lápiz. ¡Aquí también puedes hacerlo! El modo de notas se activa con el botón correspondiente en la parte inferior de la pantalla. Las notas son tu mejor aliado. Además, no es necesario borrarlas más tarde: en el momento en que ingreses tu solución final en una celda, las notas desaparecerán automáticamente.</string>
+
+</resources>

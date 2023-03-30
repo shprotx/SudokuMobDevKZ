@@ -1,0 +1,86 @@
+<resources>
+    <string name="app_name">Sudoku</string>
+    <string name="mistakes_start">Mistakes 0/3</string>
+    <string name="mistakes">Mistakes </string>
+    <string name="difficulty_easy">Easy</string>
+    <string name="difficulty_middle">Middle</string>
+    <string name="difficulty_expert">Expert</string>
+    <string name="cancel">Cancel</string>
+    <string name="hint">Hint</string>
+    <string name="new_game">New Game</string>
+    <string name="settings">Settings</string>
+    <string name="how_to_play">How To Play</string>
+    <string name="statistic">Statistic</string>
+    <string name="pause">PAUSE</string>
+    <string name="continue_game">Continue Game</string>
+    <string name="hint_used">Hint used</string>
+    <string name="hins_over">Hints are over :(</string>
+    <string name="win">You won :)</string>
+    <string name="lose">Game over</string>
+
+
+    <!-- untranslatable -->
+    <string name="mis_count" translatable="false">/3</string>
+    <string name="timer" translatable="false">00:00</string>
+    <string name="percent" translatable="false">%</string>
+    <string name="zero" translatable="false">0</string>
+    <string name="one" translatable="false">1</string>
+    <string name="two" translatable="false">2</string>
+    <string name="tree" translatable="false">3</string>
+    <string name="four" translatable="false">4</string>
+    <string name="five" translatable="false">5</string>
+    <string name="six" translatable="false">6</string>
+    <string name="seven" translatable="false">7</string>
+    <string name="eight" translatable="false">8</string>
+    <string name="nine" translatable="false">9</string>
+
+
+    <string name="unknown">Unknown</string>
+    <string name="game_over">Game over</string>
+    <string name="main_page">Main page</string>
+    <string name="game">Game</string>
+    <string name="average_time">Average time:</string>
+    <string name="best_time">Best time:</string>
+    <string name="game_started">Game started:</string>
+    <string name="game_won">Game won:</string>
+    <string name="wins_without_mistakes">Wins without mistakes:</string>
+    <string name="best_wins_line">Best wins line:</string>
+    <string name="current_wins_line">Current wins line:</string>
+    <string name="percent_of_wins">Percent of wins:</string>
+    <string name="clear_statistic">Clear statistic</string>
+    <string name="go_to_main_page">Go to main page</string>
+    <string name="full_statistic">Full statistic</string>
+    <string name="you_won">You won!</string>
+    <string name="go_back">Go back</string>
+    <string name="app_language">App language:</string>
+    <string name="support_the_developer">Support the developer</string>
+    <string name="change_theme">Change theme</string>
+    <string name="rate_app">Rate app</string>
+    <string name="remove_ads">Remove ads</string>
+    <string name="support_ololo">Support, ololo</string>
+    <string name="rate_ololo">rate ololo</string>
+    <string name="skip">Skip</string>
+    <string name="finish">Finish</string>
+    <string name="no_repetitions">No repetitions</string>
+    <string name="always_unique">Always unique solution</string>
+    <string name="use_notes">Use notes</string>
+    <string name="to_the_begining">To the beginning</string>
+    <string name="light_theme">Light</string>
+    <string name="dark_theme">Dark</string>
+    <string name="undo">Undo</string>
+    <string name="erase">Erase</string>
+    <string name="note">Note</string>
+    <string name="green">Green</string>
+    <string name="play_market">If you liked the app, you can support the developer by giving a fair rating in the Play Market, as well as share the app with friends.</string>
+    <string name="unlimited_hints">Unlimited hints</string>
+    <string name="unlimited_mistakes">Don\'t count mistakes</string>
+
+    <string name="how_desc_one" translatable="false">The goal of the game is to fill all the cells with numbers from 1 to 9. Numbers cannot be repeated in any of the nine rows, columns or blocks. Pay close attention to the playing field and fill the empty squares with numbers.</string>
+
+    <string name="how_desc_two" translatable="false">Each game has only one unique solution. The illustration shows that only the number 5 fits into the selected cell. But the solution is not always so obvious. To enter a suitable value, tap the free cell, and then select the desired number under the playing field. </string>
+
+    <string name="how_desc_three" translatable="false">When you solve Sudoku on paper, you leave notes in pencil. Here, too, you can :) Note mode is enabled by the corresponding button at the bottom of the screen. Note - your best assistant. In addition, there is no need to erase them afterwards - the moment you enter your final decision into the cell, the notes will automatically disappear.</string>
+
+
+
+</resources>

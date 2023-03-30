@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/pageBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context=".ui.ItemStatisticFragment">
+
+        <soup.neumorphism.NeumorphCardView
+            style="@style/Widget.MaterialComponents.CardView.Statistic"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="5dp"
+            app:strokeColor="?attr/CardBordersBackground"
+            app:strokeWidth="2dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/bestTimeTitleTextView"
+                    style="@style/statisticTittleText"
+                    android:text="@string/best_time"
+                    app:layout_constraintEnd_toStartOf="@id/bestTimeTextView"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/bestTimeTextView"
+                    style="@style/statisticValuesText"
+                    android:text="@string/timer"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:id="@+id/statisticDividerOne"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/bestTimeTitleTextView" />
+
+                <TextView
+                    style="@style/statisticTittleText"
+                    android:text="@string/average_time"
+                    app:layout_constraintEnd_toStartOf="@id/averageTimeTextView"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/statisticDividerOne" />
+
+                <TextView
+                    android:id="@+id/averageTimeTextView"
+                    style="@style/statisticValuesText"
+                    android:text="@string/timer"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/statisticDividerOne" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </soup.neumorphism.NeumorphCardView>
+
+
+        <soup.neumorphism.NeumorphCardView
+            style="@style/Widget.MaterialComponents.CardView.Statistic"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="5dp"
+            app:strokeColor="?attr/CardBordersBackground"
+            app:strokeWidth="2dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/gameStartedTitleTextView"
+                    style="@style/statisticTittleText"
+                    android:text="@string/game_started"
+                    app:layout_constraintEnd_toStartOf="@id/gameStartedTextView"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/gameStartedTextView"
+                    style="@style/statisticValuesText"
+                    android:text="@string/zero"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:id="@+id/statisticDividerTwo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/gameStartedTitleTextView" />
+
+                <TextView
+                    style="@style/statisticTittleText"
+                    android:text="@string/game_won"
+                    app:layout_constraintEnd_toStartOf="@id/gameWonTextView"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/statisticDividerTwo" />
+
+                <TextView
+                    android:id="@+id/gameWonTextView"
+                    style="@style/statisticValuesText"
+                    android:text="@string/zero"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/statisticDividerTwo" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </soup.neumorphism.NeumorphCardView>
+
+
+        <soup.neumorphism.NeumorphCardView
+            style="@style/Widget.MaterialComponents.CardView.Statistic"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="5dp"
+            app:strokeColor="?attr/CardBordersBackground"
+            app:strokeWidth="2dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/percentTitleTExtView"
+                    style="@style/statisticTittleText"
+                    android:text="@string/percent_of_wins"
+                    app:layout_constraintEnd_toStartOf="@id/percentTextView"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/percentTextView"
+                    style="@style/statisticValuesText"
+                    android:text="0%"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:id="@+id/statisticDividerThree"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/percentTitleTExtView" />
+
+                <TextView
+                    style="@style/statisticTittleText"
+                    android:text="@string/wins_without_mistakes"
+                    app:layout_constraintEnd_toStartOf="@id/mistakesTextView"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/statisticDividerThree" />
+
+                <TextView
+                    android:id="@+id/mistakesTextView"
+                    style="@style/statisticValuesText"
+                    android:text="@string/zero"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/statisticDividerThree" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </soup.neumorphism.NeumorphCardView>
+
+
+        <soup.neumorphism.NeumorphCardView
+            style="@style/Widget.MaterialComponents.CardView.Statistic"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="5dp"
+            app:strokeColor="?attr/CardBordersBackground"
+            app:strokeWidth="2dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/bestWinsLineTitleTextView"
+                    style="@style/statisticTittleText"
+                    android:text="@string/best_wins_line"
+                    app:layout_constraintEnd_toStartOf="@id/bestLineTextView"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/bestLineTextView"
+                    style="@style/statisticValuesText"
+                    android:text="@string/zero"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:id="@+id/statisticDividerFour"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/bestWinsLineTitleTextView" />
+
+                <TextView
+                    style="@style/statisticTittleText"
+                    android:text="@string/current_wins_line"
+                    app:layout_constraintEnd_toStartOf="@id/currentLineTextView"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/statisticDividerFour" />
+
+                <TextView
+                    android:id="@+id/currentLineTextView"
+                    style="@style/statisticValuesText"
+                    android:text="@string/zero"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/statisticDividerFour" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </soup.neumorphism.NeumorphCardView>
+
+
+        <soup.neumorphism.NeumorphButton
+            android:id="@+id/refreshButton"
+            style="@style/NeoButtons"
+            android:layout_gravity="end"
+            android:layout_marginTop="70dp"
+            android:layout_marginBottom="17dp"
+            android:fontFamily="?attr/fontFamily"
+            android:text="@string/clear_statistic"
+            app:neumorph_backgroundColor="?attr/buttonBodyColorTheme"
+            app:neumorph_inset="12dp"
+            app:neumorph_lightSource="leftTop"
+            app:neumorph_shadowColorDark="?attr/buttonShadowDarkTheme"
+            app:neumorph_shadowColorLight="?attr/buttonShadowLightTheme"
+            app:neumorph_shadowElevation="6dp"
+            app:neumorph_shapeAppearance="@style/CustomShapeAppearance"
+            app:neumorph_shapeType="flat" />
+
+        <soup.neumorphism.NeumorphButton
+            android:id="@+id/statToMainButton"
+            style="@style/NeoButtons"
+            android:layout_gravity="end"
+            android:layout_marginBottom="29dp"
+            android:fontFamily="?attr/fontFamily"
+            android:text="@string/go_to_main_page"
+            app:neumorph_backgroundColor="?attr/buttonBodyColorTheme"
+            app:neumorph_inset="12dp"
+            app:neumorph_lightSource="leftTop"
+            app:neumorph_shadowColorDark="?attr/buttonShadowDarkTheme"
+            app:neumorph_shadowColorLight="?attr/buttonShadowLightTheme"
+            app:neumorph_shadowElevation="6dp"
+            app:neumorph_shapeAppearance="@style/CustomShapeAppearance"
+            app:neumorph_shapeType="flat" />
+    </LinearLayout>
+
+
+</ScrollView>
+

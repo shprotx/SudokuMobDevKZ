@@ -1,0 +1,104 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="360dp"
+    android:height="360dp"
+    android:viewportWidth="360"
+    android:viewportHeight="360">
+  <path
+      android:strokeWidth="1"
+      android:pathData="M0,320L360,320"
+      android:strokeColor="?attr/colorOnPrimary"
+      android:strokeAlpha="?attr/gridAlpha" />
+  <path
+      android:strokeWidth="1"
+      android:pathData="M0,280L360,280"
+      android:strokeColor="?attr/colorOnPrimary"
+      android:strokeAlpha="?attr/gridAlpha" />
+
+  <path
+      android:strokeWidth="1"
+      android:pathData="M0,200L360,200"
+      android:strokeColor="?attr/colorOnPrimary"
+      android:strokeAlpha="?attr/gridAlpha" />
+  <path
+      android:strokeWidth="1"
+      android:pathData="M0,160L360,160"
+      android:strokeColor="?attr/colorOnPrimary"
+      android:strokeAlpha="?attr/gridAlpha" />
+
+  <path
+      android:strokeWidth="1"
+      android:pathData="M0,80L360,80"
+      android:strokeColor="?attr/colorOnPrimary"
+      android:strokeAlpha="?attr/gridAlpha" />
+  <path
+      android:strokeWidth="1"
+      android:pathData="M0,40L360,40"
+      android:strokeColor="?attr/colorOnPrimary"
+      android:strokeAlpha="?attr/gridAlpha" />
+  <path
+      android:strokeWidth="1"
+      android:pathData="M40,360L40,0"
+      android:strokeColor="?attr/colorOnPrimary"
+      android:strokeAlpha="?attr/gridAlpha" />
+  <path
+      android:strokeWidth="1"
+      android:pathData="M80,360L80,0"
+      android:strokeColor="?attr/colorOnPrimary"
+      android:strokeAlpha="?attr/gridAlpha" />
+
+  <path
+      android:strokeWidth="1"
+      android:pathData="M160,360L160,0"
+      android:strokeColor="?attr/colorOnPrimary"
+      android:strokeAlpha="?attr/gridAlpha" />
+  <path
+      android:strokeWidth="1"
+      android:pathData="M200,360L200,0"
+      android:strokeColor="?attr/colorOnPrimary"
+      android:strokeAlpha="?attr/gridAlpha" />
+
+  <path
+      android:strokeWidth="1"
+      android:pathData="M280,360L280,0"
+      android:strokeColor="?attr/colorOnPrimary"
+      android:strokeAlpha="?attr/gridAlpha" />
+  <path
+      android:strokeWidth="1"
+      android:pathData="M320,360L320,0"
+      android:strokeColor="?attr/colorOnPrimary"
+      android:strokeAlpha="?attr/gridAlpha" />
+  <path
+      android:pathData="M0,240L360,240"
+      android:strokeWidth="2"
+      android:strokeColor="?attr/bordersInsideBackground"/>
+  <path
+      android:pathData="M0,120L360,120"
+      android:strokeWidth="2"
+      android:strokeColor="?attr/bordersInsideBackground"/>
+  <path
+      android:pathData="M120,360L120,0"
+      android:strokeWidth="2"
+      android:strokeColor="?attr/bordersInsideBackground"/>
+  <path
+      android:pathData="M240,360L240,0"
+      android:strokeWidth="2"
+      android:strokeColor="?attr/bordersInsideBackground"/>
+  <path
+      android:pathData="M0,360L360,360"
+      android:strokeWidth="4"
+      android:strokeColor="?attr/bordersBackground"/>
+  <path
+      android:pathData="M0,360L0,0"
+      android:strokeWidth="4"
+      android:strokeColor="?attr/bordersBackground"/>
+  <path
+      android:pathData="M0,0L360,0"
+      android:strokeWidth="4"
+      android:strokeColor="?attr/bordersBackground"/>
+  <path
+      android:pathData="M360,360L360,0"
+      android:strokeWidth="4"
+      android:strokeColor="?attr/bordersBackground"/>
+
+
+</vector>
