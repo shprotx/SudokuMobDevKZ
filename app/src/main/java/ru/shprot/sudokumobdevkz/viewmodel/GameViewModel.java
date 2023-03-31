@@ -81,8 +81,6 @@ public class GameViewModel extends AndroidViewModel {
                     @Override
                     public void onSuccess(Statistic s) {
                         statistic = s;
-                        statistic.setGamesStarted(statistic.getGamesStarted() + 1);
-                        insertStatistic(statistic);
                     }
 
                     @Override

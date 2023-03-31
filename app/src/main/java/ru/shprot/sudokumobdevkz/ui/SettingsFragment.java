@@ -24,10 +24,12 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.activity.OnBackPressedDispatcher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.play.core.review.ReviewManager;
 import com.google.android.play.core.review.ReviewManagerFactory;
@@ -51,7 +53,6 @@ public class SettingsFragment extends Fragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        getActivity().setTitle(getString(R.string.settings));
         super.onCreate(savedInstanceState);
         OnBackPressedDispatcher back = getActivity().getOnBackPressedDispatcher();
         back.addCallback(this, new OnBackPressedCallback(true) {
@@ -80,6 +81,8 @@ public class SettingsFragment extends Fragment {
         addListeners();
         initSpinner();
         addListenersToSpinner();
+
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(R.string.settings);
 
     }
 

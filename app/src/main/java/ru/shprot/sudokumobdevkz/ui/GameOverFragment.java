@@ -1,5 +1,7 @@
 package ru.shprot.sudokumobdevkz.ui;
 
+import static ru.shprot.sudokumobdevkz.model.game.utils.Library.KEY_DIFF_STATISTIC;
+
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -57,6 +59,7 @@ public class GameOverFragment extends Fragment implements MenuProvider {
         Bundle bundle = getArguments();
         viewModel.setWin(bundle.getBoolean("win", true));
         viewModel.setItems(bundle.getIntArray("grid"));
+        viewModel.setLevel(bundle.getInt("level"));
 
         addListenersToButtons();
         setInfoAboutSolvedGame(viewModel.isWin());
@@ -97,9 +100,12 @@ public class GameOverFragment extends Fragment implements MenuProvider {
     }
 
     private void addListenersToButtons() {
-        binding.buttonToStatisticFromFragment.setOnClickListener(v ->
-                Navigation.findNavController(getActivity(), R.id.nav_host_fragment)
-                        .navigate(R.id.action_gameOverFragment_to_statisticFragment));
+        binding.buttonToStatisticFromFragment.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt(KEY_DIFF_STATISTIC, viewModel.getLevel());
+            Navigation.findNavController(getActivity(), R.id.nav_host_fragment)
+                            .navigate(R.id.action_gameOverFragment_to_statisticFragment, bundle);
+                });
         binding.buttonToHomeFromFragment.setOnClickListener(v ->
                 Navigation.findNavController(getActivity(), R.id.nav_host_fragment)
                         .navigate(R.id.action_gameOverFragment_to_mainFragment2));

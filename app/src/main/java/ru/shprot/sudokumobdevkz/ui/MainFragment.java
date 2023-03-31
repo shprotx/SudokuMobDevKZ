@@ -22,6 +22,7 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.activity.OnBackPressedDispatcher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Lifecycle;
@@ -52,7 +53,6 @@ public class MainFragment extends Fragment implements MenuProvider {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().setTitle(getString(R.string.main_page));
         getActivity().addMenuProvider(this, this, Lifecycle.State.STARTED);
         OnBackPressedDispatcher back = getActivity().getOnBackPressedDispatcher();
         back.addCallback(this, new OnBackPressedCallback(true) {
@@ -104,6 +104,8 @@ public class MainFragment extends Fragment implements MenuProvider {
 
         if (MainActivity.needToShowRate)
             showRate();
+
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(R.string.main_page);
     }
 
     

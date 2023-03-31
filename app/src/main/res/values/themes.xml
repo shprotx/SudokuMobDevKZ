@@ -38,7 +38,7 @@
         <item name="pencilHeadColorTheme">#595A59</item>
         <item name="pencilHeaderColorTheme">#FBE6B7</item>
         <item name="newGameMenuBackground">@color/new_game_color_green</item>
-        <item name="buttonShadowLightTheme">#E0F7DC</item>
+        <item name="buttonShadowLightTheme">#D1F7CA</item>
         <item name="buttonShadowDarkTheme">#A0C39B</item>
         <item name="buttonBodyColorTheme">#C5ECBF</item>
         <item name="buttonTextColorTheme">?attr/colorOnPrimary</item>
@@ -73,7 +73,7 @@
         <!-- Customize your theme here. -->
         <item name="themeName">Light</item>
         <item name="areaColorTheme">#DCDCDC</item>
-        <item name="selectedColorTheme">#DCDBDB</item>
+        <item name="selectedColorTheme">#C6C6B2</item>
         <item name="theSameNumberColorTheme">#CAC9C9</item>
         <item name="grayNumberColorTheme">#999DA8</item>
         <item name="otherCellsColorTheme">#EFEEEE</item>
@@ -83,7 +83,7 @@
         <item name="draftOnColorTheme">@color/light_gray</item>
         <item name="draftTheSameTheme">@color/black</item>
         <item name="pencilLogoTheme">@color/blue</item>
-        <item name="draftNumbersColorTheme">#999DA8</item>
+        <item name="draftNumbersColorTheme">#9B9B9B</item>
         <item name="logoTextColorTheme">?attr/colorPrimary</item>
         <item name="lampColorTheme">#FAC546</item>
 
@@ -104,7 +104,7 @@
         <item name="fullscreenTextColor">?attr/colorPrimary</item>
 
         <item name="textButtonsSize">18sp</item>
-        <item name="fontFamily">sans-serif</item>
+        <item name="fontFamily">serif</item>
         <item name="logoSize">64sp</item>
         <item name="textOverGridSize">18sp</item>
         <item name="gridAlpha" format="float">0.4</item>

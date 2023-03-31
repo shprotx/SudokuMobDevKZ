@@ -21,6 +21,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -282,6 +284,7 @@ public class GameFragment extends Fragment implements MenuProvider, FragmentResu
 
     private void setOnClick(TextView textView, int number) {
         textView.setOnClickListener(v -> {
+            animate(textView);
             if (viewModel.gameState.isOver(number) || viewModel.adapter.selectedItem == -1
                     || viewModel.items.get(viewModel.adapter.selectedItem).isVisible()) return;
             if (!viewModel.gameState.isDraftPressed()) {
@@ -320,6 +323,11 @@ public class GameFragment extends Fragment implements MenuProvider, FragmentResu
                 }
             }
         });
+    }
+
+    private void animate(View view) {
+        Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.anim_number);
+        view.startAnimation(animation);
     }
 
     private void makeDraftNumberBold(int number) {
@@ -388,7 +396,9 @@ public class GameFragment extends Fragment implements MenuProvider, FragmentResu
         Bundle bundle = new Bundle();
         bundle.putIntArray(KEY_GRID, getGridForGameOverScreen());
         bundle.putBoolean(KEY_WIN, win);
-        Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.action_gameFragment2_to_gameOverFragment, bundle);
+        bundle.putInt("level", viewModel.gameState.getDifficulty());
+        Navigation.findNavController(getActivity(), R.id.nav_host_fragment)
+                .navigate(R.id.action_gameFragment2_to_gameOverFragment, bundle);
     }
 
     private int[] getGridForGameOverScreen() {

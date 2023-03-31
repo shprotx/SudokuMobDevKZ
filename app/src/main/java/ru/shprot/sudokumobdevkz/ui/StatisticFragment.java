@@ -1,5 +1,7 @@
 package ru.shprot.sudokumobdevkz.ui;
 
+import static ru.shprot.sudokumobdevkz.model.game.utils.Library.KEY_DIFF_STATISTIC;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -13,6 +15,7 @@ import androidx.activity.OnBackPressedDispatcher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.MenuProvider;
+import androidx.core.view.OneShotPreDrawListener;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Lifecycle;
 import androidx.navigation.Navigation;
@@ -51,6 +54,10 @@ public class StatisticFragment extends Fragment implements MenuProvider {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        Bundle bundle = getArguments();
+        int currentPage = 0;
+        if (bundle != null)
+            currentPage = bundle.getInt(KEY_DIFF_STATISTIC);
         statisticAdapter = new StatisticAdapter(this);
         viewPager = view.findViewById(R.id.pager);
         viewPager.setAdapter(statisticAdapter);
@@ -66,7 +73,8 @@ public class StatisticFragment extends Fragment implements MenuProvider {
                 default: tab.setText(getString(R.string.unknown));}
         };
         new TabLayoutMediator(tabLayout, viewPager, strategy).attach();
-
+        int finalCurrentPage = currentPage - 1;
+        OneShotPreDrawListener.add(viewPager, () -> viewPager.setCurrentItem(finalCurrentPage));
     }
 
     @Override

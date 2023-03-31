@@ -12,10 +12,12 @@ public class GameOverViewModel extends AndroidViewModel {
     private int gridSize;
     private int cardSize;
     private boolean win;
+    private int level;
 
     public GameOverViewModel(@NonNull Application application) {
         super(application);
     }
+
 
 
     public int[] getItems() {
@@ -57,5 +59,13 @@ public class GameOverViewModel extends AndroidViewModel {
 
     public void setWin(boolean win) {
         this.win = win;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 }

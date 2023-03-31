@@ -25,6 +25,7 @@ public class Library {
     public static final String KEY_GRID = "grid";
     public static final String KEY_WIN = "win";
     public static final String KEY_GAME_RESULT = "gameResult";
+    public static final String KEY_DIFF_STATISTIC = "diffForStatistic";
 
 
     /**
