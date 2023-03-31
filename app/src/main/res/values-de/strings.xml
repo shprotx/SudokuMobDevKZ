@@ -57,6 +57,7 @@
 
     <string name="unlimited_hints">Unlimited hints</string>
     <string name="unlimited_mistakes">Don\'t count mistakes</string>
+    <string name="rate_error_message">Something went wrong. Maybe, bad internet connection?</string>
 
     <string name="how_desc_one">Das Ziel des Spiels ist es, alle Zellen mit Zahlen von 1 bis 9 zu füllen. Zahlen dürfen weder in Zeilen, Spalten noch in Blöcken wiederholt werden. Achten Sie genau auf das Spielfeld und füllen Sie leere Quadrate mit Zahlen aus.</string>
 

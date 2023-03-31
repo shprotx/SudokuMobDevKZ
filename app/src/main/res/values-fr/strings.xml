@@ -57,6 +57,7 @@
 
     <string name="unlimited_hints">Unlimited hints</string>
     <string name="unlimited_mistakes">Don\'t count mistakes</string>
+    <string name="rate_error_message">Something went wrong. Maybe, bad internet connection?</string>
 
     <string name="how_desc_one">Le but du jeu est de remplir toutes les cellules avec des chiffres de 1 à 9. Les chiffres ne doivent pas être répétés dans chaque ligne, colonne ou bloc. Surveillez attentivement le terrain de jeu et remplissez les carrés vides avec des chiffres.</string>
 

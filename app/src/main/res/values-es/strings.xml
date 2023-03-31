@@ -57,6 +57,7 @@
 
     <string name="unlimited_hints">Unlimited hints</string>
     <string name="unlimited_mistakes">Don\'t count mistakes</string>
+    <string name="rate_error_message">Something went wrong. Maybe, bad internet connection?</string>
 
     <string name="how_desc_one">El objetivo del juego es llenar todas las casillas con números del 1 al 9. Los números no pueden repetirse en ninguna fila, columna o bloque. Presta atención al campo de juego y llena los cuadrados vacíos con números adecuados.</string>
     <string name="how_desc_two">Cada juego tiene solo una solución única. La ilustración muestra que solo el número 5 es adecuado para la celda seleccionada. Pero la solución no siempre es tan obvia. Para ingresar un valor adecuado, toca una celda vacía y luego selecciona el número necesario debajo del campo de juego.</string>

@@ -57,6 +57,7 @@
 
     <string name="unlimited_hints">Unlimited hints</string>
     <string name="unlimited_mistakes">Don\'t count mistakes</string>
+    <string name="rate_error_message">Something went wrong. Maybe, bad internet connection?</string>
 
     <string name="how_desc_one">O objetivo do jogo é preencher todas as células com números de 1 a 9. Os números não podem se repetir em nenhuma das linhas, colunas ou blocos. Observe cuidadosamente o campo de jogo e preencha os quadrados vazios com números.</string>
 

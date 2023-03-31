@@ -75,6 +75,7 @@
     <string name="unlimited_hints">Unlimited hints</string>
     <string name="unlimited_mistakes">Don\'t count mistakes</string>
 
+    <string name="rate_error_message">Something went wrong. Maybe, bad internet connection?</string>
     <string name="how_desc_one" translatable="false">The goal of the game is to fill all the cells with numbers from 1 to 9. Numbers cannot be repeated in any of the nine rows, columns or blocks. Pay close attention to the playing field and fill the empty squares with numbers.</string>
 
     <string name="how_desc_two" translatable="false">Each game has only one unique solution. The illustration shows that only the number 5 fits into the selected cell. But the solution is not always so obvious. To enter a suitable value, tap the free cell, and then select the desired number under the playing field. </string>

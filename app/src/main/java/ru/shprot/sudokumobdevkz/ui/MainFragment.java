@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.activity.OnBackPressedDispatcher;
@@ -26,6 +27,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+
+import com.google.android.play.core.review.ReviewManager;
+import com.google.android.play.core.review.ReviewManagerFactory;
 
 import io.reactivex.Completable;
 import io.reactivex.CompletableObserver;
@@ -122,8 +126,7 @@ public class MainFragment extends Fragment implements MenuProvider {
     }
 
     private void yesRateClicked() {
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri
-                .parse("market://details?id=" + APP_PACKAGE_NAME)));
+        showRateDialog();
         hideRateBanner(2);
         AppRater appRater = new AppRater(getContext());
         appRater.applyNeverShowRate();
@@ -155,6 +158,22 @@ public class MainFragment extends Fragment implements MenuProvider {
         }
     }
 
+    public void showRateDialog() {
+        ReviewManager reviewManager = ReviewManagerFactory.create(getContext());
+        reviewManager.requestReviewFlow().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                reviewManager.launchReviewFlow(getActivity(), task.getResult());
+                new AppRater(getContext()).applyNeverShowRate();
+            }
+        });
+        reviewManager.requestReviewFlow()
+                .addOnCanceledListener(() -> new AppRater(getContext()).increaseInterval());
+        reviewManager.requestReviewFlow().addOnFailureListener(e ->
+                Toast.makeText(getContext(),
+                        getString(R.string.rate_error_message),
+                        Toast.LENGTH_LONG).show()
+        );
+    }
 
     private void animate(View view, String type) {
         Animation a;

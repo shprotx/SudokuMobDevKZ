@@ -57,6 +57,7 @@
 
     <string name="unlimited_hints">Unlimited hints</string>
     <string name="unlimited_mistakes">Don\'t count mistakes</string>
+    <string name="rate_error_message">Something went wrong. Maybe, bad internet connection?</string>
 
     <string name="how_desc_one">Мета гри - заповнити всі комірки цифрами від 1 до 9. Цифри не можуть повторюватися ні в одному рядку, стовпці або блоку. Уважно стежте за гральним полем та заповнюйте порожні квадрати цифрами.</string>
     <string name="how_desc_two">Кожна гра має лише одне унікальне рішення. Ілюстрація показує, що в обрану комірку підходить лише цифра 5. Але далеко не завжди рішення так очевидне. Щоб вписати підходяще значення, доторкніться до вільної комірки, а після цього виберіть потрібну цифру під гральним полем.</string>

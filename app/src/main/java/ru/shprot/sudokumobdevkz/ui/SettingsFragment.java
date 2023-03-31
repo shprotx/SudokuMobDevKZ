@@ -21,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.activity.OnBackPressedDispatcher;
@@ -31,10 +32,19 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.navigation.Navigation;
 
+import com.google.android.gms.tasks.OnCanceledListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.play.core.review.ReviewInfo;
+import com.google.android.play.core.review.ReviewManager;
+import com.google.android.play.core.review.ReviewManagerFactory;
+
 import java.util.Locale;
 
 import ru.shprot.sudokumobdevkz.R;
 import ru.shprot.sudokumobdevkz.databinding.FragmentSettingsBinding;
+import ru.shprot.sudokumobdevkz.model.game.utils.AppRater;
 import ru.shprot.sudokumobdevkz.model.game.utils.LangAdapter;
 import ru.shprot.sudokumobdevkz.model.game.utils.Library;
 
@@ -98,8 +108,7 @@ public class SettingsFragment extends Fragment {
                 Navigation.findNavController(getActivity(), R.id.nav_host_fragment).popBackStack();
                 changeOccurred(isStateChanged);
                 });
-        b.rateButton.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri
-                .parse("market://details?id=" + APP_PACKAGE_NAME))));
+        b.rateButton.setOnClickListener(v -> showRateDialog());
         b.cardLightTheme.setOnClickListener(v -> applyTheme(AppCompatDelegate.MODE_NIGHT_NO, R.style.Theme_MyLight));
         b.cardDarkTheme.setOnClickListener(v -> applyTheme(AppCompatDelegate.MODE_NIGHT_YES, R.style.Theme_SudokuMobDevKZ));
         b.cardGreenTheme.setOnClickListener(v -> applyTheme(AppCompatDelegate.MODE_NIGHT_NO, R.style.Theme_SudokuMobDevKZ));
@@ -187,4 +196,20 @@ public class SettingsFragment extends Fragment {
         getActivity().recreate();
     }
 
+    public void showRateDialog() {
+        ReviewManager reviewManager = ReviewManagerFactory.create(getContext());
+        reviewManager.requestReviewFlow().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                reviewManager.launchReviewFlow(getActivity(), task.getResult());
+                new AppRater(getContext()).applyNeverShowRate();
+            }
+        });
+        reviewManager.requestReviewFlow()
+                .addOnCanceledListener(() -> new AppRater(getContext()).increaseInterval());
+        reviewManager.requestReviewFlow().addOnFailureListener(e ->
+                        Toast.makeText(getContext(),
+                        getString(R.string.rate_error_message),
+                        Toast.LENGTH_LONG).show()
+                );
+    }
 }
