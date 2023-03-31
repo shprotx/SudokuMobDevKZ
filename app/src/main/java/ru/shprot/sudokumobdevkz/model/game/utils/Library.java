@@ -6,8 +6,6 @@ public class Library {
      * Some basic important thngs
      */
     public static final String APP_PACKAGE_NAME = "ru.shprot.sudokumobdevkz";
-    // Sample id: ca-app-pub-3940256099942544/1033173712
-//    public static final String AD_AFTER_GAME = "ca-app-pub-3940256099942544/1033173712";
     public static final String AD_AFTER_GAME = "ca-app-pub-8319348071125130/6282893581";
 
 
@@ -16,7 +14,7 @@ public class Library {
      */
     public static final String DIALOG_FRAGMENT_RESULT = "fragmentResult";
     public static final String DIALOG_PAUSE = "pauseDialog";
-    public static final String DIALOG_THEME = "themeDialog";
+
 
     /**
      * Game
@@ -28,6 +26,7 @@ public class Library {
     public static final String KEY_WIN = "win";
     public static final String KEY_GAME_RESULT = "gameResult";
 
+
     /**
      * Generator
      */
@@ -36,6 +35,7 @@ public class Library {
     public static final int VISIBLE_SQUARES_EASY = 40;
     public static final int VISIBLE_SQUARES_MEDIUM = 32;
     public static final int VISIBLE_SQUARES_EXPERT = 28;
+
 
     /**
      * SharedPreferences files and some keys

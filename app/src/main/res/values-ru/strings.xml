@@ -18,7 +18,6 @@
     <string name="hins_over">Подсказки закончились :(</string>
     <string name="win">Победа!</string>
     <string name="lose">Игра окончена</string>
-
     <string name="unknown">Неопределенность</string>
     <string name="game_over">Игра окончена</string>
     <string name="main_page">Главная страница</string>
@@ -56,11 +55,16 @@
     <string name="note">Заметки</string>
     <string name="green">Зеленая</string>
     <string name="play_market">Если вам понравилось приложение, вы можете поддержать разработчика, поставив справедливую оценку в Play Market, а так же поделиться приложением с друзьями.</string>
-
-
     <string name="unlimited_hints">Бесконечные подсказки</string>
     <string name="unlimited_mistakes">Не считать ошибки</string>
     <string name="rate_error_message">Что-то пошло не так :( Возможно, плохое интернет-соединение?</string>
+    <string name="of_course">Конечно!</string>
+    <string name="later">Позже</string>
+    <string name="than_rate_us">Тогда поставите нам оценку?</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="do_you_like_sudoku">Вам нравится Судоку?</string>
+    <string name="great">Отлично!</string>
 
     <string name="how_desc_one">Цель игры - заполнить все ячейки цифрами от 1 до 9. Цифры не могут повторяться ни в одной из девяти строк, столбцов или блоков. Внимательно следите за игровым полем и заполняйте пустые квадраты цифрами.</string>
     <string name="how_desc_two">Каждая игра имеет только одно уникальное решение. Иллюстрация показывает, что в выбранную ячейку подходит только цифра 5. Но далеко не всегда решение так очевидно. Чтобы вписать подходящее значение, коснитесь свободной ячейки, и после этого выберите нужную цифру под игровым полем. </string>

@@ -54,10 +54,16 @@
     <string name="note">Notiz</string>
     <string name="green">Grün</string>
     <string name="play_market">Wenn Ihnen die App gefallen hat, können Sie den Entwickler unterstützen, indem Sie eine faire Bewertung im Play Market abgeben und die App auch mit Freunden teilen.</string>
-
-    <string name="unlimited_hints">Unlimited hints</string>
-    <string name="unlimited_mistakes">Don\'t count mistakes</string>
-    <string name="rate_error_message">Something went wrong. Maybe, bad internet connection?</string>
+    <string name="unlimited_hints">Unbegrenzte Hinweise</string>
+    <string name="unlimited_mistakes">Fehler nicht zählen</string>
+    <string name="rate_error_message">Etwas ist schiefgelaufen :( Vielleicht eine schlechte Internetverbindung?</string>
+    <string name="of_course">Natürlich!</string>
+    <string name="later">Später</string>
+    <string name="than_rate_us">Möchten Sie uns dann bewerten?</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nein</string>
+    <string name="do_you_like_sudoku">Magst du Sudoku?</string>
+    <string name="great">Großartig!</string>
 
     <string name="how_desc_one">Das Ziel des Spiels ist es, alle Zellen mit Zahlen von 1 bis 9 zu füllen. Zahlen dürfen weder in Zeilen, Spalten noch in Blöcken wiederholt werden. Achten Sie genau auf das Spielfeld und füllen Sie leere Quadrate mit Zahlen aus.</string>
 

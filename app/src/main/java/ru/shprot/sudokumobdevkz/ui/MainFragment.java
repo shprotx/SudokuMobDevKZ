@@ -52,6 +52,7 @@ public class MainFragment extends Fragment implements MenuProvider {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getActivity().setTitle(getString(R.string.main_page));
         getActivity().addMenuProvider(this, this, Lifecycle.State.STARTED);
         OnBackPressedDispatcher back = getActivity().getOnBackPressedDispatcher();
         back.addCallback(this, new OnBackPressedCallback(true) {

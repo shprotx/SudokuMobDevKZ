@@ -54,10 +54,16 @@
     <string name="note">Нотатки</string>
     <string name="green">Зелена</string>
     <string name="play_market">Якщо вам сподобалося додаток, ви можете підтримати розробника, поставивши справедливу оцінку в Play Market, а також поділитися додатком з друзями.</string>
-
-    <string name="unlimited_hints">Unlimited hints</string>
-    <string name="unlimited_mistakes">Don\'t count mistakes</string>
-    <string name="rate_error_message">Something went wrong. Maybe, bad internet connection?</string>
+    <string name="unlimited_hints">Безліч підказок</string>
+    <string name="unlimited_mistakes">Не враховувати помилки</string>
+    <string name="rate_error_message">Щось пішло не так :( Можливо, погане інтернет-з\'єднання?</string>
+    <string name="of_course">Звичайно!</string>
+    <string name="later">Пізніше</string>
+    <string name="than_rate_us">Тоді поставте нам оцінку?</string>
+    <string name="yes">Так</string>
+    <string name="no">Ні</string>
+    <string name="do_you_like_sudoku">Вам подобається Судоку?</string>
+    <string name="great">Чудово!</string>
 
     <string name="how_desc_one">Мета гри - заповнити всі комірки цифрами від 1 до 9. Цифри не можуть повторюватися ні в одному рядку, стовпці або блоку. Уважно стежте за гральним полем та заповнюйте порожні квадрати цифрами.</string>
     <string name="how_desc_two">Кожна гра має лише одне унікальне рішення. Ілюстрація показує, що в обрану комірку підходить лише цифра 5. Але далеко не завжди рішення так очевидне. Щоб вписати підходяще значення, доторкніться до вільної комірки, а після цього виберіть потрібну цифру під гральним полем.</string>

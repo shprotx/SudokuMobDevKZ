@@ -54,10 +54,16 @@
     <string name="note">Түсіндірме</string>
     <string name="green">Жасыл</string>
     <string name="play_market">Әгәр сізге бұл қосымша ұнатса, Play Market-те тиімді бағалауға болатын нысан туралы пікір білдіріп, оны досыңызбен бөлісе аласыз.</string>
-
-    <string name="unlimited_hints">Unlimited hints</string>
-    <string name="unlimited_mistakes">Don\'t count mistakes</string>
-    <string name="rate_error_message">Something went wrong. Maybe, bad internet connection?</string>
+    <string name="unlimited_hints">Шығыссыз анықтамалар</string>
+    <string name="unlimited_mistakes">Қателерді есепке алмасу</string>
+    <string name="rate_error_message">Кешіріңіз, біреуі бұзылды :( Интернет-қосымша жамауында болуы мүмкін ме?</string>
+    <string name="of_course">Жақсы</string>
+    <string name="later">Кейінірек</string>
+    <string name="than_rate_us">Сондықтан бізге бағалау беруге болады ма?</string>
+    <string name="yes">Иә</string>
+    <string name="no">Жоқ</string>
+    <string name="do_you_like_sudoku">Судоку сізге ұнады ма?</string>
+    <string name="great">Жақсы!</string>
 
     <string name="how_desc_one">Ойын мақсаты - барлық қатынастарда, жолдарда және блоктарда 1-ден 9-ға дейін сандармен бос орындарды толтыру. Сандар қайталанбауышы керек. Ойын кесірліктерін көріп, бос квадраттарды сандармен толтырыңыз.</string>
 

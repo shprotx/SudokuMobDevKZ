@@ -54,10 +54,16 @@
     <string name="note">Nota</string>
     <string name="green">Verde</string>
     <string name="play_market">Si te gustó la aplicación, puedes apoyar al desarrollador dejando una calificación justa en Play Market, y también compartiendo la aplicación con tus amigos.</string>
-
-    <string name="unlimited_hints">Unlimited hints</string>
-    <string name="unlimited_mistakes">Don\'t count mistakes</string>
-    <string name="rate_error_message">Something went wrong. Maybe, bad internet connection?</string>
+    <string name="unlimited_hints">Pistas ilimitadas</string>
+    <string name="unlimited_mistakes">No contar errores</string>
+    <string name="rate_error_message">Algo salió mal :( ¿Quizás una mala conexión a internet?</string>
+    <string name="of_course">¡Por supuesto!</string>
+    <string name="later">Más tarde</string>
+    <string name="than_rate_us">¿Entonces nos calificará?</string>
+    <string name="yes">Sí</string>
+    <string name="no">No</string>
+    <string name="do_you_like_sudoku">¿Te gusta el Sudoku?</string>
+    <string name="great">¡Genial!</string>
 
     <string name="how_desc_one">El objetivo del juego es llenar todas las casillas con números del 1 al 9. Los números no pueden repetirse en ninguna fila, columna o bloque. Presta atención al campo de juego y llena los cuadrados vacíos con números adecuados.</string>
     <string name="how_desc_two">Cada juego tiene solo una solución única. La ilustración muestra que solo el número 5 es adecuado para la celda seleccionada. Pero la solución no siempre es tan obvia. Para ingresar un valor adecuado, toca una celda vacía y luego selecciona el número necesario debajo del campo de juego.</string>

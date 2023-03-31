@@ -62,7 +62,7 @@
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="15dp"
             android:fontFamily="?attr/fontFamily"
-            android:text="Great!"
+            android:text="@string/great"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

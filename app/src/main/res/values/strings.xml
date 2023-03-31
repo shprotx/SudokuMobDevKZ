@@ -64,7 +64,7 @@
     <string name="no_repetitions">No repetitions</string>
     <string name="always_unique">Always unique solution</string>
     <string name="use_notes">Use notes</string>
-    <string name="to_the_begining">To the beginning</string>
+    <string name="to_the_begining">Beginning</string>
     <string name="light_theme">Light</string>
     <string name="dark_theme">Dark</string>
     <string name="undo">Undo</string>
@@ -74,8 +74,15 @@
     <string name="play_market">If you liked the app, you can support the developer by giving a fair rating in the Play Market, as well as share the app with friends.</string>
     <string name="unlimited_hints">Unlimited hints</string>
     <string name="unlimited_mistakes">Don\'t count mistakes</string>
+    <string name="rate_error_message">Something went wrong. Maybe, a bad internet connection?</string>
+    <string name="of_course">Of course!</string>
+    <string name="later">Later</string>
+    <string name="than_rate_us">Than rate us?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="do_you_like_sudoku">Do you like sudoku?</string>
+    <string name="great">Great!</string>
 
-    <string name="rate_error_message">Something went wrong. Maybe, bad internet connection?</string>
     <string name="how_desc_one" translatable="false">The goal of the game is to fill all the cells with numbers from 1 to 9. Numbers cannot be repeated in any of the nine rows, columns or blocks. Pay close attention to the playing field and fill the empty squares with numbers.</string>
 
     <string name="how_desc_two" translatable="false">Each game has only one unique solution. The illustration shows that only the number 5 fits into the selected cell. But the solution is not always so obvious. To enter a suitable value, tap the free cell, and then select the desired number under the playing field. </string>

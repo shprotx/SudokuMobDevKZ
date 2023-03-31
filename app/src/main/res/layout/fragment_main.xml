@@ -185,7 +185,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:paddingTop="13dp"
-            android:text="Do you like sudoku?"
+            android:text="@string/do_you_like_sudoku"
             android:textColor="?attr/colorOnPrimary"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -206,7 +206,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:text="No" />
+                android:text="@string/no" />
 
             <soup.neumorphism.NeumorphButton
                 android:id="@+id/yesLikeButton"
@@ -215,7 +215,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:text="Yes" />
+                android:text="@string/yes" />
         </LinearLayout>
 
         <com.google.android.material.divider.MaterialDivider
@@ -246,7 +246,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:paddingTop="13dp"
-            android:text="Than rate us?"
+            android:text="@string/than_rate_us"
             android:textColor="?attr/colorOnPrimary"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -267,7 +267,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:text="Later" />
+                android:text="@string/later" />
 
             <soup.neumorphism.NeumorphButton
                 android:id="@+id/yesRateButton"
@@ -276,7 +276,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:text="Of course!" />
+                android:text="@string/of_course" />
         </LinearLayout>
 
         <com.google.android.material.divider.MaterialDivider

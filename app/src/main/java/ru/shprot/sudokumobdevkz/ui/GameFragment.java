@@ -118,19 +118,15 @@ public class GameFragment extends Fragment implements MenuProvider, FragmentResu
                                     @Override
                                     public void onAdDismissedFullScreenContent() {
                                         mInterstitialAd = null;
-
                                     }
 
                                     @Override
                                     public void onAdFailedToShowFullScreenContent(AdError adError) {
                                         mInterstitialAd = null;
-
                                     }
 
                                     @Override
-                                    public void onAdShowedFullScreenContent() {
-
-                                    }
+                                    public void onAdShowedFullScreenContent() { }
                                 });
                     }
 
@@ -219,7 +215,8 @@ public class GameFragment extends Fragment implements MenuProvider, FragmentResu
                 binding.buttonFour, binding.buttonFive, binding.buttonSix, binding.buttonSeven,
                 binding.buttonEight, binding.buttonNine};
         for (int i = 0; i < viewModel.buttons.length; i++)
-            if (viewModel.gameState.isOver(i + 1)) viewModel.buttons[i].setVisibility(View.INVISIBLE);
+            if (viewModel.gameState.isOver(i + 1))
+                viewModel.buttons[i].setVisibility(View.INVISIBLE);
         if (viewModel.gameState.isDraftPressed())
             for (TextView t : viewModel.buttons)
                 t.setTextColor(resColor(R.color.light_gray));
@@ -242,7 +239,8 @@ public class GameFragment extends Fragment implements MenuProvider, FragmentResu
             }
         });
         binding.buttonAsk.setOnClickListener(v -> {
-            if (viewModel.adapter.selectedItem == -1) return;
+            if (viewModel.adapter.selectedItem == -1 ||
+                    viewModel.items.get(viewModel.adapter.selectedItem).isVisible()) return;
             if (viewModel.gameState.getHintCounter() == viewModel.possibleHints) {
                 Toast.makeText(getContext(), R.string.hins_over, Toast.LENGTH_SHORT).show();
                 return;
@@ -256,7 +254,8 @@ public class GameFragment extends Fragment implements MenuProvider, FragmentResu
             squareContent[0].setVisibility(View.VISIBLE);
             squareContent[0].setTextColor(attrColor(R.attr.solvedNumberColorTheme));
             viewModel.items.get(viewModel.adapter.selectedItem).setVisible(true);
-            viewModel.items.get(viewModel.adapter.selectedItem).setColor(attrColor(R.attr.solvedNumberColorTheme));
+            viewModel.items.get(viewModel.adapter.selectedItem)
+                    .setColor(attrColor(R.attr.solvedNumberColorTheme));
             calcSelectedItems(number);
             makeDraftNumberBold(number);
             hideDraftNumbers(number, viewModel.adapter.selectedItem);
@@ -381,7 +380,7 @@ public class GameFragment extends Fragment implements MenuProvider, FragmentResu
         viewModel.gameState.setGameFinished(true);
         insertStatisticToDb(win);
         deleteDataFromDb();
-        //showAd();
+        showAd();
         openGameOverFragment(win);
     }
 
