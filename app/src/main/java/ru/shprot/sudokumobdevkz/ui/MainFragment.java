@@ -1,12 +1,9 @@
 package ru.shprot.sudokumobdevkz.ui;
 
-import static ru.shprot.sudokumobdevkz.model.game.utils.Library.APP_PACKAGE_NAME;
 import static ru.shprot.sudokumobdevkz.model.game.utils.Library.KEY_DIFF;
 import static ru.shprot.sudokumobdevkz.model.game.utils.Library.KEY_GAME_STATE;
 import static ru.shprot.sudokumobdevkz.model.game.utils.Library.KEY_ITEMS;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
