@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         sharedPreferences = getSharedPreferences(SETTINGS_PREFS, MODE_PRIVATE);
-        updateLocale();
+        //updateLocale();
         updateTheme();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

@@ -54,7 +54,7 @@ public class FirstActivity extends AppCompatActivity {
                     }
                 });
 
-        determineLocale();
+        //determineLocale();
 
     }
 

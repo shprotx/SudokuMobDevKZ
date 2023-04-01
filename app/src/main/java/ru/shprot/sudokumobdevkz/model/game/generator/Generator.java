@@ -51,15 +51,41 @@ public class Generator {
      *             elements, and when randomly add back some cells if difficulty is less than 3.
      */
     private void dig(int diff) {
-        int iterator = 0;
-        int strategy = (int)(Math.random() * 8);
-        int x, y;
-        int emptyCellsCounter = 0;
+        int strategy = (int)(Math.random() * 4);
         ArrayList<Integer> zeros = new ArrayList<>();
-        while (iterator < NUMBER_OF_CELLS) {
-            x = calcX(iterator, strategy);
-            y = calcY(iterator, strategy);
-            if (iterator % 4 == 0) {
+        int emptyCellsCounter = digForExpert(strategy, diff, zeros);
+        if (diff < 3)
+            openSomeCells(diff, emptyCellsCounter, strategy, zeros);
+    }
+
+    private void openSomeCells(int diff,
+                               int emptyCellsCounter,
+                               int strategy,
+                               ArrayList<Integer> zeros) {
+        Collections.shuffle(zeros);
+        int haveToOpen = calcDifficulty(diff) - (NUMBER_OF_CELLS - emptyCellsCounter);
+        while (haveToOpen > 0) {
+            int position = zeros.get(zeros.size() - 1);
+            int x = calcX(position,strategy);
+            int y = calcY(position,strategy);
+            if (grid[y][x] == 0)
+                grid[y][x] = squares.get(position).getValue();
+            else {
+                zeros.remove(zeros.size() - 1);
+                continue;
+            }
+            zeros.remove(zeros.size() - 1);
+            haveToOpen--;
+            emptyCellsCounter--;
+        }
+    }
+
+    private int digForExpert(int strategy, int diff, ArrayList<Integer> zeros) {
+        int emptyCellsCounter = 0;
+        for (int i = 0; i < NUMBER_OF_CELLS; i++) {
+            int x = calcX(i, strategy);
+            int y = calcY(i, strategy);
+            if (i % 4 == 0) {
                 x = 8 - x;
                 y = 8 - y;
             }
@@ -71,29 +97,10 @@ public class Generator {
                 grid[y][x] = temp;
             else {
                 emptyCellsCounter++;
-                if (diff < 3) zeros.add(iterator);
-            }
-            iterator++;
-        }
-        if (diff < 3) {
-            int position;
-            Collections.shuffle(zeros);
-            int haveToOpen = calcDifficulty(diff) - (NUMBER_OF_CELLS - emptyCellsCounter);
-            while (haveToOpen > 0) {
-                position = zeros.get(zeros.size() - 1);
-                x = calcX(position,strategy);
-                y = calcY(position,strategy);
-                if (grid[y][x] == 0)
-                    grid[y][x] = squares.get(position).getValue();
-                else {
-                    zeros.remove(zeros.size() - 1);
-                    continue;
-                }
-                zeros.remove(zeros.size() - 1);
-                haveToOpen--;
-                emptyCellsCounter--;
+                if (diff < 3) zeros.add(i);
             }
         }
+        return emptyCellsCounter;
     }
 
     private void parseGridArray() {
