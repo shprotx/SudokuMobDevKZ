@@ -1,20 +1,16 @@
 package ru.shprot.sudokumobdevkz.ui;
 
-import static android.content.ContentValues.TAG;
-import static ru.shprot.sudokumobdevkz.model.game.utils.Library.AD_AFTER_GAME;
 import static ru.shprot.sudokumobdevkz.model.game.utils.Library.DIALOG_FRAGMENT_RESULT;
 import static ru.shprot.sudokumobdevkz.model.game.utils.Library.DIALOG_PAUSE;
 import static ru.shprot.sudokumobdevkz.model.game.utils.Library.KEY_DIFF;
-import static ru.shprot.sudokumobdevkz.model.game.utils.Library.KEY_GAME_RESULT;
+import static ru.shprot.sudokumobdevkz.model.game.utils.Library.KEY_GAME_CONTINUED;
 import static ru.shprot.sudokumobdevkz.model.game.utils.Library.KEY_GAME_STATE;
 import static ru.shprot.sudokumobdevkz.model.game.utils.Library.KEY_GRID;
 import static ru.shprot.sudokumobdevkz.model.game.utils.Library.KEY_ITEMS;
 import static ru.shprot.sudokumobdevkz.model.game.utils.Library.KEY_WIN;
 
 import android.content.res.Resources;
-import android.graphics.Canvas;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,7 +26,6 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.activity.OnBackPressedDispatcher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -38,17 +33,9 @@ import androidx.fragment.app.FragmentResultListener;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.ads.AdError;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.FullScreenContentCallback;
-import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.interstitial.InterstitialAd;
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.material.color.MaterialColors;
 
 import java.util.Map;
@@ -60,6 +47,7 @@ import io.reactivex.schedulers.Schedulers;
 import ru.shprot.sudokumobdevkz.R;
 import ru.shprot.sudokumobdevkz.databinding.FragmentGameBinding;
 import ru.shprot.sudokumobdevkz.model.game.Square;
+import ru.shprot.sudokumobdevkz.model.game.utils.AdHolder;
 import ru.shprot.sudokumobdevkz.model.game.utils.SquareAdapter;
 import ru.shprot.sudokumobdevkz.viewmodel.GameViewModel;
 
@@ -68,7 +56,7 @@ public class GameFragment extends Fragment implements MenuProvider, FragmentResu
     FragmentGameBinding binding;
     GameViewModel viewModel;
 
-    private InterstitialAd mInterstitialAd;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -107,41 +95,9 @@ public class GameFragment extends Fragment implements MenuProvider, FragmentResu
     }
 
     private void initAd() {
-        MobileAds.initialize(getContext());
-        AdRequest adRequest = new AdRequest.Builder().build();
-        InterstitialAd.load(getContext(), AD_AFTER_GAME, adRequest,
-                new InterstitialAdLoadCallback() {
-                    @Override
-                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
-                        Log.i(TAG, "onAdLoaded");
-                        mInterstitialAd = interstitialAd;
-                        mInterstitialAd.setFullScreenContentCallback(
-                                new FullScreenContentCallback() {
-                                    @Override
-                                    public void onAdDismissedFullScreenContent() {
-                                        mInterstitialAd = null;
-                                    }
-
-                                    @Override
-                                    public void onAdFailedToShowFullScreenContent(AdError adError) {
-                                        mInterstitialAd = null;
-                                    }
-
-                                    @Override
-                                    public void onAdShowedFullScreenContent() { }
-                                });
-                    }
-
-                    @Override
-                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                        mInterstitialAd = null;
-                    }
-                });
-    }
-
-    private void showAd() {
-        if (mInterstitialAd != null)
-            mInterstitialAd.show(getActivity());
+        viewModel.adHolder = new AdHolder(getContext());
+        viewModel.adHolder.prepareInterstitialAd(getContext());
+        viewModel.adHolder.prepareRewardAd(getContext());
     }
 
 
@@ -160,6 +116,7 @@ public class GameFragment extends Fragment implements MenuProvider, FragmentResu
             viewModel.items = bundle.getParcelableArrayList(KEY_ITEMS);
             viewModel.gameState = bundle.getParcelable(KEY_GAME_STATE);
             viewModel.gameState.setDifficulty(bundle.getInt(KEY_DIFF));
+            viewModel.isGameContinued = bundle.getBoolean(KEY_GAME_CONTINUED, false);
         }
     }
 
@@ -246,40 +203,48 @@ public class GameFragment extends Fragment implements MenuProvider, FragmentResu
             if (viewModel.gameState.getHintCounter() == viewModel.possibleHints) {
                 Toast.makeText(getContext(), R.string.hins_over, Toast.LENGTH_SHORT).show();
                 return;
-            }
-            Toast.makeText(getContext(), R.string.hint_used, Toast.LENGTH_SHORT).show();
-            TextView[] squareContent = getSquareContent(viewModel.adapter.selectedItem);
-            for (int i = 1; i < squareContent.length; i++)
-                squareContent[i].setVisibility(View.INVISIBLE);
-            int number = viewModel.items.get(viewModel.adapter.selectedItem).getValue();
-            squareContent[0].setText(String.valueOf(number));
-            squareContent[0].setVisibility(View.VISIBLE);
-            squareContent[0].setTextColor(attrColor(R.attr.solvedNumberColorTheme));
-            viewModel.items.get(viewModel.adapter.selectedItem).setVisible(true);
-            viewModel.items.get(viewModel.adapter.selectedItem)
-                    .setColor(attrColor(R.attr.solvedNumberColorTheme));
-            calcSelectedItems(number);
-            makeDraftNumberBold(number);
-            hideDraftNumbers(number, viewModel.adapter.selectedItem);
-            int counter = viewModel.gameState.getHintCounter() + 1;
-            viewModel.gameState.setHintCounter(counter);
-            viewModel.gameState.increment(viewModel.items.get(viewModel.adapter.selectedItem).getValue());
-            viewModel.gameState.emptySquareCounter--;
-            if (viewModel.gameState.isOver(number)) viewModel.buttons[number-1].setVisibility(View.INVISIBLE);
-            if(counter == viewModel.possibleHints){
-                binding.iconButtonLight.setEnabled(false);
-                viewModel.gameState.setHintEnabled(false);
+            } else if (viewModel.gameState.getHintCounter() < 1) {
+                useHint();
             } else {
-                binding.iconButtonLight.setEnabled(true);
-                viewModel.gameState.setHintEnabled(true);
+                viewModel.adHolder.showRewardAd(getActivity(), rewardItem -> {});
+                useHint();
             }
-            if (viewModel.gameState.emptySquareCounter == 0)
-                gameOver(true);
         });
         binding.buttonClear.setOnClickListener(v -> cleanSquare());
         binding.buttonBack.setOnClickListener(v -> goBack());
         for (int i = 0; i < viewModel.buttons.length; i++)
             setOnClick(viewModel.buttons[i], i + 1);
+    }
+
+    private void useHint() {
+        Toast.makeText(getContext(), R.string.hint_used, Toast.LENGTH_SHORT).show();
+        TextView[] squareContent = getSquareContent(viewModel.adapter.selectedItem);
+        for (int i = 1; i < squareContent.length; i++)
+            squareContent[i].setVisibility(View.INVISIBLE);
+        int number = viewModel.items.get(viewModel.adapter.selectedItem).getValue();
+        squareContent[0].setText(String.valueOf(number));
+        squareContent[0].setVisibility(View.VISIBLE);
+        squareContent[0].setTextColor(attrColor(R.attr.solvedNumberColorTheme));
+        viewModel.items.get(viewModel.adapter.selectedItem).setVisible(true);
+        viewModel.items.get(viewModel.adapter.selectedItem)
+                .setColor(attrColor(R.attr.solvedNumberColorTheme));
+        calcSelectedItems(number);
+        makeDraftNumberBold(number);
+        hideDraftNumbers(number, viewModel.adapter.selectedItem);
+        int counter = viewModel.gameState.getHintCounter() + 1;
+        viewModel.gameState.setHintCounter(counter);
+        viewModel.gameState.increment(viewModel.items.get(viewModel.adapter.selectedItem).getValue());
+        viewModel.gameState.emptySquareCounter--;
+        if (viewModel.gameState.isOver(number)) viewModel.buttons[number-1].setVisibility(View.INVISIBLE);
+        if(counter == viewModel.possibleHints){
+            binding.iconButtonLight.setEnabled(false);
+            viewModel.gameState.setHintEnabled(false);
+        } else {
+            binding.iconButtonLight.setEnabled(true);
+            viewModel.gameState.setHintEnabled(true);
+        }
+        if (viewModel.gameState.emptySquareCounter == 0)
+            gameOver(true);
     }
 
     private void setOnClick(TextView textView, int number) {
@@ -388,7 +353,7 @@ public class GameFragment extends Fragment implements MenuProvider, FragmentResu
         viewModel.gameState.setGameFinished(true);
         insertStatisticToDb(win);
         deleteDataFromDb();
-        showAd();
+        viewModel.adHolder.showInterstitialAd(getActivity());
         openGameOverFragment(win);
     }
 

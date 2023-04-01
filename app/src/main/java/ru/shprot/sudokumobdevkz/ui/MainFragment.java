@@ -1,6 +1,7 @@
 package ru.shprot.sudokumobdevkz.ui;
 
 import static ru.shprot.sudokumobdevkz.model.game.utils.Library.KEY_DIFF;
+import static ru.shprot.sudokumobdevkz.model.game.utils.Library.KEY_GAME_CONTINUED;
 import static ru.shprot.sudokumobdevkz.model.game.utils.Library.KEY_GAME_STATE;
 import static ru.shprot.sudokumobdevkz.model.game.utils.Library.KEY_ITEMS;
 
@@ -221,6 +222,7 @@ public class MainFragment extends Fragment implements MenuProvider {
             bundle = new Bundle();
             bundle.putParcelableArrayList(KEY_ITEMS, viewModel.items);
             bundle.putInt(KEY_DIFF, difficulty);
+            bundle.putBoolean(KEY_GAME_CONTINUED, isContinue);
             bundle.putParcelable(KEY_GAME_STATE, viewModel.gameState);
                 })
                 .subscribeOn(Schedulers.io())

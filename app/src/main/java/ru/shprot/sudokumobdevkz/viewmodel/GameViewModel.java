@@ -24,6 +24,7 @@ import ru.shprot.sudokumobdevkz.model.Repository;
 import ru.shprot.sudokumobdevkz.model.game.GameState;
 import ru.shprot.sudokumobdevkz.model.game.Square;
 import ru.shprot.sudokumobdevkz.model.game.Statistic;
+import ru.shprot.sudokumobdevkz.model.game.utils.AdHolder;
 import ru.shprot.sudokumobdevkz.model.game.utils.SquareAdapter;
 
 public class GameViewModel extends AndroidViewModel {
@@ -42,7 +43,10 @@ public class GameViewModel extends AndroidViewModel {
 
     public int possibleMistakes = 3;
     public boolean isGameRestarted = false;
+    public boolean isGameContinued = false;
     public boolean isWin;
+
+    public AdHolder adHolder;
 
 
     public GameViewModel(@NonNull Application application) {
@@ -81,7 +85,7 @@ public class GameViewModel extends AndroidViewModel {
                     @Override
                     public void onSuccess(Statistic s) {
                         statistic = s;
-                        if (!isGameRestarted) {
+                        if (!isGameContinued) {
                             statistic.setGamesStarted(statistic.getGamesStarted() + 1);
                             insertStatistic(statistic);
                         }

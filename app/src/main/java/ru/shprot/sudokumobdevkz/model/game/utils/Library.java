@@ -5,8 +5,8 @@ public class Library {
     /**
      * Some basic important thngs
      */
-    public static final String APP_PACKAGE_NAME = "ru.shprot.sudokumobdevkz";
-    public static final String AD_AFTER_GAME = "ca-app-pub-8319348071125130/6282893581";
+    public static final String AD_REWARD_HINT = "ca-app-pub-3940256099942544/5224354917";
+    public static final String AD_AFTER_GAME = "ca-app-pub-3940256099942544/1033173712";
 
 
     /**
@@ -24,7 +24,7 @@ public class Library {
     public static final String KEY_GAME_STATE = "gameState";
     public static final String KEY_GRID = "grid";
     public static final String KEY_WIN = "win";
-    public static final String KEY_GAME_RESULT = "gameResult";
+    public static final String KEY_GAME_CONTINUED = "gameContinued";
     public static final String KEY_DIFF_STATISTIC = "diffForStatistic";
 
 
