@@ -1,5 +1,6 @@
 package ru.shprot.sudokumobdevkz.model.game.generator;
 
+import static android.content.ContentValues.TAG;
 import static ru.shprot.sudokumobdevkz.model.game.utils.Library.NUMBER_OF_CELLS;
 import static ru.shprot.sudokumobdevkz.model.game.utils.Library.SUBLIST_SIZE;
 import static ru.shprot.sudokumobdevkz.model.game.utils.Library.VISIBLE_SQUARES_EASY;
@@ -8,6 +9,7 @@ import static ru.shprot.sudokumobdevkz.model.game.utils.Library.VISIBLE_SQUARES_
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,7 +30,7 @@ public class Generator {
         initBasicThings();
         generateGrid();
         parseGridArray();
-        diggingStartEnd(diff);
+        dig(diff);
         makeSquaresInvisible();
         return squares;
     }
@@ -48,15 +50,16 @@ public class Generator {
      *             Number 3 means that difficulty is hard. Firstly, method removes maximum number of
      *             elements, and when randomly add back some cells if difficulty is less than 3.
      */
-    private void diggingStartEnd(int diff) {
+    private void dig(int diff) {
         int iterator = 0;
+        int strategy = (int)(Math.random() * 8);
         int x, y;
         int emptyCellsCounter = 0;
         ArrayList<Integer> zeros = new ArrayList<>();
         while (iterator < NUMBER_OF_CELLS) {
-            x = calcX(iterator);
-            y = calcY(iterator);
-            if (iterator % 2 == 0) {
+            x = calcX(iterator, strategy);
+            y = calcY(iterator, strategy);
+            if (iterator % 4 == 0) {
                 x = 8 - x;
                 y = 8 - y;
             }
@@ -78,8 +81,8 @@ public class Generator {
             int haveToOpen = calcDifficulty(diff) - (NUMBER_OF_CELLS - emptyCellsCounter);
             while (haveToOpen > 0) {
                 position = zeros.get(zeros.size() - 1);
-                x = calcX(position);
-                y = calcY(position);
+                x = calcX(position,strategy);
+                y = calcY(position,strategy);
                 if (grid[y][x] == 0)
                     grid[y][x] = squares.get(position).getValue();
                 else {
@@ -142,14 +145,22 @@ public class Generator {
         }
     }
 
-    private static int calcX(int number) {
-        if (number < SUBLIST_SIZE) return number;
-        else return number % SUBLIST_SIZE;
+    private static int calcX(int number, int strategy) {
+        int result;
+        if (number < SUBLIST_SIZE) result = number;
+        else result = number % SUBLIST_SIZE;
+        if (strategy == 0 || strategy == 2) return result;
+        else if (strategy == 1 || strategy == 3) return 8 - result;
+        else return result;
     }
 
-    private static int calcY(int number) {
-        if (number < SUBLIST_SIZE) return 0;
-        else return number / SUBLIST_SIZE;
+    private static int calcY(int number, int strategy) {
+        int result;
+        if (number < SUBLIST_SIZE) result = 0;
+        else result = number / SUBLIST_SIZE;
+        if (strategy == 0 || strategy == 3) return result;
+        else if (strategy == 1 || strategy == 2) return 8 - result;
+        else return result;
     }
 
     private static int getRan(int upper) {
@@ -175,7 +186,6 @@ public class Generator {
         square.setY(getDownFromNumber(index));
         square.setRegion(getRegionFromNumber(index));
         square.setValue(value);
-        //square.setColor(Color.parseColor("#000000"));
         square.setColor(R.color.black);
         square.setVisible(true);
         return square;
