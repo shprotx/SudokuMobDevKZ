@@ -135,6 +135,7 @@ public class GameFragment extends Fragment implements MenuProvider, FragmentResu
         binding.iconButtonLight.setEnabled(viewModel.gameState.isHintEnabled());
         if ((viewModel.possibleMistakes == 3) && (viewModel.gameState.getErrorCounter() > 2))
             gameOver(false);
+        binding.gamePage.setOnClickListener(v -> makeCellsUnselected());
     }
     private void initRecyclerView() {
         int[] colors = new int[8];
@@ -295,6 +296,15 @@ public class GameFragment extends Fragment implements MenuProvider, FragmentResu
         view.startAnimation(animation);
     }
 
+
+    private void makeCellsUnselected() {
+        for (int i = 0; i < viewModel.items.size(); i++) {
+            View view = binding.recyclerView.getChildAt(i);
+            view.setBackgroundColor(attrColor(R.attr.otherCellsColorTheme));
+        }
+    }
+
+
     private void makeDraftNumberBold(int number) {
         for (int i = 0; i < viewModel.items.size(); i++) {
             TextView[] textViews = getSquareContent(i);
@@ -349,6 +359,7 @@ public class GameFragment extends Fragment implements MenuProvider, FragmentResu
 
     private void gameOver(boolean win) {
         viewModel.isWin = win;
+        viewModel.statistic.setGamesStarted(viewModel.statistic.getGamesStarted() + 1);
         viewModel.isGameRestarted = false;
         viewModel.gameState.setGameFinished(true);
         insertStatisticToDb(win);

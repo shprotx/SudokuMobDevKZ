@@ -50,9 +50,8 @@
         <item name="logoSize">64sp</item>
         <item name="textOverGridSize">18sp</item>
         <item name="gridAlpha" format="float">0.1</item>
-<!--        <item name="android:statusBarColor">@color/status_bar_scrim</item>-->
-<!--        <item name="android:navigationBarColor">@color/nav_bar_scrim</item>-->
-<!--        <item name="android:windowBackground">?attr/pageBackground</item>-->
+        <item name="draftNumbersSizeTheme">@dimen/_9ssp</item>
+
     </style>
 
 

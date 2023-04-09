@@ -34,8 +34,8 @@ public class Library {
     public static final int NUMBER_OF_CELLS = 81;
     public static final int SUBLIST_SIZE = 9;
     public static final int VISIBLE_SQUARES_EASY = 40;
-    public static final int VISIBLE_SQUARES_MEDIUM = 32;
-    public static final int VISIBLE_SQUARES_EXPERT = 28;
+    public static final int VISIBLE_SQUARES_MEDIUM = 30;
+    public static final int VISIBLE_SQUARES_EXPERT = 27;
 
 
     /**

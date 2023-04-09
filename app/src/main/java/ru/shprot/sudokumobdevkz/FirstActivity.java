@@ -55,7 +55,6 @@ public class FirstActivity extends AppCompatActivity {
                 });
 
         //determineLocale();
-
     }
 
     private void updateTheme() {

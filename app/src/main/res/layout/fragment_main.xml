@@ -16,7 +16,7 @@
         android:layout_marginBottom="17dp"
         android:text="@string/app_name"
         android:textColor="?attr/buttonTextColorTheme"
-        android:textSize="46sp"
+        android:textSize="36sp"
         app:layout_constraintBottom_toTopOf="@id/howtoplayButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

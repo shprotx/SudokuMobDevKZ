@@ -49,5 +49,6 @@
     <attr name="textOverGridSize" format="dimension"/>
     <attr name="textButtonsSize" format="dimension" />
     <attr name="gridAlpha" format="float" />
+    <attr name="draftNumbersSizeTheme" format="dimension"/>
 
 </resources>

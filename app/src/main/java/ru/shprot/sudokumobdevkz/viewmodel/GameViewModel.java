@@ -85,10 +85,10 @@ public class GameViewModel extends AndroidViewModel {
                     @Override
                     public void onSuccess(Statistic s) {
                         statistic = s;
-                        if (!isGameContinued) {
-                            statistic.setGamesStarted(statistic.getGamesStarted() + 1);
-                            insertStatistic(statistic);
-                        }
+//                        if (!isGameContinued) {
+//                            statistic.setGamesStarted(statistic.getGamesStarted() + 1);
+//                            insertStatistic(statistic);
+//                        }
                     }
 
                     @Override
@@ -99,8 +99,8 @@ public class GameViewModel extends AndroidViewModel {
                     @Override
                     public void onComplete() {
                         statistic = new Statistic(difficulty);
-                        statistic.setGamesStarted(1);
-                        insertStatistic(statistic);
+//                        statistic.setGamesStarted(1);
+//                        insertStatistic(statistic);
                     }
                 });
     }

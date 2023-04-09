@@ -33,14 +33,14 @@
         <item name="bordersBackground">?attr/CardBordersBackground</item>
         <item name="bordersInsideBackground">?attr/colorPrimaryVariant</item>
         <item name="CardBordersBackground">#546E7A</item>
-        <item name="pageBackground">#C5ECBF</item>
+        <item name="pageBackground">#B1DDAA</item>
         <item name="pencilCenterColorTheme">#4b76d2</item>
         <item name="pencilHeadColorTheme">#595A59</item>
         <item name="pencilHeaderColorTheme">#FBE6B7</item>
         <item name="newGameMenuBackground">@color/new_game_color_green</item>
-        <item name="buttonShadowLightTheme">#D1F7CA</item>
-        <item name="buttonShadowDarkTheme">#A0C39B</item>
-        <item name="buttonBodyColorTheme">#C5ECBF</item>
+        <item name="buttonShadowLightTheme">#BBE9B3</item>
+        <item name="buttonShadowDarkTheme">#82A07E</item>
+        <item name="buttonBodyColorTheme">?attr/pageBackground</item>
         <item name="buttonTextColorTheme">?attr/colorOnPrimary</item>
 
         <item name="fullscreenBackgroundColor">?attr/colorPrimary</item>
@@ -51,6 +51,7 @@
         <item name="logoSize">64sp</item>
         <item name="textOverGridSize">18sp</item>
         <item name="gridAlpha" format="float">0.4</item>
+        <item name="draftNumbersSizeTheme">@dimen/_8ssp</item>
 
     </style>
 
@@ -72,11 +73,11 @@
         <item name="android:navigationBarColor">?attr/pageBackground</item>
         <!-- Customize your theme here. -->
         <item name="themeName">Light</item>
-        <item name="areaColorTheme">#DCDCDC</item>
+        <item name="areaColorTheme">?attr/pageBackground</item>
         <item name="selectedColorTheme">#C6C6B2</item>
         <item name="theSameNumberColorTheme">#CAC9C9</item>
         <item name="grayNumberColorTheme">#999DA8</item>
-        <item name="otherCellsColorTheme">#EFEEEE</item>
+        <item name="otherCellsColorTheme">@color/white</item>
         <item name="itemBumberColorTheme">@color/black</item>
         <item name="solvedNumberColorTheme">#4B4B4C</item>
         <item name="draftOfColorTheme">@color/gray</item>
@@ -108,6 +109,7 @@
         <item name="logoSize">64sp</item>
         <item name="textOverGridSize">18sp</item>
         <item name="gridAlpha" format="float">0.4</item>
+        <item name="draftNumbersSizeTheme">@dimen/_9ssp</item>
 
     </style>
 
