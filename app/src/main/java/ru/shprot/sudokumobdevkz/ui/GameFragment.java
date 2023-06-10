@@ -344,10 +344,10 @@ public class GameFragment extends Fragment implements MenuProvider, FragmentResu
     private void cleanSquare() {
         if (viewModel.adapter.selectedItem == -1) return;
         TextView[] textViews = getSquareContent(viewModel.adapter.selectedItem);
-        if (textViews[0].getCurrentTextColor() != resColor(R.color.red))
-            return;
-        for (TextView t : getSquareContent(viewModel.adapter.selectedItem))
-            t.setVisibility(View.INVISIBLE);
+        if (textViews[0].getCurrentTextColor() == resColor(R.color.red) ||
+            !viewModel.items.get(viewModel.adapter.selectedItem).isVisible())
+            for (TextView t : getSquareContent(viewModel.adapter.selectedItem))
+                t.setVisibility(View.INVISIBLE);
     }
 
     private void anErrorOccurred() {
@@ -405,16 +405,17 @@ public class GameFragment extends Fragment implements MenuProvider, FragmentResu
     private void goBack() {
         if (viewModel.adapter.selectedItem == -1) return;
         TextView[] textViews = getSquareContent(viewModel.adapter.selectedItem);
-        if (textViews[0].getCurrentTextColor() != resColor(R.color.red))
-            return;
-        textViews[0].setVisibility(View.INVISIBLE);
-        for (Map.Entry<Integer, Integer> map : viewModel.backup.entrySet()) {
-            int position = map.getKey();
-            int value = map.getValue();
-            textViews[position].setVisibility(value);
+        if (textViews[0].getCurrentTextColor() == resColor(R.color.red) ||
+                !viewModel.items.get(viewModel.adapter.selectedItem).isVisible()) {
+            textViews[0].setVisibility(View.INVISIBLE);
+            for (Map.Entry<Integer, Integer> map : viewModel.backup.entrySet()) {
+                int position = map.getKey();
+                int value = map.getValue();
+                textViews[position].setVisibility(value);
+            }
+            binding.recyclerView.getChildAt(viewModel.adapter.selectedItem)
+                    .findViewById(R.id.itemGridLayout).setVisibility(View.VISIBLE);
         }
-        binding.recyclerView.getChildAt(viewModel.adapter.selectedItem)
-                .findViewById(R.id.itemGridLayout).setVisibility(View.VISIBLE);
     }
 
     private TextView[] getSquareContent(int position) {
