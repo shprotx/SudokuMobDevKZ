@@ -1,6 +1,9 @@
 # SudokuMobDevKZ
 My version of this popular puzzle game
 
+Play Market Link: https://play.google.com/store/apps/details?id=ru.shprot.sudokumobdevkz
+
+
 ![2023-03-26_02-30-51](https://github.com/shprotx/SudokuMobDevKZ/assets/59147207/7c13a287-c07f-4731-89fd-540542b035e3)
 ![2023-03-26_02-31-58](https://github.com/shprotx/SudokuMobDevKZ/assets/59147207/8c3c9767-4966-4120-95ec-a6194357f089)
 ![2023-03-26_02-32-52](https://github.com/shprotx/SudokuMobDevKZ/assets/59147207/68125061-7645-4229-b02c-9243fd60c650)
