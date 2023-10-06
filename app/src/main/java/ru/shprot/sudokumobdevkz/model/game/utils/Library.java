@@ -5,10 +5,9 @@ public class Library {
     /**
      * Some basic important things
      */
-//    public static final String AD_REWARD_HINT = "ca-app-pub-8319348071125130/8114450627";
-//    public static final String AD_AFTER_GAME = "ca-app-pub-8319348071125130/6282893581";
     public static final String AD_REWARD_HINT = "ca-app-pub-3940256099942544/5224354917";
-    public static final String AD_AFTER_GAME = "ca-app-pub-3940256099942544/5224354917";
+    public static final String AD_AFTER_GAME = "ca-app-pub-3940256099942544/1033173712";
+
 
     /**
      * Dialogs

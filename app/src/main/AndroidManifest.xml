@@ -11,8 +11,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SudokuMobDevKZ">
 
-        <!-- Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713 -->
-        <!-- This app ID: ca-app-pub-8319348071125130~4629248172 -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3940256099942544~3347511713"/>
