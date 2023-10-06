@@ -30,8 +30,10 @@ Play Market Link: https://play.google.com/store/apps/details?id=ru.shprot.sudoku
 
 ## UI
 
-![im5](https://github.com/shprotx/SudokuMobDevKZ/assets/59147207/6c5511d7-515b-48d1-9fc1-31c13b1685a6)
-![im2](https://github.com/shprotx/SudokuMobDevKZ/assets/59147207/d6805076-ea39-48bf-9f94-3ee095bac7b2)
-![im3](https://github.com/shprotx/SudokuMobDevKZ/assets/59147207/0c7618fe-9a30-42d9-92c2-44b239341e35)
-![im4](https://github.com/shprotx/SudokuMobDevKZ/assets/59147207/750e9323-61e0-431f-917c-b67b18461e38)
-![im1](https://github.com/shprotx/SudokuMobDevKZ/assets/59147207/7e33c97f-f47f-4200-976e-386e2ae21b77)
+![im5](https://github.com/shprotx/SudokuMobDevKZ/assets/59147207/cd3f5a13-6f04-4452-843a-643176a8f82c)
+![im2](https://github.com/shprotx/SudokuMobDevKZ/assets/59147207/f1558642-9731-4c22-ba9c-dc9ea40ee83d)
+
+![im4](https://github.com/shprotx/SudokuMobDevKZ/assets/59147207/0bdde76f-6a28-4716-af7a-dc89f1122fe5)
+![im3](https://github.com/shprotx/SudokuMobDevKZ/assets/59147207/4317973a-20ef-4db2-893d-8bf97f189cbd)
+
+![im1](https://github.com/shprotx/SudokuMobDevKZ/assets/59147207/1b37c8ef-b9dd-4dc5-9c3d-2bfd519db9fd)
