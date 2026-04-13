@@ -9,9 +9,10 @@
         <item name="colorSecondary">#C55B3C</item>
         <item name="colorSecondaryVariant">#C55B3C</item>
         <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" >?attr/pageBackground</item>
-        <item name="android:navigationBarColor">?attr/pageBackground</item>
+        <!-- Transparent system bars for edge-to-edge -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
         <!-- Customize your theme here. -->
         <item name="themeName">Dark</item>
         <item name="areaColorTheme">#1B1B1B</item>
