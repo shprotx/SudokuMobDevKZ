@@ -14,6 +14,9 @@ import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
+import io.reactivex.Completable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import ru.shprot.sudokumobdevkz.R;
 import ru.shprot.sudokumobdevkz.databinding.FragmentNewGameDialogBinding;
 import ru.shprot.sudokumobdevkz.model.game.GameState;
@@ -52,18 +55,24 @@ public class NewGameDialog extends DialogFragment {
     private void prepareNewGame(int difficulty) {
         gameViewModel.deleteGridFromDb();
         gameViewModel.deleteStateFromDb();
-        Generator generator = new Generator();
-        gameViewModel.items = generator.generate(difficulty);
-        gameViewModel.gameState = new GameState();
-        gameViewModel.gameState.setDifficulty(difficulty);
-        for (Square item : gameViewModel.items)
-            if (item.isVisible()) {
-                gameViewModel.gameState.increment(item.getValue());
-                gameViewModel.gameState.emptySquareCounter--;
-            }
-        gameViewModel.isGameRestarted = true;
-        dismiss();
-        getActivity().recreate();
+        Completable.fromAction(() -> {
+            Generator generator = new Generator();
+            gameViewModel.items = generator.generate(difficulty);
+            gameViewModel.gameState = new GameState();
+            gameViewModel.gameState.setDifficulty(difficulty);
+            for (Square item : gameViewModel.items)
+                if (item.isVisible()) {
+                    gameViewModel.gameState.increment(item.getValue());
+                    gameViewModel.gameState.emptySquareCounter--;
+                }
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> {
+                    gameViewModel.isGameRestarted = true;
+                    dismiss();
+                    if (getActivity() != null) getActivity().recreate();
+                }, e -> dismiss());
     }
 
 

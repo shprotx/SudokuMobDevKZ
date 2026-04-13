@@ -138,10 +138,10 @@ public class GameViewModel extends AndroidViewModel {
         }
     }
     public String getTimerString(long timer) {
-        int seconds = (int) timer + gameState.getTime();
-        int minutes = (seconds / 60);
-        int hours = seconds / 3600;
-        seconds = seconds % 60;
+        int totalSeconds = (int) timer + gameState.getTime();
+        int hours = totalSeconds / 3600;
+        int minutes = (totalSeconds % 3600) / 60;
+        int seconds = totalSeconds % 60;
         if (hours == 0)
             return String.format("%02d:%02d", minutes, seconds);
         else

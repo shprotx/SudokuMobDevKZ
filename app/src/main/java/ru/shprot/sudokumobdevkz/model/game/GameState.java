@@ -193,7 +193,7 @@ public class GameState implements Parcelable {
         dest.writeInt(difficulty);
         dest.writeString(difficultyString);
         dest.writeString(timer);
-        dest.writeLong(time);
+        dest.writeInt(time);
         dest.writeByte((byte) (isGameFinished ? 1 : 0));
         dest.writeByte((byte) (isDraftPressed ? 1 : 0));
         dest.writeInt(errorCounter);

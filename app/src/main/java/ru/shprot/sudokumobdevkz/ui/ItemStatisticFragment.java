@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import io.reactivex.MaybeObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -25,6 +24,7 @@ public class ItemStatisticFragment extends Fragment {
 
     FragmentItemStatisticBinding binding;
     StatisticViewModel viewModel;
+    private Disposable statisticDisposable;
 
     @Nullable
     @Override
@@ -40,21 +40,14 @@ public class ItemStatisticFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         Bundle bundle = getArguments();
         int position = bundle.getInt("position", 0);
-        viewModel.getStatistic(position + 1)
+        statisticDisposable = viewModel.getStatistic(position + 1)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new MaybeObserver<Statistic>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {}
-                    @Override
-                    public void onSuccess(Statistic statistic) {
-                        loadData(statistic);
-                    }
-                    @Override
-                    public void onError(Throwable e) {}
-                    @Override
-                    public void onComplete() {}
-                });
+                .subscribe(
+                        statistic -> { if (isAdded()) loadData(statistic); },
+                        e -> {},
+                        () -> {}
+                );
         binding.refreshButton.setOnClickListener(v -> clearStatistic(position + 1));
         binding.statToMainButton.setOnClickListener(v -> goToMainPage());
     }
@@ -87,10 +80,17 @@ public class ItemStatisticFragment extends Fragment {
         viewModel.removeCurrentStatistic(difficulty);
     }
 
-    public String getTimerString(int seconds) {
-        int minutes = (seconds / 60);
-        int hours = seconds / 3600;
-        seconds = seconds % 60;
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (statisticDisposable != null && !statisticDisposable.isDisposed())
+            statisticDisposable.dispose();
+    }
+
+    public String getTimerString(int totalSeconds) {
+        int hours = totalSeconds / 3600;
+        int minutes = (totalSeconds % 3600) / 60;
+        int seconds = totalSeconds % 60;
         if (hours == 0)
             return String.format("%02d:%02d", minutes, seconds);
         else

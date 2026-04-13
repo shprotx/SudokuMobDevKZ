@@ -31,7 +31,6 @@ import com.google.android.play.core.review.ReviewManager;
 import com.google.android.play.core.review.ReviewManagerFactory;
 
 import io.reactivex.Completable;
-import io.reactivex.CompletableObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -212,9 +211,14 @@ public class MainFragment extends Fragment implements MenuProvider {
         binding.progressBar.setVisibility(View.VISIBLE);
     }
 
+    private Disposable newGameDisposable;
+
     private void prepareNewGame(int difficulty, boolean isContinue) {
-        Completable.fromAction(() -> {
-            binding.newGameMenu.setVisibility(View.GONE);
+        showProgress();
+        binding.newGameMenu.setVisibility(View.GONE);
+        if (newGameDisposable != null && !newGameDisposable.isDisposed())
+            newGameDisposable.dispose();
+        newGameDisposable = Completable.fromAction(() -> {
             if (!isContinue) {
                 viewModel.items = viewModel.generateGrid(difficulty);
                 viewModel.gameState = viewModel.calculateNumbers(difficulty);
@@ -227,22 +231,12 @@ public class MainFragment extends Fragment implements MenuProvider {
                 })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new CompletableObserver() {
-                               @Override
-                               public void onSubscribe(Disposable d) {
-                                   showProgress();
-                               }
-                               @Override
-                               public void onComplete() {
-                                   Navigation.findNavController(getActivity(), R.id.nav_host_fragment)
-                                           .navigate(R.id.action_mainFragment2_to_gameFragment2, bundle);
-                               }
-                               @Override
-                               public void onError(Throwable e) {
-                                    //Log.e("MyError", "An error occurred: " + e.getLocalizedMessage());
-                               }
-                           }
-                );
+                .subscribe(() -> {
+                    if (isAdded()) {
+                        Navigation.findNavController(getActivity(), R.id.nav_host_fragment)
+                                .navigate(R.id.action_mainFragment2_to_gameFragment2, bundle);
+                    }
+                }, e -> {});
     }
 
     

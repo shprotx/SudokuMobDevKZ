@@ -23,7 +23,7 @@ public class Generator {
     private final ArrayList<Square> squares = new ArrayList<>(NUMBER_OF_CELLS);
     private final ArrayList<Integer>[] available = new ArrayList[NUMBER_OF_CELLS];
     private final int[][] grid = new int[SUBLIST_SIZE][SUBLIST_SIZE];
-    public static boolean isUnicSolution = true;
+    private boolean isUnicSolution = true;
 
 
     public ArrayList<Square> generate(int diff) {
@@ -93,6 +93,7 @@ public class Generator {
             grid[y][x] = 0;
             DancingLinks.solutionsCount = 0;
             DancingLinksAlgorithm.tryToSolve(grid);
+            isUnicSolution = DancingLinks.solutionsCount == 1;
             if (!isUnicSolution)
                 grid[y][x] = temp;
             else {

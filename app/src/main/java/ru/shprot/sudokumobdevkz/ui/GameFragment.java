@@ -47,6 +47,7 @@ import io.reactivex.schedulers.Schedulers;
 import ru.shprot.sudokumobdevkz.R;
 import ru.shprot.sudokumobdevkz.databinding.FragmentGameBinding;
 import ru.shprot.sudokumobdevkz.model.game.Square;
+import ru.shprot.sudokumobdevkz.model.game.Statistic;
 import ru.shprot.sudokumobdevkz.model.game.utils.AdHolder;
 import ru.shprot.sudokumobdevkz.model.game.utils.SquareAdapter;
 import ru.shprot.sudokumobdevkz.viewmodel.GameViewModel;
@@ -102,6 +103,8 @@ public class GameFragment extends Fragment implements MenuProvider, FragmentResu
 
 
     private void startTimer() {
+        if (viewModel.timer != null && !viewModel.timer.isDisposed())
+            viewModel.timer.dispose();
         viewModel.timer = Flowable.interval(0, 1, TimeUnit.SECONDS)
                 .map(aLong -> viewModel.getTimerString(aLong))
                 .subscribeOn(Schedulers.io())
@@ -300,7 +303,8 @@ public class GameFragment extends Fragment implements MenuProvider, FragmentResu
     private void makeCellsUnselected() {
         for (int i = 0; i < viewModel.items.size(); i++) {
             View view = binding.recyclerView.getChildAt(i);
-            view.setBackgroundColor(attrColor(R.attr.otherCellsColorTheme));
+            if (view != null)
+                view.setBackgroundColor(attrColor(R.attr.otherCellsColorTheme));
         }
     }
 
@@ -334,11 +338,12 @@ public class GameFragment extends Fragment implements MenuProvider, FragmentResu
     private void calcSelectedItems(int number) {
         for (int i = 0; i < viewModel.items.size(); i++) {
             View view = binding.recyclerView.getChildAt(i);
-            if (viewModel.items.get(i).getValue() == number && viewModel.items.get(i).isVisible())
+            if (view != null && viewModel.items.get(i).getValue() == number && viewModel.items.get(i).isVisible())
                 view.setBackgroundColor(attrColor(R.attr.theSameNumberColorTheme));
         }
         View view = binding.recyclerView.getChildAt(viewModel.adapter.selectedItem);
-        view.setBackgroundColor(attrColor(R.attr.selectedColorTheme));
+        if (view != null)
+            view.setBackgroundColor(attrColor(R.attr.selectedColorTheme));
     }
 
     private void cleanSquare() {
@@ -359,6 +364,8 @@ public class GameFragment extends Fragment implements MenuProvider, FragmentResu
 
     private void gameOver(boolean win) {
         viewModel.isWin = win;
+        if (viewModel.statistic == null)
+            viewModel.statistic = new Statistic(viewModel.gameState.getDifficulty());
         viewModel.statistic.setGamesStarted(viewModel.statistic.getGamesStarted() + 1);
         viewModel.isGameRestarted = false;
         viewModel.gameState.setGameFinished(true);
@@ -419,8 +426,10 @@ public class GameFragment extends Fragment implements MenuProvider, FragmentResu
     }
 
     private TextView[] getSquareContent(int position) {
+        View child = binding.recyclerView.getChildAt(position);
+        if (child == null) return null;
         SquareAdapter.SquareHolder v = (SquareAdapter.SquareHolder) binding.recyclerView
-                .getChildViewHolder(binding.recyclerView.getChildAt(position));
+                .getChildViewHolder(child);
         return v.content;
     }
 
@@ -541,7 +550,8 @@ public class GameFragment extends Fragment implements MenuProvider, FragmentResu
         super.onPause();
         viewModel.calculateTimerStartValue(binding.timerTextView.getText().toString());
         viewModel.gameState.setTime(viewModel.gameState.getTime());
-        viewModel.timer.dispose();
+        if (viewModel.timer != null && !viewModel.timer.isDisposed())
+            viewModel.timer.dispose();
     }
 
 

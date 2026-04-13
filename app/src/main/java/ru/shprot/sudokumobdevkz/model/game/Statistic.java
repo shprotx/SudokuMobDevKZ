@@ -27,7 +27,7 @@ public class Statistic {
 
     public void updateStatistic(boolean win, String time, int errorCounter) {
         int currentTime = parseTimeFromString(time);
-        updateWinsWithoutMistakes(errorCounter);
+        if (win) updateWinsWithoutMistakes(errorCounter);
         updateAllTime(currentTime);
         updateBestTime(currentTime, win);
         updateGameWon(win);

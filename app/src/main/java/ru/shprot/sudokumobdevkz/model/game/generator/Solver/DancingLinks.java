@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import ru.shprot.sudokumobdevkz.model.game.generator.Generator;
-
-
 public class DancingLinks {
 
     private final ColumnNode header;
@@ -17,7 +14,6 @@ public class DancingLinks {
         if (solutionsCount == 2) return;
         if (header.R == header) {
             solutionsCount++;
-            Generator.isUnicSolution = solutionsCount == 1;
         } else {
             ColumnNode c = selectColumnNodeHeuristic();
             c.cover();

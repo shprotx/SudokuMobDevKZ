@@ -52,7 +52,7 @@ public class AppRater {
     }
 
     private long getDate(long firstDate, int interval) {
-        return firstDate * interval * 24 * 60 * 60 * 1000;
+        return firstDate + (long) interval * 24 * 60 * 60 * 1000;
     }
 
     public void applyNeverShowRate() {
@@ -62,7 +62,7 @@ public class AppRater {
 
     public void increaseInterval() {
         long interval = sharedPreferences.getLong(RATE_PREFS_INTERVAL, 10) * 2;
-        editor.putLong(RATE_PREFS_LAUNCH, interval);
+        editor.putLong(RATE_PREFS_INTERVAL, interval);
         editor.apply();
     }
 }
