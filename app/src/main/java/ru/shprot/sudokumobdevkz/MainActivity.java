@@ -28,11 +28,13 @@ import com.google.android.material.appbar.MaterialToolbar;
 import java.util.Locale;
 
 import ru.shprot.sudokumobdevkz.model.game.utils.AppRater;
+import ru.shprot.sudokumobdevkz.model.game.utils.LoadingOverlay;
 
 public class MainActivity extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
     String currentLocale;
+    private LoadingOverlay loadingOverlay;
 
     public static boolean needToShowRate;
 
@@ -72,11 +74,18 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
 
+        loadingOverlay = new LoadingOverlay(findViewById(android.R.id.content));
+
         AppRater appRater = new AppRater(this);
         needToShowRate = appRater.app_launched();
+    }
 
+    public void showLoading() {
+        loadingOverlay.show();
+    }
 
-
+    public void hideLoading() {
+        loadingOverlay.hide();
     }
 
     private void updateLocale() {

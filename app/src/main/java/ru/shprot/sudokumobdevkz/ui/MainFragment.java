@@ -207,14 +207,10 @@ public class MainFragment extends Fragment implements MenuProvider {
         }
     }
 
-    private void showProgress() {
-        binding.progressBar.setVisibility(View.VISIBLE);
-    }
-
     private Disposable newGameDisposable;
 
     private void prepareNewGame(int difficulty, boolean isContinue) {
-        showProgress();
+        ((MainActivity) getActivity()).showLoading();
         binding.newGameMenu.setVisibility(View.GONE);
         if (newGameDisposable != null && !newGameDisposable.isDisposed())
             newGameDisposable.dispose();
@@ -233,10 +229,13 @@ public class MainFragment extends Fragment implements MenuProvider {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> {
                     if (isAdded()) {
+                        ((MainActivity) getActivity()).hideLoading();
                         Navigation.findNavController(getActivity(), R.id.nav_host_fragment)
                                 .navigate(R.id.action_mainFragment2_to_gameFragment2, bundle);
                     }
-                }, e -> {});
+                }, e -> {
+                    if (isAdded()) ((MainActivity) getActivity()).hideLoading();
+                });
     }
 
     

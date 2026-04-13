@@ -158,15 +158,6 @@
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@id/logoText"
-        app:layout_constraintStart_toEndOf="@id/logoText" />
 
 
     <!-- Rate App -->
