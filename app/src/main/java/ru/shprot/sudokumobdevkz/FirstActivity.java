@@ -8,14 +8,17 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.Window;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import java.util.concurrent.TimeUnit;
 
@@ -36,8 +39,16 @@ public class FirstActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         updateTheme();
         super.onCreate(savedInstanceState);
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         ActivityFirstBinding binding = ActivityFirstBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        View rootView = findViewById(android.R.id.content);
+        ViewCompat.setOnApplyWindowInsetsListener(rootView, (v, windowInsets) -> {
+            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(insets.left, insets.top, insets.right, insets.bottom);
+            return WindowInsetsCompat.CONSUMED;
+        });
 
         Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.anim_logo);
 
@@ -65,9 +76,6 @@ public class FirstActivity extends AppCompatActivity {
             AppCompatDelegate.setDefaultNightMode(mode);
         }
         setTheme(theme);
-        if (Build.VERSION.SDK_INT >= 27)
-            getWindow().setDecorCaptionShade(Window.DECOR_CAPTION_SHADE_LIGHT);
-
     }
 
     @Override
