@@ -3,13 +3,6 @@ package ru.shprot.sudokumobdevkz.model.game.utils;
 public class Library {
 
     /**
-     * Some basic important things
-     */
-    public static final String AD_REWARD_HINT = "ca-app-pub-3940256099942544/5224354917";
-    public static final String AD_AFTER_GAME = "ca-app-pub-3940256099942544/1033173712";
-
-
-    /**
      * Dialogs
      */
     public static final String DIALOG_FRAGMENT_RESULT = "fragmentResult";

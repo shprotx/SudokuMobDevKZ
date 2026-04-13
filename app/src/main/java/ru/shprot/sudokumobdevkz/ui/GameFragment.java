@@ -48,7 +48,6 @@ import ru.shprot.sudokumobdevkz.R;
 import ru.shprot.sudokumobdevkz.databinding.FragmentGameBinding;
 import ru.shprot.sudokumobdevkz.model.game.Square;
 import ru.shprot.sudokumobdevkz.model.game.Statistic;
-import ru.shprot.sudokumobdevkz.model.game.utils.AdHolder;
 import ru.shprot.sudokumobdevkz.model.game.utils.SquareAdapter;
 import ru.shprot.sudokumobdevkz.viewmodel.GameViewModel;
 
@@ -91,14 +90,7 @@ public class GameFragment extends Fragment implements MenuProvider, FragmentResu
         initRecyclerView();
         initButtons();
         addListenersToButtons();
-        initAd();
 
-    }
-
-    private void initAd() {
-        viewModel.adHolder = new AdHolder(getContext());
-        viewModel.adHolder.prepareInterstitialAd(getContext());
-        viewModel.adHolder.prepareRewardAd(getContext());
     }
 
 
@@ -207,10 +199,7 @@ public class GameFragment extends Fragment implements MenuProvider, FragmentResu
             if (viewModel.gameState.getHintCounter() == viewModel.possibleHints) {
                 Toast.makeText(getContext(), R.string.hins_over, Toast.LENGTH_SHORT).show();
                 return;
-            } else if (viewModel.gameState.getHintCounter() < 1) {
-                useHint();
             } else {
-                viewModel.adHolder.showRewardAd(getActivity(), rewardItem -> {});
                 useHint();
             }
         });
@@ -371,7 +360,6 @@ public class GameFragment extends Fragment implements MenuProvider, FragmentResu
         viewModel.gameState.setGameFinished(true);
         insertStatisticToDb(win);
         deleteDataFromDb();
-        viewModel.adHolder.showInterstitialAd(getActivity());
         openGameOverFragment(win);
     }
 
