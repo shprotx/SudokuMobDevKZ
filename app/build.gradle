@@ -2,6 +2,12 @@ plugins {
     id 'com.android.application'
 }
 
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localProperties.load(new FileInputStream(localPropertiesFile))
+}
+
 android {
     compileSdk 36
 
@@ -15,9 +21,25 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    buildTypes {
+    signingConfigs {
         release {
+            storeFile file(localProperties.getProperty('KEYSTORE_FILE', System.getenv('KEYSTORE_FILE') ?: 'keystore.jks'))
+            storePassword localProperties.getProperty('KEYSTORE_PASS', System.getenv('KEYSTORE_PASS') ?: '')
+            keyAlias localProperties.getProperty('KEYSTORE_ALIAS', System.getenv('KEYSTORE_ALIAS') ?: '')
+            keyPassword localProperties.getProperty('KEYSTORE_ALIAS_PASS', System.getenv('KEYSTORE_ALIAS_PASS') ?: '')
+        }
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
             minifyEnabled false
+        }
+        release {
+            signingConfig signingConfigs.release
+            debuggable false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
