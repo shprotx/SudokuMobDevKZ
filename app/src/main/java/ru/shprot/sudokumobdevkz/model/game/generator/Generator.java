@@ -1,15 +1,10 @@
 package ru.shprot.sudokumobdevkz.model.game.generator;
 
-import static android.content.ContentValues.TAG;
 import static ru.shprot.sudokumobdevkz.model.game.utils.Library.NUMBER_OF_CELLS;
 import static ru.shprot.sudokumobdevkz.model.game.utils.Library.SUBLIST_SIZE;
 import static ru.shprot.sudokumobdevkz.model.game.utils.Library.VISIBLE_SQUARES_EASY;
 import static ru.shprot.sudokumobdevkz.model.game.utils.Library.VISIBLE_SQUARES_EXPERT;
 import static ru.shprot.sudokumobdevkz.model.game.utils.Library.VISIBLE_SQUARES_MEDIUM;
-
-import android.app.Activity;
-import android.graphics.Color;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -51,23 +46,21 @@ public class Generator {
      *             elements, and when randomly add back some cells if difficulty is less than 3.
      */
     private void dig(int diff) {
-        int strategy = (int)(Math.random() * 4);
         ArrayList<Integer> zeros = new ArrayList<>();
-        int emptyCellsCounter = digForExpert(strategy, diff, zeros);
+        int emptyCellsCounter = digForExpert(diff, zeros);
         if (diff < 3)
-            openSomeCells(diff, emptyCellsCounter, strategy, zeros);
+            openSomeCells(diff, emptyCellsCounter, zeros);
     }
 
     private void openSomeCells(int diff,
                                int emptyCellsCounter,
-                               int strategy,
                                ArrayList<Integer> zeros) {
         Collections.shuffle(zeros);
         int haveToOpen = calcDifficulty(diff) - (NUMBER_OF_CELLS - emptyCellsCounter);
         while (haveToOpen > 0) {
             int position = zeros.get(zeros.size() - 1);
-            int x = calcX(position,strategy);
-            int y = calcY(position,strategy);
+            int y = position / SUBLIST_SIZE;
+            int x = position % SUBLIST_SIZE;
             if (grid[y][x] == 0)
                 grid[y][x] = squares.get(position).getValue();
             else {
@@ -80,15 +73,16 @@ public class Generator {
         }
     }
 
-    private int digForExpert(int strategy, int diff, ArrayList<Integer> zeros) {
+    private int digForExpert(int diff, ArrayList<Integer> zeros) {
+        ArrayList<Integer> positions = new ArrayList<>(NUMBER_OF_CELLS);
+        for (int i = 0; i < NUMBER_OF_CELLS; i++)
+            positions.add(i);
+        Collections.shuffle(positions);
+
         int emptyCellsCounter = 0;
-        for (int i = 0; i < NUMBER_OF_CELLS; i++) {
-            int x = calcX(i, strategy);
-            int y = calcY(i, strategy);
-            if (i % 4 == 0) {
-                x = 8 - x;
-                y = 8 - y;
-            }
+        for (int pos : positions) {
+            int y = pos / SUBLIST_SIZE;
+            int x = pos % SUBLIST_SIZE;
             int temp = grid[y][x];
             grid[y][x] = 0;
             DancingLinks.solutionsCount = 0;
@@ -98,7 +92,7 @@ public class Generator {
                 grid[y][x] = temp;
             else {
                 emptyCellsCounter++;
-                if (diff < 3) zeros.add(i);
+                if (diff < 3) zeros.add(pos);
             }
         }
         return emptyCellsCounter;
@@ -153,25 +147,7 @@ public class Generator {
         }
     }
 
-    private static int calcX(int number, int strategy) {
-        int result;
-        if (number < SUBLIST_SIZE) result = number;
-        else result = number % SUBLIST_SIZE;
-        if (strategy == 0 || strategy == 2) return result;
-        else if (strategy == 1 || strategy == 3) return 8 - result;
-        else return result;
-    }
-
-    private static int calcY(int number, int strategy) {
-        int result;
-        if (number < SUBLIST_SIZE) result = 0;
-        else result = number / SUBLIST_SIZE;
-        if (strategy == 0 || strategy == 3) return result;
-        else if (strategy == 1 || strategy == 2) return 8 - result;
-        else return result;
-    }
-
-    private static int getRan(int upper) {
+private static int getRan(int upper) {
         return (int)(Math.random() * upper);
     }
 
