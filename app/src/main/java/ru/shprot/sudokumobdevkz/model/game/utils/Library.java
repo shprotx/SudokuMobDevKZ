@@ -19,6 +19,7 @@ public class Library {
     public static final String KEY_WIN = "win";
     public static final String KEY_GAME_CONTINUED = "gameContinued";
     public static final String KEY_DIFF_STATISTIC = "diffForStatistic";
+    public static final String KEY_TIMER = "timer";
 
 
     /**

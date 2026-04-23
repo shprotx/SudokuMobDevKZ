@@ -17,6 +17,9 @@ import com.google.android.play.core.review.ReviewInfo;
 import com.google.android.play.core.review.ReviewManager;
 import com.google.android.play.core.review.ReviewManagerFactory;
 
+/**
+ * Play Market rating functionality — currently disabled, app is not in the store.
+ */
 public class AppRater {
 
     SharedPreferences sharedPreferences;
@@ -61,8 +64,8 @@ public class AppRater {
     }
 
     public void increaseInterval() {
-        long interval = sharedPreferences.getLong(RATE_PREFS_INTERVAL, 10) * 2;
-        editor.putLong(RATE_PREFS_INTERVAL, interval);
+        int interval = sharedPreferences.getInt(RATE_PREFS_INTERVAL, 10) * 2;
+        editor.putInt(RATE_PREFS_INTERVAL, interval);
         editor.apply();
     }
 }

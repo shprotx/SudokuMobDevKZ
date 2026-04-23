@@ -7,6 +7,7 @@ import static ru.shprot.sudokumobdevkz.model.game.utils.Library.KEY_GAME_CONTINU
 import static ru.shprot.sudokumobdevkz.model.game.utils.Library.KEY_GAME_STATE;
 import static ru.shprot.sudokumobdevkz.model.game.utils.Library.KEY_GRID;
 import static ru.shprot.sudokumobdevkz.model.game.utils.Library.KEY_ITEMS;
+import static ru.shprot.sudokumobdevkz.model.game.utils.Library.KEY_TIMER;
 import static ru.shprot.sudokumobdevkz.model.game.utils.Library.KEY_WIN;
 
 import android.content.res.Resources;
@@ -367,6 +368,7 @@ public class GameFragment extends Fragment implements MenuProvider, FragmentResu
         Bundle bundle = new Bundle();
         bundle.putIntArray(KEY_GRID, getGridForGameOverScreen());
         bundle.putBoolean(KEY_WIN, win);
+        bundle.putString(KEY_TIMER, binding.timerTextView.getText().toString());
         bundle.putInt("level", viewModel.gameState.getDifficulty());
         Navigation.findNavController(getActivity(), R.id.nav_host_fragment)
                 .navigate(R.id.action_gameFragment2_to_gameOverFragment, bundle);

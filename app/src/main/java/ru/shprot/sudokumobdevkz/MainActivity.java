@@ -76,8 +76,10 @@ public class MainActivity extends AppCompatActivity {
 
         loadingOverlay = new LoadingOverlay(findViewById(android.R.id.content));
 
-        AppRater appRater = new AppRater(this);
-        needToShowRate = appRater.app_launched();
+        /** Play Market functionality — currently disabled, app is not in the store */
+        // AppRater appRater = new AppRater(this);
+        // needToShowRate = appRater.app_launched();
+        needToShowRate = false;
     }
 
     public void showLoading() {

@@ -109,6 +109,7 @@ public class MainFragment extends Fragment implements MenuProvider {
     
     
     
+    /** Play Market rating functionality — currently disabled, app is not in the store. */
     private void showRate() {
         binding.logoText.setVisibility(View.GONE);
         binding.rateFirstStep.setVisibility(View.VISIBLE);

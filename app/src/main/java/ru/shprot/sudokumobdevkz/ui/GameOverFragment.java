@@ -1,6 +1,7 @@
 package ru.shprot.sudokumobdevkz.ui;
 
 import static ru.shprot.sudokumobdevkz.model.game.utils.Library.KEY_DIFF_STATISTIC;
+import static ru.shprot.sudokumobdevkz.model.game.utils.Library.KEY_TIMER;
 
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -19,7 +20,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -60,6 +60,7 @@ public class GameOverFragment extends Fragment implements MenuProvider {
         viewModel.setWin(bundle.getBoolean("win", true));
         viewModel.setItems(bundle.getIntArray("grid"));
         viewModel.setLevel(bundle.getInt("level"));
+        viewModel.setTimer(bundle.getString(KEY_TIMER, "00:00"));
 
         addListenersToButtons();
         setInfoAboutSolvedGame(viewModel.isWin());
@@ -97,6 +98,8 @@ public class GameOverFragment extends Fragment implements MenuProvider {
             binding.titleGameOverDialog.setText(getString(R.string.win));
         else
             binding.titleGameOverDialog.setText(getString(R.string.lose));
+        binding.timerGameOverTextView.setText(
+                getString(R.string.your_time) + " " + viewModel.getTimer());
     }
 
     private void addListenersToButtons() {

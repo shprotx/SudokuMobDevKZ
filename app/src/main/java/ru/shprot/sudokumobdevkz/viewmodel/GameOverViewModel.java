@@ -13,6 +13,7 @@ public class GameOverViewModel extends AndroidViewModel {
     private int cardSize;
     private boolean win;
     private int level;
+    private String timer;
 
     public GameOverViewModel(@NonNull Application application) {
         super(application);
@@ -67,5 +68,13 @@ public class GameOverViewModel extends AndroidViewModel {
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public String getTimer() {
+        return timer;
+    }
+
+    public void setTimer(String timer) {
+        this.timer = timer;
     }
 }

@@ -104,18 +104,22 @@ public class SettingsFragment extends Fragment {
                 Navigation.findNavController(getActivity(), R.id.nav_host_fragment).popBackStack();
                 changeOccurred(isStateChanged);
                 });
-        b.rateButton.setOnClickListener(v -> showRateDialog());
+        /** Play Market functionality — currently disabled, app is not in the store */
+        // b.rateButton.setOnClickListener(v -> showRateDialog());
+        b.rateButton.setVisibility(View.GONE);
         b.cardLightTheme.setOnClickListener(v -> applyTheme(AppCompatDelegate.MODE_NIGHT_NO, R.style.Theme_MyLight));
         b.cardDarkTheme.setOnClickListener(v -> applyTheme(AppCompatDelegate.MODE_NIGHT_YES, R.style.Theme_SudokuMobDevKZ));
         b.cardGreenTheme.setOnClickListener(v -> applyTheme(AppCompatDelegate.MODE_NIGHT_NO, R.style.Theme_SudokuMobDevKZ));
 
         b.hintCheckBox.setOnClickListener(v -> onUnlimitedHintsSelected());
         b.mistakeCheckBox.setOnClickListener(v -> onUnlimitedMistakesSelected());
-        b.supportButton.setOnClickListener(v -> {
-            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-            UpvoteDialog dialog = new UpvoteDialog();
-            dialog.show(fragmentManager, DIALOG_PAUSE);
-        });
+        /** Play Market functionality — currently disabled, app is not in the store */
+        // b.supportButton.setOnClickListener(v -> {
+        //     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        //     UpvoteDialog dialog = new UpvoteDialog();
+        //     dialog.show(fragmentManager, DIALOG_PAUSE);
+        // });
+        b.supportButton.setVisibility(View.GONE);
     }
 
 
