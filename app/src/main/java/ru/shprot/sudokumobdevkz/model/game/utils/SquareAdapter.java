@@ -97,7 +97,8 @@ public class SquareAdapter extends RecyclerView.Adapter<SquareAdapter.SquareHold
 
         @Override
         public void onClick(View v) {
-            int position = getAdapterPosition();
+            int position = getBindingAdapterPosition();
+            if (position == RecyclerView.NO_POSITION) return;
             Square square = items.get(position);
             int x = square.getX();
             int y = square.getY();
