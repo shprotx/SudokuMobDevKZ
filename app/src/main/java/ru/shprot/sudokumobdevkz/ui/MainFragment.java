@@ -6,6 +6,8 @@ import static ru.shprot.sudokumobdevkz.model.game.utils.Library.KEY_GAME_STATE;
 import static ru.shprot.sudokumobdevkz.model.game.utils.Library.KEY_ITEMS;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,10 +32,9 @@ import androidx.navigation.Navigation;
 import com.google.android.play.core.review.ReviewManager;
 import com.google.android.play.core.review.ReviewManagerFactory;
 
-import io.reactivex.Completable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import ru.shprot.sudokumobdevkz.MainActivity;
 import ru.shprot.sudokumobdevkz.R;
 import ru.shprot.sudokumobdevkz.databinding.FragmentMainBinding;
@@ -45,6 +46,8 @@ public class MainFragment extends Fragment implements MenuProvider {
     private FragmentMainBinding binding;
     private MenuViewModel viewModel;
     private Bundle bundle;
+    private final ExecutorService executor = Executors.newSingleThreadExecutor();
+    private final Handler mainHandler = new Handler(Looper.getMainLooper());
 
 
     @Override
@@ -105,10 +108,10 @@ public class MainFragment extends Fragment implements MenuProvider {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(R.string.main_page);
     }
 
-    
-    
-    
-    
+
+
+
+
     /** Play Market rating functionality — currently disabled, app is not in the store. */
     private void showRate() {
         binding.logoText.setVisibility(View.GONE);
@@ -208,14 +211,10 @@ public class MainFragment extends Fragment implements MenuProvider {
         }
     }
 
-    private Disposable newGameDisposable;
-
     private void prepareNewGame(int difficulty, boolean isContinue) {
         ((MainActivity) getActivity()).showLoading();
         binding.newGameMenu.setVisibility(View.GONE);
-        if (newGameDisposable != null && !newGameDisposable.isDisposed())
-            newGameDisposable.dispose();
-        newGameDisposable = Completable.fromAction(() -> {
+        executor.execute(() -> {
             if (!isContinue) {
                 viewModel.items = viewModel.generateGrid(difficulty);
                 viewModel.gameState = viewModel.calculateNumbers(difficulty);
@@ -225,23 +224,19 @@ public class MainFragment extends Fragment implements MenuProvider {
             bundle.putInt(KEY_DIFF, difficulty);
             bundle.putBoolean(KEY_GAME_CONTINUED, isContinue);
             bundle.putParcelable(KEY_GAME_STATE, viewModel.gameState);
-                })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> {
-                    if (isAdded()) {
-                        ((MainActivity) getActivity()).hideLoading();
-                        Navigation.findNavController(getActivity(), R.id.nav_host_fragment)
-                                .navigate(R.id.action_mainFragment2_to_gameFragment2, bundle);
-                    }
-                }, e -> {
-                    if (isAdded()) ((MainActivity) getActivity()).hideLoading();
-                });
+            mainHandler.post(() -> {
+                if (isAdded()) {
+                    ((MainActivity) getActivity()).hideLoading();
+                    Navigation.findNavController(getActivity(), R.id.nav_host_fragment)
+                            .navigate(R.id.action_mainFragment2_to_gameFragment2, bundle);
+                }
+            });
+        });
     }
 
-    
-    
-    
+
+
+
     @Override
     public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
         menu.clear();

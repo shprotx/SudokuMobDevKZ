@@ -6,12 +6,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import io.reactivex.SingleObserver;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 import ru.shprot.sudokumobdevkz.model.Repository;
 import ru.shprot.sudokumobdevkz.model.game.GameState;
 import ru.shprot.sudokumobdevkz.model.game.Square;
@@ -55,23 +50,9 @@ public class MenuViewModel extends AndroidViewModel {
     }
 
     public void getItems() {
-        repository.getItems().subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<List<Square>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onSuccess(List<Square> squares) {
-                        items = (ArrayList<Square>) squares;
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-                });
+        repository.getItems(result -> {
+            if (result != null)
+                items = new ArrayList<>(result);
+        });
     }
 }

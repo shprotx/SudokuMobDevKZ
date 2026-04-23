@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 
 import androidx.annotation.NonNull;
@@ -14,9 +16,9 @@ import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
-import io.reactivex.Completable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import ru.shprot.sudokumobdevkz.R;
 import ru.shprot.sudokumobdevkz.databinding.FragmentNewGameDialogBinding;
 import ru.shprot.sudokumobdevkz.model.game.GameState;
@@ -29,6 +31,8 @@ public class NewGameDialog extends DialogFragment {
 
     FragmentNewGameDialogBinding b;
     GameViewModel gameViewModel;
+    private final ExecutorService executor = Executors.newSingleThreadExecutor();
+    private final Handler mainHandler = new Handler(Looper.getMainLooper());
 
     public NewGameDialog(GameViewModel gameViewModel) {
         this.gameViewModel = gameViewModel;
@@ -55,7 +59,7 @@ public class NewGameDialog extends DialogFragment {
     private void prepareNewGame(int difficulty) {
         gameViewModel.deleteGridFromDb();
         gameViewModel.deleteStateFromDb();
-        Completable.fromAction(() -> {
+        executor.execute(() -> {
             Generator generator = new Generator();
             gameViewModel.items = generator.generate(difficulty);
             gameViewModel.gameState = new GameState();
@@ -65,14 +69,12 @@ public class NewGameDialog extends DialogFragment {
                     gameViewModel.gameState.increment(item.getValue());
                     gameViewModel.gameState.emptySquareCounter--;
                 }
-        })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> {
-                    gameViewModel.isGameRestarted = true;
-                    dismiss();
-                    if (getActivity() != null) getActivity().recreate();
-                }, e -> dismiss());
+            mainHandler.post(() -> {
+                gameViewModel.isGameRestarted = true;
+                dismiss();
+                if (getActivity() != null) getActivity().recreate();
+            });
+        });
     }
 
 

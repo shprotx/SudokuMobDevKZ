@@ -1,7 +1,6 @@
 package ru.shprot.sudokumobdevkz.ui;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +11,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 import ru.shprot.sudokumobdevkz.R;
 import ru.shprot.sudokumobdevkz.databinding.FragmentItemStatisticBinding;
 import ru.shprot.sudokumobdevkz.model.game.Statistic;
@@ -24,7 +20,6 @@ public class ItemStatisticFragment extends Fragment {
 
     FragmentItemStatisticBinding binding;
     StatisticViewModel viewModel;
-    private Disposable statisticDisposable;
 
     @Nullable
     @Override
@@ -40,14 +35,10 @@ public class ItemStatisticFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         Bundle bundle = getArguments();
         int position = bundle.getInt("position", 0);
-        statisticDisposable = viewModel.getStatistic(position + 1)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        statistic -> { if (isAdded()) loadData(statistic); },
-                        e -> {},
-                        () -> {}
-                );
+        viewModel.getStatistic(position + 1, statistic -> {
+            if (isAdded() && statistic != null)
+                loadData(statistic);
+        });
         binding.refreshButton.setOnClickListener(v -> clearStatistic(position + 1));
         binding.statToMainButton.setOnClickListener(v -> goToMainPage());
     }
@@ -78,13 +69,6 @@ public class ItemStatisticFragment extends Fragment {
         binding.bestLineTextView.setText(getString(R.string.zero));
         binding.currentLineTextView.setText(getString(R.string.zero));
         viewModel.removeCurrentStatistic(difficulty);
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        if (statisticDisposable != null && !statisticDisposable.isDisposed())
-            statisticDisposable.dispose();
     }
 
     public String getTimerString(int totalSeconds) {

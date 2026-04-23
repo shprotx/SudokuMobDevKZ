@@ -12,6 +12,8 @@ import static ru.shprot.sudokumobdevkz.model.game.utils.Library.KEY_WIN;
 
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -40,11 +42,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.color.MaterialColors;
 
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
+import java.util.Timer;
+import java.util.TimerTask;
 
-import io.reactivex.Flowable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 import ru.shprot.sudokumobdevkz.R;
 import ru.shprot.sudokumobdevkz.databinding.FragmentGameBinding;
 import ru.shprot.sudokumobdevkz.model.game.Square;
@@ -56,7 +56,8 @@ public class GameFragment extends Fragment implements MenuProvider, FragmentResu
 
     FragmentGameBinding binding;
     GameViewModel viewModel;
-
+    private final Handler mainHandler = new Handler(Looper.getMainLooper());
+    private long timerTick = 0;
 
 
     @Override
@@ -96,13 +97,26 @@ public class GameFragment extends Fragment implements MenuProvider, FragmentResu
 
 
     private void startTimer() {
-        if (viewModel.timer != null && !viewModel.timer.isDisposed())
-            viewModel.timer.dispose();
-        viewModel.timer = Flowable.interval(0, 1, TimeUnit.SECONDS)
-                .map(aLong -> viewModel.getTimerString(aLong))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(result -> binding.timerTextView.setText(result));
+        stopTimer();
+        timerTick = 0;
+        viewModel.timer = new Timer();
+        viewModel.timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                mainHandler.post(() -> {
+                    if (binding != null)
+                        binding.timerTextView.setText(viewModel.getTimerString(timerTick));
+                });
+                timerTick++;
+            }
+        }, 0, 1000);
+    }
+
+    private void stopTimer() {
+        if (viewModel.timer != null) {
+            viewModel.timer.cancel();
+            viewModel.timer = null;
+        }
     }
 
     private void getGrid() {
@@ -448,7 +462,7 @@ public class GameFragment extends Fragment implements MenuProvider, FragmentResu
         }
     }
     private void openPauseDialog() {
-        viewModel.timer.dispose();
+        stopTimer();
         hideItems();
         viewModel.calculateTimerStartValue(binding.timerTextView.getText().toString());
         FragmentManager f = getActivity().getSupportFragmentManager();
@@ -509,7 +523,7 @@ public class GameFragment extends Fragment implements MenuProvider, FragmentResu
     }
 
     private void openNewGameDialog() {
-        viewModel.timer.dispose();
+        stopTimer();
         hideItems();
         viewModel.calculateTimerStartValue(binding.timerTextView.getText().toString());
         FragmentManager f = getActivity().getSupportFragmentManager();
@@ -540,8 +554,7 @@ public class GameFragment extends Fragment implements MenuProvider, FragmentResu
         super.onPause();
         viewModel.calculateTimerStartValue(binding.timerTextView.getText().toString());
         viewModel.gameState.setTime(viewModel.gameState.getTime());
-        if (viewModel.timer != null && !viewModel.timer.isDisposed())
-            viewModel.timer.dispose();
+        stopTimer();
     }
 
 

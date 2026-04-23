@@ -9,6 +9,8 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
@@ -16,19 +18,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.view.WindowCompat;
 
-import java.util.concurrent.TimeUnit;
-
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 import ru.shprot.sudokumobdevkz.databinding.ActivityFirstBinding;
 import ru.shprot.sudokumobdevkz.model.game.utils.Library;
 
 public class FirstActivity extends AppCompatActivity {
 
-
-    private Disposable count;
+    private final Handler handler = new Handler(Looper.getMainLooper());
+    private final Runnable navigateRunnable = () ->
+            startActivity(new Intent(FirstActivity.this, MainActivity.class));
 
 
     @Override
@@ -40,21 +37,9 @@ public class FirstActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.anim_logo);
-
         binding.logoText.startAnimation(animation);
 
-
-
-        count = Observable.interval(1, TimeUnit.SECONDS)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(aLong -> {
-                    if (aLong == 1) {
-                        startActivity(new Intent(FirstActivity.this, MainActivity.class));
-                    }
-                });
-
-        //determineLocale();
+        handler.postDelayed(navigateRunnable, 1000);
     }
 
     private void updateTheme() {
@@ -70,7 +55,7 @@ public class FirstActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        count.dispose();
+        handler.removeCallbacks(navigateRunnable);
     }
 
     private void determineLocale() {

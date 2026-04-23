@@ -16,10 +16,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import io.reactivex.MaybeObserver;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 import ru.shprot.sudokumobdevkz.model.Repository;
 import ru.shprot.sudokumobdevkz.model.game.GameState;
 import ru.shprot.sudokumobdevkz.model.game.Square;
@@ -32,7 +28,7 @@ public class GameViewModel extends AndroidViewModel {
     public ArrayList<Square> items;
     public SquareAdapter adapter;
     public HashMap<Integer, Integer> backup = new HashMap<>();
-    public Disposable timer;
+    public java.util.Timer timer;
     public TextView[] buttons;
     public GameState gameState;
 
@@ -71,36 +67,13 @@ public class GameViewModel extends AndroidViewModel {
         repository.insertStatistic(statistic);
     }
     public void getStatisticFromDb(int difficulty) {
-        repository.getStatistic(difficulty)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new MaybeObserver<Statistic>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onSuccess(Statistic s) {
-                        statistic = s;
-//                        if (!isGameContinued) {
-//                            statistic.setGamesStarted(statistic.getGamesStarted() + 1);
-//                            insertStatistic(statistic);
-//                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        statistic = new Statistic(difficulty);
-//                        statistic.setGamesStarted(1);
-//                        insertStatistic(statistic);
-                    }
-                });
+        repository.getStatistic(difficulty, result -> {
+            if (result != null) {
+                statistic = result;
+            } else {
+                statistic = new Statistic(difficulty);
+            }
+        });
     }
     public void insertGridToDb(List<Square> list) {
         repository.insertItems(list);
