@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
+import ru.shprot.sudokumobdevkz.model.FirebaseSync;
 import ru.shprot.sudokumobdevkz.model.Repository;
 import ru.shprot.sudokumobdevkz.model.game.Statistic;
 
@@ -20,6 +21,10 @@ public class StatisticViewModel extends AndroidViewModel {
 
     public void getStatistic(int difficulty, Repository.StatisticCallback callback) {
         repository.getStatistic(difficulty, callback);
+    }
+
+    public void getPercentile(int difficulty, int userAverageTime, FirebaseSync.PercentileCallback callback) {
+        repository.fetchPercentile(getApplication(), difficulty, userAverageTime, callback);
     }
 
     public void removeCurrentStatistic(int difficulty) {

@@ -1,6 +1,7 @@
 package ru.shprot.sudokumobdevkz.model;
 
 import android.app.Application;
+import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -121,6 +122,15 @@ public class Repository {
                 Log.e(TAG, "DB operation failed", e);
             }
         });
+    }
+
+    public void syncStatisticToFirebase(Context context, Statistic statistic) {
+        executor.execute(() -> FirebaseSync.uploadStatistic(context, statistic));
+    }
+
+    public void fetchPercentile(Context context, int difficulty, int userAverageTime,
+                                FirebaseSync.PercentileCallback callback) {
+        FirebaseSync.fetchPercentile(context, difficulty, userAverageTime, callback, executor, mainHandler);
     }
 
     public void deleteGridFromDb() {

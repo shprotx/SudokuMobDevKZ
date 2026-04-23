@@ -50,4 +50,10 @@ public class Library {
     public static final String RATE_PREFS_NEVER = "neverShowRate";
     public static final String RATE_PREFS_INTERVAL = "showInterval";
 
+
+    /**
+     * Firebase
+     */
+    public static final String FIREBASE_DB_URL = "https://YOUR_PROJECT_ID.firebaseio.com";
+
 }
