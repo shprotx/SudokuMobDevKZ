@@ -66,6 +66,32 @@ public class FirebaseSync {
         }
     }
 
+    public static void clearStatistic(Context context, int difficulty) {
+        if (FIREBASE_DB_URL.isEmpty()) return;
+        HttpURLConnection connection = null;
+        try {
+            String deviceId = getDeviceId(context);
+            String url = FIREBASE_DB_URL + "/stats/" + deviceId + "/" + difficulty + ".json";
+            String json = "{\"averageTime\":0,\"bestTime\":0,\"gamesWon\":0,\"gamesStarted\":0}";
+
+            connection = (HttpURLConnection) new URL(url).openConnection();
+            connection.setRequestMethod("PUT");
+            connection.setRequestProperty("Content-Type", "application/json");
+            connection.setDoOutput(true);
+            connection.setConnectTimeout(5000);
+            connection.setReadTimeout(5000);
+
+            try (OutputStream os = connection.getOutputStream()) {
+                os.write(json.getBytes(StandardCharsets.UTF_8));
+            }
+            connection.getResponseCode();
+        } catch (Exception e) {
+            Log.e(TAG, "Clear statistic failed", e);
+        } finally {
+            if (connection != null) connection.disconnect();
+        }
+    }
+
     public static void fetchPercentile(Context context, int difficulty, int userAverageTime,
                                        PercentileCallback callback,
                                        ExecutorService executor, Handler mainHandler) {

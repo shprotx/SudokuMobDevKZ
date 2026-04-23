@@ -29,5 +29,6 @@ public class StatisticViewModel extends AndroidViewModel {
 
     public void removeCurrentStatistic(int difficulty) {
         repository.removeCurrentStatistic(difficulty);
+        repository.clearFirebaseStatistic(getApplication(), difficulty);
     }
 }

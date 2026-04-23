@@ -38,6 +38,10 @@ public class Repository {
     }
 
 
+    public void clearFirebaseStatistic(Context context, int difficulty) {
+        executor.execute(() -> FirebaseSync.clearStatistic(context, difficulty));
+    }
+
     public void removeCurrentStatistic(int difficulty) {
         executor.execute(() -> {
             try {
