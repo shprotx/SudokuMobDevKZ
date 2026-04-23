@@ -1,7 +1,5 @@
 package ru.shprot.sudokumobdevkz.model;
 
-import static ru.shprot.sudokumobdevkz.model.game.utils.Library.FIREBASE_DB_URL;
-
 import android.content.Context;
 import android.os.Handler;
 import android.provider.Settings;
@@ -18,11 +16,13 @@ import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 import java.util.concurrent.ExecutorService;
 
+import ru.shprot.sudokumobdevkz.BuildConfig;
 import ru.shprot.sudokumobdevkz.model.game.Statistic;
 
 public class FirebaseSync {
 
     private static final String TAG = "FirebaseSync";
+    private static final String FIREBASE_DB_URL = BuildConfig.FIREBASE_DB_URL;
 
     public interface PercentileCallback {
         void onResult(int percentile, int totalPlayers);
@@ -33,6 +33,7 @@ public class FirebaseSync {
     }
 
     public static void uploadStatistic(Context context, Statistic statistic) {
+        if (FIREBASE_DB_URL.isEmpty()) return;
         HttpURLConnection connection = null;
         try {
             String deviceId = getDeviceId(context);
@@ -69,6 +70,10 @@ public class FirebaseSync {
                                        PercentileCallback callback,
                                        ExecutorService executor, Handler mainHandler) {
         executor.execute(() -> {
+            if (FIREBASE_DB_URL.isEmpty()) {
+                mainHandler.post(() -> callback.onResult(-1, 0));
+                return;
+            }
             HttpURLConnection connection = null;
             try {
                 String deviceId = getDeviceId(context);
