@@ -65,6 +65,7 @@ public class GameViewModel extends AndroidViewModel {
 
     public void insertStatistic(Statistic statistic) {
         repository.insertStatistic(statistic);
+        repository.syncStatisticToFirebase(getApplication(), statistic);
     }
     public void getStatisticFromDb(int difficulty) {
         repository.getStatistic(difficulty, result -> {

@@ -52,6 +52,7 @@
     <string name="full_statistic">Full statistic</string>
     <string name="you_won">You won!</string>
     <string name="your_time">Time:</string>
+    <string name="faster_than">You\'re faster than %d%% of players</string>
     <string name="go_back">Go back</string>
     <string name="app_language">App language:</string>
     <string name="support_the_developer">Support the developer</string>

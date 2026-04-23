@@ -57,6 +57,17 @@ public class ItemStatisticFragment extends Fragment {
         binding.mistakesTextView.setText(String.valueOf(statistic.getWinsWithoutErrors()));
         binding.bestLineTextView.setText(String.valueOf(statistic.getBestWinsLine()));
         binding.currentLineTextView.setText(String.valueOf(statistic.getCurrentWinsLine()));
+
+        if (statistic.getAverageTime() > 0) {
+            viewModel.getPercentile(statistic.getDifficulty(), statistic.getAverageTime(),
+                    (percentile, totalPlayers) -> {
+                        if (isAdded() && percentile >= 0) {
+                            binding.percentileTextView.setText(
+                                    getString(R.string.faster_than, percentile));
+                            binding.percentileTextView.setVisibility(View.VISIBLE);
+                        }
+                    });
+        }
     }
 
     private void clearStatistic(int difficulty) {
@@ -69,6 +80,7 @@ public class ItemStatisticFragment extends Fragment {
         binding.bestLineTextView.setText(getString(R.string.zero));
         binding.currentLineTextView.setText(getString(R.string.zero));
         viewModel.removeCurrentStatistic(difficulty);
+        binding.percentileTextView.setVisibility(View.GONE);
     }
 
     public String getTimerString(int totalSeconds) {

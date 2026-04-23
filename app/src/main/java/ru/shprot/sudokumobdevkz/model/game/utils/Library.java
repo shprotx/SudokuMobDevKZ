@@ -50,4 +50,5 @@ public class Library {
     public static final String RATE_PREFS_NEVER = "neverShowRate";
     public static final String RATE_PREFS_INTERVAL = "showInterval";
 
+
 }
