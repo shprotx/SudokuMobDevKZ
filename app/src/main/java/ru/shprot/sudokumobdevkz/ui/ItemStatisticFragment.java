@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
 import ru.shprot.sudokumobdevkz.R;
 import ru.shprot.sudokumobdevkz.databinding.FragmentItemStatisticBinding;
 import ru.shprot.sudokumobdevkz.model.game.Statistic;
@@ -39,7 +41,7 @@ public class ItemStatisticFragment extends Fragment {
             if (isAdded() && statistic != null)
                 loadData(statistic);
         });
-        binding.refreshButton.setOnClickListener(v -> clearStatistic(position + 1));
+        binding.refreshButton.setOnClickListener(v -> showClearConfirmDialog(position + 1));
         binding.statToMainButton.setOnClickListener(v -> goToMainPage());
     }
 
@@ -68,6 +70,15 @@ public class ItemStatisticFragment extends Fragment {
                         }
                     });
         }
+    }
+
+    private void showClearConfirmDialog(int difficulty) {
+        new MaterialAlertDialogBuilder(requireContext())
+                .setTitle(R.string.clear_statistic)
+                .setMessage(R.string.clear_statistic_confirm)
+                .setPositiveButton(R.string.yes, (dialog, which) -> clearStatistic(difficulty))
+                .setNegativeButton(R.string.cancel, null)
+                .show();
     }
 
     private void clearStatistic(int difficulty) {

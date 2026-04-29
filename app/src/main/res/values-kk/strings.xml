@@ -71,6 +71,8 @@
     <string name="update_later">Кейінірек</string>
     <string name="update_downloading">Жүктелуде… %d%%</string>
     <string name="update_error">Жүктеу қатесі. Кейінірек қайталаңыз.</string>
+    <string name="update_play_protect_hint">Google Play Protect ескерту көрсетуі мүмкін — бұл Play Store-дан тыс орнатылған қолданбалар үшін қалыпты жағдай.</string>
+    <string name="clear_statistic_confirm">Барлық статистиканы тазалағыңыз келетініне сенімдісіз бе? Бұл әрекетті қайтару мүмкін емес.</string>
 
     <string name="how_desc_one">Ойын мақсаты - барлық қатынастарда, жолдарда және блоктарда 1-ден 9-ға дейін сандармен бос орындарды толтыру. Сандар қайталанбауышы керек. Ойын кесірліктерін көріп, бос квадраттарды сандармен толтырыңыз.</string>
 
