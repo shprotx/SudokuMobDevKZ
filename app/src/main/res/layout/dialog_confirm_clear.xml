@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:backgroundTint="?attr/pageBackground"
+    app:cardCornerRadius="15dp"
+    app:strokeColor="?attr/CardBordersBackground"
+    app:strokeWidth="2dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <TextView
+            android:id="@+id/titleClearDialog"
+            style="?attr/textAppearanceHeadline6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="15dp"
+            android:text="@string/clear_statistic"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/dialogDivider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/titleClearDialog" />
+
+        <soup.neumorphism.NeumorphCardView
+            android:id="@+id/messageCard"
+            style="@style/Widget.MaterialComponents.CardView.Statistic"
+            android:layout_marginTop="17dp"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dialogDivider">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="?attr/fontFamily"
+                android:padding="8dp"
+                android:text="@string/clear_statistic_confirm"
+                android:textSize="16sp" />
+        </soup.neumorphism.NeumorphCardView>
+
+        <soup.neumorphism.NeumorphButton
+            android:id="@+id/buttonConfirmClear"
+            style="@style/NeoButtons"
+            android:layout_marginTop="20dp"
+            android:fontFamily="?attr/fontFamily"
+            android:text="@string/yes"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/messageCard"
+            app:neumorph_backgroundColor="?attr/buttonBodyColorTheme"
+            app:neumorph_inset="12dp"
+            app:neumorph_lightSource="leftTop"
+            app:neumorph_shadowColorDark="?attr/buttonShadowDarkTheme"
+            app:neumorph_shadowColorLight="?attr/buttonShadowLightTheme"
+            app:neumorph_shadowElevation="6dp"
+            app:neumorph_shapeAppearance="@style/CustomShapeAppearance"
+            app:neumorph_shapeType="flat" />
+
+        <soup.neumorphism.NeumorphButton
+            android:id="@+id/buttonCancelClear"
+            style="@style/NeoButtons"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="15dp"
+            android:fontFamily="?attr/fontFamily"
+            android:text="@string/cancel"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/buttonConfirmClear"
+            app:neumorph_backgroundColor="?attr/buttonBodyColorTheme"
+            app:neumorph_inset="12dp"
+            app:neumorph_lightSource="leftTop"
+            app:neumorph_shadowColorDark="?attr/buttonShadowDarkTheme"
+            app:neumorph_shadowColorLight="?attr/buttonShadowLightTheme"
+            app:neumorph_shadowElevation="6dp"
+            app:neumorph_shapeAppearance="@style/CustomShapeAppearance"
+            app:neumorph_shapeType="flat" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
