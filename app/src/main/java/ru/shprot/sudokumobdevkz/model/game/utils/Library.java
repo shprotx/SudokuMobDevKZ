@@ -51,4 +51,10 @@ public class Library {
     public static final String RATE_PREFS_INTERVAL = "showInterval";
 
 
+    /**
+     * Update
+     */
+    public static final String UPDATE_PREFS = "updatePrefs";
+    public static final String UPDATE_SKIPPED_VERSION = "skippedVersion";
+
 }

@@ -89,6 +89,13 @@
 
     <string name="how_desc_two" translatable="false">Each game has only one unique solution. The illustration shows that only the number 5 fits into the selected cell. But the solution is not always so obvious. To enter a suitable value, tap the free cell, and then select the desired number under the playing field. </string>
 
+    <!-- Update -->
+    <string name="update_available_title">New version available</string>
+    <string name="update_button">Update</string>
+    <string name="update_later">Later</string>
+    <string name="update_downloading">Downloading… %d%%</string>
+    <string name="update_error">Download failed. Try again later.</string>
+
     <string name="how_desc_three" translatable="false">When you solve Sudoku on paper, you leave notes in pencil. Here, too, you can :) Note mode is enabled by the corresponding button at the bottom of the screen. Note - your best assistant. In addition, there is no need to erase them afterwards - the moment you enter your final decision into the cell, the notes will automatically disappear.</string>
 
 
