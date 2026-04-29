@@ -1,5 +1,7 @@
 # SudokuMobDevKZ
 
+Проект прям легаси-легаси. Отнеситесь с пониманием.
+
 Мобильная головоломка Судоку для Android. Распространяется через APK — скачивайте последнюю версию в [Releases](https://github.com/shprotx/SudokuMobDevKZ/releases/latest).
 
 ## Особенности
