@@ -46,10 +46,25 @@ jobs:
       - name: Rename APK
         run: mv app/build/outputs/apk/release/app-release.apk app/build/outputs/apk/release/sudoku-v${{ steps.version.outputs.name }}.apk
 
+      - name: Extract release notes from PR body
+        id: notes
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          NOTES=$(echo "$PR_BODY" | sed -n '/^## Что нового/,/^## /{ /^## Что нового/d; /^## /d; p; }')
+          if [ -z "$NOTES" ]; then
+            NOTES="Обновление до версии ${{ steps.version.outputs.name }}"
+          fi
+          {
+            echo "body<<RELEASE_EOF"
+            echo "$NOTES"
+            echo "RELEASE_EOF"
+          } >> "$GITHUB_OUTPUT"
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ steps.version.outputs.name }}
-          name: Sudoku v${{ steps.version.outputs.name }}
+          name: Судоку v${{ steps.version.outputs.name }}
           files: app/build/outputs/apk/release/sudoku-v${{ steps.version.outputs.name }}.apk
-          generate_release_notes: true
+          body: ${{ steps.notes.outputs.body }}

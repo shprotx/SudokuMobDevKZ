@@ -1,5 +1,7 @@
 package ru.shprot.sudokumobdevkz.ui;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +9,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -73,12 +76,19 @@ public class ItemStatisticFragment extends Fragment {
     }
 
     private void showClearConfirmDialog(int difficulty) {
-        new MaterialAlertDialogBuilder(requireContext())
-                .setTitle(R.string.clear_statistic)
-                .setMessage(R.string.clear_statistic_confirm)
-                .setPositiveButton(R.string.yes, (dialog, which) -> clearStatistic(difficulty))
-                .setNegativeButton(R.string.cancel, null)
-                .show();
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(
+                requireContext(), R.style.RoundedCornersDialog);
+        View view = getLayoutInflater().inflate(R.layout.dialog_confirm_clear, null);
+        builder.setView(view);
+        builder.setBackground(new ColorDrawable(Color.TRANSPARENT));
+        AlertDialog dialog = builder.create();
+        dialog.setCanceledOnTouchOutside(false);
+        view.findViewById(R.id.buttonConfirmClear).setOnClickListener(v -> {
+            clearStatistic(difficulty);
+            dialog.dismiss();
+        });
+        view.findViewById(R.id.buttonCancelClear).setOnClickListener(v -> dialog.dismiss());
+        dialog.show();
     }
 
     private void clearStatistic(int difficulty) {
