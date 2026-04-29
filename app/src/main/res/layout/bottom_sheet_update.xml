@@ -56,6 +56,18 @@
         android:textSize="@dimen/_10ssp"
         android:visibility="gone" />
 
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/updatePlayProtectHint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:fontFamily="?attr/fontFamily"
+        android:text="@string/update_play_protect_hint"
+        android:textColor="?attr/grayNumberColorTheme"
+        android:textSize="@dimen/_10ssp"
+        android:textStyle="italic" />
+
     <soup.neumorphism.NeumorphButton
         android:id="@+id/buttonUpdate"
         style="@style/NeoButtons"
