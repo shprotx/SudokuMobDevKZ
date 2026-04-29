@@ -95,6 +95,8 @@
     <string name="update_later">Later</string>
     <string name="update_downloading">Downloading… %d%%</string>
     <string name="update_error">Download failed. Try again later.</string>
+    <string name="update_play_protect_hint">Google Play Protect may show a warning — this is normal for apps installed outside the Play Store.</string>
+    <string name="clear_statistic_confirm">Are you sure you want to clear all statistics? This action cannot be undone.</string>
 
     <string name="how_desc_three" translatable="false">When you solve Sudoku on paper, you leave notes in pencil. Here, too, you can :) Note mode is enabled by the corresponding button at the bottom of the screen. Note - your best assistant. In addition, there is no need to erase them afterwards - the moment you enter your final decision into the cell, the notes will automatically disappear.</string>
 

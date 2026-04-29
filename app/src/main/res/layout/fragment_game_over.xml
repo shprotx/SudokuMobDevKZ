@@ -16,15 +16,6 @@
         android:text="@string/you_won"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/timerGameOverTextView" />
-
-    <TextView
-        android:id="@+id/timerGameOverTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingBottom="8dp"
-        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/winCardView" />
 
     <com.google.android.material.card.MaterialCardView
@@ -34,7 +25,7 @@
         android:background="?attr/pageBackground"
         android:elevation="5dp"
         app:cardCornerRadius="5dp"
-        app:layout_constraintBottom_toTopOf="@id/buttonToStatisticFromFragment"
+        app:layout_constraintBottom_toTopOf="@id/timerGameOverTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -64,6 +55,16 @@
 
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/timerGameOverTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="8dp"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@+id/winCardView"
+        app:layout_constraintBottom_toTopOf="@id/buttonToStatisticFromFragment" />
 
     <soup.neumorphism.NeumorphButton
         android:id="@+id/buttonToStatisticFromFragment"
