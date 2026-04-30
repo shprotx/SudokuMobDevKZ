@@ -60,6 +60,7 @@ public class FirstActivity extends AppCompatActivity {
 
         Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_logo);
         binding.logoText.startAnimation(animation);
+        binding.versionText.setText("v" + getVersionName());
 
         checkForUpdate();
     }

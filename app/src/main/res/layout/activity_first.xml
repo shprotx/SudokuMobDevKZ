@@ -16,4 +16,14 @@
         android:textColor="?attr/logoTextColorTheme"
         android:textSize="?attr/logoSize" />
 
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/versionText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="32dp"
+        android:textColor="?attr/logoTextColorTheme"
+        android:textSize="13sp"
+        android:alpha="0.6" />
+
 </FrameLayout>
