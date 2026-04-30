@@ -17,12 +17,12 @@
 
         <TextView
             android:id="@+id/titlePauseDialog"
-            style="?attr/textAppearanceHeadline5"
+            style="?attr/textAppearanceHeadline6"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:paddingHorizontal="30dp"
-            android:paddingVertical="20dp"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="12dp"
             android:text="@string/pause"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
