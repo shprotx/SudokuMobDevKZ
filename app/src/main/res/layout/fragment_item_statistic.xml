@@ -73,10 +73,9 @@
             android:textStyle="italic"
             android:visibility="gone" />
 
-        <com.google.android.material.divider.MaterialDivider
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp" />
+            android:layout_height="20dp" />
 
         <!-- Games -->
         <LinearLayout
@@ -127,10 +126,9 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <com.google.android.material.divider.MaterialDivider
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp" />
+            android:layout_height="20dp" />
 
         <!-- Percent & Mistakes -->
         <LinearLayout
@@ -181,10 +179,9 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <com.google.android.material.divider.MaterialDivider
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp" />
+            android:layout_height="20dp" />
 
         <!-- Win streaks -->
         <LinearLayout
