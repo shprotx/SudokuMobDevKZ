@@ -31,6 +31,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import ru.shprot.sudokumobdevkz.databinding.ActivityFirstBinding;
+import ru.shprot.sudokumobdevkz.model.CrashReporter;
 import ru.shprot.sudokumobdevkz.model.game.utils.Library;
 import ru.shprot.sudokumobdevkz.model.update.ApkDownloader;
 import ru.shprot.sudokumobdevkz.model.update.UpdateChecker;
@@ -52,12 +53,14 @@ public class FirstActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         updateTheme();
         super.onCreate(savedInstanceState);
+        CrashReporter.init(this);
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         ActivityFirstBinding binding = ActivityFirstBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_logo);
         binding.logoText.startAnimation(animation);
+        binding.versionText.setText("v" + getVersionName());
 
         checkForUpdate();
     }
@@ -137,6 +140,7 @@ public class FirstActivity extends AppCompatActivity {
                             isDownloading = false;
                             dialog.dismiss();
                             ApkDownloader.installApk(FirstActivity.this, apkFile);
+                            finishAffinity();
                         }
 
                         @Override
