@@ -47,6 +47,7 @@ public class FirstActivity extends AppCompatActivity {
     };
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
     private boolean isDownloading = false;
+    private boolean isInstalling = false;
 
 
     @Override
@@ -138,6 +139,7 @@ public class FirstActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(File apkFile) {
                             isDownloading = false;
+                            isInstalling = true;
                             dialog.dismiss();
                             ApkDownloader.installApk(FirstActivity.this, apkFile);
                             finishAffinity();
@@ -165,7 +167,7 @@ public class FirstActivity extends AppCompatActivity {
         });
 
         dialog.setOnCancelListener(d -> {
-            if (!isDownloading) {
+            if (!isDownloading && !isInstalling) {
                 navigateToMain();
             }
         });
