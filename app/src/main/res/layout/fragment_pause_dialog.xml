@@ -102,7 +102,7 @@
 
         <soup.neumorphism.NeumorphButton
             android:id="@+id/buttonContinFragment"
-            style="@style/NeoButtons"
+            style="@style/NeoButtonsCompact"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="15dp"
             android:fontFamily="?attr/fontFamily"

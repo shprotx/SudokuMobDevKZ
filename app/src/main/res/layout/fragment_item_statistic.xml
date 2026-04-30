@@ -219,10 +219,10 @@
 
         <soup.neumorphism.NeumorphButton
             android:id="@+id/refreshButton"
-            style="@style/NeoButtons"
+            style="@style/NeoButtonsCompact"
             android:layout_gravity="end"
-            android:layout_marginTop="70dp"
-            android:layout_marginBottom="17dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="8dp"
             android:fontFamily="?attr/fontFamily"
             android:text="@string/clear_statistic"
             app:neumorph_backgroundColor="?attr/buttonBodyColorTheme"
@@ -236,9 +236,9 @@
 
         <soup.neumorphism.NeumorphButton
             android:id="@+id/statToMainButton"
-            style="@style/NeoButtons"
+            style="@style/NeoButtonsCompact"
             android:layout_gravity="end"
-            android:layout_marginBottom="29dp"
+            android:layout_marginBottom="20dp"
             android:fontFamily="?attr/fontFamily"
             android:text="@string/go_to_main_page"
             app:neumorph_backgroundColor="?attr/buttonBodyColorTheme"

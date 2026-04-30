@@ -70,7 +70,7 @@
 
     <soup.neumorphism.NeumorphButton
         android:id="@+id/buttonUpdate"
-        style="@style/NeoButtons"
+        style="@style/NeoButtonsCompact"
         android:layout_marginStart="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_15sdp"
         android:layout_marginEnd="@dimen/_20sdp"

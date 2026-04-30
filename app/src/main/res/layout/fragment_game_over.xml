@@ -68,7 +68,7 @@
 
     <soup.neumorphism.NeumorphButton
         android:id="@+id/buttonToStatisticFromFragment"
-        style="@style/NeoButtons"
+        style="@style/NeoButtonsCompact"
         android:layout_marginBottom="5dp"
         android:fontFamily="?attr/fontFamily"
         android:text="@string/full_statistic"
@@ -85,7 +85,7 @@
 
     <soup.neumorphism.NeumorphButton
         android:id="@+id/buttonToHomeFromFragment"
-        style="@style/NeoButtons"
+        style="@style/NeoButtonsCompact"
         android:layout_marginBottom="10dp"
         android:fontFamily="?attr/fontFamily"
         android:text="@string/go_to_main_page"
