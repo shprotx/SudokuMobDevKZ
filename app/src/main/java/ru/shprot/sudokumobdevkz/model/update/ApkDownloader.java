@@ -1,17 +1,16 @@
 package ru.shprot.sudokumobdevkz.model.update;
 
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInstaller;
+import android.net.Uri;
 import android.os.Handler;
 import android.util.Log;
 
+import androidx.core.content.FileProvider;
+
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.concurrent.ExecutorService;
@@ -84,34 +83,12 @@ public class ApkDownloader {
     }
 
     public static void installApk(Context context, File apkFile) {
-        try {
-            PackageInstaller installer = context.getPackageManager().getPackageInstaller();
-            PackageInstaller.SessionParams params = new PackageInstaller.SessionParams(
-                    PackageInstaller.SessionParams.MODE_FULL_INSTALL);
-            params.setSize(apkFile.length());
-
-            int sessionId = installer.createSession(params);
-            PackageInstaller.Session session = installer.openSession(sessionId);
-
-            try (FileInputStream fis = new FileInputStream(apkFile);
-                 OutputStream out = session.openWrite("update.apk", 0, apkFile.length())) {
-
-                byte[] buffer = new byte[BUFFER_SIZE];
-                int bytesRead;
-                while ((bytesRead = fis.read(buffer)) != -1) {
-                    out.write(buffer, 0, bytesRead);
-                }
-                session.fsync(out);
-            }
-
-            Intent intent = new Intent(context, InstallReceiver.class);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, sessionId,
-                    intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE);
-
-            session.commit(pendingIntent.getIntentSender());
-
-        } catch (Exception e) {
-            Log.e(TAG, "PackageInstaller failed", e);
-        }
+        Uri apkUri = FileProvider.getUriForFile(context,
+                context.getPackageName() + ".fileprovider", apkFile);
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
     }
 }
