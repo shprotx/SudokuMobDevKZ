@@ -82,8 +82,8 @@ private fun ActionButton(
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Box(
             modifier = Modifier
-                .width(64.dp)
-                .height(52.dp)
+                .width(72.dp)
+                .height(56.dp)
                 .border(1.dp, AppTheme.colors.divider, shape),
             contentAlignment = Alignment.Center,
         ) {

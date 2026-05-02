@@ -76,7 +76,7 @@ fun GameScreen(
 
             // Number buttons
             NumberPanel(
-                modifier = Modifier.padding(horizontal = AppTheme.paddings.default),
+                modifier = Modifier.padding(horizontal = AppTheme.paddings.medium),
                 onNumberClick = { },
             )
 

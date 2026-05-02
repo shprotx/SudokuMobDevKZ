@@ -38,13 +38,11 @@ fun GameToolbar(
             ),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        IconButton(onClick = onBackClick) {
-            Icon(
-                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                contentDescription = "Назад",
-                tint = AppTheme.colors.text,
-            )
-        }
+        ToolbarCircleButton(
+            icon = Icons.AutoMirrored.Filled.ArrowBack,
+            contentDescription = "Назад",
+            onClick = onBackClick,
+        )
 
         Text(
             modifier = Modifier.weight(1f),

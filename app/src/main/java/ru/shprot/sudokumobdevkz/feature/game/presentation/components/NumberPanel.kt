@@ -28,7 +28,7 @@ fun NumberPanel(
 
     Row(
         modifier = modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceEvenly,
+        horizontalArrangement = Arrangement.spacedBy(4.dp),
     ) {
         for (num in 1..9) {
             Box(
