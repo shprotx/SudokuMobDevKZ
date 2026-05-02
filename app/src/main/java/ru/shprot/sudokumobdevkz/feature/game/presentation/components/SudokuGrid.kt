@@ -11,18 +11,20 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.rememberTextMeasurer
-import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.unit.sp
+import androidx.compose.ui.unit.Density
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
+import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.CellData
 
 @Composable
 fun SudokuGrid(
     modifier: Modifier = Modifier,
+    cells: Array<Array<CellData>>,
     selectedRow: Int,
     selectedCol: Int,
     onCellClick: (row: Int, col: Int) -> Unit,
@@ -31,8 +33,12 @@ fun SudokuGrid(
     val gridLineBold = AppTheme.colors.gridLineBold
     val cellSelected = AppTheme.colors.cellSelected
     val cellHighlight = AppTheme.colors.cellHighlight
+    val cellErrorColor = AppTheme.colors.cellError
     val background = AppTheme.colors.backgroundCard
-    val textColor = AppTheme.colors.cellFixed
+    val fixedColor = AppTheme.colors.cellFixed
+    val editableColor = AppTheme.colors.cellEditable
+    val errorColor = AppTheme.colors.error
+    val draftColor = AppTheme.colors.draftText
     val textMeasurer = rememberTextMeasurer()
     val density = LocalDensity.current
 
@@ -53,23 +59,39 @@ fun SudokuGrid(
 
         drawRect(color = background, size = size)
 
-        drawHighlights(selectedRow, selectedCol, cellSize, cellSelected, cellHighlight)
+        drawHighlights(cells, selectedRow, selectedCol, cellSize, cellSelected, cellHighlight, cellErrorColor)
+
+        drawNumbers(cells, cellSize, fixedColor, editableColor, errorColor, draftColor, textMeasurer, density)
 
         drawGridLines(cellSize, gridLine, gridLineBold)
-
-        drawPlaceholderNumbers(cellSize, textColor, textMeasurer, density)
     }
 }
 
 private fun DrawScope.drawHighlights(
+    cells: Array<Array<CellData>>,
     selectedRow: Int,
     selectedCol: Int,
     cellSize: Float,
     cellSelected: Color,
     cellHighlight: Color,
+    cellErrorColor: Color,
 ) {
+    // Error cells
+    for (r in 0 until 9) {
+        for (c in 0 until 9) {
+            if (cells[r][c].isError) {
+                drawRect(
+                    color = cellErrorColor,
+                    topLeft = Offset(c * cellSize, r * cellSize),
+                    size = Size(cellSize, cellSize),
+                )
+            }
+        }
+    }
+
     if (selectedRow < 0 || selectedCol < 0) return
 
+    // Row + column
     for (i in 0 until 9) {
         drawRect(
             color = cellHighlight,
@@ -84,6 +106,7 @@ private fun DrawScope.drawHighlights(
         )
     }
 
+    // Region
     val regionStartRow = (selectedRow / 3) * 3
     val regionStartCol = (selectedCol / 3) * 3
     for (r in regionStartRow until regionStartRow + 3) {
@@ -96,11 +119,66 @@ private fun DrawScope.drawHighlights(
         }
     }
 
+    // Selected cell
     drawRect(
         color = cellSelected,
         topLeft = Offset(selectedCol * cellSize, selectedRow * cellSize),
         size = Size(cellSize, cellSize),
     )
+}
+
+private fun DrawScope.drawNumbers(
+    cells: Array<Array<CellData>>,
+    cellSize: Float,
+    fixedColor: Color,
+    editableColor: Color,
+    errorColor: Color,
+    draftColor: Color,
+    textMeasurer: TextMeasurer,
+    density: Density,
+) {
+    val fontSizeSp = with(density) { (cellSize * 0.45f).toSp() }
+    val draftFontSizeSp = with(density) { (cellSize * 0.18f).toSp() }
+
+    for (row in 0 until 9) {
+        for (col in 0 until 9) {
+            val cell = cells[row][col]
+
+            if (cell.value != 0) {
+                val color = when {
+                    cell.isError -> errorColor
+                    cell.isGiven -> fixedColor
+                    else -> editableColor
+                }
+                val style = TextStyle(
+                    fontSize = fontSizeSp,
+                    fontWeight = if (cell.isGiven) FontWeight.SemiBold else FontWeight.Normal,
+                    color = color,
+                )
+                val text = cell.value.toString()
+                val measured = textMeasurer.measure(text, style)
+                val x = col * cellSize + (cellSize - measured.size.width) / 2f
+                val y = row * cellSize + (cellSize - measured.size.height) / 2f
+                drawText(measured, topLeft = Offset(x, y))
+            } else if (cell.notes.isNotEmpty()) {
+                val noteStyle = TextStyle(
+                    fontSize = draftFontSizeSp,
+                    fontWeight = FontWeight.Normal,
+                    color = draftColor,
+                )
+                val noteSize = cellSize / 3f
+                for (note in cell.notes) {
+                    val noteRow = (note - 1) / 3
+                    val noteCol = (note - 1) % 3
+                    val text = note.toString()
+                    val measured = textMeasurer.measure(text, noteStyle)
+                    val x = col * cellSize + noteCol * noteSize + (noteSize - measured.size.width) / 2f
+                    val y = row * cellSize + noteRow * noteSize + (noteSize - measured.size.height) / 2f
+                    drawText(measured, topLeft = Offset(x, y))
+                }
+            }
+        }
+    }
 }
 
 private fun DrawScope.drawGridLines(
@@ -117,38 +195,5 @@ private fun DrawScope.drawGridLines(
         drawLine(color, Offset(pos, 0f), Offset(pos, size.height), width)
 
         drawLine(color, Offset(0f, pos), Offset(size.width, pos), width)
-    }
-}
-
-private fun DrawScope.drawPlaceholderNumbers(
-    cellSize: Float,
-    textColor: Color,
-    textMeasurer: TextMeasurer,
-    density: androidx.compose.ui.unit.Density,
-) {
-    val demoNumbers = listOf(
-        Triple(0, 1, 9), Triple(0, 5, 3),
-        Triple(1, 2, 1), Triple(1, 6, 8), Triple(1, 7, 7),
-        Triple(3, 0, 7), Triple(3, 5, 2),
-        Triple(5, 0, 5), Triple(5, 1, 3), Triple(5, 2, 2), Triple(5, 6, 4), Triple(5, 8, 9),
-        Triple(6, 1, 4), Triple(6, 4, 5), Triple(6, 6, 1),
-        Triple(7, 0, 9),
-        Triple(8, 1, 5), Triple(8, 2, 4), Triple(8, 3, 2), Triple(8, 4, 8),
-    )
-
-    val fontSizeSp = with(density) { (cellSize * 0.45f).toSp() }
-
-    val style = TextStyle(
-        fontSize = fontSizeSp,
-        fontWeight = FontWeight.Medium,
-        color = textColor,
-    )
-
-    for ((row, col, num) in demoNumbers) {
-        val text = num.toString()
-        val measured = textMeasurer.measure(text, style)
-        val x = col * cellSize + (cellSize - measured.size.width) / 2f
-        val y = row * cellSize + (cellSize - measured.size.height) / 2f
-        drawText(measured, topLeft = Offset(x, y))
     }
 }
