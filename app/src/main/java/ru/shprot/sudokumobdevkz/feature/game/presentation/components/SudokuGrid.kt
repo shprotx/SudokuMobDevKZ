@@ -16,6 +16,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.rememberTextMeasurer
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.sp
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
@@ -33,6 +34,7 @@ fun SudokuGrid(
     val background = AppTheme.colors.backgroundCard
     val textColor = AppTheme.colors.cellFixed
     val textMeasurer = rememberTextMeasurer()
+    val density = LocalDensity.current
 
     Canvas(
         modifier = modifier
@@ -55,7 +57,7 @@ fun SudokuGrid(
 
         drawGridLines(cellSize, gridLine, gridLineBold)
 
-        drawPlaceholderNumbers(cellSize, textColor, textMeasurer)
+        drawPlaceholderNumbers(cellSize, textColor, textMeasurer, density)
     }
 }
 
@@ -110,7 +112,7 @@ private fun DrawScope.drawGridLines(
         val pos = i * cellSize
         val isBold = i % 3 == 0
         val color = if (isBold) boldColor else thinColor
-        val width = if (isBold) 3f else 1f
+        val width = if (isBold) 2.5f else 0.5f
 
         drawLine(color, Offset(pos, 0f), Offset(pos, size.height), width)
 
@@ -122,6 +124,7 @@ private fun DrawScope.drawPlaceholderNumbers(
     cellSize: Float,
     textColor: Color,
     textMeasurer: TextMeasurer,
+    density: androidx.compose.ui.unit.Density,
 ) {
     val demoNumbers = listOf(
         Triple(0, 1, 9), Triple(0, 5, 3),
@@ -131,11 +134,12 @@ private fun DrawScope.drawPlaceholderNumbers(
         Triple(6, 1, 4), Triple(6, 4, 5), Triple(6, 6, 1),
         Triple(7, 0, 9),
         Triple(8, 1, 5), Triple(8, 2, 4), Triple(8, 3, 2), Triple(8, 4, 8),
-        Triple(9, 0, 0),
-    ).filter { it.first < 9 }
+    )
+
+    val fontSizeSp = with(density) { (cellSize * 0.45f).toSp() }
 
     val style = TextStyle(
-        fontSize = (cellSize * 0.45f).sp,
+        fontSize = fontSizeSp,
         fontWeight = FontWeight.Medium,
         color = textColor,
     )
