@@ -1,8 +1,7 @@
 package ru.shprot.sudokumobdevkz.feature.game.presentation.screen
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -37,31 +36,32 @@ fun GameScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues),
-            verticalArrangement = Arrangement.SpaceBetween,
         ) {
-            // Top: toolbar + status
-            Column {
-                GameToolbar(
-                    onBackClick = onNavigateBack,
-                    onRestartClick = { },
-                    onPauseClick = { },
-                    onSettingsClick = { },
-                )
+            // Toolbar
+            GameToolbar(
+                onBackClick = onNavigateBack,
+                onRestartClick = { },
+                onPauseClick = { },
+                onSettingsClick = { },
+            )
 
-                GameStatusBar(
-                    modifier = Modifier.padding(top = AppTheme.paddings.small),
-                    difficultyLabel = difficultyLabels.getOrElse(difficulty) { "Лёгкая" },
-                    errors = 0,
-                    maxErrors = 3,
-                    lives = 3,
-                    timer = "00:00",
-                )
-            }
+            // Weight spacer
+            WeightSpacer()
 
-            // Center: grid
+            // Status bar + Grid
+            GameStatusBar(
+                difficultyLabel = difficultyLabels.getOrElse(difficulty) { "Лёгкая" },
+                errors = 0,
+                maxErrors = 3,
+                lives = 3,
+                timer = "00:00",
+            )
+
             SudokuGrid(
                 modifier = Modifier.padding(
-                    horizontal = AppTheme.paddings.medium,
+                    top = AppTheme.paddings.default,
+                    start = AppTheme.paddings.medium,
+                    end = AppTheme.paddings.medium,
                 ),
                 selectedRow = selectedRow,
                 selectedCol = selectedCol,
@@ -71,28 +71,35 @@ fun GameScreen(
                 },
             )
 
-            // Bottom: numbers + actions
-            Column {
-                NumberPanel(
-                    modifier = Modifier.padding(horizontal = AppTheme.paddings.default),
-                    onNumberClick = { },
-                )
+            // Weight spacer
+            WeightSpacer()
 
-                GameActionsBar(
-                    modifier = Modifier
-                        .padding(horizontal = AppTheme.paddings.large)
-                        .padding(
-                            top = AppTheme.paddings.large,
-                            bottom = AppTheme.paddings.extraLarge,
-                        ),
-                    isNotesEnabled = isNotesEnabled,
-                    hintsRemaining = 1,
-                    onUndoClick = { },
-                    onEraseClick = { },
-                    onNotesClick = { isNotesEnabled = !isNotesEnabled },
-                    onHintClick = { },
-                )
-            }
+            // Number buttons
+            NumberPanel(
+                modifier = Modifier.padding(horizontal = AppTheme.paddings.default),
+                onNumberClick = { },
+            )
+
+            // Weight spacer
+            WeightSpacer()
+
+            // Action buttons
+            GameActionsBar(
+                modifier = Modifier
+                    .padding(horizontal = AppTheme.paddings.large)
+                    .padding(bottom = AppTheme.paddings.medium),
+                isNotesEnabled = isNotesEnabled,
+                hintsRemaining = 1,
+                onUndoClick = { },
+                onEraseClick = { },
+                onNotesClick = { isNotesEnabled = !isNotesEnabled },
+                onHintClick = { },
+            )
         }
     }
+}
+
+@Composable
+private fun ColumnScope.WeightSpacer() {
+    androidx.compose.foundation.layout.Spacer(modifier = Modifier.weight(1f))
 }
