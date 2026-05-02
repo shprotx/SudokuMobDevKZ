@@ -28,6 +28,7 @@ data class GameUiState(
     val isGameOver: Boolean = false,
     val isWin: Boolean = false,
     val availableNumbers: Set<Int> = (1..9).toSet(),
+    val highlightedNumber: Int = 0,
 ) : UIState {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -47,7 +48,8 @@ data class GameUiState(
                 isPaused == other.isPaused &&
                 isGameOver == other.isGameOver &&
                 isWin == other.isWin &&
-                availableNumbers == other.availableNumbers
+                availableNumbers == other.availableNumbers &&
+                highlightedNumber == other.highlightedNumber
     }
 
     override fun hashCode(): Int = cells.contentDeepHashCode()
@@ -60,6 +62,7 @@ sealed interface GameEvent : UIEvent {
     data object EraseClicked : GameEvent
     data object NotesToggled : GameEvent
     data object HintClicked : GameEvent
+    data object DeselectClicked : GameEvent
     data object PauseClicked : GameEvent
     data object ResumeClicked : GameEvent
 }

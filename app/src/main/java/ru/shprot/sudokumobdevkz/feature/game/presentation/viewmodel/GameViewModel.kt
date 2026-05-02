@@ -35,6 +35,7 @@ class GameViewModel @Inject constructor(
             is GameEvent.UndoClicked -> onUndo()
             is GameEvent.NotesToggled -> onNotesToggled()
             is GameEvent.HintClicked -> onHint()
+            is GameEvent.DeselectClicked -> onDeselect()
             is GameEvent.PauseClicked -> onPause()
             is GameEvent.ResumeClicked -> onResume()
         }
@@ -71,7 +72,13 @@ class GameViewModel @Inject constructor(
 
     private fun onCellClicked(row: Int, col: Int) {
         if (currentState.isGenerating || currentState.isGameOver) return
-        setState(currentState.copy(selectedRow = row, selectedCol = col))
+        val cell = currentState.cells[row][col]
+        val highlighted = if (cell.value != 0 && !cell.isError) cell.value else 0
+        setState(currentState.copy(selectedRow = row, selectedCol = col, highlightedNumber = highlighted))
+    }
+
+    private fun onDeselect() {
+        setState(currentState.copy(selectedRow = -1, selectedCol = -1, highlightedNumber = 0))
     }
 
     private fun onNumberClicked(number: Int) {
@@ -171,18 +178,33 @@ class GameViewModel @Inject constructor(
         val state = currentState
         if (state.hintsRemaining <= 0 || state.isGameOver) return
 
-        val emptyCells = mutableListOf<Pair<Int, Int>>()
-        for (r in 0 until 9) {
-            for (c in 0 until 9) {
-                val cell = state.cells[r][c]
-                if (cell.value == 0 || cell.isError) {
-                    emptyCells.add(r to c)
+        val selectedRow = state.selectedRow
+        val selectedCol = state.selectedCol
+        val selectedCell = if (selectedRow >= 0 && selectedCol >= 0) state.cells[selectedRow][selectedCol] else null
+        val useSelected = selectedCell != null && (selectedCell.value == 0 || selectedCell.isError)
+
+        val row: Int
+        val col: Int
+
+        if (useSelected) {
+            row = selectedRow
+            col = selectedCol
+        } else {
+            val emptyCells = mutableListOf<Pair<Int, Int>>()
+            for (r in 0 until 9) {
+                for (c in 0 until 9) {
+                    val cell = state.cells[r][c]
+                    if (cell.value == 0 || cell.isError) {
+                        emptyCells.add(r to c)
+                    }
                 }
             }
+            if (emptyCells.isEmpty()) return
+            val (r, c) = emptyCells.random()
+            row = r
+            col = c
         }
-        if (emptyCells.isEmpty()) return
 
-        val (row, col) = emptyCells.random()
         val correctValue = state.solution[row][col]
 
         val newCells = state.cells.map { it.copyOf() }.toTypedArray()
@@ -192,8 +214,11 @@ class GameViewModel @Inject constructor(
         setState(
             state.copy(
                 cells = newCells,
+                selectedRow = row,
+                selectedCol = col,
                 hintsRemaining = state.hintsRemaining - 1,
                 availableNumbers = calcAvailableNumbers(newCells),
+                highlightedNumber = correctValue,
             )
         )
 

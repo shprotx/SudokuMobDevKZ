@@ -27,6 +27,8 @@ fun SudokuGrid(
     cells: Array<Array<CellData>>,
     selectedRow: Int,
     selectedCol: Int,
+    isPaused: Boolean = false,
+    highlightedNumber: Int = 0,
     onCellClick: (row: Int, col: Int) -> Unit,
 ) {
     val gridLine = AppTheme.colors.gridLine
@@ -59,9 +61,11 @@ fun SudokuGrid(
 
         drawRect(color = background, size = size)
 
-        drawHighlights(cells, selectedRow, selectedCol, cellSize, cellSelected, cellHighlight, cellErrorColor)
+        if (!isPaused) {
+            drawHighlights(cells, selectedRow, selectedCol, cellSize, cellSelected, cellHighlight, cellErrorColor)
 
-        drawNumbers(cells, cellSize, fixedColor, editableColor, errorColor, draftColor, textMeasurer, density)
+            drawNumbers(cells, cellSize, fixedColor, editableColor, errorColor, draftColor, highlightedNumber, textMeasurer, density)
+        }
 
         drawGridLines(cellSize, gridLine, gridLineBold)
     }
@@ -134,11 +138,13 @@ private fun DrawScope.drawNumbers(
     editableColor: Color,
     errorColor: Color,
     draftColor: Color,
+    highlightedNumber: Int,
     textMeasurer: TextMeasurer,
     density: Density,
 ) {
     val fontSizeSp = with(density) { (cellSize * 0.45f).toSp() }
     val draftFontSizeSp = with(density) { (cellSize * 0.18f).toSp() }
+    val draftHighlightFontSizeSp = with(density) { (cellSize * 0.22f).toSp() }
 
     for (row in 0 until 9) {
         for (col in 0 until 9) {
@@ -161,13 +167,14 @@ private fun DrawScope.drawNumbers(
                 val y = row * cellSize + (cellSize - measured.size.height) / 2f
                 drawText(measured, topLeft = Offset(x, y))
             } else if (cell.notes.isNotEmpty()) {
-                val noteStyle = TextStyle(
-                    fontSize = draftFontSizeSp,
-                    fontWeight = FontWeight.Normal,
-                    color = draftColor,
-                )
                 val noteSize = cellSize / 3f
                 for (note in cell.notes) {
+                    val isHighlighted = note == highlightedNumber
+                    val noteStyle = TextStyle(
+                        fontSize = if (isHighlighted) draftHighlightFontSizeSp else draftFontSizeSp,
+                        fontWeight = if (isHighlighted) FontWeight.Bold else FontWeight.Normal,
+                        color = if (isHighlighted) editableColor else draftColor,
+                    )
                     val noteRow = (note - 1) / 3
                     val noteCol = (note - 1) % 3
                     val text = note.toString()
