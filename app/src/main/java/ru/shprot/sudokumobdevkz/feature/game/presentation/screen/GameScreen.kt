@@ -161,6 +161,7 @@ fun GameScreen(
                 NumberPanel(
                     modifier = Modifier.padding(horizontal = AppTheme.paddings.medium),
                     availableNumbers = state.availableNumbers,
+                    isNotesMode = state.isNotesEnabled,
                     onNumberClick = { number ->
                         viewModel.setEvent(GameEvent.NumberClicked(number))
                     },

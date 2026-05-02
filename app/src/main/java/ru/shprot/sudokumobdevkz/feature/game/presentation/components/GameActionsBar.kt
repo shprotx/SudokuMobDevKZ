@@ -59,6 +59,7 @@ fun GameActionsBar(
             icon = Icons.Filled.Edit,
             label = "Заметки",
             badge = if (isNotesEnabled) "ON" else "OFF",
+            isHighlighted = isNotesEnabled,
             onClick = onNotesClick,
         )
 
@@ -76,9 +77,12 @@ private fun ActionButton(
     icon: ImageVector,
     label: String,
     badge: String? = null,
+    isHighlighted: Boolean = false,
     onClick: () -> Unit,
 ) {
     val shape = RoundedCornerShape(AppTheme.sizes.cornerRadiusMedium)
+    val borderColor = if (isHighlighted) AppTheme.colors.primary else AppTheme.colors.divider
+    val iconTint = if (isHighlighted) AppTheme.colors.primary else AppTheme.colors.iconTint
 
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Box(contentAlignment = Alignment.Center) {
@@ -86,14 +90,14 @@ private fun ActionButton(
                 modifier = Modifier
                     .width(72.dp)
                     .height(56.dp)
-                    .border(1.dp, AppTheme.colors.divider, shape)
+                    .border(1.dp, borderColor, shape)
                     .clickable(onClick = onClick),
                 contentAlignment = Alignment.Center,
             ) {
                 Icon(
                     imageVector = icon,
                     contentDescription = label,
-                    tint = AppTheme.colors.iconTint,
+                    tint = iconTint,
                     modifier = Modifier.size(AppTheme.sizes.iconMedium),
                 )
             }

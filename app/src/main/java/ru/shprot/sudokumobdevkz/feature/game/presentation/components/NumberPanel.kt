@@ -20,10 +20,13 @@ import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 fun NumberPanel(
     modifier: Modifier = Modifier,
     availableNumbers: Set<Int> = (1..9).toSet(),
+    isNotesMode: Boolean = false,
     onNumberClick: (Int) -> Unit,
 ) {
     val shape = RoundedCornerShape(AppTheme.sizes.cornerRadiusMedium)
-    val borderColor = AppTheme.colors.divider
+    val borderColor = if (isNotesMode) AppTheme.colors.divider.copy(alpha = 0.5f) else AppTheme.colors.divider
+    val textColor = if (isNotesMode) AppTheme.colors.draftText else AppTheme.colors.text
+    val fontWeight = if (isNotesMode) FontWeight.Light else FontWeight.Medium
 
     Row(modifier = modifier.fillMaxWidth()) {
         for (num in 1..9) {
@@ -46,8 +49,8 @@ fun NumberPanel(
                     Text(
                         text = num.toString(),
                         style = AppTheme.typography.h3,
-                        fontWeight = FontWeight.Medium,
-                        color = AppTheme.colors.text,
+                        fontWeight = fontWeight,
+                        color = textColor,
                     )
                 }
             }
