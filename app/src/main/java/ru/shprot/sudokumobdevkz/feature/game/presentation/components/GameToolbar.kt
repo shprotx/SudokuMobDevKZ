@@ -1,8 +1,12 @@
 package ru.shprot.sudokumobdevkz.feature.game.presentation.components
 
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Pause
@@ -14,6 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 @Composable
@@ -48,27 +53,45 @@ fun GameToolbar(
             color = AppTheme.colors.text,
         )
 
-        IconButton(onClick = onRestartClick) {
-            Icon(
-                imageVector = Icons.Filled.Refresh,
-                contentDescription = "Рестарт",
-                tint = AppTheme.colors.iconTint,
-            )
-        }
+        ToolbarCircleButton(
+            icon = Icons.Filled.Refresh,
+            contentDescription = "Рестарт",
+            onClick = onRestartClick,
+        )
 
-        IconButton(onClick = onPauseClick) {
-            Icon(
-                imageVector = Icons.Filled.Pause,
-                contentDescription = "Пауза",
-                tint = AppTheme.colors.iconTint,
-            )
-        }
+        ToolbarCircleButton(
+            icon = Icons.Filled.Pause,
+            contentDescription = "Пауза",
+            onClick = onPauseClick,
+        )
 
-        IconButton(onClick = onSettingsClick) {
+        ToolbarCircleButton(
+            icon = Icons.Filled.Settings,
+            contentDescription = "Настройки",
+            onClick = onSettingsClick,
+        )
+    }
+}
+
+@Composable
+private fun ToolbarCircleButton(
+    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    contentDescription: String,
+    onClick: () -> Unit,
+) {
+    Box(
+        modifier = Modifier
+            .padding(start = AppTheme.paddings.small)
+            .size(36.dp)
+            .border(1.dp, AppTheme.colors.divider, CircleShape),
+        contentAlignment = Alignment.Center,
+    ) {
+        IconButton(onClick = onClick) {
             Icon(
-                imageVector = Icons.Filled.Settings,
-                contentDescription = "Настройки",
+                imageVector = icon,
+                contentDescription = contentDescription,
                 tint = AppTheme.colors.iconTint,
+                modifier = Modifier.size(18.dp),
             )
         }
     }

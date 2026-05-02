@@ -15,7 +15,7 @@ data class Size(
     val chipHeight: Dp = 36.dp,
     val bottomNavHeight: Dp = 64.dp,
     val toolbarHeight: Dp = 56.dp,
-    val numberPanelButton: Dp = 48.dp,
+    val numberPanelButton: Dp = 34.dp,
     val gridCell: Dp = 40.dp,
     val difficultyDot: Dp = 6.dp,
     val cornerRadiusSmall: Dp = 8.dp,

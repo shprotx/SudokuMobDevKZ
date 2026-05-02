@@ -4,10 +4,8 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -33,52 +31,33 @@ fun NumberPanel(
     val shape = RoundedCornerShape(AppTheme.sizes.cornerRadiusMedium)
     val borderColor = AppTheme.colors.divider
 
-    Column(modifier = modifier) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceEvenly,
-        ) {
-            for (num in 1..5) {
-                NumberButton(
-                    number = num,
-                    size = buttonSize,
-                    shape = shape,
-                    borderColor = borderColor,
-                    onClick = { onNumberClick(num) },
-                )
-            }
+    Row(
+        modifier = modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceEvenly,
+    ) {
+        for (num in 1..9) {
+            NumberButton(
+                number = num,
+                size = buttonSize,
+                shape = shape,
+                borderColor = borderColor,
+                onClick = { onNumberClick(num) },
+            )
         }
 
-        Row(
+        Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = AppTheme.paddings.default),
-            horizontalArrangement = Arrangement.SpaceEvenly,
+                .size(buttonSize)
+                .border(1.dp, borderColor, shape)
+                .clickable(onClick = onEraseClick),
+            contentAlignment = Alignment.Center,
         ) {
-            for (num in 6..9) {
-                NumberButton(
-                    number = num,
-                    size = buttonSize,
-                    shape = shape,
-                    borderColor = borderColor,
-                    onClick = { onNumberClick(num) },
-                )
-            }
-
-            Box(
-                modifier = Modifier
-                    .size(buttonSize)
-                    .border(1.dp, borderColor, shape)
-                    .clickable(onClick = onEraseClick),
-                contentAlignment = Alignment.Center,
-            ) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.Backspace,
-                    contentDescription = "Стереть",
-                    tint = AppTheme.colors.iconTint,
-                    modifier = Modifier.size(AppTheme.sizes.iconMedium),
-                )
-            }
+            Icon(
+                imageVector = Icons.AutoMirrored.Filled.Backspace,
+                contentDescription = "Стереть",
+                tint = AppTheme.colors.iconTint,
+                modifier = Modifier.size(14.dp),
+            )
         }
     }
 }
@@ -100,7 +79,7 @@ private fun NumberButton(
     ) {
         Text(
             text = number.toString(),
-            style = AppTheme.typography.h2,
+            style = AppTheme.typography.body1,
             fontWeight = FontWeight.Medium,
             color = AppTheme.colors.text,
         )

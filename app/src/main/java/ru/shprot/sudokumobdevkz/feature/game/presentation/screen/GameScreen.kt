@@ -1,8 +1,10 @@
 package ru.shprot.sudokumobdevkz.feature.game.presentation.screen
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.ui.unit.dp
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -35,53 +37,50 @@ fun GameScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues),
+            verticalArrangement = Arrangement.SpaceBetween,
         ) {
-            GameToolbar(
-                onBackClick = onNavigateBack,
-                onRestartClick = { },
-                onPauseClick = { },
-                onSettingsClick = { },
-            )
+            Column {
+                GameToolbar(
+                    onBackClick = onNavigateBack,
+                    onRestartClick = { },
+                    onPauseClick = { },
+                    onSettingsClick = { },
+                )
 
-            GameStatusBar(
-                modifier = Modifier.padding(top = AppTheme.paddings.medium),
-                difficultyLabel = difficultyLabels.getOrElse(difficulty) { "Лёгкая" },
-                errors = 0,
-                maxErrors = 3,
-                lives = 3,
-                timer = "00:00",
-            )
+                GameStatusBar(
+                    modifier = Modifier.padding(top = AppTheme.paddings.small),
+                    difficultyLabel = difficultyLabels.getOrElse(difficulty) { "Лёгкая" },
+                    errors = 0,
+                    maxErrors = 3,
+                    lives = 3,
+                    timer = "00:00",
+                )
 
-            SudokuGrid(
-                modifier = Modifier.padding(
-                    top = AppTheme.paddings.large,
-                    start = AppTheme.paddings.large,
-                    end = AppTheme.paddings.large,
-                ),
-                selectedRow = selectedRow,
-                selectedCol = selectedCol,
-                onCellClick = { row, col ->
-                    selectedRow = row
-                    selectedCol = col
-                },
-            )
+                SudokuGrid(
+                    modifier = Modifier.padding(
+                        top = AppTheme.paddings.default,
+                        start = AppTheme.paddings.medium,
+                        end = AppTheme.paddings.medium,
+                    ),
+                    selectedRow = selectedRow,
+                    selectedCol = selectedCol,
+                    onCellClick = { row, col ->
+                        selectedRow = row
+                        selectedCol = col
+                    },
+                )
+            }
 
             NumberPanel(
-                modifier = Modifier.padding(
-                    top = AppTheme.paddings.extraLarge,
-                    start = AppTheme.paddings.large,
-                    end = AppTheme.paddings.large,
-                ),
+                modifier = Modifier.padding(horizontal = AppTheme.paddings.default),
                 onNumberClick = { },
                 onEraseClick = { },
             )
 
             GameActionsBar(
-                modifier = Modifier.padding(
-                    top = AppTheme.paddings.large,
-                    start = AppTheme.paddings.large,
-                    end = AppTheme.paddings.large,
-                ),
+                modifier = Modifier
+                    .padding(horizontal = AppTheme.paddings.large)
+                    .padding(bottom = AppTheme.paddings.xxl),
                 isNotesEnabled = isNotesEnabled,
                 hintsRemaining = 1,
                 onUndoClick = { },

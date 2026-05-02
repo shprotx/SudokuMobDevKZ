@@ -33,6 +33,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
+import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.SettingsCard
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.SettingsDivider
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.SettingsNavItem
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.SettingsSectionHeader
@@ -59,169 +60,179 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .verticalScroll(rememberScrollState())
-                .padding(horizontal = AppTheme.paddings.large),
+                .verticalScroll(rememberScrollState()),
         ) {
             SettingsToolbar(onBackClick = onNavigateBack)
 
-            // --- Игра ---
-            SettingsSectionHeader(title = "Игра")
+            Column(modifier = Modifier.padding(horizontal = AppTheme.paddings.large)) {
 
-            SettingsToggleItem(
-                icon = Icons.Filled.CheckCircle,
-                title = "Проверять ошибки",
-                checked = checkErrors,
-                onCheckedChange = { checkErrors = it },
-            )
+                // --- Игра ---
+                SettingsSectionHeader(title = "Игра")
 
-            SettingsDivider()
+                SettingsCard {
+                    SettingsToggleItem(
+                        icon = Icons.Filled.CheckCircle,
+                        title = "Проверять ошибки",
+                        checked = checkErrors,
+                        onCheckedChange = { checkErrors = it },
+                    )
 
-            SettingsToggleItem(
-                icon = Icons.Filled.ContentCopy,
-                title = "Подсветка дубликатов",
-                checked = highlightDuplicates,
-                onCheckedChange = { highlightDuplicates = it },
-            )
+                    SettingsDivider()
 
-            SettingsDivider()
+                    SettingsToggleItem(
+                        icon = Icons.Filled.ContentCopy,
+                        title = "Подсветка дубликатов",
+                        checked = highlightDuplicates,
+                        onCheckedChange = { highlightDuplicates = it },
+                    )
 
-            SettingsToggleItem(
-                icon = Icons.Filled.Save,
-                title = "Автосохранение",
-                checked = autoSave,
-                onCheckedChange = { autoSave = it },
-            )
+                    SettingsDivider()
 
-            SettingsDivider()
+                    SettingsToggleItem(
+                        icon = Icons.Filled.Save,
+                        title = "Автосохранение",
+                        checked = autoSave,
+                        onCheckedChange = { autoSave = it },
+                    )
 
-            SettingsToggleItem(
-                icon = Icons.Filled.Schedule,
-                title = "Показывать время",
-                checked = showTimer,
-                onCheckedChange = { showTimer = it },
-            )
+                    SettingsDivider()
 
-            SettingsDivider()
+                    SettingsToggleItem(
+                        icon = Icons.Filled.Schedule,
+                        title = "Показывать время",
+                        checked = showTimer,
+                        onCheckedChange = { showTimer = it },
+                    )
 
-            SettingsToggleItem(
-                icon = Icons.Filled.Favorite,
-                iconTint = AppTheme.colors.error,
-                title = "Показывать ошибки",
-                checked = showErrors,
-                onCheckedChange = { showErrors = it },
-            )
+                    SettingsDivider()
 
-            SettingsDivider()
+                    SettingsToggleItem(
+                        icon = Icons.Filled.Favorite,
+                        iconTint = AppTheme.colors.error,
+                        title = "Показывать ошибки",
+                        checked = showErrors,
+                        onCheckedChange = { showErrors = it },
+                    )
 
-            SettingsToggleItem(
-                icon = Icons.Filled.Favorite,
-                iconTint = AppTheme.colors.warning,
-                title = "Бесконечные ошибки",
-                checked = unlimitedErrors,
-                onCheckedChange = { unlimitedErrors = it },
-            )
+                    SettingsDivider()
 
-            SettingsDivider()
+                    SettingsToggleItem(
+                        icon = Icons.Filled.Favorite,
+                        iconTint = AppTheme.colors.warning,
+                        title = "Бесконечные ошибки",
+                        checked = unlimitedErrors,
+                        onCheckedChange = { unlimitedErrors = it },
+                    )
 
-            SettingsToggleItem(
-                icon = Icons.Filled.Lightbulb,
-                iconTint = AppTheme.colors.warning,
-                title = "Безлимитные подсказки",
-                checked = unlimitedHints,
-                onCheckedChange = { unlimitedHints = it },
-            )
+                    SettingsDivider()
 
-            SettingsDivider()
+                    SettingsToggleItem(
+                        icon = Icons.Filled.Lightbulb,
+                        iconTint = AppTheme.colors.warning,
+                        title = "Безлимитные подсказки",
+                        checked = unlimitedHints,
+                        onCheckedChange = { unlimitedHints = it },
+                    )
 
-            SettingsToggleItem(
-                icon = Icons.Filled.BarChart,
-                title = "Учёт статистики",
-                checked = effectiveTrackStatistics,
-                enabled = !hasCheats,
-                onCheckedChange = { trackStatistics = it },
-            )
+                    SettingsDivider()
 
-            // --- Внешний вид ---
-            SettingsSectionHeader(title = "Внешний вид")
+                    SettingsToggleItem(
+                        icon = Icons.Filled.BarChart,
+                        title = "Учёт статистики",
+                        checked = effectiveTrackStatistics,
+                        enabled = !hasCheats,
+                        onCheckedChange = { trackStatistics = it },
+                    )
+                }
 
-            SettingsNavItem(
-                icon = Icons.Filled.Palette,
-                title = "Тема",
-                value = "Светлая",
-                onClick = { },
-            )
+                // --- Внешний вид ---
+                SettingsSectionHeader(title = "Внешний вид")
 
-            SettingsDivider()
+                SettingsCard {
+                    SettingsNavItem(
+                        icon = Icons.Filled.Palette,
+                        title = "Тема",
+                        value = "Светлая",
+                        onClick = { },
+                    )
 
-            SettingsNavItem(
-                icon = Icons.Filled.ColorLens,
-                iconTint = AppTheme.colors.primary,
-                title = "Цветовая схема",
-                value = "Зелёная",
-                onClick = { },
-            )
+                    SettingsDivider()
 
-            // --- Звук ---
-            SettingsSectionHeader(title = "Звук")
+                    SettingsNavItem(
+                        icon = Icons.Filled.ColorLens,
+                        iconTint = AppTheme.colors.primary,
+                        title = "Цветовая схема",
+                        value = "Зелёная",
+                        onClick = { },
+                    )
+                }
 
-            SettingsToggleItem(
-                icon = Icons.Filled.VolumeUp,
-                title = "Звуки",
-                checked = sounds,
-                onCheckedChange = { sounds = it },
-            )
+                // --- Звук ---
+                SettingsSectionHeader(title = "Звук")
 
-            // --- Другое ---
-            SettingsSectionHeader(title = "Другое")
+                SettingsCard {
+                    SettingsToggleItem(
+                        icon = Icons.Filled.VolumeUp,
+                        title = "Звуки",
+                        checked = sounds,
+                        onCheckedChange = { sounds = it },
+                    )
+                }
 
-            SettingsNavItem(
-                icon = Icons.Filled.Language,
-                title = "Язык",
-                value = "Русский",
-                onClick = { },
-            )
+                // --- Другое ---
+                SettingsSectionHeader(title = "Другое")
 
-            SettingsDivider()
+                SettingsCard {
+                    SettingsNavItem(
+                        icon = Icons.Filled.Language,
+                        title = "Язык",
+                        value = "Русский",
+                        onClick = { },
+                    )
 
-            SettingsNavItem(
-                icon = Icons.Filled.Star,
-                title = "Оценить приложение",
-                onClick = { },
-            )
+                    SettingsDivider()
 
-            SettingsDivider()
+                    SettingsNavItem(
+                        icon = Icons.Filled.Star,
+                        title = "Оценить приложение",
+                        onClick = { },
+                    )
 
-            SettingsNavItem(
-                icon = Icons.Filled.Share,
-                title = "Поделиться",
-                onClick = { },
-            )
+                    SettingsDivider()
 
-            SettingsDivider()
+                    SettingsNavItem(
+                        icon = Icons.Filled.Share,
+                        title = "Поделиться",
+                        onClick = { },
+                    )
 
-            SettingsNavItem(
-                icon = Icons.Filled.Security,
-                title = "Политика конфиденциальности",
-                onClick = { },
-            )
+                    SettingsDivider()
 
-            // --- Сброс ---
-            Button(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(
-                        top = AppTheme.paddings.xxl,
-                        bottom = AppTheme.paddings.xxxl,
-                    ),
-                onClick = { },
-                shape = RoundedCornerShape(AppTheme.sizes.cornerRadiusLarge),
-                colors = ButtonDefaults.buttonColors(containerColor = AppTheme.colors.error),
-            ) {
-                Text(
-                    text = "Сбросить статистику",
-                    style = AppTheme.typography.button,
-                    color = AppTheme.colors.textOnPrimary,
-                )
+                    SettingsNavItem(
+                        icon = Icons.Filled.Security,
+                        title = "Политика конфиденциальности",
+                        onClick = { },
+                    )
+                }
+
+                // --- Сброс ---
+                Button(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(
+                            top = AppTheme.paddings.xxl,
+                            bottom = AppTheme.paddings.xxxl,
+                        ),
+                    onClick = { },
+                    shape = RoundedCornerShape(AppTheme.sizes.cornerRadiusLarge),
+                    colors = ButtonDefaults.buttonColors(containerColor = AppTheme.colors.error),
+                ) {
+                    Text(
+                        text = "Сбросить статистику",
+                        style = AppTheme.typography.button,
+                        color = AppTheme.colors.textOnPrimary,
+                    )
+                }
             }
         }
     }
