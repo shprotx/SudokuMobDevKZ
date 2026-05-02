@@ -2,9 +2,9 @@ package ru.shprot.sudokumobdevkz.feature.game.presentation.screen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.ui.unit.dp
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -39,6 +39,7 @@ fun GameScreen(
                 .padding(paddingValues),
             verticalArrangement = Arrangement.SpaceBetween,
         ) {
+            // Top: toolbar + status
             Column {
                 GameToolbar(
                     onBackClick = onNavigateBack,
@@ -55,39 +56,43 @@ fun GameScreen(
                     lives = 3,
                     timer = "00:00",
                 )
-
-                SudokuGrid(
-                    modifier = Modifier.padding(
-                        top = AppTheme.paddings.default,
-                        start = AppTheme.paddings.medium,
-                        end = AppTheme.paddings.medium,
-                    ),
-                    selectedRow = selectedRow,
-                    selectedCol = selectedCol,
-                    onCellClick = { row, col ->
-                        selectedRow = row
-                        selectedCol = col
-                    },
-                )
             }
 
-            NumberPanel(
-                modifier = Modifier.padding(horizontal = AppTheme.paddings.default),
-                onNumberClick = { },
-                onEraseClick = { },
+            // Center: grid
+            SudokuGrid(
+                modifier = Modifier.padding(
+                    horizontal = AppTheme.paddings.medium,
+                ),
+                selectedRow = selectedRow,
+                selectedCol = selectedCol,
+                onCellClick = { row, col ->
+                    selectedRow = row
+                    selectedCol = col
+                },
             )
 
-            GameActionsBar(
-                modifier = Modifier
-                    .padding(horizontal = AppTheme.paddings.large)
-                    .padding(bottom = AppTheme.paddings.xxl),
-                isNotesEnabled = isNotesEnabled,
-                hintsRemaining = 1,
-                onUndoClick = { },
-                onEraseClick = { },
-                onNotesClick = { isNotesEnabled = !isNotesEnabled },
-                onHintClick = { },
-            )
+            // Bottom: numbers + actions
+            Column {
+                NumberPanel(
+                    modifier = Modifier.padding(horizontal = AppTheme.paddings.default),
+                    onNumberClick = { },
+                )
+
+                GameActionsBar(
+                    modifier = Modifier
+                        .padding(horizontal = AppTheme.paddings.large)
+                        .padding(
+                            top = AppTheme.paddings.large,
+                            bottom = AppTheme.paddings.extraLarge,
+                        ),
+                    isNotesEnabled = isNotesEnabled,
+                    hintsRemaining = 1,
+                    onUndoClick = { },
+                    onEraseClick = { },
+                    onNotesClick = { isNotesEnabled = !isNotesEnabled },
+                    onHintClick = { },
+                )
+            }
         }
     }
 }
