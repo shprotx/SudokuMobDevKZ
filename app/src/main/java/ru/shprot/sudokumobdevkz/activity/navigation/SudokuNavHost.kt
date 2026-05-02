@@ -72,6 +72,11 @@ fun SudokuNavHost(
                         popUpTo<GameRoutes.GameScreen> { inclusive = true }
                     }
                 },
+                onNavigateToGame = { newDifficulty ->
+                    navController.navigate(GameRoutes.GameScreen(newDifficulty)) {
+                        popUpTo<GameRoutes.GameScreen> { inclusive = true }
+                    }
+                },
                 onNavigateBack = { navController.popBackStack() },
             )
         }

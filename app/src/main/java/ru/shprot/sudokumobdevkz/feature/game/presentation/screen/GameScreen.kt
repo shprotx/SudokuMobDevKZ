@@ -2,6 +2,7 @@ package ru.shprot.sudokumobdevkz.feature.game.presentation.screen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -16,7 +17,9 @@ import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 import ru.shprot.sudokumobdevkz.feature.game.presentation.components.GameActionsBar
 import ru.shprot.sudokumobdevkz.feature.game.presentation.components.GameStatusBar
 import ru.shprot.sudokumobdevkz.feature.game.presentation.components.GameToolbar
+import ru.shprot.sudokumobdevkz.feature.game.presentation.components.NewGameDialog
 import ru.shprot.sudokumobdevkz.feature.game.presentation.components.NumberPanel
+import ru.shprot.sudokumobdevkz.feature.game.presentation.components.PauseDialog
 import ru.shprot.sudokumobdevkz.feature.game.presentation.components.SudokuGrid
 
 private val difficultyLabels = listOf("Лёгкая", "Средняя", "Экспертная")
@@ -25,11 +28,42 @@ private val difficultyLabels = listOf("Лёгкая", "Средняя", "Экс�
 fun GameScreen(
     difficulty: Int,
     onNavigateToGameOver: (isWin: Boolean, time: String, errors: Int) -> Unit,
+    onNavigateToGame: (difficulty: Int) -> Unit,
     onNavigateBack: () -> Unit,
 ) {
     var selectedRow by rememberSaveable { mutableIntStateOf(-1) }
     var selectedCol by rememberSaveable { mutableIntStateOf(-1) }
     var isNotesEnabled by rememberSaveable { mutableStateOf(false) }
+    var showPauseDialog by rememberSaveable { mutableStateOf(false) }
+    var showNewGameDialog by rememberSaveable { mutableStateOf(false) }
+
+    if (showPauseDialog) {
+        PauseDialog(
+            timer = "00:00",
+            errors = 0,
+            maxErrors = 3,
+            onResume = { showPauseDialog = false },
+            onRestart = {
+                showPauseDialog = false
+                showNewGameDialog = true
+            },
+            onExit = {
+                showPauseDialog = false
+                onNavigateBack()
+            },
+        )
+    }
+
+    if (showNewGameDialog) {
+        NewGameDialog(
+            initialDifficulty = difficulty,
+            onStartGame = { newDifficulty ->
+                showNewGameDialog = false
+                onNavigateToGame(newDifficulty)
+            },
+            onDismiss = { showNewGameDialog = false },
+        )
+    }
 
     Scaffold(containerColor = AppTheme.colors.background) { paddingValues ->
         Column(
@@ -37,18 +71,15 @@ fun GameScreen(
                 .fillMaxSize()
                 .padding(paddingValues),
         ) {
-            // Toolbar
             GameToolbar(
                 onBackClick = onNavigateBack,
-                onRestartClick = { },
-                onPauseClick = { },
+                onRestartClick = { showNewGameDialog = true },
+                onPauseClick = { showPauseDialog = true },
                 onSettingsClick = { },
             )
 
-            // Weight spacer
             WeightSpacer()
 
-            // Status bar + Grid
             GameStatusBar(
                 difficultyLabel = difficultyLabels.getOrElse(difficulty) { "Лёгкая" },
                 errors = 0,
@@ -71,19 +102,15 @@ fun GameScreen(
                 },
             )
 
-            // Weight spacer
             WeightSpacer()
 
-            // Number buttons
             NumberPanel(
                 modifier = Modifier.padding(horizontal = AppTheme.paddings.medium),
                 onNumberClick = { },
             )
 
-            // Weight spacer
             WeightSpacer()
 
-            // Action buttons
             GameActionsBar(
                 modifier = Modifier
                     .padding(horizontal = AppTheme.paddings.large)
@@ -101,5 +128,5 @@ fun GameScreen(
 
 @Composable
 private fun ColumnScope.WeightSpacer() {
-    androidx.compose.foundation.layout.Spacer(modifier = Modifier.weight(1f))
+    Spacer(modifier = Modifier.weight(1f))
 }
