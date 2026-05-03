@@ -75,6 +75,7 @@ class GameViewModel @Inject constructor(
                 setState(currentState.copy(showPauseDialog = false))
                 setEffect(GameUIEffect.NavigateBack)
             }
+            is GameUIEvent.SaveState -> autoSave()
         }
     }
 
@@ -106,7 +107,6 @@ class GameViewModel @Inject constructor(
         )
 
         startTimer()
-        autoSave()
     }
 
     private fun restoreGame(data: GameSaveData) {
@@ -230,8 +230,6 @@ class GameViewModel @Inject constructor(
             gameOver(isWin = false)
         } else if (isBoardComplete(immutable)) {
             gameOver(isWin = true)
-        } else {
-            autoSave()
         }
     }
 
@@ -255,7 +253,6 @@ class GameViewModel @Inject constructor(
                 availableNumbers = calcAvailableNumbers(immutable),
             )
         )
-        autoSave()
     }
 
     private fun onUndo() {
@@ -273,7 +270,6 @@ class GameViewModel @Inject constructor(
                 availableNumbers = calcAvailableNumbers(immutable),
             )
         )
-        autoSave()
     }
 
     private fun onNotesToggled() {
@@ -328,8 +324,6 @@ class GameViewModel @Inject constructor(
 
         if (isBoardComplete(immutable)) {
             gameOver(isWin = true)
-        } else {
-            autoSave()
         }
     }
 

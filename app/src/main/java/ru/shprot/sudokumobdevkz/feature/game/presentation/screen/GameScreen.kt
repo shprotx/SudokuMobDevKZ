@@ -1,8 +1,12 @@
 package ru.shprot.sudokumobdevkz.feature.game.presentation.screen
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import ru.shprot.sudokumobdevkz.feature.game.presentation.components.screencontent.GameScreenContent
@@ -20,6 +24,17 @@ fun GameScreen(
     viewModel: GameViewModel,
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
+    val lifecycleOwner = LocalLifecycleOwner.current
+
+    DisposableEffect(lifecycleOwner) {
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_STOP) {
+                viewModel.setEvent(GameUIEvent.SaveState)
+            }
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+        onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
+    }
 
     LaunchedEffect(Unit) {
         viewModel.effect.collect { effect ->

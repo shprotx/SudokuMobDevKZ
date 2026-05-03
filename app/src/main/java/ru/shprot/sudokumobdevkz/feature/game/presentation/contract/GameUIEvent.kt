@@ -20,4 +20,5 @@ sealed interface GameUIEvent : UIEvent {
     data object DismissNewGameDialog : GameUIEvent
     data class StartNewGame(val difficulty: Int) : GameUIEvent
     data object ExitGame : GameUIEvent
+    data object SaveState : GameUIEvent
 }
