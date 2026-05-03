@@ -15,7 +15,10 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import ru.shprot.sudokumobdevkz.R
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.Density
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
@@ -149,6 +152,7 @@ private fun DrawScope.drawNumbers(
     textMeasurer: TextMeasurer,
     density: Density,
 ) {
+    val gridFont = FontFamily(Font(R.font.ibm_plex_mono_bold))
     val fontSizeSp = with(density) { (cellSize * 0.45f).toSp() }
     val draftFontSizeSp = with(density) { (cellSize * 0.20f).toSp() }
     val draftHighlightFontSizeSp = with(density) { (cellSize * 0.24f).toSp() }
@@ -164,6 +168,7 @@ private fun DrawScope.drawNumbers(
                     else -> editableColor
                 }
                 val style = TextStyle(
+                    fontFamily = gridFont,
                     fontSize = fontSizeSp,
                     fontWeight = if (cell.isGiven) FontWeight.Bold else FontWeight.SemiBold,
                     color = color,
