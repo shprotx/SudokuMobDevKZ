@@ -10,5 +10,8 @@ sealed interface SettingsUIEvent : UIEvent {
     data object DismissResetDialog : SettingsUIEvent
     data object ResetConfirmed : SettingsUIEvent
 
+    data object DismissLockedDialog : SettingsUIEvent
+    data object ShowLockedDialog : SettingsUIEvent
+
     class SettingChanged(val transform: AppSettings.() -> AppSettings) : SettingsUIEvent
 }

@@ -27,6 +27,7 @@ fun GameStatisticsSection(
     winsWithoutErrors: String = "0",
     bestWinsLine: String = "0",
     currentWinsLine: String = "0",
+    casualGamesPlayed: String = "0",
 ) {
     Column(modifier = modifier) {
         Text(
@@ -62,6 +63,10 @@ fun GameStatisticsSection(
                 StatDivider()
 
                 StatRow(label = stringResource(R.string.current_wins_line), value = currentWinsLine)
+
+                StatDivider()
+
+                StatRow(label = stringResource(R.string.casual_games), value = casualGamesPlayed)
             }
         }
     }

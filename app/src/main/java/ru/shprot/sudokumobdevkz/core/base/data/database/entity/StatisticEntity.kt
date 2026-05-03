@@ -15,6 +15,7 @@ data class StatisticEntity(
     val winsWithoutErrors: Int = 0,
     val bestWinsLine: Int = 0,
     val currentWinsLine: Int = 0,
+    val casualGamesPlayed: Int = 0,
 ) {
     fun updated(win: Boolean, timeSeconds: Int, errorCount: Int): StatisticEntity {
         val newGamesStarted = gamesStarted + 1

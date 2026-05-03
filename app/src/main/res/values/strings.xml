@@ -179,6 +179,8 @@
     <string name="privacy_user_rights">You have the right to:\n• Delete all your data via app settings\n• Disable statistics sync\n• Request server data deletion by contacting the developer</string>
     <string name="privacy_changes">We may update this policy. The current version is always available in the app.</string>
     <string name="privacy_last_updated">Last updated: May 2026</string>
+    <string name="casual_games">Casual games</string>
+    <string name="settings_locked_during_game">Cannot change while a standard game is in progress</string>
     <string name="on_label" translatable="false">ON</string>
     <string name="off_label" translatable="false">OFF</string>
 

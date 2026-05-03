@@ -12,6 +12,5 @@ data class AppSettings(
     val isDarkTheme: Boolean = false,
     val soundsEnabled: Boolean = true,
 ) {
-    val hasCheats: Boolean get() = unlimitedErrors || unlimitedHints
-    val effectiveTrackStatistics: Boolean get() = trackStatistics && !hasCheats
+    val isStandardMode: Boolean get() = checkErrors && !unlimitedErrors && !unlimitedHints
 }

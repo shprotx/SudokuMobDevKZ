@@ -70,6 +70,7 @@ class StatisticViewModel @Inject constructor(
                         gamesWon = "${stat?.gamesWon ?: 0}",
                         bestWinsLine = "${stat?.bestWinsLine ?: 0}",
                         currentWinsLine = "${stat?.currentWinsLine ?: 0}",
+                        casualGamesPlayed = "${stat?.casualGamesPlayed ?: 0}",
                         recentGames = history,
                     )
                 )

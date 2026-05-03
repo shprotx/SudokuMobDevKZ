@@ -74,6 +74,11 @@ class SudokuRepository @Inject constructor(
         syncToFirebase(updated)
     }
 
+    suspend fun incrementCasualGames(difficulty: Int) {
+        val existing = statisticDao.getByDifficulty(difficulty) ?: StatisticEntity(difficulty)
+        statisticDao.upsert(existing.copy(casualGamesPlayed = existing.casualGamesPlayed + 1))
+    }
+
     suspend fun resetStatistic(difficulty: Int) {
         statisticDao.deleteByDifficulty(difficulty)
         gameHistoryDao.deleteByDifficulty(difficulty)
@@ -114,6 +119,7 @@ class SudokuRepository @Inject constructor(
                 isNotesEnabled = data.isNotesEnabled,
                 cellsJson = json.encodeToString(data.cells),
                 solutionJson = json.encodeToString(data.solution),
+                isStandardMode = data.isStandardMode,
             )
         )
     }
@@ -130,6 +136,7 @@ class SudokuRepository @Inject constructor(
                 isNotesEnabled = entity.isNotesEnabled,
                 cells = json.decodeFromString(entity.cellsJson),
                 solution = json.decodeFromString(entity.solutionJson),
+                isStandardMode = entity.isStandardMode,
             )
         } catch (_: Exception) {
             savedGameDao.delete()

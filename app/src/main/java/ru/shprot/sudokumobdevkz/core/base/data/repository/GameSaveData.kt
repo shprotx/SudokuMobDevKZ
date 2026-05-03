@@ -12,6 +12,7 @@ data class GameSaveData(
     val isNotesEnabled: Boolean,
     val cells: List<List<CellSave>>,
     val solution: List<List<Int>>,
+    val isStandardMode: Boolean = true,
 ) {
     @Serializable
     data class CellSave(

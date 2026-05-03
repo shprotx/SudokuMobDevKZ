@@ -95,6 +95,7 @@ fun StatisticScreenContent(
                 winsWithoutErrors = uiState.winsWithoutErrors,
                 bestWinsLine = uiState.bestWinsLine,
                 currentWinsLine = uiState.currentWinsLine,
+                casualGamesPlayed = uiState.casualGamesPlayed,
             )
 
             TimeChartSection(

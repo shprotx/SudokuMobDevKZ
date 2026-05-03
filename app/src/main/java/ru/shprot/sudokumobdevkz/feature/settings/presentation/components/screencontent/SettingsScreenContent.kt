@@ -33,6 +33,18 @@ import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.setting
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.contract.SettingsUIEvent
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.contract.SettingsUIState
 
+private fun sensitiveToggleHandler(
+    uiState: SettingsUIState,
+    onEvent: (SettingsUIEvent) -> Unit,
+    transform: (Boolean) -> SettingsUIEvent,
+): (Boolean) -> Unit = { value ->
+    if (uiState.hasActiveStandardGame) {
+        onEvent(SettingsUIEvent.ShowLockedDialog)
+    } else {
+        onEvent(transform(value))
+    }
+}
+
 @Composable
 fun SettingsScreenContent(
     uiState: SettingsUIState,
@@ -61,8 +73,8 @@ fun SettingsScreenContent(
                     icon = Icons.Filled.CheckCircle,
                     title = stringResource(R.string.check_errors),
                     checked = uiState.settings.checkErrors,
-                    onCheckedChange = { v ->
-                        onEvent(SettingsUIEvent.SettingChanged { copy(checkErrors = v) })
+                    onCheckedChange = sensitiveToggleHandler(uiState, onEvent) { v ->
+                        SettingsUIEvent.SettingChanged { copy(checkErrors = v) }
                     },
                 )
 
@@ -118,8 +130,8 @@ fun SettingsScreenContent(
                     iconTint = AppTheme.colors.warning,
                     title = stringResource(R.string.unlimited_errors),
                     checked = uiState.settings.unlimitedErrors,
-                    onCheckedChange = { v ->
-                        onEvent(SettingsUIEvent.SettingChanged { copy(unlimitedErrors = v) })
+                    onCheckedChange = sensitiveToggleHandler(uiState, onEvent) { v ->
+                        SettingsUIEvent.SettingChanged { copy(unlimitedErrors = v) }
                     },
                 )
 
@@ -130,8 +142,8 @@ fun SettingsScreenContent(
                     iconTint = AppTheme.colors.warning,
                     title = stringResource(R.string.unlimited_hints),
                     checked = uiState.settings.unlimitedHints,
-                    onCheckedChange = { v ->
-                        onEvent(SettingsUIEvent.SettingChanged { copy(unlimitedHints = v) })
+                    onCheckedChange = sensitiveToggleHandler(uiState, onEvent) { v ->
+                        SettingsUIEvent.SettingChanged { copy(unlimitedHints = v) }
                     },
                 )
 
@@ -140,8 +152,8 @@ fun SettingsScreenContent(
                 SettingsToggleItem(
                     icon = Icons.Filled.BarChart,
                     title = stringResource(R.string.track_statistics),
-                    checked = uiState.settings.effectiveTrackStatistics,
-                    enabled = !uiState.settings.hasCheats,
+                    checked = uiState.settings.trackStatistics && uiState.settings.isStandardMode,
+                    enabled = uiState.settings.isStandardMode,
                     onCheckedChange = { v ->
                         onEvent(SettingsUIEvent.SettingChanged { copy(trackStatistics = v) })
                     },

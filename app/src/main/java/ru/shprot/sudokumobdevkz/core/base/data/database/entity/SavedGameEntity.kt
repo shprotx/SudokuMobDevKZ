@@ -14,5 +14,6 @@ data class SavedGameEntity(
     val isNotesEnabled: Boolean = false,
     val cellsJson: String = "",
     val solutionJson: String = "",
+    val isStandardMode: Boolean = true,
     val timestamp: Long = System.currentTimeMillis(),
 )

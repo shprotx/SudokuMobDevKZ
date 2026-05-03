@@ -118,8 +118,9 @@ class GameViewModel @Inject constructor(
         val settings = settingsRepository.currentSettings
         val maxErrors = if (settings.unlimitedErrors) Int.MAX_VALUE else 3
         val hints = if (settings.unlimitedHints) Int.MAX_VALUE else 3
+        val isStandard = settings.isStandardMode
 
-        setState(currentState.copy(isGenerating = true, difficulty = difficulty, maxErrors = maxErrors, hintsRemaining = hints))
+        setState(currentState.copy(isGenerating = true, difficulty = difficulty, maxErrors = maxErrors, hintsRemaining = hints, isStandardMode = isStandard))
         repository.deleteSavedGame()
 
         val puzzle = SudokuGenerator.generate(difficulty)
@@ -160,6 +161,7 @@ class GameViewModel @Inject constructor(
                 maxErrors = data.maxErrors,
                 hintsRemaining = data.hintsRemaining,
                 isNotesEnabled = data.isNotesEnabled,
+                isStandardMode = data.isStandardMode,
                 isGenerating = false,
                 availableNumbers = calcAvailableNumbers(cells),
             )
@@ -184,6 +186,7 @@ class GameViewModel @Inject constructor(
                     row.map { c -> GameSaveData.CellSave(c.value, c.isGiven, c.isError, c.notes) }
                 },
                 solution = state.solution,
+                isStandardMode = state.isStandardMode,
             )
         )
     }
@@ -268,8 +271,8 @@ class GameViewModel @Inject constructor(
 
         if (shouldCheckErrors && newErrors >= state.maxErrors) {
             gameOver(isWin = false)
-        } else if (isBoardComplete(immutable)) {
-            gameOver(isWin = true)
+        } else {
+            checkBoardCompletion(immutable)
         }
     }
 
@@ -363,9 +366,7 @@ class GameViewModel @Inject constructor(
             )
         )
 
-        if (isBoardComplete(immutable)) {
-            gameOver(isWin = true)
-        }
+        checkBoardCompletion(immutable)
     }
 
     private fun onPause() {
@@ -404,13 +405,15 @@ class GameViewModel @Inject constructor(
         viewModelScope.launch(exceptionHandler) {
             repository.deleteSavedGame()
 
-            if (settingsRepository.currentSettings.effectiveTrackStatistics) {
+            if (currentState.isStandardMode) {
                 repository.updateStatistic(
                     difficulty = difficulty,
                     isWin = isWin,
                     timeSeconds = currentState.timeSeconds,
                     errorCount = currentState.errors,
                 )
+            } else {
+                repository.incrementCasualGames(difficulty)
             }
 
             repository.saveGameResult(
@@ -454,8 +457,18 @@ class GameViewModel @Inject constructor(
         return (1..9).filter { counts[it] < 9 }.toSet()
     }
 
-    private fun isBoardComplete(cells: List<List<CellData>>): Boolean =
-        cells.all { row -> row.all { it.value != 0 && !it.isError } }
+    private fun checkBoardCompletion(cells: List<List<CellData>>) {
+        val allFilled = cells.all { row -> row.all { it.value != 0 } }
+        if (!allFilled) return
+
+        val state = currentState
+        val isCorrect = cells.indices.all { r ->
+            cells[r].indices.all { c ->
+                cells[r][c].value == state.solution[r][c]
+            }
+        }
+        gameOver(isWin = isCorrect)
+    }
 
     private fun List<List<CellData>>.toMutableGrid(): MutableList<MutableList<CellData>> =
         map { it.toMutableList() }.toMutableList()

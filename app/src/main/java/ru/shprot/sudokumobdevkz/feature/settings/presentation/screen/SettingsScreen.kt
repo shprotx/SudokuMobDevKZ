@@ -54,6 +54,19 @@ fun SettingsScreen(
         )
     }
 
+    if (state.showLockedSettingDialog) {
+        AlertDialog(
+            onDismissRequest = { viewModel.setEvent(SettingsUIEvent.DismissLockedDialog) },
+            title = { Text(stringResource(R.string.settings)) },
+            text = { Text(stringResource(R.string.settings_locked_during_game)) },
+            confirmButton = {
+                TextButton(onClick = { viewModel.setEvent(SettingsUIEvent.DismissLockedDialog) }) {
+                    Text("OK")
+                }
+            },
+        )
+    }
+
     SettingsScreenContent(
         uiState = state,
         onEvent = viewModel::setEvent,

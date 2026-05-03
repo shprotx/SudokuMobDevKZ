@@ -23,4 +23,5 @@ data class GameUIState(
     val highlightedNumber: Int = 0,
     val showPauseDialog: Boolean = false,
     val showNewGameDialog: Boolean = false,
+    val isStandardMode: Boolean = true,
 ) : UIState

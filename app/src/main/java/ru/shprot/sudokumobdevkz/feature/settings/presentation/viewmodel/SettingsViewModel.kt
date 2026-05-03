@@ -27,6 +27,10 @@ class SettingsViewModel @Inject constructor(
                 updateState { copy(settings = settings) }
             }
         }
+        viewModelScope.launch {
+            val saved = sudokuRepository.loadSavedGame()
+            updateState { copy(hasActiveStandardGame = saved != null && saved.isStandardMode) }
+        }
     }
 
     override fun handleUIEvent(event: SettingsUIEvent) =
@@ -51,6 +55,12 @@ class SettingsViewModel @Inject constructor(
                 }
                 updateState { copy(showResetDialog = false) }
             }
+
+            SettingsUIEvent.ShowLockedDialog ->
+                updateState { copy(showLockedSettingDialog = true) }
+
+            SettingsUIEvent.DismissLockedDialog ->
+                updateState { copy(showLockedSettingDialog = false) }
 
             is SettingsUIEvent.SettingChanged ->
                 settingsRepository.update(event.transform)
