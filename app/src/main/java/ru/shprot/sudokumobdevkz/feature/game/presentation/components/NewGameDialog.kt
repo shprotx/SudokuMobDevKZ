@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.window.Dialog
 import ru.shprot.sudokumobdevkz.R
+import ru.shprot.sudokumobdevkz.core.uicommon.DifficultyEmoji
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 @Composable
@@ -96,7 +97,7 @@ fun NewGameDialog(
                     DifficultyOption(
                         modifier = Modifier.weight(1f),
                         label = stringResource(R.string.difficulty_easy),
-                        emoji = "\uD83C\uDF3F",
+                        emoji = DifficultyEmoji.EASY,
                         dotCount = 1,
                         dotColor = AppTheme.colors.primary,
                         isSelected = selectedDifficulty == 0,
@@ -106,7 +107,7 @@ fun NewGameDialog(
                     DifficultyOption(
                         modifier = Modifier.weight(1f),
                         label = stringResource(R.string.difficulty_middle),
-                        emoji = "☀\uFE0F",
+                        emoji = DifficultyEmoji.MEDIUM,
                         dotCount = 2,
                         dotColor = Color(0xFFFF9500),
                         isSelected = selectedDifficulty == 1,
@@ -116,7 +117,7 @@ fun NewGameDialog(
                     DifficultyOption(
                         modifier = Modifier.weight(1f),
                         label = stringResource(R.string.difficulty_expert),
-                        emoji = "\uD83D\uDC51",
+                        emoji = DifficultyEmoji.HARD,
                         dotCount = 3,
                         dotColor = Color(0xFFFF3B30),
                         isSelected = selectedDifficulty == 2,

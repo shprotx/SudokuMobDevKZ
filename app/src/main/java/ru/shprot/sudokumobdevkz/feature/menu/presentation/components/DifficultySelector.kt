@@ -24,6 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ru.shprot.sudokumobdevkz.R
+import ru.shprot.sudokumobdevkz.core.uicommon.DifficultyEmoji
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 @Composable
@@ -48,7 +49,7 @@ fun DifficultySelector(
             DifficultyCard(
                 title = stringResource(R.string.difficulty_easy),
                 subtitle = stringResource(R.string.for_beginners),
-                icon = "\uD83C\uDF3F",
+                icon = DifficultyEmoji.EASY,
                 dotCount = 1,
                 dotColor = AppTheme.colors.primary,
                 isSelected = selectedDifficulty == 0,
@@ -58,7 +59,7 @@ fun DifficultySelector(
             DifficultyCard(
                 title = stringResource(R.string.difficulty_middle),
                 subtitle = stringResource(R.string.for_experienced),
-                icon = "☀\uFE0F",
+                icon = DifficultyEmoji.MEDIUM,
                 dotCount = 2,
                 dotColor = Color(0xFFFF9500),
                 isSelected = selectedDifficulty == 1,
@@ -68,7 +69,7 @@ fun DifficultySelector(
             DifficultyCard(
                 title = stringResource(R.string.difficulty_expert),
                 subtitle = stringResource(R.string.for_experts),
-                icon = "\uD83D\uDC51",
+                icon = DifficultyEmoji.HARD,
                 dotCount = 3,
                 dotColor = Color(0xFFFF3B30),
                 isSelected = selectedDifficulty == 2,
