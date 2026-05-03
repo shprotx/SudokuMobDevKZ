@@ -29,6 +29,7 @@ fun MenuScreenContent(
     onEvent: (MenuUIEvent) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -36,6 +37,7 @@ fun MenuScreenContent(
             .verticalScroll(rememberScrollState())
             .padding(horizontal = AppTheme.paddings.large),
     ) {
+
         MenuHeader(
             modifier = Modifier
                 .statusBarsPadding()
@@ -45,6 +47,11 @@ fun MenuScreenContent(
 
         DailyChallengeCard(
             modifier = Modifier.padding(top = AppTheme.paddings.extraLarge),
+        )
+
+        NewGameButton(
+            modifier = Modifier.padding(top = AppTheme.paddings.large),
+            onClick = { onEvent(MenuUIEvent.NewGameClicked(uiState.selectedDifficulty)) },
         )
 
         if (uiState.hasSavedGame) {
@@ -64,11 +71,6 @@ fun MenuScreenContent(
                 )
             }
         }
-
-        NewGameButton(
-            modifier = Modifier.padding(top = AppTheme.paddings.large),
-            onClick = { onEvent(MenuUIEvent.NewGameClicked(uiState.selectedDifficulty)) },
-        )
 
         DifficultySelector(
             modifier = Modifier.padding(top = AppTheme.paddings.xxl),

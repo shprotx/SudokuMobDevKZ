@@ -27,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
+import ru.shprot.sudokumobdevkz.core.uicommon.toolbar.ToolbarDefault
 import ru.shprot.sudokumobdevkz.feature.statistic.presentation.contract.StatisticUIEvent
 import ru.shprot.sudokumobdevkz.feature.statistic.presentation.contract.StatisticUIState
 
@@ -37,13 +38,19 @@ fun StatisticScreenContent(
     modifier: Modifier = Modifier,
     tabs: List<String> = emptyList(),
 ) {
+
     Column(
         modifier = modifier
             .fillMaxSize()
             .background(AppTheme.colors.background)
             .verticalScroll(rememberScrollState()),
     ) {
-        StatisticToolbar(onBackClick = { onEvent(StatisticUIEvent.BackClicked) })
+
+        ToolbarDefault(
+            modifier = Modifier,
+            title = stringResource(R.string.statistic),
+            onLeadIconClick = { onEvent(StatisticUIEvent.BackClicked) },
+        )
 
         DifficultyTabs(
             tabs = tabs,

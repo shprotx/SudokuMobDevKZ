@@ -17,6 +17,7 @@ import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameUIEvent
 import ru.shprot.sudokumobdevkz.feature.game.presentation.viewmodel.GameViewModel
 import ru.shprot.sudokumobdevkz.feature.gameover.presentation.navigation.GameOverRoutes
 import ru.shprot.sudokumobdevkz.feature.game.presentation.navigation.GameRoutes
+import ru.shprot.sudokumobdevkz.feature.settings.presentation.navigation.SettingsRoutes
 
 @Composable
 fun GameScreen(
@@ -59,6 +60,8 @@ fun GameScreen(
                 is GameUIEffect.NavigateBack -> {
                     navController.popBackStack()
                 }
+                is GameUIEffect.NavigateToSettings ->
+                    navController.navigate(SettingsRoutes.SettingsScreen)
             }
         }
     }

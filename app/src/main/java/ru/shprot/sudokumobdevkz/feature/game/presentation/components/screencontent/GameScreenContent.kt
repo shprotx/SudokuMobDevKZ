@@ -27,15 +27,16 @@ import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameUIState
 fun GameScreenContent(
     uiState: GameUIState,
     onEvent: (GameUIEvent) -> Unit,
-    modifier: Modifier = Modifier,
 ) {
+
     if (uiState.isGenerating) {
         Box(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxSize()
                 .background(AppTheme.colors.background),
             contentAlignment = Alignment.Center,
         ) {
+
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 CircularProgressIndicator(color = AppTheme.colors.primary)
 
@@ -49,7 +50,7 @@ fun GameScreenContent(
         }
     } else {
         Column(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxSize()
                 .background(AppTheme.colors.background)
                 .clickable(
@@ -59,11 +60,13 @@ fun GameScreenContent(
                     onEvent(GameUIEvent.DeselectClicked)
                 },
         ) {
+
             GameToolbar(
+                modifier = Modifier,
                 onBackClick = { onEvent(GameUIEvent.BackClicked) },
                 onRestartClick = { onEvent(GameUIEvent.NewGameClicked) },
                 onPauseClick = { onEvent(GameUIEvent.ShowPauseDialog) },
-                onSettingsClick = { },
+                onSettingsClick = { onEvent(GameUIEvent.SettingsClicked) },
             )
 
             WeightSpacer()

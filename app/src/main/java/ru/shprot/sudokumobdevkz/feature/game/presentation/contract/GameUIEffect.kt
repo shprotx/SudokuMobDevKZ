@@ -11,4 +11,5 @@ sealed interface GameUIEffect : UIEffect {
 
     data class NavigateToNewGame(val difficulty: Int) : GameUIEffect
     data object NavigateBack : GameUIEffect
+    data object NavigateToSettings : GameUIEffect
 }

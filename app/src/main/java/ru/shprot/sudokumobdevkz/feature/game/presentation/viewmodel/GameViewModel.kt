@@ -76,6 +76,7 @@ class GameViewModel @Inject constructor(
                 setEffect(GameUIEffect.NavigateBack)
             }
             is GameUIEvent.SaveState -> autoSave()
+            is GameUIEvent.SettingsClicked -> setEffect(GameUIEffect.NavigateToSettings)
         }
     }
 

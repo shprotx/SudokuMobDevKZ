@@ -1,4 +1,4 @@
-package ru.shprot.sudokumobdevkz.feature.settings.presentation.components
+package ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
