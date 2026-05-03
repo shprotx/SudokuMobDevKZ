@@ -1,11 +1,19 @@
 package ru.shprot.sudokumobdevkz.model.repository
 
 import android.content.Context
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.preferencesDataStore
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -25,60 +33,63 @@ data class AppSettings(
     val effectiveTrackStatistics: Boolean get() = trackStatistics && !hasCheats
 }
 
+private val Context.settingsDataStore by preferencesDataStore(name = "sudoku_settings")
+
 @Singleton
 class SettingsRepository @Inject constructor(
     @ApplicationContext private val context: Context,
 ) {
-    private val prefs = context.getSharedPreferences("sudoku_settings", Context.MODE_PRIVATE)
+    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
-    private val _settings = MutableStateFlow(loadFromPrefs())
-    val settings: Flow<AppSettings> = _settings.asStateFlow()
+    private val _settings: StateFlow<AppSettings> = context.settingsDataStore.data
+        .map { prefs -> prefs.toAppSettings() }
+        .stateIn(scope, SharingStarted.Eagerly, AppSettings())
+
+    val settings: Flow<AppSettings> = _settings
 
     val currentSettings: AppSettings get() = _settings.value
 
     fun update(transform: AppSettings.() -> AppSettings) {
-        _settings.update { it.transform() }
-        saveToPrefs(_settings.value)
+        val newSettings = currentSettings.transform()
+        scope.launch {
+            context.settingsDataStore.edit { prefs ->
+                prefs[Keys.CHECK_ERRORS] = newSettings.checkErrors
+                prefs[Keys.HIGHLIGHT_DUPLICATES] = newSettings.highlightDuplicates
+                prefs[Keys.AUTO_SAVE] = newSettings.autoSave
+                prefs[Keys.SHOW_TIMER] = newSettings.showTimer
+                prefs[Keys.SHOW_ERRORS] = newSettings.showErrors
+                prefs[Keys.UNLIMITED_ERRORS] = newSettings.unlimitedErrors
+                prefs[Keys.UNLIMITED_HINTS] = newSettings.unlimitedHints
+                prefs[Keys.TRACK_STATISTICS] = newSettings.trackStatistics
+                prefs[Keys.DARK_THEME] = newSettings.isDarkTheme
+                prefs[Keys.SOUNDS] = newSettings.soundsEnabled
+            }
+        }
     }
 
-    private fun loadFromPrefs(): AppSettings = AppSettings(
-        checkErrors = prefs.getBoolean(KEY_CHECK_ERRORS, true),
-        highlightDuplicates = prefs.getBoolean(KEY_HIGHLIGHT_DUPLICATES, true),
-        autoSave = prefs.getBoolean(KEY_AUTO_SAVE, true),
-        showTimer = prefs.getBoolean(KEY_SHOW_TIMER, true),
-        showErrors = prefs.getBoolean(KEY_SHOW_ERRORS, true),
-        unlimitedErrors = prefs.getBoolean(KEY_UNLIMITED_ERRORS, false),
-        unlimitedHints = prefs.getBoolean(KEY_UNLIMITED_HINTS, false),
-        trackStatistics = prefs.getBoolean(KEY_TRACK_STATISTICS, true),
-        isDarkTheme = prefs.getBoolean(KEY_DARK_THEME, false),
-        soundsEnabled = prefs.getBoolean(KEY_SOUNDS, true),
+    private fun androidx.datastore.preferences.core.Preferences.toAppSettings() = AppSettings(
+        checkErrors = this[Keys.CHECK_ERRORS] ?: true,
+        highlightDuplicates = this[Keys.HIGHLIGHT_DUPLICATES] ?: true,
+        autoSave = this[Keys.AUTO_SAVE] ?: true,
+        showTimer = this[Keys.SHOW_TIMER] ?: true,
+        showErrors = this[Keys.SHOW_ERRORS] ?: true,
+        unlimitedErrors = this[Keys.UNLIMITED_ERRORS] ?: false,
+        unlimitedHints = this[Keys.UNLIMITED_HINTS] ?: false,
+        trackStatistics = this[Keys.TRACK_STATISTICS] ?: true,
+        isDarkTheme = this[Keys.DARK_THEME] ?: false,
+        soundsEnabled = this[Keys.SOUNDS] ?: true,
     )
 
-    private fun saveToPrefs(s: AppSettings) {
-        prefs.edit()
-            .putBoolean(KEY_CHECK_ERRORS, s.checkErrors)
-            .putBoolean(KEY_HIGHLIGHT_DUPLICATES, s.highlightDuplicates)
-            .putBoolean(KEY_AUTO_SAVE, s.autoSave)
-            .putBoolean(KEY_SHOW_TIMER, s.showTimer)
-            .putBoolean(KEY_SHOW_ERRORS, s.showErrors)
-            .putBoolean(KEY_UNLIMITED_ERRORS, s.unlimitedErrors)
-            .putBoolean(KEY_UNLIMITED_HINTS, s.unlimitedHints)
-            .putBoolean(KEY_TRACK_STATISTICS, s.trackStatistics)
-            .putBoolean(KEY_DARK_THEME, s.isDarkTheme)
-            .putBoolean(KEY_SOUNDS, s.soundsEnabled)
-            .apply()
-    }
-
-    private companion object {
-        const val KEY_CHECK_ERRORS = "check_errors"
-        const val KEY_HIGHLIGHT_DUPLICATES = "highlight_duplicates"
-        const val KEY_AUTO_SAVE = "auto_save"
-        const val KEY_SHOW_TIMER = "show_timer"
-        const val KEY_SHOW_ERRORS = "show_errors"
-        const val KEY_UNLIMITED_ERRORS = "unlimited_errors"
-        const val KEY_UNLIMITED_HINTS = "unlimited_hints"
-        const val KEY_TRACK_STATISTICS = "track_statistics"
-        const val KEY_DARK_THEME = "dark_theme"
-        const val KEY_SOUNDS = "sounds"
+    private object Keys {
+        val CHECK_ERRORS = booleanPreferencesKey("check_errors")
+        val HIGHLIGHT_DUPLICATES = booleanPreferencesKey("highlight_duplicates")
+        val AUTO_SAVE = booleanPreferencesKey("auto_save")
+        val SHOW_TIMER = booleanPreferencesKey("show_timer")
+        val SHOW_ERRORS = booleanPreferencesKey("show_errors")
+        val UNLIMITED_ERRORS = booleanPreferencesKey("unlimited_errors")
+        val UNLIMITED_HINTS = booleanPreferencesKey("unlimited_hints")
+        val TRACK_STATISTICS = booleanPreferencesKey("track_statistics")
+        val DARK_THEME = booleanPreferencesKey("dark_theme")
+        val SOUNDS = booleanPreferencesKey("sounds")
     }
 }
