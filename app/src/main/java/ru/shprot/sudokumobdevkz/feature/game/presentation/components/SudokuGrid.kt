@@ -62,7 +62,7 @@ fun SudokuGrid(
         drawRect(color = background, size = size)
 
         if (!isPaused) {
-            drawHighlights(cells, selectedRow, selectedCol, cellSize, cellSelected, cellHighlight, cellErrorColor)
+            drawHighlights(cells, selectedRow, selectedCol, cellSize, cellSelected, cellHighlight, cellErrorColor, highlightedNumber)
 
             drawNumbers(cells, cellSize, fixedColor, editableColor, errorColor, draftColor, highlightedNumber, textMeasurer, density)
         }
@@ -79,13 +79,23 @@ private fun DrawScope.drawHighlights(
     cellSelected: Color,
     cellHighlight: Color,
     cellErrorColor: Color,
+    highlightedNumber: Int,
 ) {
-    // Error cells
     for (r in 0 until 9) {
         for (c in 0 until 9) {
-            if (cells[r][c].isError) {
+            val cell = cells[r][c]
+
+            if (cell.isError) {
                 drawRect(
                     color = cellErrorColor,
+                    topLeft = Offset(c * cellSize, r * cellSize),
+                    size = Size(cellSize, cellSize),
+                )
+            }
+
+            if (highlightedNumber > 0 && cell.value == highlightedNumber && !cell.isError) {
+                drawRect(
+                    color = cellHighlight,
                     topLeft = Offset(c * cellSize, r * cellSize),
                     size = Size(cellSize, cellSize),
                 )
@@ -95,7 +105,6 @@ private fun DrawScope.drawHighlights(
 
     if (selectedRow < 0 || selectedCol < 0) return
 
-    // Row + column
     for (i in 0 until 9) {
         drawRect(
             color = cellHighlight,
@@ -110,7 +119,6 @@ private fun DrawScope.drawHighlights(
         )
     }
 
-    // Region
     val regionStartRow = (selectedRow / 3) * 3
     val regionStartCol = (selectedCol / 3) * 3
     for (r in regionStartRow until regionStartRow + 3) {
@@ -123,7 +131,6 @@ private fun DrawScope.drawHighlights(
         }
     }
 
-    // Selected cell
     drawRect(
         color = cellSelected,
         topLeft = Offset(selectedCol * cellSize, selectedRow * cellSize),
@@ -197,7 +204,7 @@ private fun DrawScope.drawGridLines(
         val pos = i * cellSize
         val isBold = i % 3 == 0
         val color = if (isBold) boldColor else thinColor
-        val width = if (isBold) 2.5f else 0.5f
+        val width = if (isBold) 3f else 1f
 
         drawLine(color, Offset(pos, 0f), Offset(pos, size.height), width)
 

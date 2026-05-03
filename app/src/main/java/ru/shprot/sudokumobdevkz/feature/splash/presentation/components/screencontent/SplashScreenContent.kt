@@ -96,7 +96,7 @@ fun SplashScreenContent(
 
     val gridLine = AppTheme.colors.gridLine
     val gridLineBold = AppTheme.colors.gridLineBold
-    val background = AppTheme.colors.backgroundCard
+    val background = AppTheme.colors.surface
     val fixedColor = AppTheme.colors.cellFixed
     val fillingColor = AppTheme.colors.primary
     val textMeasurer = rememberTextMeasurer()
@@ -159,7 +159,7 @@ private fun DrawScope.drawSplashGridLines(
         val pos = i * cellSize
         val isBold = i % 3 == 0
         val color = if (isBold) boldColor else thinColor
-        val width = if (isBold) 2f else 0.5f
+        val width = if (isBold) 2.5f else 0.8f
 
         drawLine(color, Offset(pos, 0f), Offset(pos, size.height), width)
 
