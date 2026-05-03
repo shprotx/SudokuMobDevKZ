@@ -12,11 +12,13 @@ import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameEffect
 import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameEvent
 import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameUiState
 import ru.shprot.sudokumobdevkz.model.generator.SudokuGenerator
+import ru.shprot.sudokumobdevkz.model.repository.SudokuRepository
 import javax.inject.Inject
 
 @HiltViewModel
 class GameViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
+    private val repository: SudokuRepository,
 ) : BaseViewModel<GameEvent, GameUiState, GameEffect>(GameUiState()) {
 
     private val difficulty: Int = savedStateHandle.get<Int>("difficulty") ?: 0
@@ -260,6 +262,23 @@ class GameViewModel @Inject constructor(
     private fun gameOver(isWin: Boolean) {
         timerJob?.cancel()
         setState(currentState.copy(isGameOver = true, isWin = isWin))
+
+        viewModelScope.launch(exceptionHandler) {
+            repository.updateStatistic(
+                difficulty = difficulty,
+                isWin = isWin,
+                timeSeconds = currentState.timeSeconds,
+                errorCount = currentState.errors,
+            )
+
+            repository.saveGameResult(
+                difficulty = difficulty,
+                timeSeconds = currentState.timeSeconds,
+                errors = currentState.errors,
+                isWin = isWin,
+            )
+        }
+
         setEffect(
             GameEffect.NavigateToGameOver(
                 isWin = isWin,
