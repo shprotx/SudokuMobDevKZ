@@ -32,6 +32,29 @@ class SudokuRepository @Inject constructor(
 ) {
     // --- Statistics ---
 
+    suspend fun syncStatisticsFromFirebase() = withContext(Dispatchers.IO) {
+        runCatching {
+            val stats = firebaseApi.getOwnStats(getDeviceId()) ?: return@withContext
+            for ((diffKey, dto) in stats) {
+                val difficulty = diffKey.toIntOrNull() ?: continue
+                if (dto.gamesStarted <= 0) continue
+                statisticDao.upsert(
+                    StatisticEntity(
+                        difficulty = difficulty,
+                        bestTime = dto.bestTime,
+                        averageTime = dto.averageTime,
+                        gamesStarted = dto.gamesStarted,
+                        gamesWon = dto.gamesWon,
+                        percentOfWins = if (dto.gamesStarted > 0) (100 * dto.gamesWon) / dto.gamesStarted else 0,
+                        winsWithoutErrors = dto.winsWithoutErrors,
+                        bestWinsLine = dto.bestWinsLine,
+                        allTime = dto.averageTime.toLong() * dto.gamesWon,
+                    ),
+                )
+            }
+        }
+    }
+
     suspend fun getStatistic(difficulty: Int): StatisticEntity? =
         statisticDao.getByDifficulty(difficulty)
 

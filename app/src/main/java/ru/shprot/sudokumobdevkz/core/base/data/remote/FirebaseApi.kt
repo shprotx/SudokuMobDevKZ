@@ -14,6 +14,11 @@ interface FirebaseApi {
         @Body stat: FirebaseStatDto,
     )
 
+    @GET("stats/{deviceId}.json")
+    suspend fun getOwnStats(
+        @Path("deviceId") deviceId: String,
+    ): Map<String, FirebaseStatDto>?
+
     @GET("stats.json")
     suspend fun getAllStats(): Map<String, Map<String, FirebaseStatDto>>?
 
