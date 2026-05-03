@@ -13,25 +13,26 @@ import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.ColorLens
 import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Language
 import androidx.compose.material.icons.filled.Lightbulb
 import androidx.compose.material.icons.filled.Palette
 import androidx.compose.material.icons.filled.Save
 import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material.icons.filled.Security
-import androidx.compose.material.icons.filled.Share
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.VolumeUp
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.SettingsCard
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.SettingsDivider
@@ -39,21 +40,37 @@ import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.Setting
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.SettingsSectionHeader
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.SettingsToggleItem
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.SettingsToolbar
+import ru.shprot.sudokumobdevkz.feature.settings.presentation.viewmodel.SettingsViewModel
 
 @Composable
-fun SettingsScreen(onNavigateBack: () -> Unit) {
-    var checkErrors by rememberSaveable { mutableStateOf(true) }
-    var highlightDuplicates by rememberSaveable { mutableStateOf(true) }
-    var autoSave by rememberSaveable { mutableStateOf(true) }
-    var showTimer by rememberSaveable { mutableStateOf(true) }
-    var showErrors by rememberSaveable { mutableStateOf(true) }
-    var unlimitedErrors by rememberSaveable { mutableStateOf(false) }
-    var unlimitedHints by rememberSaveable { mutableStateOf(false) }
-    var trackStatistics by rememberSaveable { mutableStateOf(true) }
-    var sounds by rememberSaveable { mutableStateOf(true) }
+fun SettingsScreen(
+    onNavigateBack: () -> Unit,
+    onNavigateToPrivacyPolicy: () -> Unit,
+    viewModel: SettingsViewModel = hiltViewModel(),
+) {
+    val settings by viewModel.settings.collectAsStateWithLifecycle()
+    var showResetDialog by rememberSaveable { mutableStateOf(false) }
 
-    val hasCheats = unlimitedErrors || unlimitedHints
-    val effectiveTrackStatistics = trackStatistics && !hasCheats
+    if (showResetDialog) {
+        AlertDialog(
+            onDismissRequest = { showResetDialog = false },
+            title = { Text("Сбросить статистику?") },
+            text = { Text("Статистика для всех сложностей будет удалена безвозвратно.") },
+            confirmButton = {
+                TextButton(onClick = {
+                    viewModel.resetAllStatistics()
+                    showResetDialog = false
+                }) {
+                    Text("Сбросить", color = AppTheme.colors.error)
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showResetDialog = false }) {
+                    Text("Отмена")
+                }
+            },
+        )
+    }
 
     Scaffold(containerColor = AppTheme.colors.background) { paddingValues ->
         Column(
@@ -73,8 +90,8 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
                     SettingsToggleItem(
                         icon = Icons.Filled.CheckCircle,
                         title = "Проверять ошибки",
-                        checked = checkErrors,
-                        onCheckedChange = { checkErrors = it },
+                        checked = settings.checkErrors,
+                        onCheckedChange = { v -> viewModel.updateSetting { copy(checkErrors = v) } },
                     )
 
                     SettingsDivider()
@@ -82,8 +99,8 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
                     SettingsToggleItem(
                         icon = Icons.Filled.ContentCopy,
                         title = "Подсветка дубликатов",
-                        checked = highlightDuplicates,
-                        onCheckedChange = { highlightDuplicates = it },
+                        checked = settings.highlightDuplicates,
+                        onCheckedChange = { v -> viewModel.updateSetting { copy(highlightDuplicates = v) } },
                     )
 
                     SettingsDivider()
@@ -91,8 +108,8 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
                     SettingsToggleItem(
                         icon = Icons.Filled.Save,
                         title = "Автосохранение",
-                        checked = autoSave,
-                        onCheckedChange = { autoSave = it },
+                        checked = settings.autoSave,
+                        onCheckedChange = { v -> viewModel.updateSetting { copy(autoSave = v) } },
                     )
 
                     SettingsDivider()
@@ -100,8 +117,8 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
                     SettingsToggleItem(
                         icon = Icons.Filled.Schedule,
                         title = "Показывать время",
-                        checked = showTimer,
-                        onCheckedChange = { showTimer = it },
+                        checked = settings.showTimer,
+                        onCheckedChange = { v -> viewModel.updateSetting { copy(showTimer = v) } },
                     )
 
                     SettingsDivider()
@@ -110,8 +127,8 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
                         icon = Icons.Filled.Favorite,
                         iconTint = AppTheme.colors.error,
                         title = "Показывать ошибки",
-                        checked = showErrors,
-                        onCheckedChange = { showErrors = it },
+                        checked = settings.showErrors,
+                        onCheckedChange = { v -> viewModel.updateSetting { copy(showErrors = v) } },
                     )
 
                     SettingsDivider()
@@ -120,8 +137,8 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
                         icon = Icons.Filled.Favorite,
                         iconTint = AppTheme.colors.warning,
                         title = "Бесконечные ошибки",
-                        checked = unlimitedErrors,
-                        onCheckedChange = { unlimitedErrors = it },
+                        checked = settings.unlimitedErrors,
+                        onCheckedChange = { v -> viewModel.updateSetting { copy(unlimitedErrors = v) } },
                     )
 
                     SettingsDivider()
@@ -130,8 +147,8 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
                         icon = Icons.Filled.Lightbulb,
                         iconTint = AppTheme.colors.warning,
                         title = "Безлимитные подсказки",
-                        checked = unlimitedHints,
-                        onCheckedChange = { unlimitedHints = it },
+                        checked = settings.unlimitedHints,
+                        onCheckedChange = { v -> viewModel.updateSetting { copy(unlimitedHints = v) } },
                     )
 
                     SettingsDivider()
@@ -139,9 +156,9 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
                     SettingsToggleItem(
                         icon = Icons.Filled.BarChart,
                         title = "Учёт статистики",
-                        checked = effectiveTrackStatistics,
-                        enabled = !hasCheats,
-                        onCheckedChange = { trackStatistics = it },
+                        checked = settings.effectiveTrackStatistics,
+                        enabled = !settings.hasCheats,
+                        onCheckedChange = { v -> viewModel.updateSetting { copy(trackStatistics = v) } },
                     )
                 }
 
@@ -149,21 +166,11 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
                 SettingsSectionHeader(title = "Внешний вид")
 
                 SettingsCard {
-                    SettingsNavItem(
+                    SettingsToggleItem(
                         icon = Icons.Filled.Palette,
-                        title = "Тема",
-                        value = "Светлая",
-                        onClick = { },
-                    )
-
-                    SettingsDivider()
-
-                    SettingsNavItem(
-                        icon = Icons.Filled.ColorLens,
-                        iconTint = AppTheme.colors.primary,
-                        title = "Цветовая схема",
-                        value = "Зелёная",
-                        onClick = { },
+                        title = "Тёмная тема",
+                        checked = settings.isDarkTheme,
+                        onCheckedChange = { v -> viewModel.updateSetting { copy(isDarkTheme = v) } },
                     )
                 }
 
@@ -174,8 +181,8 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
                     SettingsToggleItem(
                         icon = Icons.Filled.VolumeUp,
                         title = "Звуки",
-                        checked = sounds,
-                        onCheckedChange = { sounds = it },
+                        checked = settings.soundsEnabled,
+                        onCheckedChange = { v -> viewModel.updateSetting { copy(soundsEnabled = v) } },
                     )
                 }
 
@@ -184,34 +191,9 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
 
                 SettingsCard {
                     SettingsNavItem(
-                        icon = Icons.Filled.Language,
-                        title = "Язык",
-                        value = "Русский",
-                        onClick = { },
-                    )
-
-                    SettingsDivider()
-
-                    SettingsNavItem(
-                        icon = Icons.Filled.Star,
-                        title = "Оценить приложение",
-                        onClick = { },
-                    )
-
-                    SettingsDivider()
-
-                    SettingsNavItem(
-                        icon = Icons.Filled.Share,
-                        title = "Поделиться",
-                        onClick = { },
-                    )
-
-                    SettingsDivider()
-
-                    SettingsNavItem(
                         icon = Icons.Filled.Security,
                         title = "Политика конфиденциальности",
-                        onClick = { },
+                        onClick = onNavigateToPrivacyPolicy,
                     )
                 }
 
@@ -223,7 +205,7 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
                             top = AppTheme.paddings.xxl,
                             bottom = AppTheme.paddings.xxxl,
                         ),
-                    onClick = { },
+                    onClick = { showResetDialog = true },
                     shape = RoundedCornerShape(AppTheme.sizes.cornerRadiusLarge),
                     colors = ButtonDefaults.buttonColors(containerColor = AppTheme.colors.error),
                 ) {

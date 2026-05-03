@@ -15,6 +15,7 @@ import ru.shprot.sudokumobdevkz.feature.howtoplay.presentation.screen.HowToPlayS
 import ru.shprot.sudokumobdevkz.feature.menu.presentation.navigation.MenuRoutes
 import ru.shprot.sudokumobdevkz.feature.menu.presentation.screen.MenuScreen
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.navigation.SettingsRoutes
+import ru.shprot.sudokumobdevkz.feature.settings.presentation.screen.PrivacyPolicyScreen
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.screen.SettingsScreen
 import ru.shprot.sudokumobdevkz.feature.splash.presentation.navigation.SplashRoutes
 import ru.shprot.sudokumobdevkz.feature.splash.presentation.screen.SplashScreen
@@ -112,6 +113,15 @@ fun SudokuNavHost(
 
         composable<SettingsRoutes.SettingsScreen> {
             SettingsScreen(
+                onNavigateBack = { navController.popBackStack() },
+                onNavigateToPrivacyPolicy = {
+                    navController.navigate(SettingsRoutes.PrivacyPolicyScreen)
+                },
+            )
+        }
+
+        composable<SettingsRoutes.PrivacyPolicyScreen> {
+            PrivacyPolicyScreen(
                 onNavigateBack = { navController.popBackStack() },
             )
         }

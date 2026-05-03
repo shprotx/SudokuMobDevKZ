@@ -13,6 +13,7 @@ import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameEvent
 import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameUiState
 import ru.shprot.sudokumobdevkz.model.generator.SudokuGenerator
 import ru.shprot.sudokumobdevkz.model.repository.GameSaveData
+import ru.shprot.sudokumobdevkz.model.repository.SettingsRepository
 import ru.shprot.sudokumobdevkz.model.repository.SudokuRepository
 import javax.inject.Inject
 
@@ -20,6 +21,7 @@ import javax.inject.Inject
 class GameViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val repository: SudokuRepository,
+    private val settingsRepository: SettingsRepository,
 ) : BaseViewModel<GameEvent, GameUiState, GameEffect>(GameUiState()) {
 
     private val difficulty: Int = savedStateHandle.get<Int>("difficulty") ?: 0
@@ -55,7 +57,11 @@ class GameViewModel @Inject constructor(
     }
 
     private suspend fun startNewGame() {
-        setState(currentState.copy(isGenerating = true, difficulty = difficulty))
+        val settings = settingsRepository.currentSettings
+        val maxErrors = if (settings.unlimitedErrors) Int.MAX_VALUE else 3
+        val hints = if (settings.unlimitedHints) Int.MAX_VALUE else 3
+
+        setState(currentState.copy(isGenerating = true, difficulty = difficulty, maxErrors = maxErrors, hintsRemaining = hints))
         repository.deleteSavedGame()
 
         val puzzle = SudokuGenerator.generate(difficulty)
@@ -332,12 +338,14 @@ class GameViewModel @Inject constructor(
         viewModelScope.launch(exceptionHandler) {
             repository.deleteSavedGame()
 
-            repository.updateStatistic(
-                difficulty = difficulty,
-                isWin = isWin,
-                timeSeconds = currentState.timeSeconds,
-                errorCount = currentState.errors,
-            )
+            if (settingsRepository.currentSettings.effectiveTrackStatistics) {
+                repository.updateStatistic(
+                    difficulty = difficulty,
+                    isWin = isWin,
+                    timeSeconds = currentState.timeSeconds,
+                    errorCount = currentState.errors,
+                )
+            }
 
             repository.saveGameResult(
                 difficulty = difficulty,

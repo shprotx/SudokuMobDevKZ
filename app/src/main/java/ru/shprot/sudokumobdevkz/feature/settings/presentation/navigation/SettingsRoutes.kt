@@ -8,4 +8,7 @@ sealed class SettingsRoutes : NavRoute() {
 
     @Serializable
     data object SettingsScreen : SettingsRoutes()
+
+    @Serializable
+    data object PrivacyPolicyScreen : SettingsRoutes()
 }
