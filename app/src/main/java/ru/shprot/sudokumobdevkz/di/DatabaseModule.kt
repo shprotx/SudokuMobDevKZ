@@ -7,10 +7,10 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import ru.shprot.sudokumobdevkz.model.database.SudokuComposeDatabase
-import ru.shprot.sudokumobdevkz.model.database.dao.GameHistoryDao
-import ru.shprot.sudokumobdevkz.model.database.dao.SavedGameDao
-import ru.shprot.sudokumobdevkz.model.database.dao.StatisticDao
+import ru.shprot.sudokumobdevkz.core.base.data.database.SudokuComposeDatabase
+import ru.shprot.sudokumobdevkz.core.base.data.database.dao.GameHistoryDao
+import ru.shprot.sudokumobdevkz.core.base.data.database.dao.SavedGameDao
+import ru.shprot.sudokumobdevkz.core.base.data.database.dao.StatisticDao
 import javax.inject.Singleton
 
 @Module

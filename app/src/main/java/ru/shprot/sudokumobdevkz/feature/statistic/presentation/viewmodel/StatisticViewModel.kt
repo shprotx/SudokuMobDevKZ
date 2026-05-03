@@ -10,7 +10,7 @@ import ru.shprot.sudokumobdevkz.core.base.presentation.viewmodel.BaseViewModel
 import ru.shprot.sudokumobdevkz.feature.statistic.presentation.contract.StatisticEffect
 import ru.shprot.sudokumobdevkz.feature.statistic.presentation.contract.StatisticEvent
 import ru.shprot.sudokumobdevkz.feature.statistic.presentation.contract.StatisticUiState
-import ru.shprot.sudokumobdevkz.model.repository.SudokuRepository
+import ru.shprot.sudokumobdevkz.core.base.data.repository.SudokuRepository
 import javax.inject.Inject
 
 @HiltViewModel

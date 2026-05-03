@@ -11,11 +11,11 @@ import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.CellData
 import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameEffect
 import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameEvent
 import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameUiState
-import ru.shprot.sudokumobdevkz.model.generator.SudokuGenerator
+import ru.shprot.sudokumobdevkz.core.base.domain.generator.SudokuGenerator
 import ru.shprot.sudokumobdevkz.feature.game.presentation.navigation.GameRoutes
-import ru.shprot.sudokumobdevkz.model.repository.GameSaveData
-import ru.shprot.sudokumobdevkz.model.repository.SettingsRepository
-import ru.shprot.sudokumobdevkz.model.repository.SudokuRepository
+import ru.shprot.sudokumobdevkz.core.base.data.repository.GameSaveData
+import ru.shprot.sudokumobdevkz.core.base.data.repository.SettingsRepository
+import ru.shprot.sudokumobdevkz.core.base.data.repository.SudokuRepository
 import androidx.navigation.toRoute
 import javax.inject.Inject
 

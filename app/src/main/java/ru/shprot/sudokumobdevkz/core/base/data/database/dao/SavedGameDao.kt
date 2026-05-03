@@ -1,10 +1,10 @@
-package ru.shprot.sudokumobdevkz.model.database.dao
+package ru.shprot.sudokumobdevkz.core.base.data.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import ru.shprot.sudokumobdevkz.model.database.entity.SavedGameEntity
+import ru.shprot.sudokumobdevkz.core.base.data.database.entity.SavedGameEntity
 
 @Dao
 interface SavedGameDao {

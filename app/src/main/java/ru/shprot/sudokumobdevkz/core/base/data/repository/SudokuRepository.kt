@@ -1,4 +1,4 @@
-package ru.shprot.sudokumobdevkz.model.repository
+package ru.shprot.sudokumobdevkz.core.base.data.repository
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -9,15 +9,15 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import ru.shprot.sudokumobdevkz.model.database.dao.GameHistoryDao
-import ru.shprot.sudokumobdevkz.model.database.dao.SavedGameDao
-import ru.shprot.sudokumobdevkz.model.database.dao.StatisticDao
-import ru.shprot.sudokumobdevkz.model.database.entity.GameHistoryEntity
-import ru.shprot.sudokumobdevkz.model.database.entity.SavedGameEntity
-import ru.shprot.sudokumobdevkz.model.database.entity.StatisticEntity
-import ru.shprot.sudokumobdevkz.model.remote.FirebaseApi
-import ru.shprot.sudokumobdevkz.model.remote.FirebaseStatDto
-import ru.shprot.sudokumobdevkz.model.repository.GameSaveData.CellSave
+import ru.shprot.sudokumobdevkz.core.base.data.database.dao.GameHistoryDao
+import ru.shprot.sudokumobdevkz.core.base.data.database.dao.SavedGameDao
+import ru.shprot.sudokumobdevkz.core.base.data.database.dao.StatisticDao
+import ru.shprot.sudokumobdevkz.core.base.data.database.entity.GameHistoryEntity
+import ru.shprot.sudokumobdevkz.core.base.data.database.entity.SavedGameEntity
+import ru.shprot.sudokumobdevkz.core.base.data.database.entity.StatisticEntity
+import ru.shprot.sudokumobdevkz.core.base.data.remote.FirebaseApi
+import ru.shprot.sudokumobdevkz.core.base.data.remote.FirebaseStatDto
+import ru.shprot.sudokumobdevkz.core.base.data.repository.GameSaveData.CellSave
 import javax.inject.Inject
 import javax.inject.Singleton
 

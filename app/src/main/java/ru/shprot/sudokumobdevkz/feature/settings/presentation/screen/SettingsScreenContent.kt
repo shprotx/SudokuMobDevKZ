@@ -31,7 +31,7 @@ import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.Setting
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.SettingsSectionHeader
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.SettingsToggleItem
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.SettingsToolbar
-import ru.shprot.sudokumobdevkz.model.repository.AppSettings
+import ru.shprot.sudokumobdevkz.core.base.data.repository.AppSettings
 
 @Composable
 fun SettingsScreenContent(

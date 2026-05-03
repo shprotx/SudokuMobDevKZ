@@ -2,8 +2,8 @@ package ru.shprot.sudokumobdevkz
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
-import ru.shprot.sudokumobdevkz.model.ComposeCrashReporter
-import ru.shprot.sudokumobdevkz.model.remote.FirebaseApi
+import ru.shprot.sudokumobdevkz.core.base.data.CrashReporter
+import ru.shprot.sudokumobdevkz.core.base.data.remote.FirebaseApi
 import javax.inject.Inject
 
 @HiltAndroidApp
@@ -14,6 +14,6 @@ class SudokuApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        ComposeCrashReporter.init(this, firebaseApi)
+        CrashReporter.init(this, firebaseApi)
     }
 }

@@ -6,9 +6,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import ru.shprot.sudokumobdevkz.model.repository.AppSettings
-import ru.shprot.sudokumobdevkz.model.repository.SettingsRepository
-import ru.shprot.sudokumobdevkz.model.repository.SudokuRepository
+import ru.shprot.sudokumobdevkz.core.base.data.repository.AppSettings
+import ru.shprot.sudokumobdevkz.core.base.data.repository.SettingsRepository
+import ru.shprot.sudokumobdevkz.core.base.data.repository.SudokuRepository
 import javax.inject.Inject
 
 @HiltViewModel

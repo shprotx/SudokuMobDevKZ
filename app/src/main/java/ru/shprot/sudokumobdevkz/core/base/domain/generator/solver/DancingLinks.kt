@@ -1,4 +1,4 @@
-package ru.shprot.sudokumobdevkz.model.generator.solver
+package ru.shprot.sudokumobdevkz.core.base.domain.generator.solver
 
 import java.util.LinkedList
 

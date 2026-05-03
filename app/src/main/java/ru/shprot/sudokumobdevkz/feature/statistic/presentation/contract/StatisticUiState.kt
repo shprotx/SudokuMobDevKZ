@@ -1,7 +1,7 @@
 package ru.shprot.sudokumobdevkz.feature.statistic.presentation.contract
 
 import ru.shprot.sudokumobdevkz.core.base.presentation.contract.UIState
-import ru.shprot.sudokumobdevkz.model.database.entity.GameHistoryEntity
+import ru.shprot.sudokumobdevkz.core.base.data.database.entity.GameHistoryEntity
 
 data class StatisticUiState(
     val selectedTab: Int = 0,

@@ -1,4 +1,4 @@
-package ru.shprot.sudokumobdevkz.model.remote
+package ru.shprot.sudokumobdevkz.core.base.data.remote
 
 import kotlinx.serialization.Serializable
 

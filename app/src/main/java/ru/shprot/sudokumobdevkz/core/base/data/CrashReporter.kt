@@ -1,4 +1,4 @@
-package ru.shprot.sudokumobdevkz.model
+package ru.shprot.sudokumobdevkz.core.base.data
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -12,15 +12,15 @@ import kotlinx.coroutines.launch
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import ru.shprot.sudokumobdevkz.BuildConfig
-import ru.shprot.sudokumobdevkz.model.remote.CrashDto
-import ru.shprot.sudokumobdevkz.model.remote.FirebaseApi
+import ru.shprot.sudokumobdevkz.core.base.data.remote.CrashDto
+import ru.shprot.sudokumobdevkz.core.base.data.remote.FirebaseApi
 import java.io.PrintWriter
 import java.io.StringWriter
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-object ComposeCrashReporter {
+object CrashReporter {
 
     private const val TAG = "CrashReporter"
     private const val PREFS_NAME = "crashReporter"

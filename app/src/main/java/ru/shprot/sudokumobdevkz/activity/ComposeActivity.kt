@@ -9,7 +9,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 import ru.shprot.sudokumobdevkz.activity.navigation.SudokuNavHost
 import ru.shprot.sudokumobdevkz.core.theme.SudokuTheme
-import ru.shprot.sudokumobdevkz.model.repository.SettingsRepository
+import ru.shprot.sudokumobdevkz.core.base.data.repository.SettingsRepository
 import javax.inject.Inject
 
 @AndroidEntryPoint

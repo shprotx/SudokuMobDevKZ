@@ -1,4 +1,4 @@
-package ru.shprot.sudokumobdevkz.model.generator.solver
+package ru.shprot.sudokumobdevkz.core.base.domain.generator.solver
 
 internal class ColumnNode(val name: String) : DancingNode() {
     var size: Int = 0

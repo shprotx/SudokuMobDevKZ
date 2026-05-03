@@ -1,8 +1,8 @@
-package ru.shprot.sudokumobdevkz.model.generator
+package ru.shprot.sudokumobdevkz.core.base.domain.generator
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import ru.shprot.sudokumobdevkz.model.generator.solver.DancingLinksAlgorithm
+import ru.shprot.sudokumobdevkz.core.base.domain.generator.solver.DancingLinksAlgorithm
 
 data class GeneratedPuzzle(
     val solution: Array<IntArray>,

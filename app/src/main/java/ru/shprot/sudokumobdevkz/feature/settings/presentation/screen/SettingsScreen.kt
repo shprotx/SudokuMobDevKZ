@@ -12,7 +12,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.viewmodel.SettingsViewModel
-import ru.shprot.sudokumobdevkz.model.repository.AppSettings
+import ru.shprot.sudokumobdevkz.core.base.data.repository.AppSettings
 
 @Composable
 fun SettingsScreen(

@@ -21,7 +21,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.unit.dp
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
-import ru.shprot.sudokumobdevkz.model.database.entity.GameHistoryEntity
+import ru.shprot.sudokumobdevkz.core.base.data.database.entity.GameHistoryEntity
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale

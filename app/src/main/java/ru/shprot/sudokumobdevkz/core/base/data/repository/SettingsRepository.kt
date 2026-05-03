@@ -1,4 +1,4 @@
-package ru.shprot.sudokumobdevkz.model.repository
+package ru.shprot.sudokumobdevkz.core.base.data.repository
 
 import android.content.Context
 import androidx.datastore.preferences.core.booleanPreferencesKey

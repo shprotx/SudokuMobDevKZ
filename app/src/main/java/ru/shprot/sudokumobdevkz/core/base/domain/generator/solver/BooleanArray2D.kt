@@ -1,4 +1,4 @@
-package ru.shprot.sudokumobdevkz.model.generator.solver
+package ru.shprot.sudokumobdevkz.core.base.domain.generator.solver
 
 internal class BooleanArray2D(val rows: Int, val cols: Int) {
     private val data = BooleanArray(rows * cols)

@@ -11,7 +11,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import ru.shprot.sudokumobdevkz.BuildConfig
-import ru.shprot.sudokumobdevkz.model.remote.FirebaseApi
+import ru.shprot.sudokumobdevkz.core.base.data.remote.FirebaseApi
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
