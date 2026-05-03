@@ -44,6 +44,9 @@ fun SudokuNavHost(
                 onNavigateToGame = { difficulty ->
                     navController.navigate(GameRoutes.GameScreen(difficulty))
                 },
+                onContinueGame = {
+                    navController.navigate(GameRoutes.GameScreen(continueGame = true))
+                },
                 onNavigateToStatistic = {
                     navController.navigate(StatisticRoutes.StatisticScreen)
                 },

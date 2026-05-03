@@ -7,12 +7,17 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import ru.shprot.sudokumobdevkz.model.database.dao.GameHistoryDao
+import ru.shprot.sudokumobdevkz.model.database.dao.SavedGameDao
 import ru.shprot.sudokumobdevkz.model.database.dao.StatisticDao
 import ru.shprot.sudokumobdevkz.model.database.entity.GameHistoryEntity
+import ru.shprot.sudokumobdevkz.model.database.entity.SavedGameEntity
 import ru.shprot.sudokumobdevkz.model.database.entity.StatisticEntity
 import ru.shprot.sudokumobdevkz.model.remote.FirebaseApi
 import ru.shprot.sudokumobdevkz.model.remote.FirebaseStatDto
+import ru.shprot.sudokumobdevkz.model.repository.GameSaveData.CellSave
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -21,7 +26,9 @@ class SudokuRepository @Inject constructor(
     @ApplicationContext private val context: Context,
     private val statisticDao: StatisticDao,
     private val gameHistoryDao: GameHistoryDao,
+    private val savedGameDao: SavedGameDao,
     private val firebaseApi: FirebaseApi,
+    private val json: Json,
 ) {
     // --- Statistics ---
 
@@ -69,6 +76,46 @@ class SudokuRepository @Inject constructor(
 
     fun observeRecentWins(difficulty: Int, limit: Int = 7): Flow<List<GameHistoryEntity>> =
         gameHistoryDao.getRecentWins(difficulty, limit)
+
+    // --- Saved Game ---
+
+    suspend fun saveGame(data: GameSaveData) {
+        savedGameDao.save(
+            SavedGameEntity(
+                difficulty = data.difficulty,
+                timeSeconds = data.timeSeconds,
+                errors = data.errors,
+                maxErrors = data.maxErrors,
+                hintsRemaining = data.hintsRemaining,
+                isNotesEnabled = data.isNotesEnabled,
+                cellsJson = json.encodeToString(data.cells),
+                solutionJson = json.encodeToString(data.solution),
+            )
+        )
+    }
+
+    suspend fun loadSavedGame(): GameSaveData? {
+        val entity = savedGameDao.get() ?: return null
+        return try {
+            GameSaveData(
+                difficulty = entity.difficulty,
+                timeSeconds = entity.timeSeconds,
+                errors = entity.errors,
+                maxErrors = entity.maxErrors,
+                hintsRemaining = entity.hintsRemaining,
+                isNotesEnabled = entity.isNotesEnabled,
+                cells = json.decodeFromString(entity.cellsJson),
+                solution = json.decodeFromString(entity.solutionJson),
+            )
+        } catch (_: Exception) {
+            savedGameDao.delete()
+            null
+        }
+    }
+
+    suspend fun hasSavedGame(): Boolean = savedGameDao.get() != null
+
+    suspend fun deleteSavedGame() = savedGameDao.delete()
 
     // --- Firebase ---
 

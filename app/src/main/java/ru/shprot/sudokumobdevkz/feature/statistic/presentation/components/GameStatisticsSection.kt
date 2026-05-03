@@ -17,7 +17,15 @@ import androidx.compose.ui.text.font.FontWeight
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 @Composable
-fun GameStatisticsSection(modifier: Modifier = Modifier) {
+fun GameStatisticsSection(
+    modifier: Modifier = Modifier,
+    gamesStarted: String = "0",
+    gamesWon: String = "0",
+    percentOfWins: String = "0%",
+    winsWithoutErrors: String = "0",
+    bestWinsLine: String = "0",
+    currentWinsLine: String = "0",
+) {
     Column(modifier = modifier) {
         Text(
             text = "Игровая статистика",
@@ -31,27 +39,27 @@ fun GameStatisticsSection(modifier: Modifier = Modifier) {
             colors = CardDefaults.cardColors(containerColor = AppTheme.colors.backgroundCard),
         ) {
             Column(modifier = Modifier.padding(vertical = AppTheme.paddings.medium)) {
-                StatRow(label = "Начато игр", value = "0")
+                StatRow(label = "Начато игр", value = gamesStarted)
 
                 StatDivider()
 
-                StatRow(label = "Выиграно игр", value = "0")
+                StatRow(label = "Выиграно игр", value = gamesWon)
 
                 StatDivider()
 
-                StatRow(label = "Процент побед", value = "0%", valueColor = AppTheme.colors.primary)
+                StatRow(label = "Процент побед", value = percentOfWins, valueColor = AppTheme.colors.primary)
 
                 StatDivider()
 
-                StatRow(label = "Побед без ошибок", value = "0")
+                StatRow(label = "Побед без ошибок", value = winsWithoutErrors)
 
                 StatDivider()
 
-                StatRow(label = "Лучшая серия побед", value = "0")
+                StatRow(label = "Лучшая серия побед", value = bestWinsLine)
 
                 StatDivider()
 
-                StatRow(label = "Текущая серия побед", value = "0")
+                StatRow(label = "Текущая серия побед", value = currentWinsLine)
             }
         }
     }

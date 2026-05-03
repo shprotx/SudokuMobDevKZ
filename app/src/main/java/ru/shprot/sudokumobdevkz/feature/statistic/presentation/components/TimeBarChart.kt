@@ -21,9 +21,16 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.unit.dp
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
+import ru.shprot.sudokumobdevkz.model.database.entity.GameHistoryEntity
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 @Composable
-fun TimeChartSection(modifier: Modifier = Modifier) {
+fun TimeChartSection(
+    modifier: Modifier = Modifier,
+    recentGames: List<GameHistoryEntity> = emptyList(),
+) {
     Column(modifier = modifier) {
         Text(
             text = "Динамика времени",
@@ -43,17 +50,27 @@ fun TimeChartSection(modifier: Modifier = Modifier) {
                     .padding(AppTheme.paddings.large),
                 contentAlignment = Alignment.Center,
             ) {
-                TimeBarChart(
-                    values = listOf(3.5f, 2.8f, 4.2f, 3.0f, 5.1f, 4.3f, 2.5f),
-                    labels = listOf("16/05", "17/05", "18/05", "19/05", "20/05", "21/05", "22/05"),
-                )
+                if (recentGames.isEmpty()) {
+                    Text(
+                        text = "Нет данных",
+                        style = AppTheme.typography.body3,
+                        color = AppTheme.colors.textSecondary,
+                    )
+                } else {
+                    val dateFormat = SimpleDateFormat("dd/MM", Locale.getDefault())
+                    val reversed = recentGames.reversed()
+                    val values = reversed.map { it.timeSeconds.toFloat() }
+                    val labels = reversed.map { dateFormat.format(Date(it.timestamp)) }
+
+                    TimeBarChart(values = values, labels = labels)
+                }
             }
         }
     }
 }
 
 @Composable
-fun TimeBarChart(
+private fun TimeBarChart(
     modifier: Modifier = Modifier,
     values: List<Float>,
     labels: List<String>,
@@ -61,20 +78,6 @@ fun TimeBarChart(
     val barColor = AppTheme.colors.barChart
     val labelColor = AppTheme.colors.barChartLabel
     val labelStyle = AppTheme.typography.caption2
-
-    if (values.isEmpty()) {
-        Box(
-            modifier = modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center,
-        ) {
-            Text(
-                text = "Нет данных",
-                style = AppTheme.typography.body3,
-                color = AppTheme.colors.textSecondary,
-            )
-        }
-        return
-    }
 
     val maxValue = values.max()
 

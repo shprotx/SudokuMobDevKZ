@@ -7,5 +7,8 @@ import ru.shprot.sudokumobdevkz.core.base.presentation.navigation.NavRoute
 sealed class GameRoutes : NavRoute() {
 
     @Serializable
-    data class GameScreen(val difficulty: Int = 0) : GameRoutes()
+    data class GameScreen(
+        val difficulty: Int = 0,
+        val continueGame: Boolean = false,
+    ) : GameRoutes()
 }

@@ -20,11 +20,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.text.font.FontWeight
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 @Composable
-fun OverviewCards(modifier: Modifier = Modifier) {
+fun OverviewCards(
+    modifier: Modifier = Modifier,
+    bestTime: String = "--:--",
+    averageTime: String = "--:--",
+    percentOfWins: String = "0%",
+    winsWithoutErrors: String = "0",
+) {
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(AppTheme.paddings.default),
@@ -38,7 +43,7 @@ fun OverviewCards(modifier: Modifier = Modifier) {
                 icon = Icons.Filled.Timer,
                 iconTint = Color(0xFF039FE0),
                 label = "Лучшее время",
-                value = "--:--",
+                value = bestTime,
             )
 
             OverviewCard(
@@ -46,7 +51,7 @@ fun OverviewCards(modifier: Modifier = Modifier) {
                 icon = Icons.Filled.Schedule,
                 iconTint = Color(0xFF636AE8),
                 label = "Среднее время",
-                value = "--:--",
+                value = averageTime,
             )
         }
 
@@ -59,7 +64,7 @@ fun OverviewCards(modifier: Modifier = Modifier) {
                 icon = Icons.Filled.EmojiEvents,
                 iconTint = Color(0xFFFF9500),
                 label = "Процент побед",
-                value = "0%",
+                value = percentOfWins,
             )
 
             OverviewCard(
@@ -67,7 +72,7 @@ fun OverviewCards(modifier: Modifier = Modifier) {
                 icon = Icons.Filled.CheckCircle,
                 iconTint = AppTheme.colors.primary,
                 label = "Побед без ошибок",
-                value = "0",
+                value = winsWithoutErrors,
             )
         }
     }

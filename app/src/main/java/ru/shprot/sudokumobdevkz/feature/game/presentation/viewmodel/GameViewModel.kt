@@ -12,6 +12,7 @@ import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameEffect
 import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameEvent
 import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameUiState
 import ru.shprot.sudokumobdevkz.model.generator.SudokuGenerator
+import ru.shprot.sudokumobdevkz.model.repository.GameSaveData
 import ru.shprot.sudokumobdevkz.model.repository.SudokuRepository
 import javax.inject.Inject
 
@@ -22,11 +23,21 @@ class GameViewModel @Inject constructor(
 ) : BaseViewModel<GameEvent, GameUiState, GameEffect>(GameUiState()) {
 
     private val difficulty: Int = savedStateHandle.get<Int>("difficulty") ?: 0
+    private val continueGame: Boolean = savedStateHandle.get<Boolean>("continueGame") ?: false
     private val undoStack = mutableListOf<UndoEntry>()
     private var timerJob: Job? = null
 
     init {
-        startNewGame()
+        viewModelScope.launch(exceptionHandler) {
+            if (continueGame) {
+                val saved = repository.loadSavedGame()
+                if (saved != null) {
+                    restoreGame(saved)
+                    return@launch
+                }
+            }
+            startNewGame()
+        }
     }
 
     override fun handleUIEvent(event: GameEvent) {
@@ -43,33 +54,87 @@ class GameViewModel @Inject constructor(
         }
     }
 
-    private fun startNewGame() {
-        viewModelScope.launch(exceptionHandler) {
-            setState(currentState.copy(isGenerating = true, difficulty = difficulty))
+    private suspend fun startNewGame() {
+        setState(currentState.copy(isGenerating = true, difficulty = difficulty))
+        repository.deleteSavedGame()
 
-            val puzzle = SudokuGenerator.generate(difficulty)
+        val puzzle = SudokuGenerator.generate(difficulty)
 
-            val cells = Array(9) { row ->
-                Array(9) { col ->
-                    val value = puzzle.puzzle[row][col]
-                    CellData(
-                        value = value,
-                        isGiven = value != 0,
-                    )
-                }
+        val cells = Array(9) { row ->
+            Array(9) { col ->
+                val value = puzzle.puzzle[row][col]
+                CellData(
+                    value = value,
+                    isGiven = value != 0,
+                )
             }
+        }
 
-            setState(
-                currentState.copy(
-                    cells = cells,
-                    solution = puzzle.solution,
-                    isGenerating = false,
-                    availableNumbers = calcAvailableNumbers(cells),
+        setState(
+            currentState.copy(
+                cells = cells,
+                solution = puzzle.solution,
+                isGenerating = false,
+                availableNumbers = calcAvailableNumbers(cells),
+            )
+        )
+
+        startTimer()
+    }
+
+    private fun restoreGame(data: GameSaveData) {
+        val cells = Array(9) { row ->
+            Array(9) { col ->
+                val s = data.cells[row][col]
+                CellData(s.value, s.isGiven, s.isError, s.notes)
+            }
+        }
+        val solution = Array(9) { row -> data.solution[row].toIntArray() }
+
+        setState(
+            currentState.copy(
+                cells = cells,
+                solution = solution,
+                difficulty = data.difficulty,
+                timeSeconds = data.timeSeconds,
+                timer = "%02d:%02d".format(data.timeSeconds / 60, data.timeSeconds % 60),
+                errors = data.errors,
+                maxErrors = data.maxErrors,
+                hintsRemaining = data.hintsRemaining,
+                isNotesEnabled = data.isNotesEnabled,
+                isGenerating = false,
+                availableNumbers = calcAvailableNumbers(cells),
+            )
+        )
+
+        startTimer()
+    }
+
+    private fun saveGameState() {
+        val state = currentState
+        if (state.isGenerating || state.isGameOver) return
+
+        viewModelScope.launch(exceptionHandler) {
+            repository.saveGame(
+                GameSaveData(
+                    difficulty = state.difficulty,
+                    timeSeconds = state.timeSeconds,
+                    errors = state.errors,
+                    maxErrors = state.maxErrors,
+                    hintsRemaining = state.hintsRemaining,
+                    isNotesEnabled = state.isNotesEnabled,
+                    cells = state.cells.map { row ->
+                        row.map { c -> GameSaveData.CellSave(c.value, c.isGiven, c.isError, c.notes) }
+                    },
+                    solution = state.solution.map { it.toList() },
                 )
             )
-
-            startTimer()
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        saveGameState()
     }
 
     private fun onCellClicked(row: Int, col: Int) {
@@ -232,6 +297,7 @@ class GameViewModel @Inject constructor(
     private fun onPause() {
         timerJob?.cancel()
         setState(currentState.copy(isPaused = true))
+        saveGameState()
     }
 
     private fun onResume() {
@@ -264,6 +330,8 @@ class GameViewModel @Inject constructor(
         setState(currentState.copy(isGameOver = true, isWin = isWin))
 
         viewModelScope.launch(exceptionHandler) {
+            repository.deleteSavedGame()
+
             repository.updateStatistic(
                 difficulty = difficulty,
                 isWin = isWin,
