@@ -165,7 +165,7 @@ private fun DrawScope.drawNumbers(
                 }
                 val style = TextStyle(
                     fontSize = fontSizeSp,
-                    fontWeight = if (cell.isGiven) FontWeight.SemiBold else FontWeight.Normal,
+                    fontWeight = if (cell.isGiven) FontWeight.Bold else FontWeight.SemiBold,
                     color = color,
                 )
                 val text = cell.value.toString()
