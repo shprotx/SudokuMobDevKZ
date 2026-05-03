@@ -6,7 +6,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -39,6 +41,7 @@ fun PrivacyPolicyScreenContent(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
+                .statusBarsPadding()
                 .padding(
                     horizontal = AppTheme.paddings.small,
                     vertical = AppTheme.paddings.medium,
@@ -76,10 +79,12 @@ fun PrivacyPolicyScreenContent(
             Section(stringResource(R.string.policy_changes), stringResource(R.string.privacy_changes))
 
             Text(
-                modifier = Modifier.padding(
-                    top = AppTheme.paddings.xxl,
-                    bottom = AppTheme.paddings.xxxl,
-                ),
+                modifier = Modifier
+                    .navigationBarsPadding()
+                    .padding(
+                        top = AppTheme.paddings.xxl,
+                        bottom = AppTheme.paddings.xxxl,
+                    ),
                 text = stringResource(R.string.privacy_last_updated),
                 style = AppTheme.typography.caption1,
                 color = AppTheme.colors.textSecondary,

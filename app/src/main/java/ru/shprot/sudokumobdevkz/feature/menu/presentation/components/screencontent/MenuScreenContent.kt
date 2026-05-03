@@ -6,7 +6,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -35,7 +37,9 @@ fun MenuScreenContent(
             .padding(horizontal = AppTheme.paddings.large),
     ) {
         MenuHeader(
-            modifier = Modifier.padding(top = AppTheme.paddings.large),
+            modifier = Modifier
+                .statusBarsPadding()
+                .padding(top = AppTheme.paddings.large),
             onSettingsClick = { onEvent(MenuUIEvent.NavigateToSettings) },
         )
 
@@ -73,10 +77,12 @@ fun MenuScreenContent(
         )
 
         MenuNavigationCards(
-            modifier = Modifier.padding(
-                top = AppTheme.paddings.xxl,
-                bottom = AppTheme.paddings.xxxl,
-            ),
+            modifier = Modifier
+                .navigationBarsPadding()
+                .padding(
+                    top = AppTheme.paddings.xxl,
+                    bottom = AppTheme.paddings.xxxl,
+                ),
             onStatisticClick = { onEvent(MenuUIEvent.NavigateToStatistic) },
             onHowToPlayClick = { onEvent(MenuUIEvent.NavigateToHowToPlay) },
             onSettingsClick = { onEvent(MenuUIEvent.NavigateToSettings) },

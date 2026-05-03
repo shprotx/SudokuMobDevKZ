@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
@@ -110,6 +111,7 @@ fun GameScreenContent(
 
             GameActionsBar(
                 modifier = Modifier
+                    .navigationBarsPadding()
                     .padding(horizontal = AppTheme.paddings.large)
                     .padding(bottom = AppTheme.paddings.medium),
                 isNotesEnabled = uiState.isNotesEnabled,

@@ -8,7 +8,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.EmojiEvents
@@ -40,6 +42,7 @@ fun GameOverScreenContent(
         modifier = modifier
             .fillMaxSize()
             .background(AppTheme.colors.background)
+            .statusBarsPadding()
             .padding(horizontal = AppTheme.paddings.large),
         verticalArrangement = Arrangement.SpaceBetween,
     ) {
@@ -91,7 +94,9 @@ fun GameOverScreenContent(
             }
         }
 
-        Column(modifier = Modifier.padding(bottom = AppTheme.paddings.xxxl)) {
+        Column(modifier = Modifier
+            .navigationBarsPadding()
+            .padding(bottom = AppTheme.paddings.xxxl)) {
             Button(
                 modifier = Modifier
                     .fillMaxWidth()
