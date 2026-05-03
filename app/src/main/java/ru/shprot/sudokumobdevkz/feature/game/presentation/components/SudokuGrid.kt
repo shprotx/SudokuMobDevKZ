@@ -181,7 +181,7 @@ private fun DrawScope.drawNumbers(
                     val isHighlighted = note == highlightedNumber
                     val noteStyle = TextStyle(
                         fontSize = if (isHighlighted) draftHighlightFontSizeSp else draftFontSizeSp,
-                        fontWeight = if (isHighlighted) FontWeight.Bold else FontWeight.Normal,
+                        fontWeight = if (isHighlighted) FontWeight.Bold else FontWeight.Medium,
                         color = if (isHighlighted) fixedColor else draftColor,
                     )
                     val noteRow = (note - 1) / 3
