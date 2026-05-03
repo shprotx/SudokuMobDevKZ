@@ -177,5 +177,3 @@ class SudokuRepository @Inject constructor(
     private fun getDeviceId(): String =
         Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
 }
-
-data class PercentileResult(val percentile: Int, val totalPlayers: Int)

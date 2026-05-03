@@ -12,9 +12,11 @@ import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameEffect
 import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameEvent
 import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameUiState
 import ru.shprot.sudokumobdevkz.model.generator.SudokuGenerator
+import ru.shprot.sudokumobdevkz.feature.game.presentation.navigation.GameRoutes
 import ru.shprot.sudokumobdevkz.model.repository.GameSaveData
 import ru.shprot.sudokumobdevkz.model.repository.SettingsRepository
 import ru.shprot.sudokumobdevkz.model.repository.SudokuRepository
+import androidx.navigation.toRoute
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,8 +26,9 @@ class GameViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
 ) : BaseViewModel<GameEvent, GameUiState, GameEffect>(GameUiState()) {
 
-    private val difficulty: Int = savedStateHandle.get<Int>("difficulty") ?: 0
-    private val continueGame: Boolean = savedStateHandle.get<Boolean>("continueGame") ?: false
+    private val route = savedStateHandle.toRoute<GameRoutes.GameScreen>()
+    private val difficulty: Int = route.difficulty
+    private val continueGame: Boolean = route.continueGame
     private val undoStack = mutableListOf<UndoEntry>()
     private var timerJob: Job? = null
 

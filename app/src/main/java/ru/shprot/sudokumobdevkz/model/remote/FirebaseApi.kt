@@ -1,20 +1,9 @@
 package ru.shprot.sudokumobdevkz.model.remote
 
-import kotlinx.serialization.Serializable
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.PUT
 import retrofit2.http.Path
-
-@Serializable
-data class FirebaseStatDto(
-    val averageTime: Int = 0,
-    val bestTime: Int = 0,
-    val gamesWon: Int = 0,
-    val gamesStarted: Int = 0,
-    val winsWithoutErrors: Int = 0,
-    val bestWinsLine: Int = 0,
-)
 
 interface FirebaseApi {
 
@@ -35,13 +24,3 @@ interface FirebaseApi {
         @Body crash: CrashDto,
     )
 }
-
-@Serializable
-data class CrashDto(
-    val timestamp: String,
-    val versionName: String,
-    val versionCode: Int,
-    val device: String,
-    val android: Int,
-    val stacktrace: String,
-)

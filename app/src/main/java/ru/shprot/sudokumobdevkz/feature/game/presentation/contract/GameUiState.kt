@@ -1,15 +1,6 @@
 package ru.shprot.sudokumobdevkz.feature.game.presentation.contract
 
-import ru.shprot.sudokumobdevkz.core.base.presentation.contract.UIEffect
-import ru.shprot.sudokumobdevkz.core.base.presentation.contract.UIEvent
 import ru.shprot.sudokumobdevkz.core.base.presentation.contract.UIState
-
-data class CellData(
-    val value: Int = 0,
-    val isGiven: Boolean = false,
-    val isError: Boolean = false,
-    val notes: Set<Int> = emptySet(),
-)
 
 data class GameUiState(
     val cells: Array<Array<CellData>> = Array(9) { Array(9) { CellData() } },
@@ -53,24 +44,4 @@ data class GameUiState(
     }
 
     override fun hashCode(): Int = cells.contentDeepHashCode()
-}
-
-sealed interface GameEvent : UIEvent {
-    data class CellClicked(val row: Int, val col: Int) : GameEvent
-    data class NumberClicked(val number: Int) : GameEvent
-    data object UndoClicked : GameEvent
-    data object EraseClicked : GameEvent
-    data object NotesToggled : GameEvent
-    data object HintClicked : GameEvent
-    data object DeselectClicked : GameEvent
-    data object PauseClicked : GameEvent
-    data object ResumeClicked : GameEvent
-}
-
-sealed interface GameEffect : UIEffect {
-    data class NavigateToGameOver(
-        val isWin: Boolean,
-        val time: String,
-        val errors: Int,
-    ) : GameEffect
 }
