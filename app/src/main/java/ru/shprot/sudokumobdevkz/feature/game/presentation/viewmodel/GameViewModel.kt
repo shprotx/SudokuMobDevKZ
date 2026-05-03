@@ -257,6 +257,7 @@ class GameViewModel @Inject constructor(
                 cells = immutable,
                 errors = newErrors,
                 availableNumbers = calcAvailableNumbers(immutable),
+                highlightedNumber = if (isCorrect) number else 0,
             )
         )
 
