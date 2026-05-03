@@ -174,20 +174,22 @@ private fun DrawScope.drawNumbers(
                 val y = row * cellSize + (cellSize - measured.size.height) / 2f
                 drawText(measured, topLeft = Offset(x, y))
             } else if (cell.notes.isNotEmpty()) {
-                val noteSize = cellSize / 3f
+                val inset = cellSize * 0.12f
+                val innerSize = cellSize - inset * 2
+                val noteSize = innerSize / 3f
                 for (note in cell.notes) {
                     val isHighlighted = note == highlightedNumber
                     val noteStyle = TextStyle(
                         fontSize = if (isHighlighted) draftHighlightFontSizeSp else draftFontSizeSp,
-                        fontWeight = if (isHighlighted) FontWeight.Bold else FontWeight.Medium,
+                        fontWeight = if (isHighlighted) FontWeight.Bold else FontWeight.Normal,
                         color = if (isHighlighted) fixedColor else draftColor,
                     )
                     val noteRow = (note - 1) / 3
                     val noteCol = (note - 1) % 3
                     val text = note.toString()
                     val measured = textMeasurer.measure(text, noteStyle)
-                    val x = col * cellSize + noteCol * noteSize + (noteSize - measured.size.width) / 2f
-                    val y = row * cellSize + noteRow * noteSize + (noteSize - measured.size.height) / 2f
+                    val x = col * cellSize + inset + noteCol * noteSize + (noteSize - measured.size.width) / 2f
+                    val y = row * cellSize + inset + noteRow * noteSize + (noteSize - measured.size.height) / 2f
                     drawText(measured, topLeft = Offset(x, y))
                 }
             }
