@@ -1,48 +1,52 @@
 package ru.shprot.sudokumobdevkz.feature.settings.presentation.viewmodel
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import ru.shprot.sudokumobdevkz.core.base.data.repository.AppSettings
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SettingsRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SudokuRepository
+import ru.shprot.sudokumobdevkz.core.base.presentation.viewmodel.BaseViewModel
+import ru.shprot.sudokumobdevkz.feature.settings.presentation.contract.SettingsUIEffect
+import ru.shprot.sudokumobdevkz.feature.settings.presentation.contract.SettingsUIEvent
+import ru.shprot.sudokumobdevkz.feature.settings.presentation.contract.SettingsUIState
 import javax.inject.Inject
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val sudokuRepository: SudokuRepository,
-) : ViewModel() {
+) : BaseViewModel<SettingsUIEvent, SettingsUIState, SettingsUIEffect>(
+    SettingsUIState()
+) {
 
-    val settings = settingsRepository.settings
-        .stateIn(viewModelScope, SharingStarted.Eagerly, settingsRepository.currentSettings)
-
-    private val _showResetDialog = MutableStateFlow(false)
-    val showResetDialog = _showResetDialog.asStateFlow()
-
-    fun updateSetting(transform: AppSettings.() -> AppSettings) {
-        settingsRepository.update(transform)
-    }
-
-    fun showResetDialog() {
-        _showResetDialog.value = true
-    }
-
-    fun dismissResetDialog() {
-        _showResetDialog.value = false
-    }
-
-    fun resetAllStatistics() {
+    init {
+        setState(currentState.copy(settings = settingsRepository.currentSettings))
         viewModelScope.launch {
-            for (difficulty in 0..2) {
-                sudokuRepository.resetStatistic(difficulty)
+            settingsRepository.settings.collectLatest { settings ->
+                updateState { copy(settings = settings) }
             }
         }
-        _showResetDialog.value = false
+    }
+
+    override fun handleUIEvent(event: SettingsUIEvent) {
+        when (event) {
+            is SettingsUIEvent.SettingChanged -> settingsRepository.update(event.transform)
+            is SettingsUIEvent.BackClicked -> setEffect(SettingsUIEffect.NavigateBack)
+            is SettingsUIEvent.NavigateToPrivacyPolicy ->
+                setEffect(SettingsUIEffect.NavigateToPrivacyPolicy)
+            is SettingsUIEvent.ShowResetDialog ->
+                updateState { copy(showResetDialog = true) }
+            is SettingsUIEvent.DismissResetDialog ->
+                updateState { copy(showResetDialog = false) }
+            is SettingsUIEvent.ResetConfirmed -> {
+                viewModelScope.launch(exceptionHandler) {
+                    for (difficulty in 0..2) {
+                        sudokuRepository.resetStatistic(difficulty)
+                    }
+                }
+                updateState { copy(showResetDialog = false) }
+            }
+        }
     }
 }

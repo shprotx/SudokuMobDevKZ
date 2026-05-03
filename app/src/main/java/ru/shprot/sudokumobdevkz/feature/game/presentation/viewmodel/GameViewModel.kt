@@ -56,6 +56,8 @@ class GameViewModel @Inject constructor(
             is GameUIEvent.DeselectClicked -> onDeselect()
             is GameUIEvent.PauseClicked -> onPause()
             is GameUIEvent.ResumeClicked -> onResume()
+            is GameUIEvent.BackClicked -> setEffect(GameUIEffect.NavigateBack)
+            is GameUIEvent.NewGameClicked -> setState(currentState.copy(showNewGameDialog = true))
             is GameUIEvent.ShowPauseDialog -> {
                 onPause()
                 setState(currentState.copy(showPauseDialog = true))
@@ -63,6 +65,14 @@ class GameViewModel @Inject constructor(
             is GameUIEvent.DismissPauseDialog -> setState(currentState.copy(showPauseDialog = false))
             is GameUIEvent.ShowNewGameDialog -> setState(currentState.copy(showNewGameDialog = true, showPauseDialog = false))
             is GameUIEvent.DismissNewGameDialog -> setState(currentState.copy(showNewGameDialog = false))
+            is GameUIEvent.StartNewGame -> {
+                setState(currentState.copy(showNewGameDialog = false))
+                setEffect(GameUIEffect.NavigateToNewGame(event.difficulty))
+            }
+            is GameUIEvent.ExitGame -> {
+                setState(currentState.copy(showPauseDialog = false))
+                setEffect(GameUIEffect.NavigateBack)
+            }
         }
     }
 

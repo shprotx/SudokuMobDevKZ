@@ -5,9 +5,9 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import ru.shprot.sudokumobdevkz.feature.game.presentation.components.screencontent.GameScreenContent
 import ru.shprot.sudokumobdevkz.feature.game.presentation.components.NewGameDialog
 import ru.shprot.sudokumobdevkz.feature.game.presentation.components.PauseDialog
-import ru.shprot.sudokumobdevkz.feature.game.presentation.components.screencontent.GameScreenContent
 import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameUIEffect
 import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameUIEvent
 import ru.shprot.sudokumobdevkz.feature.game.presentation.viewmodel.GameViewModel
@@ -61,8 +61,7 @@ fun GameScreen(
                 viewModel.setEvent(GameUIEvent.ShowNewGameDialog)
             },
             onExit = {
-                viewModel.setEvent(GameUIEvent.DismissPauseDialog)
-                navController.popBackStack()
+                viewModel.setEvent(GameUIEvent.ExitGame)
             },
         )
     }
@@ -71,20 +70,14 @@ fun GameScreen(
         NewGameDialog(
             initialDifficulty = state.difficulty,
             onStartGame = { newDifficulty ->
-                viewModel.setEvent(GameUIEvent.DismissNewGameDialog)
-                navController.navigate(GameRoutes.GameScreen(newDifficulty)) {
-                    popUpTo<GameRoutes.GameScreen> { inclusive = true }
-                }
+                viewModel.setEvent(GameUIEvent.StartNewGame(newDifficulty))
             },
             onDismiss = { viewModel.setEvent(GameUIEvent.DismissNewGameDialog) },
         )
     }
 
     GameScreenContent(
-        state = state,
+        uiState = state,
         onEvent = viewModel::setEvent,
-        onNavigateBack = { navController.popBackStack() },
-        onNewGameClick = { viewModel.setEvent(GameUIEvent.ShowNewGameDialog) },
-        onPauseClick = { viewModel.setEvent(GameUIEvent.ShowPauseDialog) },
     )
 }

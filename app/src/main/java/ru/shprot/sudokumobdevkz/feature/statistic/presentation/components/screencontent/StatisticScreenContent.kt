@@ -1,5 +1,7 @@
 package ru.shprot.sudokumobdevkz.feature.statistic.presentation.components.screencontent
+import ru.shprot.sudokumobdevkz.feature.statistic.presentation.components.*
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,7 +18,6 @@ import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -25,117 +26,108 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
-import ru.shprot.sudokumobdevkz.feature.statistic.presentation.components.DifficultyTabs
-import ru.shprot.sudokumobdevkz.feature.statistic.presentation.components.GameStatisticsSection
-import ru.shprot.sudokumobdevkz.feature.statistic.presentation.components.OverviewCards
-import ru.shprot.sudokumobdevkz.feature.statistic.presentation.components.StatisticToolbar
-import ru.shprot.sudokumobdevkz.feature.statistic.presentation.components.TimeChartSection
 import ru.shprot.sudokumobdevkz.feature.statistic.presentation.contract.StatisticUIEvent
 import ru.shprot.sudokumobdevkz.feature.statistic.presentation.contract.StatisticUIState
 
 @Composable
 fun StatisticScreenContent(
-    modifier: Modifier = Modifier,
-    state: StatisticUIState,
-    tabs: List<String>,
+    uiState: StatisticUIState,
     onEvent: (StatisticUIEvent) -> Unit,
-    onNavigateBack: () -> Unit,
-    onResetClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    tabs: List<String> = emptyList(),
 ) {
-    Scaffold(containerColor = AppTheme.colors.background) { paddingValues ->
-        Column(
-            modifier = modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-                .verticalScroll(rememberScrollState()),
-        ) {
-            StatisticToolbar(onBackClick = onNavigateBack)
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .background(AppTheme.colors.background)
+            .verticalScroll(rememberScrollState()),
+    ) {
+        StatisticToolbar(onBackClick = { onEvent(StatisticUIEvent.BackClicked) })
 
-            DifficultyTabs(
-                tabs = tabs,
-                selectedTab = state.selectedTab,
-                onTabSelected = { onEvent(StatisticUIEvent.TabSelected(it)) },
+        DifficultyTabs(
+            tabs = tabs,
+            selectedTab = uiState.selectedTab,
+            onTabSelected = { onEvent(StatisticUIEvent.TabSelected(it)) },
+        )
+
+        Column(modifier = Modifier.padding(horizontal = AppTheme.paddings.large)) {
+            Text(
+                modifier = Modifier.padding(top = AppTheme.paddings.extraLarge),
+                text = stringResource(R.string.overview),
+                style = AppTheme.typography.h4,
+                color = AppTheme.colors.text,
             )
 
-            Column(modifier = Modifier.padding(horizontal = AppTheme.paddings.large)) {
-                Text(
-                    modifier = Modifier.padding(top = AppTheme.paddings.extraLarge),
-                    text = stringResource(R.string.overview),
-                    style = AppTheme.typography.h4,
-                    color = AppTheme.colors.text,
+            OverviewCards(
+                modifier = Modifier.padding(top = AppTheme.paddings.default),
+                bestTime = uiState.bestTime,
+                averageTime = uiState.averageTime,
+                percentOfWins = uiState.percentOfWins,
+                winsWithoutErrors = uiState.winsWithoutErrors,
+            )
+
+            GameStatisticsSection(
+                modifier = Modifier.padding(top = AppTheme.paddings.xxl),
+                gamesStarted = uiState.gamesStarted,
+                gamesWon = uiState.gamesWon,
+                percentOfWins = uiState.percentOfWins,
+                winsWithoutErrors = uiState.winsWithoutErrors,
+                bestWinsLine = uiState.bestWinsLine,
+                currentWinsLine = uiState.currentWinsLine,
+            )
+
+            TimeChartSection(
+                modifier = Modifier.padding(top = AppTheme.paddings.xxl),
+                recentGames = uiState.recentGames,
+            )
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = AppTheme.paddings.xxl),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.Refresh,
+                    contentDescription = null,
+                    tint = AppTheme.colors.textSecondary,
+                    modifier = Modifier.size(AppTheme.sizes.iconSmall),
                 )
 
-                OverviewCards(
-                    modifier = Modifier.padding(top = AppTheme.paddings.default),
-                    bestTime = state.bestTime,
-                    averageTime = state.averageTime,
-                    percentOfWins = state.percentOfWins,
-                    winsWithoutErrors = state.winsWithoutErrors,
-                )
-
-                GameStatisticsSection(
-                    modifier = Modifier.padding(top = AppTheme.paddings.xxl),
-                    gamesStarted = state.gamesStarted,
-                    gamesWon = state.gamesWon,
-                    percentOfWins = state.percentOfWins,
-                    winsWithoutErrors = state.winsWithoutErrors,
-                    bestWinsLine = state.bestWinsLine,
-                    currentWinsLine = state.currentWinsLine,
-                )
-
-                TimeChartSection(
-                    modifier = Modifier.padding(top = AppTheme.paddings.xxl),
-                    recentGames = state.recentGames,
-                )
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = AppTheme.paddings.xxl),
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Icon(
-                        imageVector = Icons.Filled.Refresh,
-                        contentDescription = null,
-                        tint = AppTheme.colors.textSecondary,
-                        modifier = Modifier.size(AppTheme.sizes.iconSmall),
-                    )
-
-                    TextButton(onClick = onResetClick) {
-                        Text(
-                            text = stringResource(R.string.reset_statistics),
-                            style = AppTheme.typography.body3,
-                            color = AppTheme.colors.textSecondary,
-                        )
-                    }
-                }
-
-                Button(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(
-                            top = AppTheme.paddings.default,
-                            bottom = AppTheme.paddings.xxxl,
-                        ),
-                    onClick = onNavigateBack,
-                    shape = RoundedCornerShape(AppTheme.sizes.cornerRadiusLarge),
-                    colors = ButtonDefaults.buttonColors(containerColor = AppTheme.colors.primary),
-                ) {
-                    Icon(
-                        imageVector = Icons.Filled.Home,
-                        contentDescription = null,
-                        tint = AppTheme.colors.textOnPrimary,
-                        modifier = Modifier.size(AppTheme.sizes.iconMedium),
-                    )
-
+                TextButton(onClick = { onEvent(StatisticUIEvent.ResetClicked) }) {
                     Text(
-                        modifier = Modifier.padding(start = AppTheme.paddings.medium),
-                        text = stringResource(R.string.go_to_main_page),
-                        style = AppTheme.typography.button,
-                        color = AppTheme.colors.textOnPrimary,
+                        text = stringResource(R.string.reset_statistics),
+                        style = AppTheme.typography.body3,
+                        color = AppTheme.colors.textSecondary,
                     )
                 }
+            }
+
+            Button(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        top = AppTheme.paddings.default,
+                        bottom = AppTheme.paddings.xxxl,
+                    ),
+                onClick = { onEvent(StatisticUIEvent.BackClicked) },
+                shape = RoundedCornerShape(AppTheme.sizes.cornerRadiusLarge),
+                colors = ButtonDefaults.buttonColors(containerColor = AppTheme.colors.primary),
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.Home,
+                    contentDescription = null,
+                    tint = AppTheme.colors.textOnPrimary,
+                    modifier = Modifier.size(AppTheme.sizes.iconMedium),
+                )
+
+                Text(
+                    modifier = Modifier.padding(start = AppTheme.paddings.medium),
+                    text = stringResource(R.string.go_to_main_page),
+                    style = AppTheme.typography.button,
+                    color = AppTheme.colors.textOnPrimary,
+                )
             }
         }
     }

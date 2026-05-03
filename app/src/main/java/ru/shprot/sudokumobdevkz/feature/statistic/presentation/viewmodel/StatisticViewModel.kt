@@ -37,6 +37,8 @@ class StatisticViewModel @Inject constructor(
             }
             is StatisticUIEvent.ShowResetDialog -> setState(currentState.copy(showResetDialog = true))
             is StatisticUIEvent.DismissResetDialog -> setState(currentState.copy(showResetDialog = false))
+            is StatisticUIEvent.BackClicked -> setEffect(StatisticUIEffect.NavigateBack)
+            is StatisticUIEvent.ResetClicked -> setState(currentState.copy(showResetDialog = true))
         }
     }
 

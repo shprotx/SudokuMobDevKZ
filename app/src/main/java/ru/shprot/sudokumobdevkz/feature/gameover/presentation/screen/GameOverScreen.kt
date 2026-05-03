@@ -1,32 +1,42 @@
 package ru.shprot.sudokumobdevkz.feature.gameover.presentation.screen
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import androidx.navigation.toRoute
 import ru.shprot.sudokumobdevkz.feature.game.presentation.navigation.GameRoutes
 import ru.shprot.sudokumobdevkz.feature.gameover.presentation.components.screencontent.GameOverScreenContent
-import ru.shprot.sudokumobdevkz.feature.gameover.presentation.navigation.GameOverRoutes
+import ru.shprot.sudokumobdevkz.feature.gameover.presentation.contract.GameOverUIEffect
+import ru.shprot.sudokumobdevkz.feature.gameover.presentation.viewmodel.GameOverViewModel
 import ru.shprot.sudokumobdevkz.feature.menu.presentation.navigation.MenuRoutes
 
 @Composable
-fun GameOverScreen(navController: NavController) {
-    val route = navController.currentBackStackEntry?.toRoute<GameOverRoutes.GameOverScreen>()
-        ?: return
+fun GameOverScreen(
+    navController: NavController,
+    viewModel: GameOverViewModel,
+) {
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        viewModel.effect.collect { effect ->
+            when (effect) {
+                is GameOverUIEffect.NavigateToMenu -> {
+                    navController.navigate(MenuRoutes.MenuScreen) {
+                        popUpTo<MenuRoutes.MenuScreen> { inclusive = true }
+                    }
+                }
+                is GameOverUIEffect.NavigateToNewGame -> {
+                    navController.navigate(GameRoutes.GameScreen(effect.difficulty)) {
+                        popUpTo<MenuRoutes.MenuScreen>()
+                    }
+                }
+            }
+        }
+    }
 
     GameOverScreenContent(
-        isWin = route.isWin,
-        time = route.time,
-        errors = route.errors,
-        difficulty = route.difficulty,
-        onNavigateToMenu = {
-            navController.navigate(MenuRoutes.MenuScreen) {
-                popUpTo<MenuRoutes.MenuScreen> { inclusive = true }
-            }
-        },
-        onNavigateToNewGame = { difficulty ->
-            navController.navigate(GameRoutes.GameScreen(difficulty)) {
-                popUpTo<MenuRoutes.MenuScreen>()
-            }
-        },
+        uiState = state,
+        onEvent = viewModel::setEvent,
     )
 }

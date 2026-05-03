@@ -11,17 +11,21 @@ import ru.shprot.sudokumobdevkz.feature.game.presentation.screen.GameScreen
 import ru.shprot.sudokumobdevkz.feature.game.presentation.viewmodel.GameViewModel
 import ru.shprot.sudokumobdevkz.feature.gameover.presentation.navigation.GameOverRoutes
 import ru.shprot.sudokumobdevkz.feature.gameover.presentation.screen.GameOverScreen
+import ru.shprot.sudokumobdevkz.feature.gameover.presentation.viewmodel.GameOverViewModel
 import ru.shprot.sudokumobdevkz.feature.howtoplay.presentation.navigation.HowToPlayRoutes
 import ru.shprot.sudokumobdevkz.feature.howtoplay.presentation.screen.HowToPlayScreen
+import ru.shprot.sudokumobdevkz.feature.howtoplay.presentation.viewmodel.HowToPlayViewModel
 import ru.shprot.sudokumobdevkz.feature.menu.presentation.navigation.MenuRoutes
 import ru.shprot.sudokumobdevkz.feature.menu.presentation.screen.MenuScreen
 import ru.shprot.sudokumobdevkz.feature.menu.presentation.viewmodel.MenuViewModel
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.navigation.SettingsRoutes
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.screen.PrivacyPolicyScreen
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.screen.SettingsScreen
+import ru.shprot.sudokumobdevkz.feature.settings.presentation.viewmodel.PrivacyPolicyViewModel
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.viewmodel.SettingsViewModel
 import ru.shprot.sudokumobdevkz.feature.splash.presentation.navigation.SplashRoutes
 import ru.shprot.sudokumobdevkz.feature.splash.presentation.screen.SplashScreen
+import ru.shprot.sudokumobdevkz.feature.splash.presentation.viewmodel.SplashViewModel
 import ru.shprot.sudokumobdevkz.feature.statistic.presentation.navigation.StatisticRoutes
 import ru.shprot.sudokumobdevkz.feature.statistic.presentation.screen.StatisticScreen
 import ru.shprot.sudokumobdevkz.feature.statistic.presentation.viewmodel.StatisticViewModel
@@ -35,7 +39,8 @@ fun SudokuNavHost(
         startDestination = SplashRoutes.SplashScreen,
     ) {
         composable<SplashRoutes.SplashScreen> {
-            SplashScreen(navController = navController)
+            val viewModel: SplashViewModel = hiltViewModel()
+            SplashScreen(navController = navController, viewModel = viewModel)
         }
 
         composable<MenuRoutes.MenuScreen> {
@@ -49,7 +54,8 @@ fun SudokuNavHost(
         }
 
         composable<GameOverRoutes.GameOverScreen> {
-            GameOverScreen(navController = navController)
+            val viewModel: GameOverViewModel = hiltViewModel()
+            GameOverScreen(navController = navController, viewModel = viewModel)
         }
 
         composable<StatisticRoutes.StatisticScreen> {
@@ -63,11 +69,13 @@ fun SudokuNavHost(
         }
 
         composable<SettingsRoutes.PrivacyPolicyScreen> {
-            PrivacyPolicyScreen(navController = navController)
+            val viewModel: PrivacyPolicyViewModel = hiltViewModel()
+            PrivacyPolicyScreen(navController = navController, viewModel = viewModel)
         }
 
         composable<HowToPlayRoutes.HowToPlayScreen> {
-            HowToPlayScreen(navController = navController)
+            val viewModel: HowToPlayViewModel = hiltViewModel()
+            HowToPlayScreen(navController = navController, viewModel = viewModel)
         }
     }
 }

@@ -7,4 +7,6 @@ sealed interface StatisticUIEvent : UIEvent {
     data class ResetRequested(val difficulty: Int) : StatisticUIEvent
     data object ShowResetDialog : StatisticUIEvent
     data object DismissResetDialog : StatisticUIEvent
+    data object BackClicked : StatisticUIEvent
+    data object ResetClicked : StatisticUIEvent
 }

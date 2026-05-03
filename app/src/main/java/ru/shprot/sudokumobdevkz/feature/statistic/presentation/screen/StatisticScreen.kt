@@ -4,6 +4,7 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -11,6 +12,7 @@ import androidx.navigation.NavController
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 import ru.shprot.sudokumobdevkz.feature.statistic.presentation.components.screencontent.StatisticScreenContent
+import ru.shprot.sudokumobdevkz.feature.statistic.presentation.contract.StatisticUIEffect
 import ru.shprot.sudokumobdevkz.feature.statistic.presentation.contract.StatisticUIEvent
 import ru.shprot.sudokumobdevkz.feature.statistic.presentation.viewmodel.StatisticViewModel
 
@@ -26,6 +28,14 @@ fun StatisticScreen(
         stringResource(R.string.difficulty_middle),
         stringResource(R.string.difficulty_expert),
     )
+
+    LaunchedEffect(Unit) {
+        viewModel.effect.collect { effect ->
+            when (effect) {
+                is StatisticUIEffect.NavigateBack -> navController.popBackStack()
+            }
+        }
+    }
 
     if (state.showResetDialog) {
         AlertDialog(
@@ -49,10 +59,8 @@ fun StatisticScreen(
     }
 
     StatisticScreenContent(
-        state = state,
-        tabs = tabs,
+        uiState = state,
         onEvent = viewModel::setEvent,
-        onNavigateBack = { navController.popBackStack() },
-        onResetClick = { viewModel.setEvent(StatisticUIEvent.ShowResetDialog) },
+        tabs = tabs,
     )
 }

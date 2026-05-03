@@ -12,8 +12,12 @@ sealed interface GameUIEvent : UIEvent {
     data object DeselectClicked : GameUIEvent
     data object PauseClicked : GameUIEvent
     data object ResumeClicked : GameUIEvent
+    data object BackClicked : GameUIEvent
+    data object NewGameClicked : GameUIEvent
     data object ShowPauseDialog : GameUIEvent
     data object DismissPauseDialog : GameUIEvent
     data object ShowNewGameDialog : GameUIEvent
     data object DismissNewGameDialog : GameUIEvent
+    data class StartNewGame(val difficulty: Int) : GameUIEvent
+    data object ExitGame : GameUIEvent
 }

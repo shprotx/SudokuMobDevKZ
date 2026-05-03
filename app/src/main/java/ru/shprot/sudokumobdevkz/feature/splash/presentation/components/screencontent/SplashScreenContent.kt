@@ -1,4 +1,5 @@
 package ru.shprot.sudokumobdevkz.feature.splash.presentation.components.screencontent
+import ru.shprot.sudokumobdevkz.feature.splash.presentation.components.*
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
@@ -30,6 +31,8 @@ import androidx.compose.ui.res.stringResource
 import kotlinx.coroutines.delay
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
+import ru.shprot.sudokumobdevkz.feature.splash.presentation.contract.SplashUIEvent
+import ru.shprot.sudokumobdevkz.feature.splash.presentation.contract.SplashUIState
 
 private val SOLVED_GRID = arrayOf(
     intArrayOf(5, 3, 4, 6, 7, 8, 9, 1, 2),
@@ -57,8 +60,9 @@ private val INITIAL_FILLED = setOf(
 
 @Composable
 fun SplashScreenContent(
+    uiState: SplashUIState,
+    onEvent: (SplashUIEvent) -> Unit,
     modifier: Modifier = Modifier,
-    onNavigateToMenu: () -> Unit,
 ) {
     val emptyCells = remember {
         val cells = mutableListOf<Pair<Int, Int>>()
@@ -81,7 +85,7 @@ fun SplashScreenContent(
             delay(25)
         }
         delay(300)
-        onNavigateToMenu()
+        onEvent(SplashUIEvent.AnimationCompleted)
     }
 
     val visibleCells = remember(filledCount) {
