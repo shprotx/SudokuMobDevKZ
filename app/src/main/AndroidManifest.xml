@@ -24,18 +24,6 @@
             </intent-filter>
         </activity>
 
-        <!-- Legacy activities (kept until full migration) -->
-        <activity
-            android:name=".FirstActivity"
-            android:configChanges="keyboardHidden|screenSize"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.SudokuMobDevKZ" />
-        <activity
-            android:name=".MainActivity"
-            android:screenOrientation="portrait"
-            android:exported="false" />
-
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
