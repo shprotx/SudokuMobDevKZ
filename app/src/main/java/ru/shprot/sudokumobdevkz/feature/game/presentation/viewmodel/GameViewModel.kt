@@ -157,7 +157,11 @@ class GameViewModel @Inject constructor(
         super.onCleared()
         kotlinx.coroutines.runBlocking {
             withContext(NonCancellable) {
-                runCatching { saveGameStateSync() }
+                if (currentState.isGameOver) {
+                    runCatching { repository.deleteSavedGame() }
+                } else {
+                    runCatching { saveGameStateSync() }
+                }
             }
         }
     }
