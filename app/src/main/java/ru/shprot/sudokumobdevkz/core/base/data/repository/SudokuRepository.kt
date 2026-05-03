@@ -16,6 +16,7 @@ import ru.shprot.sudokumobdevkz.core.base.data.database.entity.GameHistoryEntity
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.SavedGameEntity
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.StatisticEntity
 import ru.shprot.sudokumobdevkz.core.base.data.remote.FirebaseApi
+import ru.shprot.sudokumobdevkz.core.base.data.util.safeRunCatching
 import ru.shprot.sudokumobdevkz.core.base.data.remote.FirebaseStatDto
 import ru.shprot.sudokumobdevkz.core.base.data.repository.GameSaveData.CellSave
 import javax.inject.Inject
@@ -33,7 +34,7 @@ class SudokuRepository @Inject constructor(
     // --- Statistics ---
 
     suspend fun syncStatisticsFromFirebase() = withContext(Dispatchers.IO) {
-        runCatching {
+        safeRunCatching {
             val stats = firebaseApi.getOwnStats(getDeviceId()) ?: return@withContext
             for ((diffKey, dto) in stats) {
                 val difficulty = diffKey.toIntOrNull() ?: continue

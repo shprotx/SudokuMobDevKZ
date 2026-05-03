@@ -10,6 +10,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.shprot.sudokumobdevkz.core.base.data.repository.GameSaveData
+import ru.shprot.sudokumobdevkz.core.base.data.util.safeRunCatching
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SettingsRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SudokuRepository
 import ru.shprot.sudokumobdevkz.core.base.domain.generator.SudokuGenerator
@@ -192,9 +193,9 @@ class GameViewModel @Inject constructor(
         kotlinx.coroutines.runBlocking {
             withContext(NonCancellable) {
                 if (currentState.isGameOver) {
-                    runCatching { repository.deleteSavedGame() }
+                    safeRunCatching { repository.deleteSavedGame() }
                 } else {
-                    runCatching { saveGameStateSync() }
+                    safeRunCatching { saveGameStateSync() }
                 }
             }
         }

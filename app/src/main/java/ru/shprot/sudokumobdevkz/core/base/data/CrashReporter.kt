@@ -14,6 +14,7 @@ import kotlinx.serialization.json.Json
 import ru.shprot.sudokumobdevkz.BuildConfig
 import ru.shprot.sudokumobdevkz.core.base.data.remote.CrashDto
 import ru.shprot.sudokumobdevkz.core.base.data.remote.FirebaseApi
+import ru.shprot.sudokumobdevkz.core.base.data.util.safeRunCatching
 import java.io.PrintWriter
 import java.io.StringWriter
 import java.text.SimpleDateFormat
@@ -72,7 +73,7 @@ object CrashReporter {
         prefs.edit().remove(KEY_PENDING_CRASH).apply()
 
         scope.launch {
-            runCatching {
+            safeRunCatching {
                 val crash = json.decodeFromString<CrashDto>(pending)
                 val deviceId = Settings.Secure.getString(
                     context.contentResolver, Settings.Secure.ANDROID_ID,
