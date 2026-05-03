@@ -39,16 +39,20 @@ fun MenuScreen(
     LaunchedEffect(Unit) {
         viewModel.effect.collect { effect ->
             when (effect) {
+                MenuUIEffect.NavigateToContinueGame ->
+                    navController.navigate(GameRoutes.GameScreen(continueGame = true))
+
+                MenuUIEffect.NavigateToStatistic ->
+                    navController.navigate(StatisticRoutes.StatisticScreen)
+
+                MenuUIEffect.NavigateToSettings ->
+                    navController.navigate(SettingsRoutes.SettingsScreen)
+
+                MenuUIEffect.NavigateToHowToPlay ->
+                    navController.navigate(HowToPlayRoutes.HowToPlayScreen)
+
                 is MenuUIEffect.NavigateToGame ->
                     navController.navigate(GameRoutes.GameScreen(effect.difficulty))
-                is MenuUIEffect.NavigateToContinueGame ->
-                    navController.navigate(GameRoutes.GameScreen(continueGame = true))
-                is MenuUIEffect.NavigateToStatistic ->
-                    navController.navigate(StatisticRoutes.StatisticScreen)
-                is MenuUIEffect.NavigateToSettings ->
-                    navController.navigate(SettingsRoutes.SettingsScreen)
-                is MenuUIEffect.NavigateToHowToPlay ->
-                    navController.navigate(HowToPlayRoutes.HowToPlayScreen)
             }
         }
     }

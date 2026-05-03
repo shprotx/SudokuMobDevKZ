@@ -19,23 +19,29 @@ class MenuViewModel @Inject constructor(
         checkSavedGame()
     }
 
-    override fun handleUIEvent(event: MenuUIEvent) {
+    override fun handleUIEvent(event: MenuUIEvent) =
         when (event) {
+            MenuUIEvent.ContinueGameClicked ->
+                setEffect(MenuUIEffect.NavigateToContinueGame)
+
+            MenuUIEvent.NavigateToStatistic ->
+                setEffect(MenuUIEffect.NavigateToStatistic)
+
+            MenuUIEvent.NavigateToSettings ->
+                setEffect(MenuUIEffect.NavigateToSettings)
+
+            MenuUIEvent.NavigateToHowToPlay ->
+                setEffect(MenuUIEffect.NavigateToHowToPlay)
+
+            MenuUIEvent.ScreenResumed ->
+                checkSavedGame()
+
             is MenuUIEvent.NewGameClicked ->
                 setEffect(MenuUIEffect.NavigateToGame(event.difficulty))
-            is MenuUIEvent.ContinueGameClicked ->
-                setEffect(MenuUIEffect.NavigateToContinueGame)
+
             is MenuUIEvent.DifficultySelected ->
                 updateState { copy(selectedDifficulty = event.difficulty) }
-            is MenuUIEvent.NavigateToStatistic ->
-                setEffect(MenuUIEffect.NavigateToStatistic)
-            is MenuUIEvent.NavigateToSettings ->
-                setEffect(MenuUIEffect.NavigateToSettings)
-            is MenuUIEvent.NavigateToHowToPlay ->
-                setEffect(MenuUIEffect.NavigateToHowToPlay)
-            is MenuUIEvent.ScreenResumed -> checkSavedGame()
         }
-    }
 
     private fun checkSavedGame() {
         viewModelScope.launch(exceptionHandler) {

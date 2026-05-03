@@ -27,12 +27,12 @@ class GameOverViewModel @Inject constructor(
         )
     }
 
-    override fun handleUIEvent(event: GameOverUIEvent) {
+    override fun handleUIEvent(event: GameOverUIEvent) =
         when (event) {
             GameOverUIEvent.PlayAgainClicked ->
                 setEffect(GameOverUIEffect.NavigateToNewGame(currentState.difficulty))
+
             GameOverUIEvent.BackToMenuClicked ->
                 setEffect(GameOverUIEffect.NavigateToMenu)
         }
-    }
 }

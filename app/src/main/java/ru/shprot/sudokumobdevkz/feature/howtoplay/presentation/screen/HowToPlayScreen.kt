@@ -19,7 +19,8 @@ fun HowToPlayScreen(
     LaunchedEffect(Unit) {
         viewModel.effect.collect { effect ->
             when (effect) {
-                is HowToPlayUIEffect.NavigateBack -> navController.popBackStack()
+                HowToPlayUIEffect.NavigateBack ->
+                    navController.popBackStack()
             }
         }
     }

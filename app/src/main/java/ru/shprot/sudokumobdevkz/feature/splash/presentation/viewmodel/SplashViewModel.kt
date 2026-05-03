@@ -11,9 +11,9 @@ import javax.inject.Inject
 class SplashViewModel @Inject constructor() :
     BaseViewModel<SplashUIEvent, SplashUIState, SplashUIEffect>(SplashUIState()) {
 
-    override fun handleUIEvent(event: SplashUIEvent) {
+    override fun handleUIEvent(event: SplashUIEvent) =
         when (event) {
-            SplashUIEvent.AnimationCompleted -> setEffect(SplashUIEffect.NavigateToMenu)
+            SplashUIEvent.AnimationCompleted ->
+                setEffect(SplashUIEffect.NavigateToMenu)
         }
-    }
 }

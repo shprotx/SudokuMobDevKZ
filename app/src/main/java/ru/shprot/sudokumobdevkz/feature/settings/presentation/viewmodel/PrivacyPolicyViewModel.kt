@@ -13,9 +13,9 @@ class PrivacyPolicyViewModel @Inject constructor() :
         PrivacyPolicyUIState()
     ) {
 
-    override fun handleUIEvent(event: PrivacyPolicyUIEvent) {
+    override fun handleUIEvent(event: PrivacyPolicyUIEvent) =
         when (event) {
-            PrivacyPolicyUIEvent.BackClicked -> setEffect(PrivacyPolicyUIEffect.NavigateBack)
+            PrivacyPolicyUIEvent.BackClicked ->
+                setEffect(PrivacyPolicyUIEffect.NavigateBack)
         }
-    }
 }

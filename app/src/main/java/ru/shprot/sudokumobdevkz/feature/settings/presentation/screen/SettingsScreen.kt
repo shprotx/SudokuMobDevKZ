@@ -27,8 +27,10 @@ fun SettingsScreen(
     LaunchedEffect(Unit) {
         viewModel.effect.collect { effect ->
             when (effect) {
-                is SettingsUIEffect.NavigateBack -> navController.popBackStack()
-                is SettingsUIEffect.NavigateToPrivacyPolicy ->
+                SettingsUIEffect.NavigateBack ->
+                    navController.popBackStack()
+
+                SettingsUIEffect.NavigateToPrivacyPolicy ->
                     navController.navigate(SettingsRoutes.PrivacyPolicyScreen)
             }
         }

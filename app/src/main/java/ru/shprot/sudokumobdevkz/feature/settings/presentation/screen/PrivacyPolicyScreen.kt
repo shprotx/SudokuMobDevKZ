@@ -19,7 +19,8 @@ fun PrivacyPolicyScreen(
     LaunchedEffect(Unit) {
         viewModel.effect.collect { effect ->
             when (effect) {
-                is PrivacyPolicyUIEffect.NavigateBack -> navController.popBackStack()
+                PrivacyPolicyUIEffect.NavigateBack ->
+                    navController.popBackStack()
             }
         }
     }

@@ -24,23 +24,32 @@ class StatisticViewModel @Inject constructor(
         observeDifficulty(0)
     }
 
-    override fun handleUIEvent(event: StatisticUIEvent) {
+    override fun handleUIEvent(event: StatisticUIEvent) =
         when (event) {
+            StatisticUIEvent.ShowResetDialog ->
+                setState(currentState.copy(showResetDialog = true))
+
+            StatisticUIEvent.DismissResetDialog ->
+                setState(currentState.copy(showResetDialog = false))
+
+            StatisticUIEvent.BackClicked ->
+                setEffect(StatisticUIEffect.NavigateBack)
+
+            StatisticUIEvent.ResetClicked ->
+                setState(currentState.copy(showResetDialog = true))
+
             is StatisticUIEvent.TabSelected -> {
                 setState(currentState.copy(selectedTab = event.index))
                 observeDifficulty(event.index)
             }
+
             is StatisticUIEvent.ResetRequested -> {
                 viewModelScope.launch(exceptionHandler) {
                     repository.resetStatistic(event.difficulty)
                 }
+                Unit
             }
-            is StatisticUIEvent.ShowResetDialog -> setState(currentState.copy(showResetDialog = true))
-            is StatisticUIEvent.DismissResetDialog -> setState(currentState.copy(showResetDialog = false))
-            is StatisticUIEvent.BackClicked -> setEffect(StatisticUIEffect.NavigateBack)
-            is StatisticUIEvent.ResetClicked -> setState(currentState.copy(showResetDialog = true))
         }
-    }
 
     private fun observeDifficulty(difficulty: Int) {
         observeJob?.cancel()

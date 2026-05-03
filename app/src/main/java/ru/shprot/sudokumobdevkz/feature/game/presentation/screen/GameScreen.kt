@@ -40,7 +40,13 @@ fun GameScreen(
     LaunchedEffect(Unit) {
         viewModel.effect.collect { effect ->
             when (effect) {
-                is GameUIEffect.NavigateToGameOver -> {
+                GameUIEffect.NavigateBack ->
+                    navController.popBackStack()
+
+                GameUIEffect.NavigateToSettings ->
+                    navController.navigate(SettingsRoutes.SettingsScreen)
+
+                is GameUIEffect.NavigateToGameOver ->
                     navController.navigate(
                         GameOverRoutes.GameOverScreen(
                             isWin = effect.isWin,
@@ -51,17 +57,11 @@ fun GameScreen(
                     ) {
                         popUpTo<GameRoutes.GameScreen> { inclusive = true }
                     }
-                }
-                is GameUIEffect.NavigateToNewGame -> {
+
+                is GameUIEffect.NavigateToNewGame ->
                     navController.navigate(GameRoutes.GameScreen(effect.difficulty)) {
                         popUpTo<GameRoutes.GameScreen> { inclusive = true }
                     }
-                }
-                is GameUIEffect.NavigateBack -> {
-                    navController.popBackStack()
-                }
-                is GameUIEffect.NavigateToSettings ->
-                    navController.navigate(SettingsRoutes.SettingsScreen)
             }
         }
     }

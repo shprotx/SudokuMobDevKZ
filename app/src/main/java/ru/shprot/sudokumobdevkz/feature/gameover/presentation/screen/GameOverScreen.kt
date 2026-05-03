@@ -21,16 +21,15 @@ fun GameOverScreen(
     LaunchedEffect(Unit) {
         viewModel.effect.collect { effect ->
             when (effect) {
-                is GameOverUIEffect.NavigateToMenu -> {
+                GameOverUIEffect.NavigateToMenu ->
                     navController.navigate(MenuRoutes.MenuScreen) {
                         popUpTo<MenuRoutes.MenuScreen> { inclusive = true }
                     }
-                }
-                is GameOverUIEffect.NavigateToNewGame -> {
+
+                is GameOverUIEffect.NavigateToNewGame ->
                     navController.navigate(GameRoutes.GameScreen(effect.difficulty)) {
                         popUpTo<MenuRoutes.MenuScreen>()
                     }
-                }
             }
         }
     }

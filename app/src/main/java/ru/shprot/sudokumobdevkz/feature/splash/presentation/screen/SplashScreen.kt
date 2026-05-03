@@ -21,11 +21,10 @@ fun SplashScreen(
     LaunchedEffect(Unit) {
         viewModel.effect.collect { effect ->
             when (effect) {
-                is SplashUIEffect.NavigateToMenu -> {
+                SplashUIEffect.NavigateToMenu ->
                     navController.navigate(MenuRoutes.MenuScreen) {
                         popUpTo<SplashRoutes.SplashScreen> { inclusive = true }
                     }
-                }
             }
         }
     }

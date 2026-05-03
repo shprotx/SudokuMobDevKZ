@@ -47,38 +47,71 @@ class GameViewModel @Inject constructor(
         }
     }
 
-    override fun handleUIEvent(event: GameUIEvent) {
+    override fun handleUIEvent(event: GameUIEvent) =
         when (event) {
-            is GameUIEvent.CellClicked -> onCellClicked(event.row, event.col)
-            is GameUIEvent.NumberClicked -> onNumberClicked(event.number)
-            is GameUIEvent.EraseClicked -> onErase()
-            is GameUIEvent.UndoClicked -> onUndo()
-            is GameUIEvent.NotesToggled -> onNotesToggled()
-            is GameUIEvent.HintClicked -> onHint()
-            is GameUIEvent.DeselectClicked -> onDeselect()
-            is GameUIEvent.PauseClicked -> onPause()
-            is GameUIEvent.ResumeClicked -> onResume()
-            is GameUIEvent.BackClicked -> setEffect(GameUIEffect.NavigateBack)
-            is GameUIEvent.NewGameClicked -> setState(currentState.copy(showNewGameDialog = true))
-            is GameUIEvent.ShowPauseDialog -> {
+            GameUIEvent.UndoClicked ->
+                onUndo()
+
+            GameUIEvent.EraseClicked ->
+                onErase()
+
+            GameUIEvent.NotesToggled ->
+                onNotesToggled()
+
+            GameUIEvent.HintClicked ->
+                onHint()
+
+            GameUIEvent.DeselectClicked ->
+                onDeselect()
+
+            GameUIEvent.PauseClicked ->
+                onPause()
+
+            GameUIEvent.ResumeClicked ->
+                onResume()
+
+            GameUIEvent.BackClicked ->
+                setEffect(GameUIEffect.NavigateBack)
+
+            GameUIEvent.NewGameClicked ->
+                setState(currentState.copy(showNewGameDialog = true))
+
+            GameUIEvent.ShowPauseDialog -> {
                 onPause()
                 setState(currentState.copy(showPauseDialog = true))
             }
-            is GameUIEvent.DismissPauseDialog -> setState(currentState.copy(showPauseDialog = false))
-            is GameUIEvent.ShowNewGameDialog -> setState(currentState.copy(showNewGameDialog = true, showPauseDialog = false))
-            is GameUIEvent.DismissNewGameDialog -> setState(currentState.copy(showNewGameDialog = false))
+
+            GameUIEvent.DismissPauseDialog ->
+                setState(currentState.copy(showPauseDialog = false))
+
+            GameUIEvent.ShowNewGameDialog ->
+                setState(currentState.copy(showNewGameDialog = true, showPauseDialog = false))
+
+            GameUIEvent.DismissNewGameDialog ->
+                setState(currentState.copy(showNewGameDialog = false))
+
+            GameUIEvent.ExitGame -> {
+                setState(currentState.copy(showPauseDialog = false))
+                setEffect(GameUIEffect.NavigateBack)
+            }
+
+            GameUIEvent.SaveState ->
+                autoSave()
+
+            GameUIEvent.SettingsClicked ->
+                setEffect(GameUIEffect.NavigateToSettings)
+
+            is GameUIEvent.CellClicked ->
+                onCellClicked(event.row, event.col)
+
+            is GameUIEvent.NumberClicked ->
+                onNumberClicked(event.number)
+
             is GameUIEvent.StartNewGame -> {
                 setState(currentState.copy(showNewGameDialog = false))
                 setEffect(GameUIEffect.NavigateToNewGame(event.difficulty))
             }
-            is GameUIEvent.ExitGame -> {
-                setState(currentState.copy(showPauseDialog = false))
-                setEffect(GameUIEffect.NavigateBack)
-            }
-            is GameUIEvent.SaveState -> autoSave()
-            is GameUIEvent.SettingsClicked -> setEffect(GameUIEffect.NavigateToSettings)
         }
-    }
 
     private suspend fun startNewGame() {
         val settings = settingsRepository.currentSettings

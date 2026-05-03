@@ -29,17 +29,21 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    override fun handleUIEvent(event: SettingsUIEvent) {
+    override fun handleUIEvent(event: SettingsUIEvent) =
         when (event) {
-            is SettingsUIEvent.SettingChanged -> settingsRepository.update(event.transform)
-            is SettingsUIEvent.BackClicked -> setEffect(SettingsUIEffect.NavigateBack)
-            is SettingsUIEvent.NavigateToPrivacyPolicy ->
+            SettingsUIEvent.BackClicked ->
+                setEffect(SettingsUIEffect.NavigateBack)
+
+            SettingsUIEvent.NavigateToPrivacyPolicy ->
                 setEffect(SettingsUIEffect.NavigateToPrivacyPolicy)
-            is SettingsUIEvent.ShowResetDialog ->
+
+            SettingsUIEvent.ShowResetDialog ->
                 updateState { copy(showResetDialog = true) }
-            is SettingsUIEvent.DismissResetDialog ->
+
+            SettingsUIEvent.DismissResetDialog ->
                 updateState { copy(showResetDialog = false) }
-            is SettingsUIEvent.ResetConfirmed -> {
+
+            SettingsUIEvent.ResetConfirmed -> {
                 viewModelScope.launch(exceptionHandler) {
                     for (difficulty in 0..2) {
                         sudokuRepository.resetStatistic(difficulty)
@@ -47,6 +51,8 @@ class SettingsViewModel @Inject constructor(
                 }
                 updateState { copy(showResetDialog = false) }
             }
+
+            is SettingsUIEvent.SettingChanged ->
+                settingsRepository.update(event.transform)
         }
-    }
 }

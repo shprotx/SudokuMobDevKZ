@@ -11,9 +11,9 @@ import javax.inject.Inject
 class HowToPlayViewModel @Inject constructor() :
     BaseViewModel<HowToPlayUIEvent, HowToPlayUIState, HowToPlayUIEffect>(HowToPlayUIState()) {
 
-    override fun handleUIEvent(event: HowToPlayUIEvent) {
+    override fun handleUIEvent(event: HowToPlayUIEvent) =
         when (event) {
-            HowToPlayUIEvent.BackClicked -> setEffect(HowToPlayUIEffect.NavigateBack)
+            HowToPlayUIEvent.BackClicked ->
+                setEffect(HowToPlayUIEffect.NavigateBack)
         }
-    }
 }

@@ -32,7 +32,8 @@ fun StatisticScreen(
     LaunchedEffect(Unit) {
         viewModel.effect.collect { effect ->
             when (effect) {
-                is StatisticUIEffect.NavigateBack -> navController.popBackStack()
+                StatisticUIEffect.NavigateBack ->
+                    navController.popBackStack()
             }
         }
     }
