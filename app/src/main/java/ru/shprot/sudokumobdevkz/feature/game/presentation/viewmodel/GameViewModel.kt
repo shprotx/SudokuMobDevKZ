@@ -238,6 +238,7 @@ class GameViewModel @Inject constructor(
 
         val correctValue = state.solution[row][col]
         val isCorrect = number == correctValue
+        val shouldCheckErrors = settingsRepository.currentSettings.checkErrors
 
         undoStack.add(UndoEntry(row, col, cell))
         val newCells = state.cells.toMutableGrid()
@@ -245,23 +246,25 @@ class GameViewModel @Inject constructor(
         if (isCorrect) {
             newCells[row][col] = CellData(value = number, isGiven = false, isError = false)
             clearNotesForNumber(newCells, row, col, number)
-        } else {
+        } else if (shouldCheckErrors) {
             newCells[row][col] = CellData(value = number, isGiven = false, isError = true)
+        } else {
+            newCells[row][col] = CellData(value = number, isGiven = false, isError = false)
         }
 
         val immutable = newCells.toImmutableGrid()
-        val newErrors = if (isCorrect) state.errors else state.errors + 1
+        val newErrors = if (isCorrect || !shouldCheckErrors) state.errors else state.errors + 1
 
         setState(
             state.copy(
                 cells = immutable,
                 errors = newErrors,
                 availableNumbers = calcAvailableNumbers(immutable),
-                highlightedNumber = if (isCorrect) number else 0,
+                highlightedNumber = if (isCorrect || !shouldCheckErrors) number else 0,
             )
         )
 
-        if (newErrors >= state.maxErrors) {
+        if (shouldCheckErrors && newErrors >= state.maxErrors) {
             gameOver(isWin = false)
         } else if (isBoardComplete(immutable)) {
             gameOver(isWin = true)
