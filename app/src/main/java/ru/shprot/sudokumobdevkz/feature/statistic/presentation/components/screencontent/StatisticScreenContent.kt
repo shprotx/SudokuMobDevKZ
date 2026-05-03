@@ -25,6 +25,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 import ru.shprot.sudokumobdevkz.core.uicommon.toolbar.ToolbarDefault
@@ -73,6 +74,18 @@ fun StatisticScreenContent(
                 percentOfWins = uiState.percentOfWins,
                 winsWithoutErrors = uiState.winsWithoutErrors,
             )
+
+            if (uiState.percentile >= 0) {
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = AppTheme.paddings.large),
+                    text = stringResource(R.string.faster_than, uiState.percentile),
+                    style = AppTheme.typography.body2,
+                    color = AppTheme.colors.primary,
+                    textAlign = TextAlign.Center,
+                )
+            }
 
             GameStatisticsSection(
                 modifier = Modifier.padding(top = AppTheme.paddings.xxl),

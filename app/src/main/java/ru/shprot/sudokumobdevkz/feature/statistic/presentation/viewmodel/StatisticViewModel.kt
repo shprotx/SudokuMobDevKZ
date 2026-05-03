@@ -73,7 +73,19 @@ class StatisticViewModel @Inject constructor(
                         recentGames = history,
                     )
                 )
+                fetchPercentile(difficulty, stat?.averageTime ?: 0)
             }
+        }
+    }
+
+    private fun fetchPercentile(difficulty: Int, averageTime: Int) {
+        if (averageTime <= 0) {
+            setState(currentState.copy(percentile = -1, totalPlayers = 0))
+            return
+        }
+        viewModelScope.launch(exceptionHandler) {
+            val result = repository.fetchPercentile(difficulty, averageTime)
+            setState(currentState.copy(percentile = result.percentile, totalPlayers = result.totalPlayers))
         }
     }
 

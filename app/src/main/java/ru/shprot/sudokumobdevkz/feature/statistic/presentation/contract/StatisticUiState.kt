@@ -14,5 +14,7 @@ data class StatisticUIState(
     val bestWinsLine: String = "0",
     val currentWinsLine: String = "0",
     val recentGames: List<GameHistoryEntity> = emptyList(),
+    val percentile: Int = -1,
+    val totalPlayers: Int = 0,
     val showResetDialog: Boolean = false,
 ) : UIState
