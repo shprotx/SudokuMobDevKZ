@@ -4,22 +4,17 @@ import ru.shprot.sudokumobdevkz.feature.menu.presentation.components.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
+import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonOutlined
 import ru.shprot.sudokumobdevkz.feature.menu.presentation.contract.MenuUIEvent
 import ru.shprot.sudokumobdevkz.feature.menu.presentation.contract.MenuUIState
 
@@ -55,21 +50,14 @@ fun MenuScreenContent(
         )
 
         if (uiState.hasSavedGame) {
-            OutlinedButton(
+            ButtonOutlined(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = AppTheme.paddings.large)
-                    .height(AppTheme.sizes.buttonHeight),
+                    .padding(top = AppTheme.paddings.large),
+                text = stringResource(R.string.continue_playing),
+                borderColor = AppTheme.colors.primary,
+                textColor = AppTheme.colors.primary,
                 onClick = { onEvent(MenuUIEvent.ContinueGameClicked) },
-                shape = RoundedCornerShape(AppTheme.sizes.cornerRadiusXL),
-            ) {
-                Text(
-                    text = stringResource(R.string.continue_playing),
-                    style = AppTheme.typography.h3,
-                    fontWeight = FontWeight.SemiBold,
-                    color = AppTheme.colors.primary,
-                )
-            }
+            )
         }
 
         DifficultySelector(

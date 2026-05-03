@@ -3,11 +3,9 @@ package ru.shprot.sudokumobdevkz.feature.settings.presentation.components.screen
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.BarChart
@@ -20,14 +18,12 @@ import androidx.compose.material.icons.filled.Save
 import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material.icons.filled.Security
 import androidx.compose.material.icons.filled.VolumeUp
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
+import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonDefault
 import ru.shprot.sudokumobdevkz.core.uicommon.toolbar.ToolbarDefault
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsCard
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsDivider
@@ -188,24 +184,17 @@ fun SettingsScreenContent(
                 )
             }
 
-            Button(
+            ButtonDefault(
                 modifier = Modifier
-                    .fillMaxWidth()
                     .navigationBarsPadding()
                     .padding(
                         top = AppTheme.paddings.xxl,
                         bottom = AppTheme.paddings.xxxl,
                     ),
+                text = stringResource(R.string.reset_statistics),
+                containerColor = AppTheme.colors.error,
                 onClick = { onEvent(SettingsUIEvent.ShowResetDialog) },
-                shape = RoundedCornerShape(AppTheme.sizes.cornerRadiusLarge),
-                colors = ButtonDefaults.buttonColors(containerColor = AppTheme.colors.error),
-            ) {
-                Text(
-                    text = stringResource(R.string.reset_statistics),
-                    style = AppTheme.typography.button,
-                    color = AppTheme.colors.textOnPrimary,
-                )
-            }
+            )
         }
     }
 }

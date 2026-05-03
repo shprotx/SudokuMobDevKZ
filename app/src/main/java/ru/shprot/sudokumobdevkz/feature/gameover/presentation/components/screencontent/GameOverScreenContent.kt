@@ -7,28 +7,24 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.EmojiEvents
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.SentimentDissatisfied
 import androidx.compose.material.icons.filled.SignalCellularAlt
 import androidx.compose.material.icons.filled.Timer
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
+import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonDefault
+import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonOutlined
 import ru.shprot.sudokumobdevkz.feature.gameover.presentation.contract.GameOverUIEvent
 import ru.shprot.sudokumobdevkz.feature.gameover.presentation.contract.GameOverUIState
 
@@ -94,39 +90,27 @@ fun GameOverScreenContent(
             }
         }
 
-        Column(modifier = Modifier
+        Column(
+            modifier = Modifier
             .navigationBarsPadding()
-            .padding(bottom = AppTheme.paddings.xxxl)) {
-            Button(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(AppTheme.sizes.buttonHeight),
-                onClick = { onEvent(GameOverUIEvent.PlayAgainClicked) },
-                shape = RoundedCornerShape(AppTheme.sizes.cornerRadiusLarge),
-                colors = ButtonDefaults.buttonColors(containerColor = AppTheme.colors.primary),
-            ) {
-                Text(
-                    text = if (uiState.isWin) stringResource(R.string.play_again) else stringResource(R.string.try_again),
-                    style = AppTheme.typography.button,
-                    fontWeight = FontWeight.SemiBold,
-                    color = AppTheme.colors.textOnPrimary,
-                )
-            }
+            .padding(bottom = AppTheme.paddings.xxxl)
+        ) {
 
-            OutlinedButton(
+            ButtonDefault(
+                modifier = Modifier,
+                text = when (uiState.isWin) {
+                    true -> stringResource(R.string.play_again)
+                    false -> stringResource(R.string.try_again)
+                },
+                onClick = { onEvent(GameOverUIEvent.PlayAgainClicked) },
+            )
+
+            ButtonOutlined(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = AppTheme.paddings.default)
-                    .height(AppTheme.sizes.buttonHeight),
+                    .padding(top = AppTheme.paddings.default),
+                text = stringResource(R.string.go_to_main_page),
                 onClick = { onEvent(GameOverUIEvent.BackToMenuClicked) },
-                shape = RoundedCornerShape(AppTheme.sizes.cornerRadiusLarge),
-            ) {
-                Text(
-                    text = stringResource(R.string.go_to_main_page),
-                    style = AppTheme.typography.button,
-                    color = AppTheme.colors.text,
-                )
-            }
+            )
         }
     }
 }

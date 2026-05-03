@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -19,19 +18,18 @@ import androidx.compose.material.icons.filled.AutoFixHigh
 import androidx.compose.material.icons.filled.Lightbulb
 import androidx.compose.material.icons.filled.Speed
 import androidx.compose.material.icons.filled.Timer
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
+import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonDefault
+import ru.shprot.sudokumobdevkz.core.uicommon.toolbar.ToolbarDefault
 import ru.shprot.sudokumobdevkz.feature.howtoplay.presentation.contract.HowToPlayUIEvent
 import ru.shprot.sudokumobdevkz.feature.howtoplay.presentation.contract.HowToPlayUIState
 
@@ -41,49 +39,24 @@ fun HowToPlayScreenContent(
     onEvent: (HowToPlayUIEvent) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+
     Column(
         modifier = modifier
             .fillMaxSize()
             .background(AppTheme.colors.background)
             .verticalScroll(rememberScrollState()),
     ) {
-        Row(
+
+        ToolbarDefault(
+            modifier = Modifier,
+            title = stringResource(R.string.how_to_play),
+            onLeadIconClick = { onEvent(HowToPlayUIEvent.BackClicked) },
+        )
+
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .statusBarsPadding()
-                .padding(
-                    horizontal = AppTheme.paddings.small,
-                    vertical = AppTheme.paddings.medium,
-                ),
-            verticalAlignment = Alignment.CenterVertically,
+                .padding(horizontal = AppTheme.paddings.large)
         ) {
-            IconButton(onClick = { onEvent(HowToPlayUIEvent.BackClicked) }) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = stringResource(R.string.go_back),
-                    tint = AppTheme.colors.text,
-                )
-            }
-
-            Text(
-                modifier = Modifier.weight(1f),
-                text = stringResource(R.string.how_to_play),
-                style = AppTheme.typography.h3,
-                color = AppTheme.colors.text,
-                textAlign = TextAlign.Center,
-            )
-
-            IconButton(onClick = { }, enabled = false) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = null,
-                    tint = AppTheme.colors.background,
-                    modifier = Modifier.size(AppTheme.sizes.iconMedium),
-                )
-            }
-        }
-
-        Column(modifier = Modifier.padding(horizontal = AppTheme.paddings.large)) {
 
             Text(
                 modifier = Modifier.padding(top = AppTheme.paddings.large),
@@ -158,25 +131,16 @@ fun HowToPlayScreenContent(
                 description = stringResource(R.string.tip_speed_desc),
             )
 
-            Button(
+            ButtonDefault(
                 modifier = Modifier
-                    .fillMaxWidth()
                     .navigationBarsPadding()
                     .padding(
                         top = AppTheme.paddings.xxxl,
                         bottom = AppTheme.paddings.xxxl,
                     ),
+                text = stringResource(R.string.got_it_play),
                 onClick = { onEvent(HowToPlayUIEvent.BackClicked) },
-                shape = RoundedCornerShape(AppTheme.sizes.cornerRadiusLarge),
-                colors = ButtonDefaults.buttonColors(containerColor = AppTheme.colors.primary),
-            ) {
-                Text(
-                    text = stringResource(R.string.got_it_play),
-                    style = AppTheme.typography.button,
-                    fontWeight = FontWeight.SemiBold,
-                    color = AppTheme.colors.textOnPrimary,
-                )
-            }
+            )
         }
     }
 }
