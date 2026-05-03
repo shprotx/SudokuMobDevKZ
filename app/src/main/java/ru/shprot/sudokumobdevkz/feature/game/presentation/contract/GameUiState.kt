@@ -2,7 +2,7 @@ package ru.shprot.sudokumobdevkz.feature.game.presentation.contract
 
 import ru.shprot.sudokumobdevkz.core.base.presentation.contract.UIState
 
-data class GameUiState(
+data class GameUIState(
     val cells: Array<Array<CellData>> = Array(9) { Array(9) { CellData() } },
     val solution: Array<IntArray> = Array(9) { IntArray(9) },
     val selectedRow: Int = -1,
@@ -20,10 +20,12 @@ data class GameUiState(
     val isWin: Boolean = false,
     val availableNumbers: Set<Int> = (1..9).toSet(),
     val highlightedNumber: Int = 0,
+    val showPauseDialog: Boolean = false,
+    val showNewGameDialog: Boolean = false,
 ) : UIState {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (other !is GameUiState) return false
+        if (other !is GameUIState) return false
         return cells.contentDeepEquals(other.cells) &&
                 solution.contentDeepEquals(other.solution) &&
                 selectedRow == other.selectedRow &&
@@ -40,7 +42,9 @@ data class GameUiState(
                 isGameOver == other.isGameOver &&
                 isWin == other.isWin &&
                 availableNumbers == other.availableNumbers &&
-                highlightedNumber == other.highlightedNumber
+                highlightedNumber == other.highlightedNumber &&
+                showPauseDialog == other.showPauseDialog &&
+                showNewGameDialog == other.showNewGameDialog
     }
 
     override fun hashCode(): Int = cells.contentDeepHashCode()

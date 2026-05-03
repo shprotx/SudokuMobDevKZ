@@ -1,4 +1,4 @@
-package ru.shprot.sudokumobdevkz.feature.game.presentation.screen
+package ru.shprot.sudokumobdevkz.feature.game.presentation.components.screencontent
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -23,14 +23,14 @@ import ru.shprot.sudokumobdevkz.feature.game.presentation.components.GameStatusB
 import ru.shprot.sudokumobdevkz.feature.game.presentation.components.GameToolbar
 import ru.shprot.sudokumobdevkz.feature.game.presentation.components.NumberPanel
 import ru.shprot.sudokumobdevkz.feature.game.presentation.components.SudokuGrid
-import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameEvent
-import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameUiState
+import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameUIEvent
+import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameUIState
 
 @Composable
 fun GameScreenContent(
     modifier: Modifier = Modifier,
-    state: GameUiState,
-    onEvent: (GameEvent) -> Unit,
+    state: GameUIState,
+    onEvent: (GameUIEvent) -> Unit,
     onNavigateBack: () -> Unit,
     onNewGameClick: () -> Unit,
     onPauseClick: () -> Unit,
@@ -63,7 +63,7 @@ fun GameScreenContent(
                         interactionSource = remember { MutableInteractionSource() },
                         indication = null,
                     ) {
-                        onEvent(GameEvent.DeselectClicked)
+                        onEvent(GameUIEvent.DeselectClicked)
                     },
             ) {
                 GameToolbar(
@@ -99,7 +99,7 @@ fun GameScreenContent(
                     isPaused = state.isPaused,
                     highlightedNumber = state.highlightedNumber,
                     onCellClick = { row, col ->
-                        onEvent(GameEvent.CellClicked(row, col))
+                        onEvent(GameUIEvent.CellClicked(row, col))
                     },
                 )
 
@@ -110,7 +110,7 @@ fun GameScreenContent(
                     availableNumbers = state.availableNumbers,
                     isNotesMode = state.isNotesEnabled,
                     onNumberClick = { number ->
-                        onEvent(GameEvent.NumberClicked(number))
+                        onEvent(GameUIEvent.NumberClicked(number))
                     },
                 )
 
@@ -122,10 +122,10 @@ fun GameScreenContent(
                         .padding(bottom = AppTheme.paddings.medium),
                     isNotesEnabled = state.isNotesEnabled,
                     hintsRemaining = state.hintsRemaining,
-                    onUndoClick = { onEvent(GameEvent.UndoClicked) },
-                    onEraseClick = { onEvent(GameEvent.EraseClicked) },
-                    onNotesClick = { onEvent(GameEvent.NotesToggled) },
-                    onHintClick = { onEvent(GameEvent.HintClicked) },
+                    onUndoClick = { onEvent(GameUIEvent.UndoClicked) },
+                    onEraseClick = { onEvent(GameUIEvent.EraseClicked) },
+                    onNotesClick = { onEvent(GameUIEvent.NotesToggled) },
+                    onHintClick = { onEvent(GameUIEvent.HintClicked) },
                 )
             }
         }

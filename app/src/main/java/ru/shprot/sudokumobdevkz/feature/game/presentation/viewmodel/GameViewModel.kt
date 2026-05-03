@@ -8,9 +8,9 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.shprot.sudokumobdevkz.core.base.presentation.viewmodel.BaseViewModel
 import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.CellData
-import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameEffect
-import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameEvent
-import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameUiState
+import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameUIEffect
+import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameUIEvent
+import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameUIState
 import ru.shprot.sudokumobdevkz.core.base.domain.generator.SudokuGenerator
 import ru.shprot.sudokumobdevkz.feature.game.presentation.navigation.GameRoutes
 import ru.shprot.sudokumobdevkz.core.base.data.repository.GameSaveData
@@ -24,7 +24,7 @@ class GameViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val repository: SudokuRepository,
     private val settingsRepository: SettingsRepository,
-) : BaseViewModel<GameEvent, GameUiState, GameEffect>(GameUiState()) {
+) : BaseViewModel<GameUIEvent, GameUIState, GameUIEffect>(GameUIState()) {
 
     private val route = savedStateHandle.toRoute<GameRoutes.GameScreen>()
     private val difficulty: Int = route.difficulty
@@ -45,17 +45,24 @@ class GameViewModel @Inject constructor(
         }
     }
 
-    override fun handleUIEvent(event: GameEvent) {
+    override fun handleUIEvent(event: GameUIEvent) {
         when (event) {
-            is GameEvent.CellClicked -> onCellClicked(event.row, event.col)
-            is GameEvent.NumberClicked -> onNumberClicked(event.number)
-            is GameEvent.EraseClicked -> onErase()
-            is GameEvent.UndoClicked -> onUndo()
-            is GameEvent.NotesToggled -> onNotesToggled()
-            is GameEvent.HintClicked -> onHint()
-            is GameEvent.DeselectClicked -> onDeselect()
-            is GameEvent.PauseClicked -> onPause()
-            is GameEvent.ResumeClicked -> onResume()
+            is GameUIEvent.CellClicked -> onCellClicked(event.row, event.col)
+            is GameUIEvent.NumberClicked -> onNumberClicked(event.number)
+            is GameUIEvent.EraseClicked -> onErase()
+            is GameUIEvent.UndoClicked -> onUndo()
+            is GameUIEvent.NotesToggled -> onNotesToggled()
+            is GameUIEvent.HintClicked -> onHint()
+            is GameUIEvent.DeselectClicked -> onDeselect()
+            is GameUIEvent.PauseClicked -> onPause()
+            is GameUIEvent.ResumeClicked -> onResume()
+            is GameUIEvent.ShowPauseDialog -> {
+                onPause()
+                setState(currentState.copy(showPauseDialog = true))
+            }
+            is GameUIEvent.DismissPauseDialog -> setState(currentState.copy(showPauseDialog = false))
+            is GameUIEvent.ShowNewGameDialog -> setState(currentState.copy(showNewGameDialog = true, showPauseDialog = false))
+            is GameUIEvent.DismissNewGameDialog -> setState(currentState.copy(showNewGameDialog = false))
         }
     }
 
@@ -359,7 +366,7 @@ class GameViewModel @Inject constructor(
         }
 
         setEffect(
-            GameEffect.NavigateToGameOver(
+            GameUIEffect.NavigateToGameOver(
                 isWin = isWin,
                 time = currentState.timer,
                 errors = currentState.errors,

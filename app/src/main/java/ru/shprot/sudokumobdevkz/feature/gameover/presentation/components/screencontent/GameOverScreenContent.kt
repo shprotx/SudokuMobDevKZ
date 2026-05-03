@@ -1,4 +1,4 @@
-package ru.shprot.sudokumobdevkz.feature.gameover.presentation.screen
+package ru.shprot.sudokumobdevkz.feature.gameover.presentation.components.screencontent
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

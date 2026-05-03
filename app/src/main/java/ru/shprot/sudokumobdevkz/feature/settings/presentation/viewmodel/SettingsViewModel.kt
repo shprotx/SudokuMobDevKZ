@@ -3,7 +3,9 @@ package ru.shprot.sudokumobdevkz.feature.settings.presentation.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import ru.shprot.sudokumobdevkz.core.base.data.repository.AppSettings
@@ -20,8 +22,19 @@ class SettingsViewModel @Inject constructor(
     val settings = settingsRepository.settings
         .stateIn(viewModelScope, SharingStarted.Eagerly, settingsRepository.currentSettings)
 
+    private val _showResetDialog = MutableStateFlow(false)
+    val showResetDialog = _showResetDialog.asStateFlow()
+
     fun updateSetting(transform: AppSettings.() -> AppSettings) {
         settingsRepository.update(transform)
+    }
+
+    fun showResetDialog() {
+        _showResetDialog.value = true
+    }
+
+    fun dismissResetDialog() {
+        _showResetDialog.value = false
     }
 
     fun resetAllStatistics() {
@@ -30,5 +43,6 @@ class SettingsViewModel @Inject constructor(
                 sudokuRepository.resetStatistic(difficulty)
             }
         }
+        _showResetDialog.value = false
     }
 }

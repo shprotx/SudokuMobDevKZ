@@ -5,41 +5,35 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
+import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.screencontent.SettingsScreenContent
+import ru.shprot.sudokumobdevkz.feature.settings.presentation.navigation.SettingsRoutes
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.viewmodel.SettingsViewModel
-import ru.shprot.sudokumobdevkz.core.base.data.repository.AppSettings
 
 @Composable
 fun SettingsScreen(
-    onNavigateBack: () -> Unit,
-    onNavigateToPrivacyPolicy: () -> Unit,
-    viewModel: SettingsViewModel = hiltViewModel(),
+    navController: NavController,
+    viewModel: SettingsViewModel,
 ) {
     val settings by viewModel.settings.collectAsStateWithLifecycle()
-    var showResetDialog by rememberSaveable { mutableStateOf(false) }
+    val showResetDialog by viewModel.showResetDialog.collectAsStateWithLifecycle()
 
     if (showResetDialog) {
         AlertDialog(
-            onDismissRequest = { showResetDialog = false },
+            onDismissRequest = { viewModel.dismissResetDialog() },
             title = { Text(stringResource(R.string.reset_statistics) + "?") },
             text = { Text(stringResource(R.string.reset_statistics_confirm)) },
             confirmButton = {
-                TextButton(onClick = {
-                    viewModel.resetAllStatistics()
-                    showResetDialog = false
-                }) {
+                TextButton(onClick = { viewModel.resetAllStatistics() }) {
                     Text(stringResource(R.string.reset), color = AppTheme.colors.error)
                 }
             },
             dismissButton = {
-                TextButton(onClick = { showResetDialog = false }) {
+                TextButton(onClick = { viewModel.dismissResetDialog() }) {
                     Text(stringResource(R.string.cancel))
                 }
             },
@@ -49,8 +43,10 @@ fun SettingsScreen(
     SettingsScreenContent(
         settings = settings,
         onSettingChanged = viewModel::updateSetting,
-        onNavigateBack = onNavigateBack,
-        onNavigateToPrivacyPolicy = onNavigateToPrivacyPolicy,
-        onResetClick = { showResetDialog = true },
+        onNavigateBack = { navController.popBackStack() },
+        onNavigateToPrivacyPolicy = {
+            navController.navigate(SettingsRoutes.PrivacyPolicyScreen)
+        },
+        onResetClick = { viewModel.showResetDialog() },
     )
 }

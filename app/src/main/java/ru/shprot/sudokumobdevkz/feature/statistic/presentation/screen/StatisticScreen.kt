@@ -5,24 +5,21 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
-import ru.shprot.sudokumobdevkz.feature.statistic.presentation.contract.StatisticEvent
+import ru.shprot.sudokumobdevkz.feature.statistic.presentation.components.screencontent.StatisticScreenContent
+import ru.shprot.sudokumobdevkz.feature.statistic.presentation.contract.StatisticUIEvent
 import ru.shprot.sudokumobdevkz.feature.statistic.presentation.viewmodel.StatisticViewModel
 
 @Composable
 fun StatisticScreen(
-    onNavigateBack: () -> Unit,
-    viewModel: StatisticViewModel = hiltViewModel(),
+    navController: NavController,
+    viewModel: StatisticViewModel,
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
-    var showResetDialog by rememberSaveable { mutableStateOf(false) }
 
     val tabs = listOf(
         stringResource(R.string.difficulty_easy),
@@ -30,21 +27,21 @@ fun StatisticScreen(
         stringResource(R.string.difficulty_expert),
     )
 
-    if (showResetDialog) {
+    if (state.showResetDialog) {
         AlertDialog(
-            onDismissRequest = { showResetDialog = false },
+            onDismissRequest = { viewModel.setEvent(StatisticUIEvent.DismissResetDialog) },
             title = { Text(stringResource(R.string.reset_statistics) + "?") },
             text = { Text(stringResource(R.string.reset_statistics_diff_confirm, tabs[state.selectedTab])) },
             confirmButton = {
                 TextButton(onClick = {
-                    viewModel.setEvent(StatisticEvent.ResetRequested(state.selectedTab))
-                    showResetDialog = false
+                    viewModel.setEvent(StatisticUIEvent.ResetRequested(state.selectedTab))
+                    viewModel.setEvent(StatisticUIEvent.DismissResetDialog)
                 }) {
                     Text(stringResource(R.string.reset), color = AppTheme.colors.error)
                 }
             },
             dismissButton = {
-                TextButton(onClick = { showResetDialog = false }) {
+                TextButton(onClick = { viewModel.setEvent(StatisticUIEvent.DismissResetDialog) }) {
                     Text(stringResource(R.string.cancel))
                 }
             },
@@ -55,7 +52,7 @@ fun StatisticScreen(
         state = state,
         tabs = tabs,
         onEvent = viewModel::setEvent,
-        onNavigateBack = onNavigateBack,
-        onResetClick = { showResetDialog = true },
+        onNavigateBack = { navController.popBackStack() },
+        onResetClick = { viewModel.setEvent(StatisticUIEvent.ShowResetDialog) },
     )
 }

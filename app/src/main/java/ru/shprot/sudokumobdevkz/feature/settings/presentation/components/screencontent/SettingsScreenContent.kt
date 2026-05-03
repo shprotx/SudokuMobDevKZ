@@ -1,4 +1,4 @@
-package ru.shprot.sudokumobdevkz.feature.settings.presentation.screen
+package ru.shprot.sudokumobdevkz.feature.settings.presentation.components.screencontent
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize

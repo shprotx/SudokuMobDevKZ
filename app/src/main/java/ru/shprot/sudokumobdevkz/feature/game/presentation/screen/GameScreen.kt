@@ -3,78 +3,88 @@ package ru.shprot.sudokumobdevkz.feature.game.presentation.screen
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
 import ru.shprot.sudokumobdevkz.feature.game.presentation.components.NewGameDialog
 import ru.shprot.sudokumobdevkz.feature.game.presentation.components.PauseDialog
-import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameEffect
-import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameEvent
+import ru.shprot.sudokumobdevkz.feature.game.presentation.components.screencontent.GameScreenContent
+import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameUIEffect
+import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameUIEvent
 import ru.shprot.sudokumobdevkz.feature.game.presentation.viewmodel.GameViewModel
+import ru.shprot.sudokumobdevkz.feature.gameover.presentation.navigation.GameOverRoutes
+import ru.shprot.sudokumobdevkz.feature.game.presentation.navigation.GameRoutes
 
 @Composable
 fun GameScreen(
-    difficulty: Int,
-    onNavigateToGameOver: (isWin: Boolean, time: String, errors: Int) -> Unit,
-    onNavigateToGame: (difficulty: Int) -> Unit,
-    onNavigateBack: () -> Unit,
-    viewModel: GameViewModel = hiltViewModel(),
+    navController: NavController,
+    viewModel: GameViewModel,
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
-    var showPauseDialog by rememberSaveable { mutableStateOf(false) }
-    var showNewGameDialog by rememberSaveable { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         viewModel.effect.collect { effect ->
             when (effect) {
-                is GameEffect.NavigateToGameOver -> {
-                    onNavigateToGameOver(effect.isWin, effect.time, effect.errors)
+                is GameUIEffect.NavigateToGameOver -> {
+                    navController.navigate(
+                        GameOverRoutes.GameOverScreen(
+                            isWin = effect.isWin,
+                            time = effect.time,
+                            errors = effect.errors,
+                            difficulty = state.difficulty,
+                        )
+                    ) {
+                        popUpTo<GameRoutes.GameScreen> { inclusive = true }
+                    }
+                }
+                is GameUIEffect.NavigateToNewGame -> {
+                    navController.navigate(GameRoutes.GameScreen(effect.difficulty)) {
+                        popUpTo<GameRoutes.GameScreen> { inclusive = true }
+                    }
+                }
+                is GameUIEffect.NavigateBack -> {
+                    navController.popBackStack()
                 }
             }
         }
     }
 
-    if (showPauseDialog) {
+    if (state.showPauseDialog) {
         PauseDialog(
             timer = state.timer,
             errors = state.errors,
             maxErrors = state.maxErrors,
             onResume = {
-                showPauseDialog = false
-                viewModel.setEvent(GameEvent.ResumeClicked)
+                viewModel.setEvent(GameUIEvent.DismissPauseDialog)
+                viewModel.setEvent(GameUIEvent.ResumeClicked)
             },
             onRestart = {
-                showPauseDialog = false
-                showNewGameDialog = true
+                viewModel.setEvent(GameUIEvent.ShowNewGameDialog)
             },
             onExit = {
-                showPauseDialog = false
-                onNavigateBack()
+                viewModel.setEvent(GameUIEvent.DismissPauseDialog)
+                navController.popBackStack()
             },
         )
     }
 
-    if (showNewGameDialog) {
+    if (state.showNewGameDialog) {
         NewGameDialog(
-            initialDifficulty = difficulty,
+            initialDifficulty = state.difficulty,
             onStartGame = { newDifficulty ->
-                showNewGameDialog = false
-                onNavigateToGame(newDifficulty)
+                viewModel.setEvent(GameUIEvent.DismissNewGameDialog)
+                navController.navigate(GameRoutes.GameScreen(newDifficulty)) {
+                    popUpTo<GameRoutes.GameScreen> { inclusive = true }
+                }
             },
-            onDismiss = { showNewGameDialog = false },
+            onDismiss = { viewModel.setEvent(GameUIEvent.DismissNewGameDialog) },
         )
     }
 
     GameScreenContent(
         state = state,
         onEvent = viewModel::setEvent,
-        onNavigateBack = onNavigateBack,
-        onNewGameClick = { showNewGameDialog = true },
-        onPauseClick = {
-            viewModel.setEvent(GameEvent.PauseClicked)
-            showPauseDialog = true
-        },
+        onNavigateBack = { navController.popBackStack() },
+        onNewGameClick = { viewModel.setEvent(GameUIEvent.ShowNewGameDialog) },
+        onPauseClick = { viewModel.setEvent(GameUIEvent.ShowPauseDialog) },
     )
 }

@@ -18,11 +18,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.navigation.NavController
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 @Composable
-fun PrivacyPolicyScreen(onNavigateBack: () -> Unit) {
+fun PrivacyPolicyScreen(navController: NavController) {
     Scaffold(containerColor = AppTheme.colors.background) { paddingValues ->
         Column(
             modifier = Modifier
@@ -39,7 +40,7 @@ fun PrivacyPolicyScreen(onNavigateBack: () -> Unit) {
                     ),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                IconButton(onClick = onNavigateBack) {
+                IconButton(onClick = { navController.popBackStack() }) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = stringResource(R.string.go_back),
@@ -99,4 +100,3 @@ internal fun Section(title: String, body: String) {
         color = AppTheme.colors.textSecondary,
     )
 }
-

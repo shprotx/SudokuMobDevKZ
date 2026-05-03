@@ -1,4 +1,4 @@
-package ru.shprot.sudokumobdevkz.feature.splash.presentation.screen
+package ru.shprot.sudokumobdevkz.feature.splash.presentation.components.screencontent
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box

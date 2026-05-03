@@ -7,16 +7,16 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import ru.shprot.sudokumobdevkz.core.base.presentation.viewmodel.BaseViewModel
-import ru.shprot.sudokumobdevkz.feature.statistic.presentation.contract.StatisticEffect
-import ru.shprot.sudokumobdevkz.feature.statistic.presentation.contract.StatisticEvent
-import ru.shprot.sudokumobdevkz.feature.statistic.presentation.contract.StatisticUiState
+import ru.shprot.sudokumobdevkz.feature.statistic.presentation.contract.StatisticUIEffect
+import ru.shprot.sudokumobdevkz.feature.statistic.presentation.contract.StatisticUIEvent
+import ru.shprot.sudokumobdevkz.feature.statistic.presentation.contract.StatisticUIState
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SudokuRepository
 import javax.inject.Inject
 
 @HiltViewModel
 class StatisticViewModel @Inject constructor(
     private val repository: SudokuRepository,
-) : BaseViewModel<StatisticEvent, StatisticUiState, StatisticEffect>(StatisticUiState()) {
+) : BaseViewModel<StatisticUIEvent, StatisticUIState, StatisticUIEffect>(StatisticUIState()) {
 
     private var observeJob: Job? = null
 
@@ -24,17 +24,19 @@ class StatisticViewModel @Inject constructor(
         observeDifficulty(0)
     }
 
-    override fun handleUIEvent(event: StatisticEvent) {
+    override fun handleUIEvent(event: StatisticUIEvent) {
         when (event) {
-            is StatisticEvent.TabSelected -> {
+            is StatisticUIEvent.TabSelected -> {
                 setState(currentState.copy(selectedTab = event.index))
                 observeDifficulty(event.index)
             }
-            is StatisticEvent.ResetRequested -> {
+            is StatisticUIEvent.ResetRequested -> {
                 viewModelScope.launch(exceptionHandler) {
                     repository.resetStatistic(event.difficulty)
                 }
             }
+            is StatisticUIEvent.ShowResetDialog -> setState(currentState.copy(showResetDialog = true))
+            is StatisticUIEvent.DismissResetDialog -> setState(currentState.copy(showResetDialog = false))
         }
     }
 

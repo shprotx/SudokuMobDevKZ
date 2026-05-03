@@ -1,4 +1,4 @@
-package ru.shprot.sudokumobdevkz.feature.statistic.presentation.screen
+package ru.shprot.sudokumobdevkz.feature.statistic.presentation.components.screencontent
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -30,15 +30,15 @@ import ru.shprot.sudokumobdevkz.feature.statistic.presentation.components.GameSt
 import ru.shprot.sudokumobdevkz.feature.statistic.presentation.components.OverviewCards
 import ru.shprot.sudokumobdevkz.feature.statistic.presentation.components.StatisticToolbar
 import ru.shprot.sudokumobdevkz.feature.statistic.presentation.components.TimeChartSection
-import ru.shprot.sudokumobdevkz.feature.statistic.presentation.contract.StatisticEvent
-import ru.shprot.sudokumobdevkz.feature.statistic.presentation.contract.StatisticUiState
+import ru.shprot.sudokumobdevkz.feature.statistic.presentation.contract.StatisticUIEvent
+import ru.shprot.sudokumobdevkz.feature.statistic.presentation.contract.StatisticUIState
 
 @Composable
 fun StatisticScreenContent(
     modifier: Modifier = Modifier,
-    state: StatisticUiState,
+    state: StatisticUIState,
     tabs: List<String>,
-    onEvent: (StatisticEvent) -> Unit,
+    onEvent: (StatisticUIEvent) -> Unit,
     onNavigateBack: () -> Unit,
     onResetClick: () -> Unit,
 ) {
@@ -54,7 +54,7 @@ fun StatisticScreenContent(
             DifficultyTabs(
                 tabs = tabs,
                 selectedTab = state.selectedTab,
-                onTabSelected = { onEvent(StatisticEvent.TabSelected(it)) },
+                onTabSelected = { onEvent(StatisticUIEvent.TabSelected(it)) },
             )
 
             Column(modifier = Modifier.padding(horizontal = AppTheme.paddings.large)) {
