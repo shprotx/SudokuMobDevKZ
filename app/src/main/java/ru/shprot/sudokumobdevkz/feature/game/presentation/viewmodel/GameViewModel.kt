@@ -223,6 +223,7 @@ class GameViewModel @Inject constructor(
 
         val cell = state.cells[row][col]
         if (cell.isGiven) return
+        if (cell.value != 0 && !cell.isError) return
 
         if (state.isNotesEnabled) {
             val newNotes = cell.notes.toMutableSet()
@@ -279,6 +280,7 @@ class GameViewModel @Inject constructor(
 
         val cell = state.cells[row][col]
         if (cell.isGiven) return
+        if (cell.value != 0 && !cell.isError) return
 
         undoStack.add(UndoEntry(row, col, cell))
         val newCells = state.cells.toMutableGrid()

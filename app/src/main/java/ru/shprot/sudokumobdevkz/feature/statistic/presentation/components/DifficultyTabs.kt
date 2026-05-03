@@ -49,6 +49,7 @@ fun DifficultyTabs(
                         else FontWeight.Normal,
                         color = if (selectedTab == index) AppTheme.colors.primary
                         else AppTheme.colors.textSecondary,
+                        maxLines = 1,
                     )
                 },
             )

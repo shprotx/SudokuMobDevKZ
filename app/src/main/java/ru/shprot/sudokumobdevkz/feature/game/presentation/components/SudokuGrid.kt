@@ -150,8 +150,8 @@ private fun DrawScope.drawNumbers(
     density: Density,
 ) {
     val fontSizeSp = with(density) { (cellSize * 0.45f).toSp() }
-    val draftFontSizeSp = with(density) { (cellSize * 0.18f).toSp() }
-    val draftHighlightFontSizeSp = with(density) { (cellSize * 0.22f).toSp() }
+    val draftFontSizeSp = with(density) { (cellSize * 0.20f).toSp() }
+    val draftHighlightFontSizeSp = with(density) { (cellSize * 0.24f).toSp() }
 
     for (row in 0 until 9) {
         for (col in 0 until 9) {
@@ -179,8 +179,8 @@ private fun DrawScope.drawNumbers(
                     val isHighlighted = note == highlightedNumber
                     val noteStyle = TextStyle(
                         fontSize = if (isHighlighted) draftHighlightFontSizeSp else draftFontSizeSp,
-                        fontWeight = if (isHighlighted) FontWeight.Bold else FontWeight.Normal,
-                        color = if (isHighlighted) editableColor else draftColor,
+                        fontWeight = if (isHighlighted) FontWeight.Bold else FontWeight.Medium,
+                        color = if (isHighlighted) fixedColor else draftColor,
                     )
                     val noteRow = (note - 1) / 3
                     val noteCol = (note - 1) % 3

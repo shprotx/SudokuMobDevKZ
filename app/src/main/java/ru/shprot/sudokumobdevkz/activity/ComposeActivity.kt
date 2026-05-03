@@ -21,6 +21,8 @@ class ComposeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        @Suppress("DEPRECATION")
+        window.navigationBarColor = android.graphics.Color.TRANSPARENT
         setContent {
             val settings by settingsRepository.settings.collectAsStateWithLifecycle(
                 initialValue = settingsRepository.currentSettings,

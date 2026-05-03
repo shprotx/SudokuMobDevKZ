@@ -1,6 +1,7 @@
 package ru.shprot.sudokumobdevkz.feature.splash.presentation.components.screencontent
 import ru.shprot.sudokumobdevkz.feature.splash.presentation.components.*
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -105,6 +106,7 @@ fun SplashScreenContent(
     Box(
         modifier = modifier
             .fillMaxSize()
+            .background(AppTheme.colors.background)
             .statusBarsPadding()
             .navigationBarsPadding()
             .padding(horizontal = AppTheme.paddings.large),
