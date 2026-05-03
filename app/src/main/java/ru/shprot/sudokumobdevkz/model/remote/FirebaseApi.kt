@@ -27,4 +27,21 @@ interface FirebaseApi {
 
     @GET("stats.json")
     suspend fun getAllStats(): Map<String, Map<String, FirebaseStatDto>>?
+
+    @PUT("crashes/{deviceId}/{timestamp}.json")
+    suspend fun uploadCrash(
+        @Path("deviceId") deviceId: String,
+        @Path("timestamp") timestamp: String,
+        @Body crash: CrashDto,
+    )
 }
+
+@Serializable
+data class CrashDto(
+    val timestamp: String,
+    val versionName: String,
+    val versionCode: Int,
+    val device: String,
+    val android: Int,
+    val stacktrace: String,
+)
