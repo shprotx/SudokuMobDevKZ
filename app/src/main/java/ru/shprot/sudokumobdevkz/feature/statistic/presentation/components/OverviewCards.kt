@@ -20,6 +20,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
+import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 @Composable
@@ -42,7 +44,7 @@ fun OverviewCards(
                 modifier = Modifier.weight(1f),
                 icon = Icons.Filled.Timer,
                 iconTint = Color(0xFF039FE0),
-                label = "Лучшее время",
+                label = stringResource(R.string.best_time_label),
                 value = bestTime,
             )
 
@@ -50,7 +52,7 @@ fun OverviewCards(
                 modifier = Modifier.weight(1f),
                 icon = Icons.Filled.Schedule,
                 iconTint = Color(0xFF636AE8),
-                label = "Среднее время",
+                label = stringResource(R.string.average_time_label),
                 value = averageTime,
             )
         }
@@ -63,7 +65,7 @@ fun OverviewCards(
                 modifier = Modifier.weight(1f),
                 icon = Icons.Filled.EmojiEvents,
                 iconTint = Color(0xFFFF9500),
-                label = "Процент побед",
+                label = stringResource(R.string.win_percent_label),
                 value = percentOfWins,
             )
 
@@ -71,7 +73,7 @@ fun OverviewCards(
                 modifier = Modifier.weight(1f),
                 icon = Icons.Filled.CheckCircle,
                 iconTint = AppTheme.colors.primary,
-                label = "Побед без ошибок",
+                label = stringResource(R.string.wins_no_errors_label),
                 value = winsWithoutErrors,
             )
         }
@@ -79,7 +81,7 @@ fun OverviewCards(
 }
 
 @Composable
-private fun OverviewCard(
+internal fun OverviewCard(
     modifier: Modifier = Modifier,
     icon: ImageVector,
     iconTint: Color,

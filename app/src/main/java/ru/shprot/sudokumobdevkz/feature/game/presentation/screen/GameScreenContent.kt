@@ -15,6 +15,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 import ru.shprot.sudokumobdevkz.feature.game.presentation.components.GameActionsBar
 import ru.shprot.sudokumobdevkz.feature.game.presentation.components.GameStatusBar
@@ -23,8 +25,6 @@ import ru.shprot.sudokumobdevkz.feature.game.presentation.components.NumberPanel
 import ru.shprot.sudokumobdevkz.feature.game.presentation.components.SudokuGrid
 import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameEvent
 import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameUiState
-
-private val difficultyLabels = listOf("Лёгкая", "Средняя", "Экспертная")
 
 @Composable
 fun GameScreenContent(
@@ -48,7 +48,7 @@ fun GameScreenContent(
 
                     Text(
                         modifier = Modifier.padding(top = AppTheme.paddings.large),
-                        text = "Генерация...",
+                        text = stringResource(R.string.generating),
                         style = AppTheme.typography.body1,
                         color = AppTheme.colors.textSecondary,
                     )
@@ -76,7 +76,11 @@ fun GameScreenContent(
                 WeightSpacer()
 
                 GameStatusBar(
-                    difficultyLabel = difficultyLabels.getOrElse(state.difficulty) { "Лёгкая" },
+                    difficultyLabel = listOf(
+                        stringResource(R.string.difficulty_easy),
+                        stringResource(R.string.difficulty_middle),
+                        stringResource(R.string.difficulty_expert),
+                    ).getOrElse(state.difficulty) { stringResource(R.string.difficulty_easy) },
                     errors = state.errors,
                     maxErrors = state.maxErrors,
                     lives = state.maxErrors - state.errors,
@@ -129,6 +133,6 @@ fun GameScreenContent(
 }
 
 @Composable
-private fun ColumnScope.WeightSpacer() {
+internal fun ColumnScope.WeightSpacer() {
     Spacer(modifier = Modifier.weight(1f))
 }

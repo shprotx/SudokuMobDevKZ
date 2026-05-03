@@ -13,7 +13,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 import ru.shprot.sudokumobdevkz.feature.menu.presentation.components.DailyChallengeCard
 import ru.shprot.sudokumobdevkz.feature.menu.presentation.components.DifficultySelector
@@ -62,7 +64,7 @@ fun MenuScreenContent(
                     shape = RoundedCornerShape(AppTheme.sizes.cornerRadiusXL),
                 ) {
                     Text(
-                        text = "Продолжить игру",
+                        text = stringResource(R.string.continue_playing),
                         style = AppTheme.typography.h3,
                         fontWeight = FontWeight.SemiBold,
                         color = AppTheme.colors.primary,

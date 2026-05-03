@@ -24,6 +24,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.SettingsCard
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.SettingsDivider
@@ -53,12 +55,12 @@ fun SettingsScreenContent(
 
             Column(modifier = Modifier.padding(horizontal = AppTheme.paddings.large)) {
 
-                SettingsSectionHeader(title = "Игра")
+                SettingsSectionHeader(title = stringResource(R.string.game_label))
 
                 SettingsCard {
                     SettingsToggleItem(
                         icon = Icons.Filled.CheckCircle,
-                        title = "Проверять ошибки",
+                        title = stringResource(R.string.check_errors),
                         checked = settings.checkErrors,
                         onCheckedChange = { v -> onSettingChanged { copy(checkErrors = v) } },
                     )
@@ -67,7 +69,7 @@ fun SettingsScreenContent(
 
                     SettingsToggleItem(
                         icon = Icons.Filled.ContentCopy,
-                        title = "Подсветка дубликатов",
+                        title = stringResource(R.string.highlight_duplicates),
                         checked = settings.highlightDuplicates,
                         onCheckedChange = { v -> onSettingChanged { copy(highlightDuplicates = v) } },
                     )
@@ -76,7 +78,7 @@ fun SettingsScreenContent(
 
                     SettingsToggleItem(
                         icon = Icons.Filled.Save,
-                        title = "Автосохранение",
+                        title = stringResource(R.string.auto_save),
                         checked = settings.autoSave,
                         onCheckedChange = { v -> onSettingChanged { copy(autoSave = v) } },
                     )
@@ -85,7 +87,7 @@ fun SettingsScreenContent(
 
                     SettingsToggleItem(
                         icon = Icons.Filled.Schedule,
-                        title = "Показывать время",
+                        title = stringResource(R.string.show_timer),
                         checked = settings.showTimer,
                         onCheckedChange = { v -> onSettingChanged { copy(showTimer = v) } },
                     )
@@ -95,7 +97,7 @@ fun SettingsScreenContent(
                     SettingsToggleItem(
                         icon = Icons.Filled.Favorite,
                         iconTint = AppTheme.colors.error,
-                        title = "Показывать ошибки",
+                        title = stringResource(R.string.show_errors),
                         checked = settings.showErrors,
                         onCheckedChange = { v -> onSettingChanged { copy(showErrors = v) } },
                     )
@@ -105,7 +107,7 @@ fun SettingsScreenContent(
                     SettingsToggleItem(
                         icon = Icons.Filled.Favorite,
                         iconTint = AppTheme.colors.warning,
-                        title = "Бесконечные ошибки",
+                        title = stringResource(R.string.unlimited_errors),
                         checked = settings.unlimitedErrors,
                         onCheckedChange = { v -> onSettingChanged { copy(unlimitedErrors = v) } },
                     )
@@ -115,7 +117,7 @@ fun SettingsScreenContent(
                     SettingsToggleItem(
                         icon = Icons.Filled.Lightbulb,
                         iconTint = AppTheme.colors.warning,
-                        title = "Безлимитные подсказки",
+                        title = stringResource(R.string.unlimited_hints),
                         checked = settings.unlimitedHints,
                         onCheckedChange = { v -> onSettingChanged { copy(unlimitedHints = v) } },
                     )
@@ -124,41 +126,41 @@ fun SettingsScreenContent(
 
                     SettingsToggleItem(
                         icon = Icons.Filled.BarChart,
-                        title = "Учёт статистики",
+                        title = stringResource(R.string.track_statistics),
                         checked = settings.effectiveTrackStatistics,
                         enabled = !settings.hasCheats,
                         onCheckedChange = { v -> onSettingChanged { copy(trackStatistics = v) } },
                     )
                 }
 
-                SettingsSectionHeader(title = "Внешний вид")
+                SettingsSectionHeader(title = stringResource(R.string.appearance))
 
                 SettingsCard {
                     SettingsToggleItem(
                         icon = Icons.Filled.Palette,
-                        title = "Тёмная тема",
+                        title = stringResource(R.string.dark_theme_label),
                         checked = settings.isDarkTheme,
                         onCheckedChange = { v -> onSettingChanged { copy(isDarkTheme = v) } },
                     )
                 }
 
-                SettingsSectionHeader(title = "Звук")
+                SettingsSectionHeader(title = stringResource(R.string.sound))
 
                 SettingsCard {
                     SettingsToggleItem(
                         icon = Icons.Filled.VolumeUp,
-                        title = "Звуки",
+                        title = stringResource(R.string.sounds),
                         checked = settings.soundsEnabled,
                         onCheckedChange = { v -> onSettingChanged { copy(soundsEnabled = v) } },
                     )
                 }
 
-                SettingsSectionHeader(title = "Другое")
+                SettingsSectionHeader(title = stringResource(R.string.other))
 
                 SettingsCard {
                     SettingsNavItem(
                         icon = Icons.Filled.Security,
-                        title = "Политика конфиденциальности",
+                        title = stringResource(R.string.privacy_policy),
                         onClick = onNavigateToPrivacyPolicy,
                     )
                 }
@@ -175,7 +177,7 @@ fun SettingsScreenContent(
                     colors = ButtonDefaults.buttonColors(containerColor = AppTheme.colors.error),
                 ) {
                     Text(
-                        text = "Сбросить статистику",
+                        text = stringResource(R.string.reset_statistics),
                         style = AppTheme.typography.button,
                         color = AppTheme.colors.textOnPrimary,
                     )

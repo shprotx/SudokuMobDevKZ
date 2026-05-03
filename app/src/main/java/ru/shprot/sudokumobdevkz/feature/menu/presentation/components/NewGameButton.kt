@@ -23,7 +23,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 @Composable
@@ -66,13 +68,13 @@ fun NewGameButton(
                     .padding(start = AppTheme.paddings.large),
             ) {
                 Text(
-                    text = "Новая игра",
+                    text = stringResource(R.string.new_game),
                     style = AppTheme.typography.h3,
                     color = AppTheme.colors.textOnPrimary,
                 )
 
                 Text(
-                    text = "Начать новую головоломку",
+                    text = stringResource(R.string.new_game_desc),
                     style = AppTheme.typography.body5,
                     color = AppTheme.colors.textOnPrimary.copy(alpha = 0.8f),
                 )

@@ -22,6 +22,8 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 import ru.shprot.sudokumobdevkz.feature.statistic.presentation.components.DifficultyTabs
 import ru.shprot.sudokumobdevkz.feature.statistic.presentation.components.GameStatisticsSection
@@ -31,12 +33,11 @@ import ru.shprot.sudokumobdevkz.feature.statistic.presentation.components.TimeCh
 import ru.shprot.sudokumobdevkz.feature.statistic.presentation.contract.StatisticEvent
 import ru.shprot.sudokumobdevkz.feature.statistic.presentation.contract.StatisticUiState
 
-private val tabs = listOf("Лёгкая", "Средняя", "Экспертная")
-
 @Composable
 fun StatisticScreenContent(
     modifier: Modifier = Modifier,
     state: StatisticUiState,
+    tabs: List<String>,
     onEvent: (StatisticEvent) -> Unit,
     onNavigateBack: () -> Unit,
     onResetClick: () -> Unit,
@@ -59,7 +60,7 @@ fun StatisticScreenContent(
             Column(modifier = Modifier.padding(horizontal = AppTheme.paddings.large)) {
                 Text(
                     modifier = Modifier.padding(top = AppTheme.paddings.extraLarge),
-                    text = "Обзор",
+                    text = stringResource(R.string.overview),
                     style = AppTheme.typography.h4,
                     color = AppTheme.colors.text,
                 )
@@ -103,7 +104,7 @@ fun StatisticScreenContent(
 
                     TextButton(onClick = onResetClick) {
                         Text(
-                            text = "Сбросить статистику",
+                            text = stringResource(R.string.reset_statistics),
                             style = AppTheme.typography.body3,
                             color = AppTheme.colors.textSecondary,
                         )
@@ -130,7 +131,7 @@ fun StatisticScreenContent(
 
                     Text(
                         modifier = Modifier.padding(start = AppTheme.paddings.medium),
-                        text = "На главную",
+                        text = stringResource(R.string.go_to_main_page),
                         style = AppTheme.typography.button,
                         color = AppTheme.colors.textOnPrimary,
                     )

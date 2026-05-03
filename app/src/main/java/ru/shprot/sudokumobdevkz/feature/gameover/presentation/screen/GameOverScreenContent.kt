@@ -22,12 +22,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 import ru.shprot.sudokumobdevkz.feature.gameover.presentation.components.ResultHeader
 import ru.shprot.sudokumobdevkz.feature.gameover.presentation.components.StatCard
-
-private val difficultyLabels = listOf("Лёгкая", "Средняя", "Экспертная")
 
 @Composable
 fun GameOverScreenContent(
@@ -53,9 +53,9 @@ fun GameOverScreenContent(
                 ResultHeader(
                     icon = if (isWin) Icons.Filled.EmojiEvents
                     else Icons.Filled.SentimentDissatisfied,
-                    title = if (isWin) "Победа!" else "Игра окончена",
-                    subtitle = if (isWin) "Отличная работа! Головоломка решена."
-                    else "Не сдавайся — попробуй ещё раз!",
+                    title = if (isWin) stringResource(R.string.you_won) else stringResource(R.string.game_over),
+                    subtitle = if (isWin) stringResource(R.string.win_subtitle)
+                    else stringResource(R.string.lose_subtitle),
                     isWin = isWin,
                 )
 
@@ -69,7 +69,7 @@ fun GameOverScreenContent(
                         modifier = Modifier.weight(1f),
                         icon = Icons.Filled.Timer,
                         iconTint = Color(0xFF039FE0),
-                        label = "Время",
+                        label = stringResource(R.string.time_label),
                         value = time,
                     )
 
@@ -77,7 +77,7 @@ fun GameOverScreenContent(
                         modifier = Modifier.weight(1f),
                         icon = Icons.Filled.Favorite,
                         iconTint = AppTheme.colors.error,
-                        label = "Ошибки",
+                        label = stringResource(R.string.errors_label),
                         value = "$errors",
                     )
 
@@ -85,8 +85,12 @@ fun GameOverScreenContent(
                         modifier = Modifier.weight(1f),
                         icon = Icons.Filled.SignalCellularAlt,
                         iconTint = AppTheme.colors.primary,
-                        label = "Сложность",
-                        value = difficultyLabels.getOrElse(difficulty) { "?" },
+                        label = stringResource(R.string.difficulty_label),
+                        value = listOf(
+                            stringResource(R.string.difficulty_easy),
+                            stringResource(R.string.difficulty_middle),
+                            stringResource(R.string.difficulty_expert),
+                        ).getOrElse(difficulty) { "?" },
                     )
                 }
             }
@@ -101,7 +105,7 @@ fun GameOverScreenContent(
                     colors = ButtonDefaults.buttonColors(containerColor = AppTheme.colors.primary),
                 ) {
                     Text(
-                        text = if (isWin) "Играть снова" else "Попробовать ещё",
+                        text = if (isWin) stringResource(R.string.play_again) else stringResource(R.string.try_again),
                         style = AppTheme.typography.button,
                         fontWeight = FontWeight.SemiBold,
                         color = AppTheme.colors.textOnPrimary,
@@ -117,7 +121,7 @@ fun GameOverScreenContent(
                     shape = RoundedCornerShape(AppTheme.sizes.cornerRadiusLarge),
                 ) {
                     Text(
-                        text = "На главную",
+                        text = stringResource(R.string.go_to_main_page),
                         style = AppTheme.typography.button,
                         color = AppTheme.colors.text,
                     )

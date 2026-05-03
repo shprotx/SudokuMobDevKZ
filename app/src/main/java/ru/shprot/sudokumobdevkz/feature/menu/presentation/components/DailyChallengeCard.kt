@@ -17,7 +17,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 @Composable
@@ -48,21 +50,21 @@ fun DailyChallengeCard(modifier: Modifier = Modifier) {
                     .padding(start = AppTheme.paddings.default),
             ) {
                 Text(
-                    text = "Ежедневная задача",
+                    text = stringResource(R.string.daily_challenge),
                     style = AppTheme.typography.body2,
                     fontWeight = FontWeight.SemiBold,
                     color = AppTheme.colors.text,
                 )
 
                 Text(
-                    text = "Новая головоломка каждый день",
+                    text = stringResource(R.string.daily_challenge_desc),
                     style = AppTheme.typography.caption1,
                     color = AppTheme.colors.textSecondary,
                 )
             }
 
             Text(
-                text = "Прогресс",
+                text = stringResource(R.string.progress),
                 style = AppTheme.typography.caption1,
                 color = AppTheme.colors.textSecondary,
             )

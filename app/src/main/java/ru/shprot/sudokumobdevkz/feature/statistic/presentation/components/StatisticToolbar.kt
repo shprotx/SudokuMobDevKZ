@@ -12,7 +12,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 @Composable
@@ -32,14 +34,14 @@ fun StatisticToolbar(
         IconButton(onClick = onBackClick) {
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                contentDescription = "Назад",
+                contentDescription = stringResource(R.string.go_back),
                 tint = AppTheme.colors.text,
             )
         }
 
         Text(
             modifier = Modifier.weight(1f),
-            text = "Статистика",
+            text = stringResource(R.string.statistic),
             style = AppTheme.typography.h3,
             color = AppTheme.colors.text,
             textAlign = TextAlign.Center,
@@ -48,7 +50,7 @@ fun StatisticToolbar(
         IconButton(onClick = { }) {
             Icon(
                 imageVector = Icons.Filled.Settings,
-                contentDescription = "Настройки",
+                contentDescription = stringResource(R.string.settings),
                 tint = AppTheme.colors.iconTint,
             )
         }

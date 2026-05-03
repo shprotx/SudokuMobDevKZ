@@ -17,7 +17,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 @Composable
@@ -54,7 +56,7 @@ fun GameStatusBar(
         }
 
         Text(
-            text = "Ошибки $errors/$maxErrors",
+            text = stringResource(R.string.errors_format, errors, maxErrors),
             style = AppTheme.typography.body5,
             color = AppTheme.colors.textSecondary,
         )

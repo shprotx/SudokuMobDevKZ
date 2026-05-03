@@ -26,7 +26,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 @Composable
@@ -45,27 +47,27 @@ fun GameActionsBar(
     ) {
         ActionButton(
             icon = Icons.AutoMirrored.Filled.Undo,
-            label = "Отменить",
+            label = stringResource(R.string.undo),
             onClick = onUndoClick,
         )
 
         ActionButton(
             icon = Icons.Outlined.Delete,
-            label = "Стереть",
+            label = stringResource(R.string.erase),
             onClick = onEraseClick,
         )
 
         ActionButton(
             icon = Icons.Filled.Edit,
-            label = "Заметки",
-            badge = if (isNotesEnabled) "ON" else "OFF",
+            label = stringResource(R.string.note),
+            badge = if (isNotesEnabled) stringResource(R.string.on_label) else stringResource(R.string.off_label),
             isHighlighted = isNotesEnabled,
             onClick = onNotesClick,
         )
 
         ActionButton(
             icon = Icons.Filled.Lightbulb,
-            label = "Подсказка",
+            label = stringResource(R.string.hint),
             badge = "$hintsRemaining",
             onClick = onHintClick,
         )
@@ -73,7 +75,7 @@ fun GameActionsBar(
 }
 
 @Composable
-private fun ActionButton(
+internal fun ActionButton(
     icon: ImageVector,
     label: String,
     badge: String? = null,

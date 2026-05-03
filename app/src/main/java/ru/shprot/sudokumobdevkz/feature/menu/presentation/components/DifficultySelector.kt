@@ -21,7 +21,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 @Composable
@@ -32,7 +34,7 @@ fun DifficultySelector(
 ) {
     Column(modifier = modifier) {
         Text(
-            text = "Выберите сложность",
+            text = stringResource(R.string.select_difficulty),
             style = AppTheme.typography.h4,
             color = AppTheme.colors.text,
         )
@@ -44,8 +46,8 @@ fun DifficultySelector(
             horizontalArrangement = Arrangement.SpaceEvenly,
         ) {
             DifficultyCard(
-                title = "Лёгкая",
-                subtitle = "Для новичков",
+                title = stringResource(R.string.difficulty_easy),
+                subtitle = stringResource(R.string.for_beginners),
                 icon = "\uD83C\uDF3F",
                 dotCount = 1,
                 dotColor = AppTheme.colors.primary,
@@ -54,8 +56,8 @@ fun DifficultySelector(
             )
 
             DifficultyCard(
-                title = "Средняя",
-                subtitle = "Для опытных",
+                title = stringResource(R.string.difficulty_middle),
+                subtitle = stringResource(R.string.for_experienced),
                 icon = "☀\uFE0F",
                 dotCount = 2,
                 dotColor = Color(0xFFFF9500),
@@ -64,8 +66,8 @@ fun DifficultySelector(
             )
 
             DifficultyCard(
-                title = "Сложная",
-                subtitle = "Для экспертов",
+                title = stringResource(R.string.difficulty_expert),
+                subtitle = stringResource(R.string.for_experts),
                 icon = "\uD83D\uDC51",
                 dotCount = 3,
                 dotColor = Color(0xFFFF3B30),
@@ -77,7 +79,7 @@ fun DifficultySelector(
 }
 
 @Composable
-private fun DifficultyCard(
+internal fun DifficultyCard(
     title: String,
     subtitle: String,
     icon: String,

@@ -16,7 +16,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 @Composable
@@ -40,14 +42,14 @@ fun PrivacyPolicyScreen(onNavigateBack: () -> Unit) {
                 IconButton(onClick = onNavigateBack) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = "Назад",
+                        contentDescription = stringResource(R.string.go_back),
                         tint = AppTheme.colors.text,
                     )
                 }
 
                 Text(
                     modifier = Modifier.weight(1f),
-                    text = "Политика конфиденциальности",
+                    text = stringResource(R.string.privacy_policy),
                     style = AppTheme.typography.h4,
                     color = AppTheme.colors.text,
                     textAlign = TextAlign.Center,
@@ -57,22 +59,22 @@ fun PrivacyPolicyScreen(onNavigateBack: () -> Unit) {
             }
 
             Column(modifier = Modifier.padding(horizontal = AppTheme.paddings.large)) {
-                Section("Сбор данных", SECTION_DATA_COLLECTION)
+                Section(stringResource(R.string.data_collection), stringResource(R.string.privacy_data_collection))
 
-                Section("Использование данных", SECTION_DATA_USAGE)
+                Section(stringResource(R.string.data_usage), stringResource(R.string.privacy_data_usage))
 
-                Section("Хранение данных", SECTION_DATA_STORAGE)
+                Section(stringResource(R.string.data_storage), stringResource(R.string.privacy_data_storage))
 
-                Section("Права пользователя", SECTION_USER_RIGHTS)
+                Section(stringResource(R.string.user_rights), stringResource(R.string.privacy_user_rights))
 
-                Section("Изменения политики", SECTION_CHANGES)
+                Section(stringResource(R.string.policy_changes), stringResource(R.string.privacy_changes))
 
                 Text(
                     modifier = Modifier.padding(
                         top = AppTheme.paddings.xxl,
                         bottom = AppTheme.paddings.xxxl,
                     ),
-                    text = "Последнее обновление: май 2026",
+                    text = stringResource(R.string.privacy_last_updated),
                     style = AppTheme.typography.caption1,
                     color = AppTheme.colors.textSecondary,
                 )
@@ -82,7 +84,7 @@ fun PrivacyPolicyScreen(onNavigateBack: () -> Unit) {
 }
 
 @Composable
-private fun Section(title: String, body: String) {
+internal fun Section(title: String, body: String) {
     Text(
         modifier = Modifier.padding(top = AppTheme.paddings.xxl),
         text = title,
@@ -98,27 +100,3 @@ private fun Section(title: String, body: String) {
     )
 }
 
-private const val SECTION_DATA_COLLECTION =
-    "Приложение собирает минимальный набор данных, необходимый для работы игровой статистики: " +
-            "время прохождения, количество ошибок и результаты игр. " +
-            "Данные привязаны к анонимному идентификатору устройства и не содержат персональной информации."
-
-private const val SECTION_DATA_USAGE =
-    "Собранные данные используются исключительно для:\n" +
-            "• Отображения вашей игровой статистики\n" +
-            "• Расчёта вашего процентиля среди других игроков\n" +
-            "Данные не передаются третьим лицам и не используются в рекламных целях."
-
-private const val SECTION_DATA_STORAGE =
-    "Игровая статистика хранится локально на устройстве и синхронизируется с Firebase Realtime Database " +
-            "для обеспечения функции сравнения с другими игроками. " +
-            "Вы можете удалить свои данные в любой момент через раздел «Настройки» → «Сбросить статистику»."
-
-private const val SECTION_USER_RIGHTS =
-    "Вы имеете право:\n" +
-            "• Удалить все свои данные через настройки приложения\n" +
-            "• Отключить синхронизацию статистики\n" +
-            "• Запросить удаление данных с сервера, связавшись с разработчиком"
-
-private const val SECTION_CHANGES =
-    "Мы можем обновлять данную политику. Актуальная версия всегда доступна в приложении."

@@ -25,6 +25,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
@@ -55,14 +56,14 @@ fun HowToPlayScreenContent(
                 IconButton(onClick = onNavigateBack) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = "Назад",
+                        contentDescription = stringResource(R.string.go_back),
                         tint = AppTheme.colors.text,
                     )
                 }
 
                 Text(
                     modifier = Modifier.weight(1f),
-                    text = "Как играть",
+                    text = stringResource(R.string.how_to_play),
                     style = AppTheme.typography.h3,
                     color = AppTheme.colors.text,
                     textAlign = TextAlign.Center,
@@ -82,14 +83,14 @@ fun HowToPlayScreenContent(
 
                 Text(
                     modifier = Modifier.padding(top = AppTheme.paddings.large),
-                    text = "Освой судоку за 3 шага",
+                    text = stringResource(R.string.learn_in_3_steps),
                     style = AppTheme.typography.h2,
                     color = AppTheme.colors.text,
                 )
 
                 Text(
                     modifier = Modifier.padding(top = AppTheme.paddings.small),
-                    text = "Простые правила — бесконечные комбинации",
+                    text = stringResource(R.string.simple_rules),
                     style = AppTheme.typography.body3,
                     color = AppTheme.colors.textSecondary,
                 )
@@ -97,36 +98,30 @@ fun HowToPlayScreenContent(
                 TutorialStepCard(
                     modifier = Modifier.padding(top = AppTheme.paddings.xxl),
                     stepNumber = 1,
-                    title = "Никаких повторов",
-                    description = "Заполните каждую ячейку цифрой от 1 до 9.\n\n" +
-                            "Одна и та же цифра не может встречаться дважды " +
-                            "в строке, столбце или блоке 3×3.",
+                    title = stringResource(R.string.no_repetitions),
+                    description = stringResource(R.string.how_desc_one),
                     imageRes = R.drawable.howone,
                 )
 
                 TutorialStepCard(
                     modifier = Modifier.padding(top = AppTheme.paddings.large),
                     stepNumber = 2,
-                    title = "Решение всегда уникально",
-                    description = "У каждой головоломки ровно одно решение. " +
-                            "Нажмите на пустую ячейку и выберите цифру под полем.\n\n" +
-                            "Ищите ячейки, куда подходит только одна цифра.",
+                    title = stringResource(R.string.always_unique),
+                    description = stringResource(R.string.how_desc_two),
                     imageRes = R.drawable.howtwo,
                 )
 
                 TutorialStepCard(
                     modifier = Modifier.padding(top = AppTheme.paddings.large),
                     stepNumber = 3,
-                    title = "Используй заметки",
-                    description = "Используйте заметки, чтобы отмечать возможные варианты " +
-                            "в ячейке. Включите режим заметок кнопкой под полем.\n\n" +
-                            "Заметки исчезают автоматически, когда вы вписываете итоговую цифру.",
+                    title = stringResource(R.string.use_notes),
+                    description = stringResource(R.string.how_desc_three),
                     imageRes = R.drawable.howthree,
                 )
 
                 Text(
                     modifier = Modifier.padding(top = AppTheme.paddings.xxxl),
-                    text = "Полезные советы",
+                    text = stringResource(R.string.useful_tips),
                     style = AppTheme.typography.h3,
                     color = AppTheme.colors.text,
                 )
@@ -134,29 +129,29 @@ fun HowToPlayScreenContent(
                 TipCard(
                     modifier = Modifier.padding(top = AppTheme.paddings.large),
                     icon = Icons.Filled.Lightbulb,
-                    title = "Начинай с простого",
-                    description = "Сначала ищи строки и столбцы, где не хватает 1–2 цифр. Это самые лёгкие ячейки.",
+                    title = stringResource(R.string.tip_start_simple),
+                    description = stringResource(R.string.tip_start_simple_desc),
                 )
 
                 TipCard(
                     modifier = Modifier.padding(top = AppTheme.paddings.default),
                     icon = Icons.Filled.AutoFixHigh,
-                    title = "Метод исключения",
-                    description = "Если цифра уже есть в строке и столбце — исключи её из вариантов для пересечения.",
+                    title = stringResource(R.string.tip_elimination),
+                    description = stringResource(R.string.tip_elimination_desc),
                 )
 
                 TipCard(
                     modifier = Modifier.padding(top = AppTheme.paddings.default),
                     icon = Icons.Filled.Speed,
-                    title = "Не гадай",
-                    description = "В судоку всегда можно вывести ответ логически. Если приходится гадать — ищи другую ячейку.",
+                    title = stringResource(R.string.tip_no_guessing),
+                    description = stringResource(R.string.tip_no_guessing_desc),
                 )
 
                 TipCard(
                     modifier = Modifier.padding(top = AppTheme.paddings.default),
                     icon = Icons.Filled.Timer,
-                    title = "Тренируй скорость",
-                    description = "С опытом ты будешь решать головоломки быстрее. Следи за временем в статистике.",
+                    title = stringResource(R.string.tip_speed),
+                    description = stringResource(R.string.tip_speed_desc),
                 )
 
                 Button(
@@ -171,7 +166,7 @@ fun HowToPlayScreenContent(
                     colors = ButtonDefaults.buttonColors(containerColor = AppTheme.colors.primary),
                 ) {
                     Text(
-                        text = "Понятно, играть!",
+                        text = stringResource(R.string.got_it_play),
                         style = AppTheme.typography.button,
                         fontWeight = FontWeight.SemiBold,
                         color = AppTheme.colors.textOnPrimary,

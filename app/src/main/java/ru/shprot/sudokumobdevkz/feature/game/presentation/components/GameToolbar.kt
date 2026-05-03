@@ -18,7 +18,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 @Composable
@@ -40,40 +43,40 @@ fun GameToolbar(
     ) {
         ToolbarCircleButton(
             icon = Icons.AutoMirrored.Filled.ArrowBack,
-            contentDescription = "Назад",
+            contentDescription = stringResource(R.string.go_back),
             onClick = onBackClick,
         )
 
         Text(
             modifier = Modifier.weight(1f),
-            text = "Судоку",
+            text = stringResource(R.string.app_name),
             style = AppTheme.typography.h3,
             color = AppTheme.colors.text,
         )
 
         ToolbarCircleButton(
             icon = Icons.Filled.Refresh,
-            contentDescription = "Рестарт",
+            contentDescription = stringResource(R.string.restart),
             onClick = onRestartClick,
         )
 
         ToolbarCircleButton(
             icon = Icons.Filled.Pause,
-            contentDescription = "Пауза",
+            contentDescription = stringResource(R.string.pause),
             onClick = onPauseClick,
         )
 
         ToolbarCircleButton(
             icon = Icons.Filled.Settings,
-            contentDescription = "Настройки",
+            contentDescription = stringResource(R.string.settings),
             onClick = onSettingsClick,
         )
     }
 }
 
 @Composable
-private fun ToolbarCircleButton(
-    icon: androidx.compose.ui.graphics.vector.ImageVector,
+internal fun ToolbarCircleButton(
+    icon: ImageVector,
     contentDescription: String,
     onClick: () -> Unit,
 ) {

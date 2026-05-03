@@ -31,7 +31,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.window.Dialog
+import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 @Composable
@@ -71,7 +73,7 @@ fun PauseDialog(
 
                 Text(
                     modifier = Modifier.padding(top = AppTheme.paddings.large),
-                    text = "Пауза",
+                    text = stringResource(R.string.pause),
                     style = AppTheme.typography.h2,
                     color = AppTheme.colors.text,
                 )
@@ -132,7 +134,7 @@ fun PauseDialog(
                     colors = ButtonDefaults.buttonColors(containerColor = AppTheme.colors.primary),
                 ) {
                     Text(
-                        text = "Продолжить",
+                        text = stringResource(R.string.resume),
                         style = AppTheme.typography.button,
                         color = AppTheme.colors.textOnPrimary,
                     )
@@ -147,7 +149,7 @@ fun PauseDialog(
                     shape = RoundedCornerShape(AppTheme.sizes.cornerRadiusLarge),
                 ) {
                     Text(
-                        text = "Начать заново",
+                        text = stringResource(R.string.restart),
                         style = AppTheme.typography.button,
                         color = AppTheme.colors.text,
                     )
@@ -158,7 +160,7 @@ fun PauseDialog(
                     onClick = onExit,
                 ) {
                     Text(
-                        text = "Выйти в меню",
+                        text = stringResource(R.string.exit_to_menu),
                         style = AppTheme.typography.body2,
                         color = AppTheme.colors.textSecondary,
                     )

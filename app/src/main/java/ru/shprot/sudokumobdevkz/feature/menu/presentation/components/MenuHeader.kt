@@ -13,6 +13,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 @Composable
@@ -27,14 +29,14 @@ fun MenuHeader(
     ) {
         Column {
             Text(
-                text = "Sudoku",
+                text = stringResource(R.string.app_name),
                 style = AppTheme.typography.h1,
                 color = AppTheme.colors.text,
             )
 
             Text(
                 modifier = Modifier.padding(top = AppTheme.paddings.small),
-                text = "Тренируй мозг. Расслабься. Наслаждайся \uD83C\uDF3F",
+                text = stringResource(R.string.subtitle_slogan),
                 style = AppTheme.typography.body3,
                 color = AppTheme.colors.textSecondary,
             )
@@ -43,7 +45,7 @@ fun MenuHeader(
         IconButton(onClick = onSettingsClick) {
             Icon(
                 imageVector = Icons.Filled.Settings,
-                contentDescription = "Настройки",
+                contentDescription = stringResource(R.string.settings),
                 tint = AppTheme.colors.iconTint,
             )
         }

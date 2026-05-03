@@ -26,7 +26,9 @@ import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.Density
+import androidx.compose.ui.res.stringResource
 import kotlinx.coroutines.delay
+import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 private val SOLVED_GRID = arrayOf(
@@ -102,7 +104,7 @@ fun SplashScreenContent(
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
-                text = "Sudoku",
+                text = stringResource(R.string.app_name),
                 style = AppTheme.typography.h1,
                 color = AppTheme.colors.text,
             )

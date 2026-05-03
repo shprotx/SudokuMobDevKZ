@@ -150,6 +150,13 @@
     <string name="tip_speed">Train speed</string>
     <string name="tip_speed_desc">With experience you\'ll solve puzzles faster. Track time in statistics.</string>
     <string name="got_it_play">Got it, play!</string>
+    <string name="game_label">Game</string>
+    <string name="dark_theme_label">Dark theme</string>
+    <string name="data_collection">Data collection</string>
+    <string name="data_usage">Data usage</string>
+    <string name="data_storage">Data storage</string>
+    <string name="user_rights">User rights</string>
+    <string name="policy_changes">Policy changes</string>
     <string name="check_errors">Check errors</string>
     <string name="highlight_duplicates">Highlight duplicates</string>
     <string name="auto_save">Auto save</string>

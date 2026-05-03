@@ -8,8 +8,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.viewmodel.SettingsViewModel
 import ru.shprot.sudokumobdevkz.core.base.data.repository.AppSettings
@@ -26,19 +28,19 @@ fun SettingsScreen(
     if (showResetDialog) {
         AlertDialog(
             onDismissRequest = { showResetDialog = false },
-            title = { Text("Сбросить статистику?") },
-            text = { Text("Статистика для всех сложностей будет удалена безвозвратно.") },
+            title = { Text(stringResource(R.string.reset_statistics) + "?") },
+            text = { Text(stringResource(R.string.reset_statistics_confirm)) },
             confirmButton = {
                 TextButton(onClick = {
                     viewModel.resetAllStatistics()
                     showResetDialog = false
                 }) {
-                    Text("Сбросить", color = AppTheme.colors.error)
+                    Text(stringResource(R.string.reset), color = AppTheme.colors.error)
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showResetDialog = false }) {
-                    Text("Отмена")
+                    Text(stringResource(R.string.cancel))
                 }
             },
         )

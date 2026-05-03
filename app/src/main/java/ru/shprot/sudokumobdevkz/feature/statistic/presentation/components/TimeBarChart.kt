@@ -19,7 +19,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.GameHistoryEntity
 import java.text.SimpleDateFormat
@@ -33,7 +35,7 @@ fun TimeChartSection(
 ) {
     Column(modifier = modifier) {
         Text(
-            text = "Динамика времени",
+            text = stringResource(R.string.time_dynamics),
             style = AppTheme.typography.h4,
             color = AppTheme.colors.text,
         )
@@ -52,7 +54,7 @@ fun TimeChartSection(
             ) {
                 if (recentGames.isEmpty()) {
                     Text(
-                        text = "Нет данных",
+                        text = stringResource(R.string.no_data),
                         style = AppTheme.typography.body3,
                         color = AppTheme.colors.textSecondary,
                     )
@@ -70,7 +72,7 @@ fun TimeChartSection(
 }
 
 @Composable
-private fun TimeBarChart(
+internal fun TimeBarChart(
     modifier: Modifier = Modifier,
     values: List<Float>,
     labels: List<String>,

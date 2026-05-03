@@ -13,7 +13,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 @Composable
@@ -28,7 +30,7 @@ fun GameStatisticsSection(
 ) {
     Column(modifier = modifier) {
         Text(
-            text = "Игровая статистика",
+            text = stringResource(R.string.game_statistics),
             style = AppTheme.typography.h4,
             color = AppTheme.colors.text,
         )
@@ -39,34 +41,34 @@ fun GameStatisticsSection(
             colors = CardDefaults.cardColors(containerColor = AppTheme.colors.backgroundCard),
         ) {
             Column(modifier = Modifier.padding(vertical = AppTheme.paddings.medium)) {
-                StatRow(label = "Начато игр", value = gamesStarted)
+                StatRow(label = stringResource(R.string.game_started), value = gamesStarted)
 
                 StatDivider()
 
-                StatRow(label = "Выиграно игр", value = gamesWon)
+                StatRow(label = stringResource(R.string.game_won), value = gamesWon)
 
                 StatDivider()
 
-                StatRow(label = "Процент побед", value = percentOfWins, valueColor = AppTheme.colors.primary)
+                StatRow(label = stringResource(R.string.percent_of_wins), value = percentOfWins, valueColor = AppTheme.colors.primary)
 
                 StatDivider()
 
-                StatRow(label = "Побед без ошибок", value = winsWithoutErrors)
+                StatRow(label = stringResource(R.string.wins_no_errors_label), value = winsWithoutErrors)
 
                 StatDivider()
 
-                StatRow(label = "Лучшая серия побед", value = bestWinsLine)
+                StatRow(label = stringResource(R.string.best_wins_line), value = bestWinsLine)
 
                 StatDivider()
 
-                StatRow(label = "Текущая серия побед", value = currentWinsLine)
+                StatRow(label = stringResource(R.string.current_wins_line), value = currentWinsLine)
             }
         }
     }
 }
 
 @Composable
-private fun StatRow(
+internal fun StatRow(
     label: String,
     value: String,
     valueColor: Color = AppTheme.colors.text,
@@ -97,7 +99,7 @@ private fun StatRow(
 }
 
 @Composable
-private fun StatDivider() {
+internal fun StatDivider() {
     HorizontalDivider(
         modifier = Modifier.padding(horizontal = AppTheme.paddings.large),
         thickness = AppTheme.sizes.dividerThickness,

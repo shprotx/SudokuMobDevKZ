@@ -11,7 +11,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 @Composable
@@ -31,14 +33,14 @@ fun SettingsToolbar(
         IconButton(onClick = onBackClick) {
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                contentDescription = "Назад",
+                contentDescription = stringResource(R.string.go_back),
                 tint = AppTheme.colors.text,
             )
         }
 
         Text(
             modifier = Modifier.weight(1f),
-            text = "Настройки",
+            text = stringResource(R.string.settings),
             style = AppTheme.typography.h3,
             color = AppTheme.colors.text,
             textAlign = TextAlign.Center,

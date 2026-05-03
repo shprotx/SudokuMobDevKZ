@@ -24,8 +24,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 @Composable
@@ -41,36 +43,36 @@ fun MenuNavigationCards(
     ) {
         MenuNavCard(
             icon = Icons.Filled.BarChart,
-            title = "Статистика",
-            subtitle = "Смотри свои достижения",
+            title = stringResource(R.string.statistic),
+            subtitle = stringResource(R.string.statistic_desc),
             onClick = onStatisticClick,
         )
 
         MenuNavCard(
             icon = Icons.AutoMirrored.Filled.MenuBook,
-            title = "Как играть",
-            subtitle = "Правила и советы",
+            title = stringResource(R.string.how_to_play),
+            subtitle = stringResource(R.string.how_to_play_desc),
             onClick = onHowToPlayClick,
         )
 
         MenuNavCard(
             icon = Icons.Filled.Star,
-            title = "Достижения",
-            subtitle = "Открывай новые награды",
+            title = stringResource(R.string.achievements),
+            subtitle = stringResource(R.string.achievements_desc),
             onClick = { /* stub */ },
         )
 
         MenuNavCard(
             icon = Icons.Filled.Settings,
-            title = "Настройки",
-            subtitle = "Тема, звук и другое",
+            title = stringResource(R.string.settings),
+            subtitle = stringResource(R.string.settings_desc),
             onClick = onSettingsClick,
         )
     }
 }
 
 @Composable
-private fun MenuNavCard(
+internal fun MenuNavCard(
     icon: ImageVector,
     title: String,
     subtitle: String,

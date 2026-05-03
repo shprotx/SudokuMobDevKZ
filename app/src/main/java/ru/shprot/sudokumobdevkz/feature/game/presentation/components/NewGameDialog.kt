@@ -34,7 +34,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.window.Dialog
+import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 @Composable
@@ -73,14 +75,14 @@ fun NewGameDialog(
 
                 Text(
                     modifier = Modifier.padding(top = AppTheme.paddings.large),
-                    text = "Новая игра",
+                    text = stringResource(R.string.new_game),
                     style = AppTheme.typography.h2,
                     color = AppTheme.colors.text,
                 )
 
                 Text(
                     modifier = Modifier.padding(top = AppTheme.paddings.small),
-                    text = "Выберите сложность",
+                    text = stringResource(R.string.select_difficulty),
                     style = AppTheme.typography.body3,
                     color = AppTheme.colors.textSecondary,
                 )
@@ -93,7 +95,7 @@ fun NewGameDialog(
                 ) {
                     DifficultyOption(
                         modifier = Modifier.weight(1f),
-                        label = "Лёгкая",
+                        label = stringResource(R.string.difficulty_easy),
                         emoji = "\uD83C\uDF3F",
                         dotCount = 1,
                         dotColor = AppTheme.colors.primary,
@@ -103,7 +105,7 @@ fun NewGameDialog(
 
                     DifficultyOption(
                         modifier = Modifier.weight(1f),
-                        label = "Средняя",
+                        label = stringResource(R.string.difficulty_middle),
                         emoji = "☀\uFE0F",
                         dotCount = 2,
                         dotColor = Color(0xFFFF9500),
@@ -113,7 +115,7 @@ fun NewGameDialog(
 
                     DifficultyOption(
                         modifier = Modifier.weight(1f),
-                        label = "Сложная",
+                        label = stringResource(R.string.difficulty_expert),
                         emoji = "\uD83D\uDC51",
                         dotCount = 3,
                         dotColor = Color(0xFFFF3B30),
@@ -132,7 +134,7 @@ fun NewGameDialog(
                     colors = ButtonDefaults.buttonColors(containerColor = AppTheme.colors.primary),
                 ) {
                     Text(
-                        text = "Начать",
+                        text = stringResource(R.string.start),
                         style = AppTheme.typography.button,
                         color = AppTheme.colors.textOnPrimary,
                     )
@@ -143,7 +145,7 @@ fun NewGameDialog(
                     onClick = onDismiss,
                 ) {
                     Text(
-                        text = "Отмена",
+                        text = stringResource(R.string.cancel),
                         style = AppTheme.typography.body2,
                         color = AppTheme.colors.textSecondary,
                     )
@@ -154,7 +156,7 @@ fun NewGameDialog(
 }
 
 @Composable
-private fun DifficultyOption(
+internal fun DifficultyOption(
     modifier: Modifier = Modifier,
     label: String,
     emoji: String,
