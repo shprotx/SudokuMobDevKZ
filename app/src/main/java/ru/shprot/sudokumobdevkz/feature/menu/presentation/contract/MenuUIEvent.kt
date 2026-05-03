@@ -9,4 +9,5 @@ sealed interface MenuUIEvent : UIEvent {
     data object NavigateToStatistic : MenuUIEvent
     data object NavigateToSettings : MenuUIEvent
     data object NavigateToHowToPlay : MenuUIEvent
+    data object ScreenResumed : MenuUIEvent
 }

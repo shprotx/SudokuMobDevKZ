@@ -5,8 +5,10 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import ru.shprot.sudokumobdevkz.core.base.data.repository.GameSaveData
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SettingsRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SudokuRepository
@@ -104,6 +106,7 @@ class GameViewModel @Inject constructor(
         )
 
         startTimer()
+        autoSave()
     }
 
     private fun restoreGame(data: GameSaveData) {
@@ -130,31 +133,37 @@ class GameViewModel @Inject constructor(
         startTimer()
     }
 
-    private fun saveGameState() {
+    private suspend fun saveGameStateSync() {
         val state = currentState
         if (state.isGenerating || state.isGameOver) return
 
-        viewModelScope.launch(exceptionHandler) {
-            repository.saveGame(
-                GameSaveData(
-                    difficulty = state.difficulty,
-                    timeSeconds = state.timeSeconds,
-                    errors = state.errors,
-                    maxErrors = state.maxErrors,
-                    hintsRemaining = state.hintsRemaining,
-                    isNotesEnabled = state.isNotesEnabled,
-                    cells = state.cells.map { row ->
-                        row.map { c -> GameSaveData.CellSave(c.value, c.isGiven, c.isError, c.notes) }
-                    },
-                    solution = state.solution,
-                )
+        repository.saveGame(
+            GameSaveData(
+                difficulty = state.difficulty,
+                timeSeconds = state.timeSeconds,
+                errors = state.errors,
+                maxErrors = state.maxErrors,
+                hintsRemaining = state.hintsRemaining,
+                isNotesEnabled = state.isNotesEnabled,
+                cells = state.cells.map { row ->
+                    row.map { c -> GameSaveData.CellSave(c.value, c.isGiven, c.isError, c.notes) }
+                },
+                solution = state.solution,
             )
-        }
+        )
     }
 
     override fun onCleared() {
         super.onCleared()
-        saveGameState()
+        kotlinx.coroutines.runBlocking {
+            withContext(NonCancellable) {
+                runCatching { saveGameStateSync() }
+            }
+        }
+    }
+
+    private fun autoSave() {
+        viewModelScope.launch(exceptionHandler) { saveGameStateSync() }
     }
 
     private fun onCellClicked(row: Int, col: Int) {
@@ -217,6 +226,8 @@ class GameViewModel @Inject constructor(
             gameOver(isWin = false)
         } else if (isBoardComplete(immutable)) {
             gameOver(isWin = true)
+        } else {
+            autoSave()
         }
     }
 
@@ -240,6 +251,7 @@ class GameViewModel @Inject constructor(
                 availableNumbers = calcAvailableNumbers(immutable),
             )
         )
+        autoSave()
     }
 
     private fun onUndo() {
@@ -257,6 +269,7 @@ class GameViewModel @Inject constructor(
                 availableNumbers = calcAvailableNumbers(immutable),
             )
         )
+        autoSave()
     }
 
     private fun onNotesToggled() {
@@ -309,13 +322,17 @@ class GameViewModel @Inject constructor(
             )
         )
 
-        if (isBoardComplete(immutable)) gameOver(isWin = true)
+        if (isBoardComplete(immutable)) {
+            gameOver(isWin = true)
+        } else {
+            autoSave()
+        }
     }
 
     private fun onPause() {
         timerJob?.cancel()
         setState(currentState.copy(isPaused = true))
-        saveGameState()
+        viewModelScope.launch(exceptionHandler) { saveGameStateSync() }
     }
 
     private fun onResume() {

@@ -33,6 +33,7 @@ class MenuViewModel @Inject constructor(
                 setEffect(MenuUIEffect.NavigateToSettings)
             is MenuUIEvent.NavigateToHowToPlay ->
                 setEffect(MenuUIEffect.NavigateToHowToPlay)
+            is MenuUIEvent.ScreenResumed -> checkSavedGame()
         }
     }
 
