@@ -19,12 +19,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.Density
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
-import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.CellData
+import ru.shprot.sudokumobdevkz.feature.game.domain.model.CellData
 
 @Composable
 fun SudokuGrid(
     modifier: Modifier = Modifier,
-    cells: Array<Array<CellData>>,
+    cells: List<List<CellData>>,
     selectedRow: Int,
     selectedCol: Int,
     isPaused: Boolean = false,
@@ -72,7 +72,7 @@ fun SudokuGrid(
 }
 
 private fun DrawScope.drawHighlights(
-    cells: Array<Array<CellData>>,
+    cells: List<List<CellData>>,
     selectedRow: Int,
     selectedCol: Int,
     cellSize: Float,
@@ -132,7 +132,7 @@ private fun DrawScope.drawHighlights(
 }
 
 private fun DrawScope.drawNumbers(
-    cells: Array<Array<CellData>>,
+    cells: List<List<CellData>>,
     cellSize: Float,
     fixedColor: Color,
     editableColor: Color,

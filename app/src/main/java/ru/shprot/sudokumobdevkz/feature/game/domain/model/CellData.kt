@@ -1,4 +1,4 @@
-package ru.shprot.sudokumobdevkz.feature.game.presentation.contract
+package ru.shprot.sudokumobdevkz.feature.game.domain.model
 
 data class CellData(
     val value: Int = 0,

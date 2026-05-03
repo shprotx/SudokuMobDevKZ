@@ -2,21 +2,21 @@ package ru.shprot.sudokumobdevkz.feature.game.presentation.viewmodel
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.toRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import ru.shprot.sudokumobdevkz.core.base.presentation.viewmodel.BaseViewModel
-import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.CellData
-import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameUIEffect
-import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameUIEvent
-import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameUIState
-import ru.shprot.sudokumobdevkz.core.base.domain.generator.SudokuGenerator
-import ru.shprot.sudokumobdevkz.feature.game.presentation.navigation.GameRoutes
 import ru.shprot.sudokumobdevkz.core.base.data.repository.GameSaveData
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SettingsRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SudokuRepository
-import androidx.navigation.toRoute
+import ru.shprot.sudokumobdevkz.core.base.domain.generator.SudokuGenerator
+import ru.shprot.sudokumobdevkz.core.base.presentation.viewmodel.BaseViewModel
+import ru.shprot.sudokumobdevkz.feature.game.domain.model.CellData
+import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameUIEffect
+import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameUIEvent
+import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameUIState
+import ru.shprot.sudokumobdevkz.feature.game.presentation.navigation.GameRoutes
 import javax.inject.Inject
 
 @HiltViewModel
@@ -86,20 +86,18 @@ class GameViewModel @Inject constructor(
 
         val puzzle = SudokuGenerator.generate(difficulty)
 
-        val cells = Array(9) { row ->
-            Array(9) { col ->
+        val cells = List(9) { row ->
+            List(9) { col ->
                 val value = puzzle.puzzle[row][col]
-                CellData(
-                    value = value,
-                    isGiven = value != 0,
-                )
+                CellData(value = value, isGiven = value != 0)
             }
         }
+        val solution = puzzle.solution.map { it.toList() }
 
         setState(
             currentState.copy(
                 cells = cells,
-                solution = puzzle.solution,
+                solution = solution,
                 isGenerating = false,
                 availableNumbers = calcAvailableNumbers(cells),
             )
@@ -109,18 +107,14 @@ class GameViewModel @Inject constructor(
     }
 
     private fun restoreGame(data: GameSaveData) {
-        val cells = Array(9) { row ->
-            Array(9) { col ->
-                val s = data.cells[row][col]
-                CellData(s.value, s.isGiven, s.isError, s.notes)
-            }
+        val cells = data.cells.map { row ->
+            row.map { s -> CellData(s.value, s.isGiven, s.isError, s.notes) }
         }
-        val solution = Array(9) { row -> data.solution[row].toIntArray() }
 
         setState(
             currentState.copy(
                 cells = cells,
-                solution = solution,
+                solution = data.solution,
                 difficulty = data.difficulty,
                 timeSeconds = data.timeSeconds,
                 timer = "%02d:%02d".format(data.timeSeconds / 60, data.timeSeconds % 60),
@@ -152,7 +146,7 @@ class GameViewModel @Inject constructor(
                     cells = state.cells.map { row ->
                         row.map { c -> GameSaveData.CellSave(c.value, c.isGiven, c.isError, c.notes) }
                     },
-                    solution = state.solution.map { it.toList() },
+                    solution = state.solution,
                 )
             )
         }
@@ -188,10 +182,10 @@ class GameViewModel @Inject constructor(
             if (number in newNotes) newNotes.remove(number) else newNotes.add(number)
 
             undoStack.add(UndoEntry(row, col, cell))
-            val newCells = state.cells.map { it.copyOf() }.toTypedArray()
+            val newCells = state.cells.toMutableGrid()
             newCells[row][col] = cell.copy(notes = newNotes)
 
-            setState(state.copy(cells = newCells))
+            setState(state.copy(cells = newCells.toImmutableGrid()))
             return
         }
 
@@ -199,7 +193,7 @@ class GameViewModel @Inject constructor(
         val isCorrect = number == correctValue
 
         undoStack.add(UndoEntry(row, col, cell))
-        val newCells = state.cells.map { it.copyOf() }.toTypedArray()
+        val newCells = state.cells.toMutableGrid()
 
         if (isCorrect) {
             newCells[row][col] = CellData(value = number, isGiven = false, isError = false)
@@ -208,20 +202,20 @@ class GameViewModel @Inject constructor(
             newCells[row][col] = CellData(value = number, isGiven = false, isError = true)
         }
 
+        val immutable = newCells.toImmutableGrid()
         val newErrors = if (isCorrect) state.errors else state.errors + 1
-        val available = calcAvailableNumbers(newCells)
 
         setState(
             state.copy(
-                cells = newCells,
+                cells = immutable,
                 errors = newErrors,
-                availableNumbers = available,
+                availableNumbers = calcAvailableNumbers(immutable),
             )
         )
 
         if (newErrors >= state.maxErrors) {
             gameOver(isWin = false)
-        } else if (isBoardComplete(newCells)) {
+        } else if (isBoardComplete(immutable)) {
             gameOver(isWin = true)
         }
     }
@@ -236,13 +230,14 @@ class GameViewModel @Inject constructor(
         if (cell.isGiven) return
 
         undoStack.add(UndoEntry(row, col, cell))
-        val newCells = state.cells.map { it.copyOf() }.toTypedArray()
+        val newCells = state.cells.toMutableGrid()
         newCells[row][col] = CellData()
+        val immutable = newCells.toImmutableGrid()
 
         setState(
             state.copy(
-                cells = newCells,
-                availableNumbers = calcAvailableNumbers(newCells),
+                cells = immutable,
+                availableNumbers = calcAvailableNumbers(immutable),
             )
         )
     }
@@ -250,15 +245,16 @@ class GameViewModel @Inject constructor(
     private fun onUndo() {
         if (undoStack.isEmpty()) return
         val entry = undoStack.removeAt(undoStack.size - 1)
-        val newCells = currentState.cells.map { it.copyOf() }.toTypedArray()
+        val newCells = currentState.cells.toMutableGrid()
         newCells[entry.row][entry.col] = entry.previousCell
+        val immutable = newCells.toImmutableGrid()
 
         setState(
             currentState.copy(
-                cells = newCells,
+                cells = immutable,
                 selectedRow = entry.row,
                 selectedCol = entry.col,
-                availableNumbers = calcAvailableNumbers(newCells),
+                availableNumbers = calcAvailableNumbers(immutable),
             )
         )
     }
@@ -287,9 +283,7 @@ class GameViewModel @Inject constructor(
             for (r in 0 until 9) {
                 for (c in 0 until 9) {
                     val cell = state.cells[r][c]
-                    if (cell.value == 0 || cell.isError) {
-                        emptyCells.add(r to c)
-                    }
+                    if (cell.value == 0 || cell.isError) emptyCells.add(r to c)
                 }
             }
             if (emptyCells.isEmpty()) return
@@ -299,25 +293,23 @@ class GameViewModel @Inject constructor(
         }
 
         val correctValue = state.solution[row][col]
-
-        val newCells = state.cells.map { it.copyOf() }.toTypedArray()
+        val newCells = state.cells.toMutableGrid()
         newCells[row][col] = CellData(value = correctValue, isGiven = true)
         clearNotesForNumber(newCells, row, col, correctValue)
+        val immutable = newCells.toImmutableGrid()
 
         setState(
             state.copy(
-                cells = newCells,
+                cells = immutable,
                 selectedRow = row,
                 selectedCol = col,
                 hintsRemaining = state.hintsRemaining - 1,
-                availableNumbers = calcAvailableNumbers(newCells),
+                availableNumbers = calcAvailableNumbers(immutable),
                 highlightedNumber = correctValue,
             )
         )
 
-        if (isBoardComplete(newCells)) {
-            gameOver(isWin = true)
-        }
+        if (isBoardComplete(immutable)) gameOver(isWin = true)
     }
 
     private fun onPause() {
@@ -338,12 +330,10 @@ class GameViewModel @Inject constructor(
                 delay(1000)
                 if (!currentState.isPaused && !currentState.isGameOver) {
                     val newTime = currentState.timeSeconds + 1
-                    val minutes = newTime / 60
-                    val seconds = newTime % 60
                     setState(
                         currentState.copy(
                             timeSeconds = newTime,
-                            timer = "%02d:%02d".format(minutes, seconds),
+                            timer = "%02d:%02d".format(newTime / 60, newTime % 60),
                         )
                     )
                 }
@@ -384,40 +374,38 @@ class GameViewModel @Inject constructor(
         )
     }
 
-    private fun clearNotesForNumber(cells: Array<Array<CellData>>, row: Int, col: Int, number: Int) {
+    private fun clearNotesForNumber(cells: MutableList<MutableList<CellData>>, row: Int, col: Int, number: Int) {
         for (i in 0 until 9) {
             cells[row][i] = cells[row][i].copy(notes = cells[row][i].notes - number)
             cells[i][col] = cells[i][col].copy(notes = cells[i][col].notes - number)
         }
-        val regionStartRow = (row / 3) * 3
-        val regionStartCol = (col / 3) * 3
-        for (r in regionStartRow until regionStartRow + 3) {
-            for (c in regionStartCol until regionStartCol + 3) {
+        val rStart = (row / 3) * 3
+        val cStart = (col / 3) * 3
+        for (r in rStart until rStart + 3) {
+            for (c in cStart until cStart + 3) {
                 cells[r][c] = cells[r][c].copy(notes = cells[r][c].notes - number)
             }
         }
     }
 
-    private fun calcAvailableNumbers(cells: Array<Array<CellData>>): Set<Int> {
+    private fun calcAvailableNumbers(cells: List<List<CellData>>): Set<Int> {
         val counts = IntArray(10)
         for (row in cells) {
             for (cell in row) {
-                if (cell.value in 1..9 && !cell.isError) {
-                    counts[cell.value]++
-                }
+                if (cell.value in 1..9 && !cell.isError) counts[cell.value]++
             }
         }
         return (1..9).filter { counts[it] < 9 }.toSet()
     }
 
-    private fun isBoardComplete(cells: Array<Array<CellData>>): Boolean {
-        for (row in cells) {
-            for (cell in row) {
-                if (cell.value == 0 || cell.isError) return false
-            }
-        }
-        return true
-    }
+    private fun isBoardComplete(cells: List<List<CellData>>): Boolean =
+        cells.all { row -> row.all { it.value != 0 && !it.isError } }
+
+    private fun List<List<CellData>>.toMutableGrid(): MutableList<MutableList<CellData>> =
+        map { it.toMutableList() }.toMutableList()
+
+    private fun MutableList<MutableList<CellData>>.toImmutableGrid(): List<List<CellData>> =
+        map { it.toList() }
 
     private data class UndoEntry(val row: Int, val col: Int, val previousCell: CellData)
 }
