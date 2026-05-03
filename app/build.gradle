@@ -31,10 +31,10 @@ android {
 
     signingConfigs {
         release {
-            storeFile file(localProperties.getProperty('KEYSTORE_FILE', System.getenv('KEYSTORE_FILE') ?: 'keystore.jks'))
-            storePassword localProperties.getProperty('KEYSTORE_PASS', System.getenv('KEYSTORE_PASS') ?: '')
-            keyAlias localProperties.getProperty('KEYSTORE_ALIAS', System.getenv('KEYSTORE_ALIAS') ?: '')
-            keyPassword localProperties.getProperty('KEYSTORE_ALIAS_PASS', System.getenv('KEYSTORE_ALIAS_PASS') ?: '')
+            storeFile file(localProperties.getProperty('KEYSTORE_FILE', System.getenv('KEYSTORE_FILE') ?: 'keystore.jks').trim())
+            storePassword localProperties.getProperty('KEYSTORE_PASS', System.getenv('KEYSTORE_PASS') ?: '').trim()
+            keyAlias localProperties.getProperty('KEYSTORE_ALIAS', System.getenv('KEYSTORE_ALIAS') ?: '').trim()
+            keyPassword localProperties.getProperty('KEYSTORE_ALIAS_PASS', System.getenv('KEYSTORE_ALIAS_PASS') ?: '').trim()
         }
     }
 
