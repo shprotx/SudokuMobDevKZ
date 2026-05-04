@@ -5,6 +5,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import kotlinx.coroutines.flow.collectLatest
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -24,8 +25,8 @@ fun SettingsScreen(
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
-    LaunchedEffect(Unit) {
-        viewModel.effect.collect { effect ->
+    LaunchedEffect(viewModel.effect) {
+        viewModel.effect.collectLatest { effect ->
             when (effect) {
                 SettingsUIEffect.NavigateBack ->
                     navController.popBackStack()

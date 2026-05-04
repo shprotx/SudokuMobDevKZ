@@ -2,6 +2,7 @@ package ru.shprot.sudokumobdevkz.feature.splash.presentation.screen
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import kotlinx.coroutines.flow.collectLatest
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
@@ -18,8 +19,8 @@ fun SplashScreen(
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
-    LaunchedEffect(Unit) {
-        viewModel.effect.collect { effect ->
+    LaunchedEffect(viewModel.effect) {
+        viewModel.effect.collectLatest { effect ->
             when (effect) {
                 SplashUIEffect.NavigateToMenu ->
                     navController.navigate(MenuRoutes.MenuScreen) {

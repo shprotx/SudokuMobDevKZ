@@ -3,6 +3,7 @@ package ru.shprot.sudokumobdevkz.feature.game.presentation.screen
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import kotlinx.coroutines.flow.collectLatest
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -37,8 +38,8 @@ fun GameScreen(
         onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
     }
 
-    LaunchedEffect(Unit) {
-        viewModel.effect.collect { effect ->
+    LaunchedEffect(viewModel.effect) {
+        viewModel.effect.collectLatest { effect ->
             when (effect) {
                 GameUIEffect.NavigateBack ->
                     navController.popBackStack()

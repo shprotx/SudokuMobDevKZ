@@ -2,6 +2,7 @@ package ru.shprot.sudokumobdevkz.feature.settings.presentation.screen
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import kotlinx.coroutines.flow.collectLatest
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
@@ -16,8 +17,8 @@ fun PrivacyPolicyScreen(
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
-    LaunchedEffect(Unit) {
-        viewModel.effect.collect { effect ->
+    LaunchedEffect(viewModel.effect) {
+        viewModel.effect.collectLatest { effect ->
             when (effect) {
                 PrivacyPolicyUIEffect.NavigateBack ->
                     navController.popBackStack()
