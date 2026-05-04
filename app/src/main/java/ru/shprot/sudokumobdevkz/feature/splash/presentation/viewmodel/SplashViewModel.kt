@@ -10,12 +10,13 @@ import ru.shprot.sudokumobdevkz.feature.splash.domain.model.GridPoint
 import ru.shprot.sudokumobdevkz.feature.splash.presentation.contract.SplashUIEffect
 import ru.shprot.sudokumobdevkz.feature.splash.presentation.contract.SplashUIEvent
 import ru.shprot.sudokumobdevkz.feature.splash.presentation.contract.SplashUIState
+import ru.shprot.sudokumobdevkz.feature.splash.presentation.contract.SplashUIState.Companion.INITIAL_FILLED
 import javax.inject.Inject
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
     private val repository: SudokuRepository,
-) : BaseViewModel<SplashUIEvent, SplashUIState, SplashUIEffect>(SplashUIState(INITIAL_FILLED)) {
+) : BaseViewModel<SplashUIEvent, SplashUIState, SplashUIEffect>(SplashUIState()) {
 
     init {
         syncStatistic()
@@ -49,15 +50,3 @@ class SplashViewModel @Inject constructor(
         viewModelScope.launch { repository.syncStatisticsFromFirebase() }
     }
 }
-
-private val INITIAL_FILLED = setOf(
-    GridPoint(0, 0), GridPoint(0, 1), GridPoint(0, 4), GridPoint(0, 8),
-    GridPoint(1, 2), GridPoint(1, 5), GridPoint(1, 7),
-    GridPoint(2, 0), GridPoint(2, 3), GridPoint(2, 6),
-    GridPoint(3, 1), GridPoint(3, 4), GridPoint(3, 8),
-    GridPoint(4, 0), GridPoint(4, 3), GridPoint(4, 5), GridPoint(4, 8),
-    GridPoint(5, 0), GridPoint(5, 4), GridPoint(5, 7),
-    GridPoint(6, 2), GridPoint(6, 5), GridPoint(6, 8),
-    GridPoint(7, 1), GridPoint(7, 3), GridPoint(7, 6),
-    GridPoint(8, 0), GridPoint(8, 4), GridPoint(8, 7), GridPoint(8, 8),
-)
