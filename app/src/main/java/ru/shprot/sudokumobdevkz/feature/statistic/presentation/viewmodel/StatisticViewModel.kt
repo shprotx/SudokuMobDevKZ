@@ -57,7 +57,7 @@ class StatisticViewModel @Inject constructor(
         observeJob = viewModelScope.launch {
             combine(
                 repository.observeStatistic(difficulty),
-                repository.observeRecentWins(difficulty),
+                repository.observeRecentGames(difficulty),
             ) { stat, history ->
                 stat to history
             }.collectLatest { (stat, history) ->

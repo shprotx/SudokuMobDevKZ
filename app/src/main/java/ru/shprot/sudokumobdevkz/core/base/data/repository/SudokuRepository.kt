@@ -41,6 +41,7 @@ class SudokuRepository @Inject constructor(
                 val diffKeyInt = diffKey.toIntOrNull() ?: continue
                 val difficulty = Difficulty.fromFirebaseKey(diffKeyInt) ?: continue
                 if (dto.gamesStarted <= 0) continue
+                val existing = statisticDao.getByDifficulty(difficulty.firebaseKey)
                 statisticDao.upsert(
                     StatisticEntity(
                         difficulty = difficulty.firebaseKey,
@@ -51,6 +52,8 @@ class SudokuRepository @Inject constructor(
                         percentOfWins = if (dto.gamesStarted > 0) (100 * dto.gamesWon) / dto.gamesStarted else 0,
                         winsWithoutErrors = dto.winsWithoutErrors,
                         bestWinsLine = dto.bestWinsLine,
+                        currentWinsLine = existing?.currentWinsLine ?: 0,
+                        casualGamesPlayed = existing?.casualGamesPlayed ?: 0,
                         allTime = dto.averageTime.toLong() * dto.gamesWon,
                     ),
                 )
@@ -107,8 +110,8 @@ class SudokuRepository @Inject constructor(
         )
     }
 
-    fun observeRecentWins(difficulty: Difficulty, limit: Int = 7): Flow<List<GameHistoryEntity>> =
-        gameHistoryDao.getRecentWins(difficulty.firebaseKey, limit)
+    fun observeRecentGames(difficulty: Difficulty, limit: Int = 7): Flow<List<GameHistoryEntity>> =
+        gameHistoryDao.getRecentGames(difficulty.firebaseKey, limit)
 
     // --- Saved Game ---
 
