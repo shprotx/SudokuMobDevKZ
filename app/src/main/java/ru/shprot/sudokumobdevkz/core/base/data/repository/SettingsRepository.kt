@@ -2,6 +2,7 @@ package ru.shprot.sudokumobdevkz.core.base.data.repository
 
 import android.content.Context
 import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.preferencesDataStore
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -47,6 +48,7 @@ class SettingsRepository @Inject constructor(
                 prefs[Keys.TRACK_STATISTICS] = newSettings.trackStatistics
                 prefs[Keys.DARK_THEME] = newSettings.isDarkTheme
                 prefs[Keys.SOUNDS] = newSettings.soundsEnabled
+                prefs[Keys.SELECTED_DIFFICULTY] = newSettings.selectedDifficultyOrdinal
             }
         }
     }
@@ -62,6 +64,7 @@ class SettingsRepository @Inject constructor(
         trackStatistics = this[Keys.TRACK_STATISTICS] ?: true,
         isDarkTheme = this[Keys.DARK_THEME] ?: false,
         soundsEnabled = this[Keys.SOUNDS] ?: true,
+        selectedDifficultyOrdinal = this[Keys.SELECTED_DIFFICULTY] ?: 0,
     )
 
     private object Keys {
@@ -75,5 +78,6 @@ class SettingsRepository @Inject constructor(
         val TRACK_STATISTICS = booleanPreferencesKey("track_statistics")
         val DARK_THEME = booleanPreferencesKey("dark_theme")
         val SOUNDS = booleanPreferencesKey("sounds")
+        val SELECTED_DIFFICULTY = intPreferencesKey("selected_difficulty")
     }
 }

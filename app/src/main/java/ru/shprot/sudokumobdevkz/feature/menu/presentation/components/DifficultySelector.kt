@@ -101,7 +101,8 @@ internal fun DifficultyCard(
         shape = RoundedCornerShape(AppTheme.sizes.cornerRadiusLarge),
         colors = CardDefaults.cardColors(containerColor = bgColor),
         elevation = CardDefaults.cardElevation(
-            defaultElevation = if (isSelected) AppTheme.sizes.elevationSmall else 0.dp,
+            defaultElevation = if (isSelected) AppTheme.sizes.elevationMedium else 0.dp,
+            pressedElevation = 0.dp,
         ),
     ) {
         Column(

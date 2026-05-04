@@ -3,6 +3,7 @@ package ru.shprot.sudokumobdevkz.feature.menu.presentation.viewmodel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import ru.shprot.sudokumobdevkz.core.base.data.repository.SettingsRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SudokuRepository
 import ru.shprot.sudokumobdevkz.core.base.presentation.viewmodel.BaseViewModel
 import ru.shprot.sudokumobdevkz.feature.menu.presentation.contract.MenuUIEffect
@@ -13,10 +14,12 @@ import javax.inject.Inject
 @HiltViewModel
 class MenuViewModel @Inject constructor(
     private val repository: SudokuRepository,
+    private val settingsRepository: SettingsRepository,
 ) : BaseViewModel<MenuUIEvent, MenuUIState, MenuUIEffect>(MenuUIState()) {
 
     init {
         checkSavedGame()
+        updateState { copy(selectedDifficulty = settingsRepository.currentSettings.selectedDifficultyOrdinal) }
     }
 
     override fun handleUIEvent(event: MenuUIEvent) =
@@ -39,8 +42,10 @@ class MenuViewModel @Inject constructor(
             is MenuUIEvent.NewGameClicked ->
                 setEffect(MenuUIEffect.NavigateToGame(event.difficultyOrdinal))
 
-            is MenuUIEvent.DifficultySelected ->
+            is MenuUIEvent.DifficultySelected -> {
                 updateState { copy(selectedDifficulty = event.difficultyOrdinal) }
+                settingsRepository.update { copy(selectedDifficultyOrdinal = event.difficultyOrdinal) }
+            }
         }
 
     private fun checkSavedGame() {
