@@ -15,7 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SplashViewModel @Inject constructor(
     private val repository: SudokuRepository,
-) : BaseViewModel<SplashUIEvent, SplashUIState, SplashUIEffect>(SplashUIState()) {
+) : BaseViewModel<SplashUIEvent, SplashUIState, SplashUIEffect>(SplashUIState(INITIAL_FILLED)) {
 
     init {
         syncStatistic()
@@ -25,21 +25,22 @@ class SplashViewModel @Inject constructor(
     override fun handleUIEvent(event: SplashUIEvent) = Unit
 
     private fun startAnimation() {
-        val emptyCells = (0 until 9).flatMap { row ->
-            (0 until 9).map { col -> GridPoint(row, col) }
-        }.filter { it !in INITIAL_FILLED }.shuffled()
-
-        setState(currentState.copy(initialCells = INITIAL_FILLED))
-
         viewModelScope.launch {
+            val emptyCells = (0 until 9).flatMap { row ->
+                (0 until 9).map { col -> GridPoint(row, col) }
+            }.filter { it !in INITIAL_FILLED }.shuffled()
+
             delay(400)
+
             for (index in emptyCells.indices) {
                 setState(currentState.copy(
                     visibleCells = INITIAL_FILLED + emptyCells.take(index + 1).toSet(),
                 ))
                 delay(25)
             }
+
             delay(300)
+
             setEffect(SplashUIEffect.NavigateToMenu)
         }
     }

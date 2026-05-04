@@ -78,7 +78,7 @@ fun SplashScreenContent(
                     .aspectRatio(1f),
                 visibleCells = uiState.visibleCells,
                 initialFilled = uiState.initialCells,
-                solvedGrid = uiState.solvedGrid,
+                solvedGrid = SplashUIState.SOLVED_GRID,
             )
         }
     }
