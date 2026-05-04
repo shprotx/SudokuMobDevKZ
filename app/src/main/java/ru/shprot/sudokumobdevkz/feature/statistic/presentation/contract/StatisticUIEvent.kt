@@ -9,5 +9,5 @@ sealed interface StatisticUIEvent : UIEvent {
     data object ResetClicked : StatisticUIEvent
 
     class TabSelected(val index: Int) : StatisticUIEvent
-    class ResetRequested(val difficulty: Int) : StatisticUIEvent
+    class ResetRequested(val tabIndex: Int) : StatisticUIEvent
 }

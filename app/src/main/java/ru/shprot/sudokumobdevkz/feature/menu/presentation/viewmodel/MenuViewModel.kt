@@ -37,10 +37,10 @@ class MenuViewModel @Inject constructor(
                 checkSavedGame()
 
             is MenuUIEvent.NewGameClicked ->
-                setEffect(MenuUIEffect.NavigateToGame(event.difficulty))
+                setEffect(MenuUIEffect.NavigateToGame(event.difficultyOrdinal))
 
             is MenuUIEvent.DifficultySelected ->
-                updateState { copy(selectedDifficulty = event.difficulty) }
+                updateState { copy(selectedDifficulty = event.difficultyOrdinal) }
         }
 
     private fun checkSavedGame() {

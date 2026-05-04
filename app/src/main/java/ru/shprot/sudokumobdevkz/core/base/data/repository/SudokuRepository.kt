@@ -19,6 +19,7 @@ import ru.shprot.sudokumobdevkz.core.base.data.remote.FirebaseApi
 import ru.shprot.sudokumobdevkz.core.base.data.util.safeRunCatching
 import ru.shprot.sudokumobdevkz.core.base.data.remote.FirebaseStatDto
 import ru.shprot.sudokumobdevkz.core.base.data.repository.GameSaveData.CellSave
+import ru.shprot.sudokumobdevkz.core.base.domain.model.Difficulty
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -37,11 +38,12 @@ class SudokuRepository @Inject constructor(
         safeRunCatching {
             val stats = firebaseApi.getOwnStats(getDeviceId()) ?: return@withContext
             for ((diffKey, dto) in stats) {
-                val difficulty = diffKey.toIntOrNull() ?: continue
+                val diffKeyInt = diffKey.toIntOrNull() ?: continue
+                val difficulty = Difficulty.fromFirebaseKey(diffKeyInt) ?: continue
                 if (dto.gamesStarted <= 0) continue
                 statisticDao.upsert(
                     StatisticEntity(
-                        difficulty = difficulty,
+                        difficulty = difficulty.firebaseKey,
                         bestTime = dto.bestTime,
                         averageTime = dto.averageTime,
                         gamesStarted = dto.gamesStarted,
@@ -56,46 +58,48 @@ class SudokuRepository @Inject constructor(
         }
     }
 
-    suspend fun getStatistic(difficulty: Int): StatisticEntity? =
-        statisticDao.getByDifficulty(difficulty)
+    suspend fun getStatistic(difficulty: Difficulty): StatisticEntity? =
+        statisticDao.getByDifficulty(difficulty.firebaseKey)
 
-    fun observeStatistic(difficulty: Int): Flow<StatisticEntity?> =
-        statisticDao.observeByDifficulty(difficulty)
+    fun observeStatistic(difficulty: Difficulty): Flow<StatisticEntity?> =
+        statisticDao.observeByDifficulty(difficulty.firebaseKey)
 
     suspend fun updateStatistic(
-        difficulty: Int,
+        difficulty: Difficulty,
         isWin: Boolean,
         timeSeconds: Int,
         errorCount: Int,
     ) {
-        val existing = statisticDao.getByDifficulty(difficulty) ?: StatisticEntity(difficulty)
+        val existing = statisticDao.getByDifficulty(difficulty.firebaseKey)
+            ?: StatisticEntity(difficulty.firebaseKey)
         val updated = existing.updated(isWin, timeSeconds, errorCount)
         statisticDao.upsert(updated)
         syncToFirebase(updated)
     }
 
-    suspend fun incrementCasualGames(difficulty: Int) {
-        val existing = statisticDao.getByDifficulty(difficulty) ?: StatisticEntity(difficulty)
+    suspend fun incrementCasualGames(difficulty: Difficulty) {
+        val existing = statisticDao.getByDifficulty(difficulty.firebaseKey)
+            ?: StatisticEntity(difficulty.firebaseKey)
         statisticDao.upsert(existing.copy(casualGamesPlayed = existing.casualGamesPlayed + 1))
     }
 
-    suspend fun resetStatistic(difficulty: Int) {
-        statisticDao.deleteByDifficulty(difficulty)
-        gameHistoryDao.deleteByDifficulty(difficulty)
+    suspend fun resetStatistic(difficulty: Difficulty) {
+        statisticDao.deleteByDifficulty(difficulty.firebaseKey)
+        gameHistoryDao.deleteByDifficulty(difficulty.firebaseKey)
         clearFirebaseStatistic(difficulty)
     }
 
     // --- Game History (for bar chart) ---
 
     suspend fun saveGameResult(
-        difficulty: Int,
+        difficulty: Difficulty,
         timeSeconds: Int,
         errors: Int,
         isWin: Boolean,
     ) {
         gameHistoryDao.insert(
             GameHistoryEntity(
-                difficulty = difficulty,
+                difficulty = difficulty.firebaseKey,
                 timeSeconds = timeSeconds,
                 errors = errors,
                 isWin = isWin,
@@ -103,8 +107,8 @@ class SudokuRepository @Inject constructor(
         )
     }
 
-    fun observeRecentWins(difficulty: Int, limit: Int = 7): Flow<List<GameHistoryEntity>> =
-        gameHistoryDao.getRecentWins(difficulty, limit)
+    fun observeRecentWins(difficulty: Difficulty, limit: Int = 7): Flow<List<GameHistoryEntity>> =
+        gameHistoryDao.getRecentWins(difficulty.firebaseKey, limit)
 
     // --- Saved Game ---
 
@@ -167,22 +171,22 @@ class SudokuRepository @Inject constructor(
         } catch (_: Exception) { }
     }
 
-    private suspend fun clearFirebaseStatistic(difficulty: Int) = withContext(Dispatchers.IO) {
+    private suspend fun clearFirebaseStatistic(difficulty: Difficulty) = withContext(Dispatchers.IO) {
         try {
             firebaseApi.uploadStatistic(
                 deviceId = getDeviceId(),
-                difficulty = difficulty,
+                difficulty = difficulty.firebaseKey,
                 stat = FirebaseStatDto(),
             )
         } catch (_: Exception) { }
     }
 
-    suspend fun fetchPercentile(difficulty: Int, userAverageTime: Int): PercentileResult =
+    suspend fun fetchPercentile(difficulty: Difficulty, userAverageTime: Int): PercentileResult =
         withContext(Dispatchers.IO) {
             try {
                 val allStats = firebaseApi.getAllStats() ?: return@withContext PercentileResult(-1, 0)
                 val deviceId = getDeviceId()
-                val diffKey = difficulty.toString()
+                val diffKey = difficulty.firebaseKey.toString()
                 var totalPlayers = 0
                 var slowerCount = 0
 

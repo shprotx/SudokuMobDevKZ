@@ -24,7 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ru.shprot.sudokumobdevkz.R
-import ru.shprot.sudokumobdevkz.core.uicommon.DifficultyEmoji
+import ru.shprot.sudokumobdevkz.core.base.domain.model.Difficulty
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 @Composable
@@ -33,6 +33,24 @@ fun DifficultySelector(
     selectedDifficulty: Int,
     onDifficultySelected: (Int) -> Unit,
 ) {
+    val titles = listOf(
+        stringResource(R.string.difficulty_easy),
+        stringResource(R.string.difficulty_middle),
+        stringResource(R.string.difficulty_expert),
+    )
+
+    val subtitles = listOf(
+        stringResource(R.string.for_beginners),
+        stringResource(R.string.for_experienced),
+        stringResource(R.string.for_experts),
+    )
+
+    val dotColors = listOf(
+        AppTheme.colors.primary,
+        Color(0xFFFF9500),
+        Color(0xFFFF3B30),
+    )
+
     Column(modifier = modifier) {
         Text(
             text = stringResource(R.string.select_difficulty),
@@ -46,35 +64,17 @@ fun DifficultySelector(
                 .padding(top = AppTheme.paddings.large),
             horizontalArrangement = Arrangement.SpaceEvenly,
         ) {
-            DifficultyCard(
-                title = stringResource(R.string.difficulty_easy),
-                subtitle = stringResource(R.string.for_beginners),
-                icon = DifficultyEmoji.EASY,
-                dotCount = 1,
-                dotColor = AppTheme.colors.primary,
-                isSelected = selectedDifficulty == 0,
-                onClick = { onDifficultySelected(0) },
-            )
-
-            DifficultyCard(
-                title = stringResource(R.string.difficulty_middle),
-                subtitle = stringResource(R.string.for_experienced),
-                icon = DifficultyEmoji.MEDIUM,
-                dotCount = 2,
-                dotColor = Color(0xFFFF9500),
-                isSelected = selectedDifficulty == 1,
-                onClick = { onDifficultySelected(1) },
-            )
-
-            DifficultyCard(
-                title = stringResource(R.string.difficulty_expert),
-                subtitle = stringResource(R.string.for_experts),
-                icon = DifficultyEmoji.HARD,
-                dotCount = 3,
-                dotColor = Color(0xFFFF3B30),
-                isSelected = selectedDifficulty == 2,
-                onClick = { onDifficultySelected(2) },
-            )
+            Difficulty.entries.forEachIndexed { index, diff ->
+                DifficultyCard(
+                    title = titles[index],
+                    subtitle = subtitles[index],
+                    icon = diff.emoji,
+                    dotCount = index + 1,
+                    dotColor = dotColors[index],
+                    isSelected = selectedDifficulty == index,
+                    onClick = { onDifficultySelected(index) },
+                )
+            }
         }
     }
 }

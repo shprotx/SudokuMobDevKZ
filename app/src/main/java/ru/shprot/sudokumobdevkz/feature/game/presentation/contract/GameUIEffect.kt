@@ -12,5 +12,5 @@ sealed interface GameUIEffect : UIEffect {
         val errors: Int,
     ) : GameUIEffect
 
-    class NavigateToNewGame(val difficulty: Int) : GameUIEffect
+    class NavigateToNewGame(val difficultyOrdinal: Int) : GameUIEffect
 }

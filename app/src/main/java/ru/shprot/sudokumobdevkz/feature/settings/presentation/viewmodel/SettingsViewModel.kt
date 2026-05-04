@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SettingsRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SudokuRepository
+import ru.shprot.sudokumobdevkz.core.base.domain.model.Difficulty
 import ru.shprot.sudokumobdevkz.core.base.presentation.viewmodel.BaseViewModel
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.contract.SettingsUIEffect
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.contract.SettingsUIEvent
@@ -49,7 +50,7 @@ class SettingsViewModel @Inject constructor(
 
             SettingsUIEvent.ResetConfirmed -> {
                 viewModelScope.launch(exceptionHandler) {
-                    for (difficulty in 0..2) {
+                    for (difficulty in Difficulty.entries) {
                         sudokuRepository.resetStatistic(difficulty)
                     }
                 }

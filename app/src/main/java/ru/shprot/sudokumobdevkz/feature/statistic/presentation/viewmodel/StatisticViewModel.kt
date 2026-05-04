@@ -6,6 +6,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
+import ru.shprot.sudokumobdevkz.core.base.domain.model.Difficulty
 import ru.shprot.sudokumobdevkz.core.base.presentation.viewmodel.BaseViewModel
 import ru.shprot.sudokumobdevkz.feature.statistic.presentation.contract.StatisticUIEffect
 import ru.shprot.sudokumobdevkz.feature.statistic.presentation.contract.StatisticUIEvent
@@ -21,7 +22,7 @@ class StatisticViewModel @Inject constructor(
     private var observeJob: Job? = null
 
     init {
-        observeDifficulty(0)
+        observeDifficulty(Difficulty.EASY)
     }
 
     override fun handleUIEvent(event: StatisticUIEvent) =
@@ -40,18 +41,18 @@ class StatisticViewModel @Inject constructor(
 
             is StatisticUIEvent.TabSelected -> {
                 setState(currentState.copy(selectedTab = event.index))
-                observeDifficulty(event.index)
+                observeDifficulty(Difficulty.fromOrdinal(event.index))
             }
 
             is StatisticUIEvent.ResetRequested -> {
                 viewModelScope.launch(exceptionHandler) {
-                    repository.resetStatistic(event.difficulty)
+                    repository.resetStatistic(Difficulty.fromOrdinal(event.tabIndex))
                 }
                 Unit
             }
         }
 
-    private fun observeDifficulty(difficulty: Int) {
+    private fun observeDifficulty(difficulty: Difficulty) {
         observeJob?.cancel()
         observeJob = viewModelScope.launch {
             combine(
@@ -79,7 +80,7 @@ class StatisticViewModel @Inject constructor(
         }
     }
 
-    private fun fetchPercentile(difficulty: Int, averageTime: Int) {
+    private fun fetchPercentile(difficulty: Difficulty, averageTime: Int) {
         if (averageTime <= 0) {
             setState(currentState.copy(percentile = -1, totalPlayers = 0))
             return

@@ -37,7 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.window.Dialog
 import ru.shprot.sudokumobdevkz.R
-import ru.shprot.sudokumobdevkz.core.uicommon.DifficultyEmoji
+import ru.shprot.sudokumobdevkz.core.base.domain.model.Difficulty
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 @Composable
@@ -47,6 +47,12 @@ fun NewGameDialog(
     onDismiss: () -> Unit,
 ) {
     var selectedDifficulty by rememberSaveable { mutableIntStateOf(initialDifficulty) }
+
+    val dotColors = listOf(
+        AppTheme.colors.primary,
+        Color(0xFFFF9500),
+        Color(0xFFFF3B30),
+    )
 
     Dialog(onDismissRequest = onDismiss) {
         Card(
@@ -94,35 +100,23 @@ fun NewGameDialog(
                         .padding(top = AppTheme.paddings.extraLarge),
                     horizontalArrangement = Arrangement.spacedBy(AppTheme.paddings.default),
                 ) {
-                    DifficultyOption(
-                        modifier = Modifier.weight(1f),
-                        label = stringResource(R.string.difficulty_easy),
-                        emoji = DifficultyEmoji.EASY,
-                        dotCount = 1,
-                        dotColor = AppTheme.colors.primary,
-                        isSelected = selectedDifficulty == 0,
-                        onClick = { selectedDifficulty = 0 },
+                    val labels = listOf(
+                        stringResource(R.string.difficulty_easy),
+                        stringResource(R.string.difficulty_middle),
+                        stringResource(R.string.difficulty_expert),
                     )
 
-                    DifficultyOption(
-                        modifier = Modifier.weight(1f),
-                        label = stringResource(R.string.difficulty_middle),
-                        emoji = DifficultyEmoji.MEDIUM,
-                        dotCount = 2,
-                        dotColor = Color(0xFFFF9500),
-                        isSelected = selectedDifficulty == 1,
-                        onClick = { selectedDifficulty = 1 },
-                    )
-
-                    DifficultyOption(
-                        modifier = Modifier.weight(1f),
-                        label = stringResource(R.string.difficulty_expert),
-                        emoji = DifficultyEmoji.HARD,
-                        dotCount = 3,
-                        dotColor = Color(0xFFFF3B30),
-                        isSelected = selectedDifficulty == 2,
-                        onClick = { selectedDifficulty = 2 },
-                    )
+                    Difficulty.entries.forEachIndexed { index, diff ->
+                        DifficultyOption(
+                            modifier = Modifier.weight(1f),
+                            label = labels[index],
+                            emoji = diff.emoji,
+                            dotCount = index + 1,
+                            dotColor = dotColors[index],
+                            isSelected = selectedDifficulty == index,
+                            onClick = { selectedDifficulty = index },
+                        )
+                    }
                 }
 
                 Button(

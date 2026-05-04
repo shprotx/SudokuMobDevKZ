@@ -52,14 +52,14 @@ fun GameScreen(
                             isWin = effect.isWin,
                             time = effect.time,
                             errors = effect.errors,
-                            difficulty = state.difficulty,
+                            difficultyOrdinal = state.difficulty.ordinal,
                         )
                     ) {
                         popUpTo<GameRoutes.GameScreen> { inclusive = true }
                     }
 
                 is GameUIEffect.NavigateToNewGame ->
-                    navController.navigate(GameRoutes.GameScreen(effect.difficulty)) {
+                    navController.navigate(GameRoutes.GameScreen(difficultyOrdinal = effect.difficultyOrdinal)) {
                         popUpTo<GameRoutes.GameScreen> { inclusive = true }
                     }
             }
@@ -86,7 +86,7 @@ fun GameScreen(
 
     if (state.showNewGameDialog) {
         NewGameDialog(
-            initialDifficulty = state.difficulty,
+            initialDifficulty = state.difficulty.ordinal,
             onStartGame = { newDifficulty ->
                 viewModel.setEvent(GameUIEvent.StartNewGame(newDifficulty))
             },

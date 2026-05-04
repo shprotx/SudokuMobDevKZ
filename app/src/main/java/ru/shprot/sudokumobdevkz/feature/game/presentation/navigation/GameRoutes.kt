@@ -8,7 +8,7 @@ sealed class GameRoutes : NavRoute() {
 
     @Serializable
     data class GameScreen(
-        val difficulty: Int = 0,
+        val difficultyOrdinal: Int = 0,
         val continueGame: Boolean = false,
     ) : GameRoutes()
 }

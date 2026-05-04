@@ -9,6 +9,6 @@ sealed interface MenuUIEvent : UIEvent {
     data object NavigateToHowToPlay : MenuUIEvent
     data object ScreenResumed : MenuUIEvent
 
-    class NewGameClicked(val difficulty: Int) : MenuUIEvent
-    class DifficultySelected(val difficulty: Int) : MenuUIEvent
+    class NewGameClicked(val difficultyOrdinal: Int) : MenuUIEvent
+    class DifficultySelected(val difficultyOrdinal: Int) : MenuUIEvent
 }

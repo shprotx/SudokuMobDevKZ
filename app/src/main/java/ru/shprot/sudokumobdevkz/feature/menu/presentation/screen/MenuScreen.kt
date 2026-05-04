@@ -52,7 +52,7 @@ fun MenuScreen(
                     navController.navigate(HowToPlayRoutes.HowToPlayScreen)
 
                 is MenuUIEffect.NavigateToGame ->
-                    navController.navigate(GameRoutes.GameScreen(effect.difficulty))
+                    navController.navigate(GameRoutes.GameScreen(difficultyOrdinal = effect.difficultyOrdinal))
             }
         }
     }

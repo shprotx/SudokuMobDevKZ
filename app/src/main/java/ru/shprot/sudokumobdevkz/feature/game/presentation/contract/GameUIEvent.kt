@@ -22,5 +22,5 @@ sealed interface GameUIEvent : UIEvent {
 
     class CellClicked(val row: Int, val col: Int) : GameUIEvent
     class NumberClicked(val number: Int) : GameUIEvent
-    class StartNewGame(val difficulty: Int) : GameUIEvent
+    class StartNewGame(val difficultyOrdinal: Int) : GameUIEvent
 }

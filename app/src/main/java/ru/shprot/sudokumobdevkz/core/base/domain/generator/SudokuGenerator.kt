@@ -3,6 +3,7 @@ package ru.shprot.sudokumobdevkz.core.base.domain.generator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.shprot.sudokumobdevkz.core.base.domain.generator.solver.DancingLinksAlgorithm
+import ru.shprot.sudokumobdevkz.core.base.domain.model.Difficulty
 
 data class GeneratedPuzzle(
     val solution: Array<IntArray>,
@@ -30,11 +31,7 @@ object SudokuGenerator {
     private const val SIZE = 9
     private const val CELLS = 81
 
-    private const val VISIBLE_EASY = 40
-    private const val VISIBLE_MEDIUM = 30
-    private const val VISIBLE_EXPERT = 27
-
-    suspend fun generate(difficulty: Int): GeneratedPuzzle = withContext(Dispatchers.Default) {
+    suspend fun generate(difficulty: Difficulty): GeneratedPuzzle = withContext(Dispatchers.Default) {
         val grid = Array(SIZE) { IntArray(SIZE) }
         val available = Array(CELLS) { (1..9).toMutableList() }
 
@@ -95,11 +92,11 @@ object SudokuGenerator {
         return false
     }
 
-    private fun dig(grid: Array<IntArray>, difficulty: Int): Int {
+    private fun dig(grid: Array<IntArray>, difficulty: Difficulty): Int {
         val zeros = mutableListOf<Int>()
         var emptyCells = digForExpert(grid, difficulty, zeros)
 
-        if (difficulty < 2) {
+        if (difficulty != Difficulty.HARD) {
             emptyCells = openSomeCells(grid, difficulty, emptyCells, zeros)
         }
 
@@ -108,7 +105,7 @@ object SudokuGenerator {
 
     private fun digForExpert(
         grid: Array<IntArray>,
-        difficulty: Int,
+        difficulty: Difficulty,
         zeros: MutableList<Int>,
     ): Int {
         val positions = (0 until CELLS).toMutableList().apply { shuffle() }
@@ -126,7 +123,7 @@ object SudokuGenerator {
                 grid[row][col] = temp
             } else {
                 emptyCells++
-                if (difficulty < 2) zeros.add(pos)
+                if (difficulty != Difficulty.HARD) zeros.add(pos)
             }
         }
 
@@ -135,12 +132,12 @@ object SudokuGenerator {
 
     private fun openSomeCells(
         grid: Array<IntArray>,
-        difficulty: Int,
+        difficulty: Difficulty,
         emptyCells: Int,
         zeros: MutableList<Int>,
     ): Int {
         zeros.shuffle()
-        val targetVisible = visibleForDifficulty(difficulty)
+        val targetVisible = difficulty.visibleCells
         var haveToOpen = targetVisible - (CELLS - emptyCells)
         var currentEmpty = emptyCells
         var idx = zeros.size - 1
@@ -151,10 +148,6 @@ object SudokuGenerator {
             val col = pos % SIZE
 
             if (grid[row][col] == 0) {
-                // Restore from original solution — we need to recalculate
-                // Since we don't store solution here, re-solve to find the value
-                // Actually, the original code used squares list. We'll use a simpler approach:
-                // try all values 1-9 and pick the one that has unique solution
                 for (v in 1..9) {
                     grid[row][col] = v
                     if (DancingLinksAlgorithm.countSolutions(grid) == 1) break
@@ -167,12 +160,5 @@ object SudokuGenerator {
         }
 
         return currentEmpty
-    }
-
-    private fun visibleForDifficulty(difficulty: Int): Int = when (difficulty) {
-        0 -> VISIBLE_EASY
-        1 -> VISIBLE_MEDIUM
-        2 -> VISIBLE_EXPERT
-        else -> VISIBLE_EXPERT
     }
 }

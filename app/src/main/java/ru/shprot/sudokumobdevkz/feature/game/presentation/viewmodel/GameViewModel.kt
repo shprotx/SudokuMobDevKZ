@@ -14,6 +14,7 @@ import ru.shprot.sudokumobdevkz.core.base.data.util.safeRunCatching
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SettingsRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SudokuRepository
 import ru.shprot.sudokumobdevkz.core.base.domain.generator.SudokuGenerator
+import ru.shprot.sudokumobdevkz.core.base.domain.model.Difficulty
 import ru.shprot.sudokumobdevkz.core.base.presentation.viewmodel.BaseViewModel
 import ru.shprot.sudokumobdevkz.feature.game.domain.model.CellData
 import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameUIEffect
@@ -30,7 +31,7 @@ class GameViewModel @Inject constructor(
 ) : BaseViewModel<GameUIEvent, GameUIState, GameUIEffect>(GameUIState()) {
 
     private val route = savedStateHandle.toRoute<GameRoutes.GameScreen>()
-    private val difficulty: Int = route.difficulty
+    private val difficulty: Difficulty = Difficulty.fromOrdinal(route.difficultyOrdinal)
     private val continueGame: Boolean = route.continueGame
     private val undoStack = mutableListOf<UndoEntry>()
     private var timerJob: Job? = null
@@ -110,7 +111,7 @@ class GameViewModel @Inject constructor(
 
             is GameUIEvent.StartNewGame -> {
                 setState(currentState.copy(showNewGameDialog = false))
-                setEffect(GameUIEffect.NavigateToNewGame(event.difficulty))
+                setEffect(GameUIEffect.NavigateToNewGame(event.difficultyOrdinal))
             }
         }
 
@@ -148,15 +149,16 @@ class GameViewModel @Inject constructor(
 
     private suspend fun countAbandonedGame() {
         val saved = repository.loadSavedGame() ?: return
+        val savedDifficulty = Difficulty.fromFirebaseKey(saved.difficulty) ?: return
         if (saved.isStandardMode) {
             repository.updateStatistic(
-                difficulty = saved.difficulty,
+                difficulty = savedDifficulty,
                 isWin = false,
                 timeSeconds = saved.timeSeconds,
                 errorCount = saved.errors,
             )
         } else {
-            repository.incrementCasualGames(saved.difficulty)
+            repository.incrementCasualGames(savedDifficulty)
         }
     }
 
@@ -164,12 +166,13 @@ class GameViewModel @Inject constructor(
         val cells = data.cells.map { row ->
             row.map { s -> CellData(s.value, s.isGiven, s.isError, s.notes) }
         }
+        val restoredDifficulty = Difficulty.fromFirebaseKey(data.difficulty) ?: difficulty
 
         setState(
             currentState.copy(
                 cells = cells,
                 solution = data.solution,
-                difficulty = data.difficulty,
+                difficulty = restoredDifficulty,
                 timeSeconds = data.timeSeconds,
                 timer = "%02d:%02d".format(data.timeSeconds / 60, data.timeSeconds % 60),
                 errors = data.errors,
@@ -191,7 +194,7 @@ class GameViewModel @Inject constructor(
 
         repository.saveGame(
             GameSaveData(
-                difficulty = state.difficulty,
+                difficulty = state.difficulty.firebaseKey,
                 timeSeconds = state.timeSeconds,
                 errors = state.errors,
                 maxErrors = state.maxErrors,

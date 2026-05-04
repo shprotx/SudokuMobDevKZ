@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import ru.shprot.sudokumobdevkz.R
+import ru.shprot.sudokumobdevkz.core.base.domain.model.Difficulty
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameUIEvent
 import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameUIState
@@ -72,11 +73,11 @@ fun GameScreenContent(
             WeightSpacer()
 
             GameStatusBar(
-                difficultyLabel = listOf(
-                    stringResource(R.string.difficulty_easy),
-                    stringResource(R.string.difficulty_middle),
-                    stringResource(R.string.difficulty_expert),
-                ).getOrElse(uiState.difficulty) { stringResource(R.string.difficulty_easy) },
+                difficultyLabel = when (uiState.difficulty) {
+                    Difficulty.EASY -> stringResource(R.string.difficulty_easy)
+                    Difficulty.MEDIUM -> stringResource(R.string.difficulty_middle)
+                    Difficulty.HARD -> stringResource(R.string.difficulty_expert)
+                },
                 errors = uiState.errors,
                 maxErrors = uiState.maxErrors,
                 lives = uiState.maxErrors - uiState.errors,

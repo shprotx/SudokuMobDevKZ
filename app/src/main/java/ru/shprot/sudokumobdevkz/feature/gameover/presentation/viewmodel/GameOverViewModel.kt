@@ -3,6 +3,7 @@ package ru.shprot.sudokumobdevkz.feature.gameover.presentation.viewmodel
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.toRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
+import ru.shprot.sudokumobdevkz.core.base.domain.model.Difficulty
 import ru.shprot.sudokumobdevkz.core.base.presentation.viewmodel.BaseViewModel
 import ru.shprot.sudokumobdevkz.feature.gameover.presentation.contract.GameOverUIEffect
 import ru.shprot.sudokumobdevkz.feature.gameover.presentation.contract.GameOverUIEvent
@@ -15,14 +16,16 @@ class GameOverViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
 ) : BaseViewModel<GameOverUIEvent, GameOverUIState, GameOverUIEffect>(GameOverUIState()) {
 
+    private val route = savedStateHandle.toRoute<GameOverRoutes.GameOverScreen>()
+    private val difficulty: Difficulty = Difficulty.fromOrdinal(route.difficultyOrdinal)
+
     init {
-        val route = savedStateHandle.toRoute<GameOverRoutes.GameOverScreen>()
         setState(
             GameOverUIState(
                 isWin = route.isWin,
                 time = route.time,
                 errors = route.errors,
-                difficulty = route.difficulty,
+                difficulty = difficulty,
             )
         )
     }
@@ -30,7 +33,7 @@ class GameOverViewModel @Inject constructor(
     override fun handleUIEvent(event: GameOverUIEvent) =
         when (event) {
             GameOverUIEvent.PlayAgainClicked ->
-                setEffect(GameOverUIEffect.NavigateToNewGame(currentState.difficulty))
+                setEffect(GameOverUIEffect.NavigateToNewGame(currentState.difficulty.ordinal))
 
             GameOverUIEvent.BackToMenuClicked ->
                 setEffect(GameOverUIEffect.NavigateToMenu)

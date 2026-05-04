@@ -23,7 +23,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
-import ru.shprot.sudokumobdevkz.core.uicommon.DifficultyEmoji
 import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonDefault
 import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonOutlined
 import ru.shprot.sudokumobdevkz.feature.gameover.presentation.contract.GameOverUIEvent
@@ -82,11 +81,7 @@ fun GameOverScreenContent(
                     icon = Icons.Filled.SignalCellularAlt,
                     iconTint = AppTheme.colors.primary,
                     label = stringResource(R.string.difficulty_label),
-                    value = listOf(
-                        DifficultyEmoji.EASY,
-                        DifficultyEmoji.MEDIUM,
-                        DifficultyEmoji.HARD,
-                    ).getOrElse(uiState.difficulty) { "?" },
+                    value = uiState.difficulty.emoji,
                 )
             }
         }

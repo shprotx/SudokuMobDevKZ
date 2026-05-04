@@ -1,5 +1,6 @@
 package ru.shprot.sudokumobdevkz.feature.game.presentation.contract
 
+import ru.shprot.sudokumobdevkz.core.base.domain.model.Difficulty
 import ru.shprot.sudokumobdevkz.core.base.presentation.contract.UIState
 import ru.shprot.sudokumobdevkz.feature.game.domain.model.CellData
 
@@ -8,7 +9,7 @@ data class GameUIState(
     val solution: List<List<Int>> = List(9) { List(9) { 0 } },
     val selectedRow: Int = -1,
     val selectedCol: Int = -1,
-    val difficulty: Int = 0,
+    val difficulty: Difficulty = Difficulty.EASY,
     val errors: Int = 0,
     val maxErrors: Int = 3,
     val timer: String = "00:00",

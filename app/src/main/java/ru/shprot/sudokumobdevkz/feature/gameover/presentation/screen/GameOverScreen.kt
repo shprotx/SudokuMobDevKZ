@@ -27,7 +27,7 @@ fun GameOverScreen(
                     }
 
                 is GameOverUIEffect.NavigateToNewGame ->
-                    navController.navigate(GameRoutes.GameScreen(effect.difficulty)) {
+                    navController.navigate(GameRoutes.GameScreen(difficultyOrdinal = effect.difficultyOrdinal)) {
                         popUpTo<MenuRoutes.MenuScreen>()
                     }
             }
