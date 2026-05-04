@@ -183,5 +183,6 @@
     <string name="settings_locked_during_game">Cannot change while a standard game is in progress</string>
     <string name="on_label" translatable="false">ON</string>
     <string name="off_label" translatable="false">OFF</string>
+    <string name="version_format" translatable="false">v%s</string>
 
 </resources>
