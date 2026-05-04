@@ -121,6 +121,7 @@ class GameViewModel @Inject constructor(
         val isStandard = settings.isStandardMode
 
         setState(currentState.copy(isGenerating = true, difficulty = difficulty, maxErrors = maxErrors, hintsRemaining = hints, isStandardMode = isStandard))
+        countAbandonedGame()
         repository.deleteSavedGame()
 
         val puzzle = SudokuGenerator.generate(difficulty)
@@ -143,6 +144,20 @@ class GameViewModel @Inject constructor(
         )
 
         startTimer()
+    }
+
+    private suspend fun countAbandonedGame() {
+        val saved = repository.loadSavedGame() ?: return
+        if (saved.isStandardMode) {
+            repository.updateStatistic(
+                difficulty = saved.difficulty,
+                isWin = false,
+                timeSeconds = saved.timeSeconds,
+                errorCount = saved.errors,
+            )
+        } else {
+            repository.incrementCasualGames(saved.difficulty)
+        }
     }
 
     private fun restoreGame(data: GameSaveData) {
