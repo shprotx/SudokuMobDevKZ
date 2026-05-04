@@ -55,12 +55,13 @@ fun MenuNavigationCards(
             onClick = onHowToPlayClick,
         )
 
-        MenuNavCard(
-            icon = Icons.Filled.Star,
-            title = stringResource(R.string.achievements),
-            subtitle = stringResource(R.string.achievements_desc),
-            onClick = { /* stub */ },
-        )
+        // TODO: Achievements — uncomment when implemented
+        // MenuNavCard(
+        //     icon = Icons.Filled.Star,
+        //     title = stringResource(R.string.achievements),
+        //     subtitle = stringResource(R.string.achievements_desc),
+        //     onClick = { },
+        // )
 
         MenuNavCard(
             icon = Icons.Filled.Settings,

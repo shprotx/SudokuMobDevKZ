@@ -173,18 +173,19 @@ fun SettingsScreenContent(
                 )
             }
 
-            SettingsSectionHeader(title = stringResource(R.string.sound))
-
-            SettingsCard {
-                SettingsToggleItem(
-                    icon = Icons.Filled.VolumeUp,
-                    title = stringResource(R.string.sounds),
-                    checked = uiState.settings.soundsEnabled,
-                    onCheckedChange = { v ->
-                        onEvent(SettingsUIEvent.SettingChanged { copy(soundsEnabled = v) })
-                    },
-                )
-            }
+            // TODO: Sound section — uncomment when sounds are implemented
+            // SettingsSectionHeader(title = stringResource(R.string.sound))
+            //
+            // SettingsCard {
+            //     SettingsToggleItem(
+            //         icon = Icons.Filled.VolumeUp,
+            //         title = stringResource(R.string.sounds),
+            //         checked = uiState.settings.soundsEnabled,
+            //         onCheckedChange = { v ->
+            //             onEvent(SettingsUIEvent.SettingChanged { copy(soundsEnabled = v) })
+            //         },
+            //     )
+            // }
 
             SettingsSectionHeader(title = stringResource(R.string.other))
 

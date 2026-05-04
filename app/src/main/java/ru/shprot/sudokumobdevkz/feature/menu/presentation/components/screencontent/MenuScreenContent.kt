@@ -40,9 +40,10 @@ fun MenuScreenContent(
             onSettingsClick = { onEvent(MenuUIEvent.NavigateToSettings) },
         )
 
-        DailyChallengeCard(
-            modifier = Modifier.padding(top = AppTheme.paddings.extraLarge),
-        )
+        // TODO: DailyChallengeCard — uncomment when daily challenge is implemented
+        // DailyChallengeCard(
+        //     modifier = Modifier.padding(top = AppTheme.paddings.extraLarge),
+        // )
 
         NewGameButton(
             modifier = Modifier.padding(top = AppTheme.paddings.large),
