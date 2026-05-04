@@ -38,6 +38,7 @@ fun SudokuGrid(
     val gridLineBold = AppTheme.colors.gridLineBold
     val cellSelected = AppTheme.colors.cellSelected
     val cellHighlight = AppTheme.colors.cellHighlight
+    val cellSameNumber = AppTheme.colors.cellSameNumber
     val cellErrorColor = AppTheme.colors.cellError
     val background = AppTheme.colors.backgroundCard
     val fixedColor = AppTheme.colors.cellFixed
@@ -65,7 +66,7 @@ fun SudokuGrid(
         drawRect(color = background, size = size)
 
         if (!isPaused) {
-            drawHighlights(cells, selectedRow, selectedCol, cellSize, cellSelected, cellHighlight, cellErrorColor, highlightedNumber)
+            drawHighlights(cells, selectedRow, selectedCol, cellSize, cellSelected, cellHighlight, cellSameNumber, cellErrorColor, highlightedNumber)
 
             drawNumbers(cells, cellSize, fixedColor, editableColor, errorColor, draftColor, highlightedNumber, textMeasurer, density)
         }
@@ -81,6 +82,7 @@ private fun DrawScope.drawHighlights(
     cellSize: Float,
     cellSelected: Color,
     cellHighlight: Color,
+    cellSameNumber: Color,
     cellErrorColor: Color,
     highlightedNumber: Int,
 ) {
@@ -98,7 +100,7 @@ private fun DrawScope.drawHighlights(
 
             if (highlightedNumber > 0 && cell.value == highlightedNumber && !cell.isError) {
                 drawRect(
-                    color = cellHighlight,
+                    color = cellSameNumber,
                     topLeft = Offset(c * cellSize, r * cellSize),
                     size = Size(cellSize, cellSize),
                 )
@@ -154,8 +156,8 @@ private fun DrawScope.drawNumbers(
 ) {
     val gridFont = FontFamily(Font(R.font.ibm_plex_mono_bold))
     val fontSizeSp = with(density) { (cellSize * 0.45f).toSp() }
-    val draftFontSizeSp = with(density) { (cellSize * 0.20f).toSp() }
-    val draftHighlightFontSizeSp = with(density) { (cellSize * 0.24f).toSp() }
+    val draftFontSizeSp = with(density) { (cellSize * 0.24f).toSp() }
+    val draftHighlightFontSizeSp = with(density) { (cellSize * 0.27f).toSp() }
 
     for (row in 0 until 9) {
         for (col in 0 until 9) {
@@ -179,7 +181,7 @@ private fun DrawScope.drawNumbers(
                 val y = row * cellSize + (cellSize - measured.size.height) / 2f
                 drawText(measured, topLeft = Offset(x, y))
             } else if (cell.notes.isNotEmpty()) {
-                val inset = cellSize * 0.12f
+                val inset = cellSize * 0.06f
                 val innerSize = cellSize - inset * 2
                 val noteSize = innerSize / 3f
                 for (note in cell.notes) {
