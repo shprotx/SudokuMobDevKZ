@@ -8,11 +8,13 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import ru.shprot.sudokumobdevkz.core.base.data.database.SudokuComposeDatabase
+import ru.shprot.sudokumobdevkz.core.base.data.database.dao.AchievementUnlockedDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.DailyChallengeDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.GameHistoryDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.SavedGameDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.StatisticDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.migration.MIGRATION_3_4
+import ru.shprot.sudokumobdevkz.core.base.data.database.migration.MIGRATION_4_5
 import javax.inject.Singleton
 
 @Module
@@ -23,7 +25,7 @@ object DatabaseModule {
     @Singleton
     fun provideDatabase(@ApplicationContext context: Context): SudokuComposeDatabase =
         Room.databaseBuilder(context, SudokuComposeDatabase::class.java, "sudoku_compose_db")
-            .addMigrations(MIGRATION_3_4)
+            .addMigrations(MIGRATION_3_4, MIGRATION_4_5)
             .fallbackToDestructiveMigration()
             .build()
 
@@ -38,4 +40,8 @@ object DatabaseModule {
 
     @Provides
     fun provideDailyChallengeDao(db: SudokuComposeDatabase): DailyChallengeDao = db.dailyChallengeDao()
+
+    @Provides
+    fun provideAchievementUnlockedDao(db: SudokuComposeDatabase): AchievementUnlockedDao =
+        db.achievementUnlockedDao()
 }

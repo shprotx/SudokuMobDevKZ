@@ -2,10 +2,12 @@ package ru.shprot.sudokumobdevkz.core.base.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import ru.shprot.sudokumobdevkz.core.base.data.database.dao.AchievementUnlockedDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.DailyChallengeDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.GameHistoryDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.SavedGameDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.StatisticDao
+import ru.shprot.sudokumobdevkz.core.base.data.database.entity.AchievementUnlockedEntity
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.DailyChallengeEntity
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.GameHistoryEntity
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.SavedGameEntity
@@ -17,8 +19,9 @@ import ru.shprot.sudokumobdevkz.core.base.data.database.entity.StatisticEntity
         GameHistoryEntity::class,
         SavedGameEntity::class,
         DailyChallengeEntity::class,
+        AchievementUnlockedEntity::class,
     ],
-    version = 4,
+    version = 5,
     exportSchema = false,
 )
 abstract class SudokuComposeDatabase : RoomDatabase() {
@@ -26,4 +29,5 @@ abstract class SudokuComposeDatabase : RoomDatabase() {
     abstract fun gameHistoryDao(): GameHistoryDao
     abstract fun savedGameDao(): SavedGameDao
     abstract fun dailyChallengeDao(): DailyChallengeDao
+    abstract fun achievementUnlockedDao(): AchievementUnlockedDao
 }
