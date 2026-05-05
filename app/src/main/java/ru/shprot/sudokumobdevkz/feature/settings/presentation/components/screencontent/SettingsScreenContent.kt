@@ -55,46 +55,54 @@ fun SettingsScreenContent(
 
         Column(modifier = Modifier.padding(horizontal = AppTheme.paddings.large)) {
 
-            SettingsSectionHeader(title = stringResource(R.string.game_label))
+            SettingsSectionHeader(
+                modifier = Modifier,
+                title = stringResource(R.string.game_label),
+            )
 
-            SettingsCard {
+            SettingsCard(modifier = Modifier) {
                 SettingsToggleItem(
+                    modifier = Modifier,
                     icon = Icons.Filled.CheckCircle,
                     title = stringResource(R.string.check_errors),
                     checked = uiState.settings.checkErrors,
                     onCheckedChange = { onEvent(SettingsUIEvent.ToggleCheckErrors) },
                 )
 
-                SettingsDivider()
+                SettingsDivider(modifier = Modifier)
 
                 SettingsToggleItem(
+                    modifier = Modifier,
                     icon = Icons.Filled.ContentCopy,
                     title = stringResource(R.string.highlight_duplicates),
                     checked = uiState.settings.highlightDuplicates,
                     onCheckedChange = { onEvent(SettingsUIEvent.ToggleHighlightDuplicates) },
                 )
 
-                SettingsDivider()
+                SettingsDivider(modifier = Modifier)
 
                 SettingsToggleItem(
+                    modifier = Modifier,
                     icon = Icons.Filled.Save,
                     title = stringResource(R.string.auto_save),
                     checked = uiState.settings.autoSave,
                     onCheckedChange = { onEvent(SettingsUIEvent.ToggleAutoSave) },
                 )
 
-                SettingsDivider()
+                SettingsDivider(modifier = Modifier)
 
                 SettingsToggleItem(
+                    modifier = Modifier,
                     icon = Icons.Filled.Schedule,
                     title = stringResource(R.string.show_timer),
                     checked = uiState.settings.showTimer,
                     onCheckedChange = { onEvent(SettingsUIEvent.ToggleShowTimer) },
                 )
 
-                SettingsDivider()
+                SettingsDivider(modifier = Modifier)
 
                 SettingsToggleItem(
+                    modifier = Modifier,
                     icon = Icons.Filled.Favorite,
                     iconTint = AppTheme.colors.error,
                     title = stringResource(R.string.show_errors),
@@ -102,9 +110,10 @@ fun SettingsScreenContent(
                     onCheckedChange = { onEvent(SettingsUIEvent.ToggleShowErrors) },
                 )
 
-                SettingsDivider()
+                SettingsDivider(modifier = Modifier)
 
                 SettingsToggleItem(
+                    modifier = Modifier,
                     icon = Icons.Filled.Favorite,
                     iconTint = AppTheme.colors.warning,
                     title = stringResource(R.string.unlimited_errors),
@@ -112,9 +121,10 @@ fun SettingsScreenContent(
                     onCheckedChange = { onEvent(SettingsUIEvent.ToggleUnlimitedErrors) },
                 )
 
-                SettingsDivider()
+                SettingsDivider(modifier = Modifier)
 
                 SettingsToggleItem(
+                    modifier = Modifier,
                     icon = Icons.Filled.Lightbulb,
                     iconTint = AppTheme.colors.warning,
                     title = stringResource(R.string.unlimited_hints),
@@ -122,9 +132,10 @@ fun SettingsScreenContent(
                     onCheckedChange = { onEvent(SettingsUIEvent.ToggleUnlimitedHints) },
                 )
 
-                SettingsDivider()
+                SettingsDivider(modifier = Modifier)
 
                 SettingsToggleItem(
+                    modifier = Modifier,
                     icon = Icons.Filled.BarChart,
                     title = stringResource(R.string.track_statistics),
                     checked = uiState.settings.trackStatistics && uiState.settings.isStandardMode,
@@ -133,10 +144,14 @@ fun SettingsScreenContent(
                 )
             }
 
-            SettingsSectionHeader(title = stringResource(R.string.appearance))
+            SettingsSectionHeader(
+                modifier = Modifier,
+                title = stringResource(R.string.appearance),
+            )
 
-            SettingsCard {
+            SettingsCard(modifier = Modifier) {
                 SettingsToggleItem(
+                    modifier = Modifier,
                     icon = Icons.Filled.Palette,
                     title = stringResource(R.string.dark_theme_label),
                     checked = uiState.settings.isDarkTheme,
@@ -144,10 +159,14 @@ fun SettingsScreenContent(
                 )
             }
 
-            SettingsSectionHeader(title = stringResource(R.string.other))
+            SettingsSectionHeader(
+                modifier = Modifier,
+                title = stringResource(R.string.other),
+            )
 
-            SettingsCard {
+            SettingsCard(modifier = Modifier) {
                 SettingsNavItem(
+                    modifier = Modifier,
                     icon = Icons.Filled.Security,
                     title = stringResource(R.string.privacy_policy),
                     onClick = { onEvent(SettingsUIEvent.NavigateToPrivacyPolicy) },

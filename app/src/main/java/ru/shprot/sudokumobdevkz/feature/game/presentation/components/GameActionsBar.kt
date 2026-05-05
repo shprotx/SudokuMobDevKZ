@@ -33,7 +33,7 @@ import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 @Composable
 fun GameActionsBar(
-    modifier: Modifier = Modifier,
+    modifier: Modifier,
     isNotesEnabled: Boolean,
     hintsRemaining: Int,
     onUndoClick: () -> Unit,

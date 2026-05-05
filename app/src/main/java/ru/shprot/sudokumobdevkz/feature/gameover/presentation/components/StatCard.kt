@@ -19,24 +19,27 @@ import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 @Composable
 fun StatCard(
-    modifier: Modifier = Modifier,
+    modifier: Modifier,
     icon: ImageVector,
     iconTint: Color,
     label: String,
     value: String,
 ) {
+
     Card(
         modifier = modifier,
         shape = RoundedCornerShape(AppTheme.sizes.cornerRadiusLarge),
         colors = CardDefaults.cardColors(containerColor = AppTheme.colors.backgroundCard),
         elevation = CardDefaults.cardElevation(defaultElevation = AppTheme.sizes.elevationSmall),
     ) {
+
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(AppTheme.paddings.large),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
+
             Icon(
                 imageVector = icon,
                 contentDescription = null,

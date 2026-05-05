@@ -16,7 +16,6 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.SentimentDissatisfied
 import androidx.compose.material.icons.filled.SignalCellularAlt
 import androidx.compose.material.icons.filled.Timer
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,10 +31,9 @@ import ru.shprot.sudokumobdevkz.feature.gameover.presentation.contract.GameOverU
 fun GameOverScreenContent(
     uiState: GameOverUIState,
     onEvent: (GameOverUIEvent) -> Unit,
-    modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxSize()
             .background(AppTheme.colors.background)
             .statusBarsPadding()
@@ -46,11 +44,19 @@ fun GameOverScreenContent(
 
         Column {
             ResultHeader(
-                icon = if (uiState.isWin) Icons.Filled.EmojiEvents
-                else Icons.Filled.SentimentDissatisfied,
-                title = if (uiState.isWin) stringResource(R.string.you_won) else stringResource(R.string.game_over),
-                subtitle = if (uiState.isWin) stringResource(R.string.win_subtitle)
-                else stringResource(R.string.lose_subtitle),
+                modifier = Modifier,
+                icon = when (uiState.isWin) {
+                    true -> Icons.Filled.EmojiEvents
+                    false -> Icons.Filled.SentimentDissatisfied
+                },
+                title = when (uiState.isWin) {
+                    true -> stringResource(R.string.you_won)
+                    false -> stringResource(R.string.game_over)
+                },
+                subtitle = when (uiState.isWin) {
+                    true -> stringResource(R.string.win_subtitle)
+                    false -> stringResource(R.string.lose_subtitle)
+                },
                 isWin = uiState.isWin,
             )
 

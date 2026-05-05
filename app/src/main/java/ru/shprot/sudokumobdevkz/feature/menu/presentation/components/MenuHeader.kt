@@ -18,7 +18,7 @@ import ru.shprot.sudokumobdevkz.core.uicommon.button.ToolbarCircleButton
 
 @Composable
 fun MenuHeader(
-    modifier: Modifier = Modifier,
+    modifier: Modifier,
     onSettingsClick: () -> Unit,
 ) {
     Row(

@@ -23,7 +23,7 @@ import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 @Composable
-fun DailyChallengeCard(modifier: Modifier = Modifier) {
+fun DailyChallengeCard(modifier: Modifier) {
     Card(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(AppTheme.sizes.cornerRadiusLarge),

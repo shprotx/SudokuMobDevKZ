@@ -37,7 +37,7 @@ import java.util.Locale
 
 @Composable
 fun TimeChartSection(
-    modifier: Modifier = Modifier,
+    modifier: Modifier,
     recentGames: List<GameHistoryEntity> = emptyList(),
 ) {
     Column(modifier = modifier) {
@@ -80,7 +80,7 @@ fun TimeChartSection(
 
 @Composable
 internal fun TimeBarChart(
-    modifier: Modifier = Modifier,
+    modifier: Modifier,
     games: List<GameHistoryEntity>,
 ) {
     val maxTime = games.maxOf { it.timeSeconds }.coerceAtLeast(60)

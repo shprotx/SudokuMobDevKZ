@@ -17,7 +17,7 @@ import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 @Composable
 fun ResultHeader(
-    modifier: Modifier = Modifier,
+    modifier: Modifier,
     icon: ImageVector,
     title: String,
     subtitle: String,
@@ -29,6 +29,7 @@ fun ResultHeader(
         modifier = modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+
         Icon(
             imageVector = icon,
             contentDescription = null,

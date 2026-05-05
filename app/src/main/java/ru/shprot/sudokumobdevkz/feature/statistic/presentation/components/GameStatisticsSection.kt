@@ -20,7 +20,7 @@ import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 @Composable
 fun GameStatisticsSection(
-    modifier: Modifier = Modifier,
+    modifier: Modifier,
     gamesStarted: String = "0",
     gamesWon: String = "0",
     percentOfWins: String = "0%",

@@ -22,11 +22,10 @@ import ru.shprot.sudokumobdevkz.feature.menu.presentation.contract.MenuUIState
 fun MenuScreenContent(
     uiState: MenuUIState,
     onEvent: (MenuUIEvent) -> Unit,
-    modifier: Modifier = Modifier,
 ) {
 
     Column(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxSize()
             .background(AppTheme.colors.background)
             .verticalScroll(rememberScrollState())

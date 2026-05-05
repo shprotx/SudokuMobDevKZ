@@ -20,7 +20,7 @@ import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 @Composable
 fun TipCard(
-    modifier: Modifier = Modifier,
+    modifier: Modifier,
     icon: ImageVector,
     title: String,
     description: String,

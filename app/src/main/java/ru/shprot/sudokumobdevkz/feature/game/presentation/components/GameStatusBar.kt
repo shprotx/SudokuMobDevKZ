@@ -24,7 +24,7 @@ import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 @Composable
 fun GameStatusBar(
-    modifier: Modifier = Modifier,
+    modifier: Modifier,
     difficultyLabel: String,
     errors: Int,
     maxErrors: Int,

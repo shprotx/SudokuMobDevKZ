@@ -26,7 +26,7 @@ import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 @Composable
 fun OverviewCards(
-    modifier: Modifier = Modifier,
+    modifier: Modifier,
     bestTime: String = "--:--",
     averageTime: String = "--:--",
     percentOfWins: String = "0%",
@@ -82,7 +82,7 @@ fun OverviewCards(
 
 @Composable
 internal fun OverviewCard(
-    modifier: Modifier = Modifier,
+    modifier: Modifier,
     icon: ImageVector,
     iconTint: Color,
     label: String,

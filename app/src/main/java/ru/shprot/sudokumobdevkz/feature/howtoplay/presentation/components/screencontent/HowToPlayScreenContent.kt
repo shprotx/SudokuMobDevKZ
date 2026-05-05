@@ -37,11 +37,10 @@ import ru.shprot.sudokumobdevkz.feature.howtoplay.presentation.contract.HowToPla
 fun HowToPlayScreenContent(
     uiState: HowToPlayUIState,
     onEvent: (HowToPlayUIEvent) -> Unit,
-    modifier: Modifier = Modifier,
 ) {
 
     Column(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxSize()
             .background(AppTheme.colors.background)
             .verticalScroll(rememberScrollState()),

@@ -35,11 +35,10 @@ import ru.shprot.sudokumobdevkz.feature.statistic.presentation.contract.Statisti
 fun StatisticScreenContent(
     uiState: StatisticUIState,
     onEvent: (StatisticUIEvent) -> Unit,
-    modifier: Modifier = Modifier,
 ) {
 
     Column(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxSize()
             .background(AppTheme.colors.background)
             .verticalScroll(rememberScrollState()),
@@ -52,6 +51,7 @@ fun StatisticScreenContent(
         )
 
         DifficultyTabs(
+            modifier = Modifier,
             selectedTab = uiState.selectedTab,
             onTabSelected = { onEvent(StatisticUIEvent.TabSelected(it)) },
         )

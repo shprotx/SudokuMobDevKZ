@@ -26,7 +26,7 @@ import ru.shprot.sudokumobdevkz.feature.game.domain.model.CellData
 
 @Composable
 fun SudokuGrid(
-    modifier: Modifier = Modifier,
+    modifier: Modifier,
     cells: List<List<CellData>>,
     selectedRow: Int,
     selectedCol: Int,

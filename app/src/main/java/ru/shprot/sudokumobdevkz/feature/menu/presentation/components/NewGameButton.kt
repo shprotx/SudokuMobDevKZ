@@ -30,7 +30,7 @@ import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 @Composable
 fun NewGameButton(
-    modifier: Modifier = Modifier,
+    modifier: Modifier,
     onClick: () -> Unit,
 ) {
     Card(

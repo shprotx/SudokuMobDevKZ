@@ -32,7 +32,7 @@ import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 @Composable
 fun MenuNavigationCards(
-    modifier: Modifier = Modifier,
+    modifier: Modifier,
     onStatisticClick: () -> Unit,
     onHowToPlayClick: () -> Unit,
     onSettingsClick: () -> Unit,

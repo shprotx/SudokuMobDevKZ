@@ -24,7 +24,7 @@ import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 @Composable
 fun SettingsSectionHeader(
-    modifier: Modifier = Modifier,
+    modifier: Modifier,
     title: String,
 ) {
     Text(
@@ -42,7 +42,7 @@ fun SettingsSectionHeader(
 
 @Composable
 fun SettingsCard(
-    modifier: Modifier = Modifier,
+    modifier: Modifier,
     content: @Composable ColumnScope.() -> Unit,
 ) {
     Card(
@@ -63,7 +63,7 @@ fun SettingsCard(
 
 @Composable
 fun SettingsToggleItem(
-    modifier: Modifier = Modifier,
+    modifier: Modifier,
     icon: ImageVector,
     iconTint: Color = AppTheme.colors.primary,
     title: String,
@@ -106,7 +106,7 @@ fun SettingsToggleItem(
 
 @Composable
 fun SettingsNavItem(
-    modifier: Modifier = Modifier,
+    modifier: Modifier,
     icon: ImageVector,
     iconTint: Color = AppTheme.colors.iconTint,
     title: String,
@@ -147,7 +147,7 @@ fun SettingsNavItem(
 }
 
 @Composable
-fun SettingsDivider(modifier: Modifier = Modifier) {
+fun SettingsDivider(modifier: Modifier) {
     HorizontalDivider(
         modifier = modifier,
         thickness = AppTheme.sizes.dividerThickness,

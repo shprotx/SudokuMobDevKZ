@@ -24,7 +24,7 @@ import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 @Composable
 fun DifficultyOption(
-    modifier: Modifier = Modifier,
+    modifier: Modifier,
     label: String,
     emoji: String,
     dotCount: Int,

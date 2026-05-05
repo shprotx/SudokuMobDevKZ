@@ -29,7 +29,7 @@ import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 @Composable
 fun DifficultySelector(
-    modifier: Modifier = Modifier,
+    modifier: Modifier,
     selectedDifficulty: Int,
     onDifficultySelected: (Int) -> Unit,
 ) {

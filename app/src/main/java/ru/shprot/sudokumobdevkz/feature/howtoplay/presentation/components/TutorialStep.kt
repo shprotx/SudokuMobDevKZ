@@ -23,7 +23,7 @@ import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 @Composable
 fun TutorialStepCard(
-    modifier: Modifier = Modifier,
+    modifier: Modifier,
     stepNumber: Int,
     title: String,
     description: String,

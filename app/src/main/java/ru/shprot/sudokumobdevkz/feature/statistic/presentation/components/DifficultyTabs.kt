@@ -19,7 +19,7 @@ import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 @Composable
 fun DifficultyTabs(
-    modifier: Modifier = Modifier,
+    modifier: Modifier,
     selectedTab: Int,
     onTabSelected: (Int) -> Unit,
 ) {

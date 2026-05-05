@@ -73,6 +73,7 @@ fun GameScreenContent(
             WeightSpacer()
 
             GameStatusBar(
+                modifier = Modifier,
                 difficultyLabel = when (uiState.difficulty) {
                     Difficulty.EASY -> stringResource(R.string.difficulty_easy)
                     Difficulty.MEDIUM -> stringResource(R.string.difficulty_middle)
