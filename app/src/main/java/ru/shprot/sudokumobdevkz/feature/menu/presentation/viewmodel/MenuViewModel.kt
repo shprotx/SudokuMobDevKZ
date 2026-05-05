@@ -19,7 +19,9 @@ class MenuViewModel @Inject constructor(
 
     init {
         checkSavedGame()
-        updateState { copy(selectedDifficulty = settingsRepository.currentSettings.selectedDifficultyOrdinal) }
+        updateState {
+            copy(selectedDifficulty = settingsRepository.currentSettings.selectedDifficultyOrdinal)
+        }
     }
 
     override fun handleUIEvent(event: MenuUIEvent) =
@@ -42,11 +44,14 @@ class MenuViewModel @Inject constructor(
             is MenuUIEvent.NewGameClicked ->
                 setEffect(MenuUIEffect.NavigateToGame(event.difficultyOrdinal))
 
-            is MenuUIEvent.DifficultySelected -> {
-                updateState { copy(selectedDifficulty = event.difficultyOrdinal) }
-                settingsRepository.update { copy(selectedDifficultyOrdinal = event.difficultyOrdinal) }
-            }
+            is MenuUIEvent.DifficultySelected ->
+                handleDifficultySelected(event.difficultyOrdinal)
         }
+
+    private fun handleDifficultySelected(difficultyOrdinal: Int) {
+        updateState { copy(selectedDifficulty = difficultyOrdinal) }
+        settingsRepository.update { copy(selectedDifficultyOrdinal = difficultyOrdinal) }
+    }
 
     private fun checkSavedGame() {
         viewModelScope.launch(exceptionHandler) {

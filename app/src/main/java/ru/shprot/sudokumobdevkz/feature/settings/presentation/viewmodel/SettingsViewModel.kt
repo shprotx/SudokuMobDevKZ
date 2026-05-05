@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import ru.shprot.sudokumobdevkz.core.base.domain.model.AppSettings
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SettingsRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SudokuRepository
 import ru.shprot.sudokumobdevkz.core.base.domain.model.Difficulty
@@ -48,22 +49,57 @@ class SettingsViewModel @Inject constructor(
             SettingsUIEvent.DismissResetDialog ->
                 updateState { copy(showResetDialog = false) }
 
-            SettingsUIEvent.ResetConfirmed -> {
-                viewModelScope.launch(exceptionHandler) {
-                    for (difficulty in Difficulty.entries) {
-                        sudokuRepository.resetStatistic(difficulty)
-                    }
-                }
-                updateState { copy(showResetDialog = false) }
-            }
-
-            SettingsUIEvent.ShowLockedDialog ->
-                updateState { copy(showLockedSettingDialog = true) }
+            SettingsUIEvent.ResetConfirmed ->
+                handleResetConfirmed()
 
             SettingsUIEvent.DismissLockedDialog ->
                 updateState { copy(showLockedSettingDialog = false) }
 
-            is SettingsUIEvent.SettingChanged ->
-                settingsRepository.update(event.transform)
+            SettingsUIEvent.ToggleCheckErrors ->
+                handleSensitiveSetting { copy(checkErrors = !checkErrors) }
+
+            SettingsUIEvent.ToggleUnlimitedErrors ->
+                handleSensitiveSetting { copy(unlimitedErrors = !unlimitedErrors) }
+
+            SettingsUIEvent.ToggleUnlimitedHints ->
+                handleSensitiveSetting { copy(unlimitedHints = !unlimitedHints) }
+
+            SettingsUIEvent.ToggleHighlightDuplicates ->
+                settingsRepository.update { copy(highlightDuplicates = !highlightDuplicates) }
+
+            SettingsUIEvent.ToggleAutoSave ->
+                settingsRepository.update { copy(autoSave = !autoSave) }
+
+            SettingsUIEvent.ToggleShowTimer ->
+                settingsRepository.update { copy(showTimer = !showTimer) }
+
+            SettingsUIEvent.ToggleShowErrors ->
+                settingsRepository.update { copy(showErrors = !showErrors) }
+
+            SettingsUIEvent.ToggleTrackStatistics ->
+                settingsRepository.update { copy(trackStatistics = !trackStatistics) }
+
+            SettingsUIEvent.ToggleDarkTheme ->
+                settingsRepository.update { copy(isDarkTheme = !isDarkTheme) }
+
+            SettingsUIEvent.ToggleSounds ->
+                settingsRepository.update { copy(soundsEnabled = !soundsEnabled) }
         }
+
+    private fun handleResetConfirmed() {
+        viewModelScope.launch(exceptionHandler) {
+            for (difficulty in Difficulty.entries) {
+                sudokuRepository.resetStatistic(difficulty)
+            }
+        }
+        updateState { copy(showResetDialog = false) }
+    }
+
+    private fun handleSensitiveSetting(transform: AppSettings.() -> AppSettings) {
+        if (currentState.hasActiveStandardGame) {
+            updateState { copy(showLockedSettingDialog = true) }
+        } else {
+            settingsRepository.update(transform)
+        }
+    }
 }

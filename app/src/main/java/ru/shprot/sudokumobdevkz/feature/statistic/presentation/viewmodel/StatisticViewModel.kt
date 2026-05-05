@@ -39,18 +39,23 @@ class StatisticViewModel @Inject constructor(
             StatisticUIEvent.ResetClicked ->
                 setState(currentState.copy(showResetDialog = true))
 
-            is StatisticUIEvent.TabSelected -> {
-                setState(currentState.copy(selectedTab = event.index))
-                observeDifficulty(Difficulty.fromOrdinal(event.index))
-            }
+            is StatisticUIEvent.TabSelected ->
+                handleTabSelected(event.index)
 
-            is StatisticUIEvent.ResetRequested -> {
-                viewModelScope.launch(exceptionHandler) {
-                    repository.resetStatistic(Difficulty.fromOrdinal(event.tabIndex))
-                }
-                Unit
-            }
+            is StatisticUIEvent.ResetRequested ->
+                handleResetRequested(event.tabIndex)
         }
+
+    private fun handleTabSelected(index: Int) {
+        setState(currentState.copy(selectedTab = index))
+        observeDifficulty(Difficulty.fromOrdinal(index))
+    }
+
+    private fun handleResetRequested(tabIndex: Int) {
+        viewModelScope.launch(exceptionHandler) {
+            repository.resetStatistic(Difficulty.fromOrdinal(tabIndex))
+        }
+    }
 
     private fun observeDifficulty(difficulty: Difficulty) {
         observeJob?.cancel()

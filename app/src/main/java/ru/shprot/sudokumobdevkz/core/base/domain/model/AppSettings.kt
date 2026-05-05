@@ -1,4 +1,4 @@
-package ru.shprot.sudokumobdevkz.core.base.data.repository
+package ru.shprot.sudokumobdevkz.core.base.domain.model
 
 data class AppSettings(
     val checkErrors: Boolean = true,

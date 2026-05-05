@@ -169,6 +169,8 @@
     <string name="sounds">Sounds</string>
     <string name="other">Other</string>
     <string name="privacy_policy">Privacy policy</string>
+    <string name="ok">OK</string>
+    <string name="reset_statistics_title">Reset statistics?</string>
     <string name="reset_statistics">Reset statistics</string>
     <string name="reset_statistics_confirm">Statistics for all difficulties will be permanently deleted.</string>
     <string name="reset_statistics_diff_confirm">Statistics for difficulty \"%s\" will be deleted.</string>

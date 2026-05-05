@@ -9,7 +9,7 @@ import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import ru.shprot.sudokumobdevkz.core.base.data.repository.GameSaveData
+import ru.shprot.sudokumobdevkz.core.base.domain.model.GameSaveData
 import ru.shprot.sudokumobdevkz.core.base.data.util.safeRunCatching
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SettingsRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SudokuRepository
@@ -78,10 +78,8 @@ class GameViewModel @Inject constructor(
             GameUIEvent.NewGameClicked ->
                 setState(currentState.copy(showNewGameDialog = true))
 
-            GameUIEvent.ShowPauseDialog -> {
-                onPause()
-                setState(currentState.copy(showPauseDialog = true))
-            }
+            GameUIEvent.ShowPauseDialog ->
+                handleShowPauseDialog()
 
             GameUIEvent.DismissPauseDialog ->
                 setState(currentState.copy(showPauseDialog = false))
@@ -92,10 +90,8 @@ class GameViewModel @Inject constructor(
             GameUIEvent.DismissNewGameDialog ->
                 setState(currentState.copy(showNewGameDialog = false))
 
-            GameUIEvent.ExitGame -> {
-                setState(currentState.copy(showPauseDialog = false))
-                setEffect(GameUIEffect.NavigateBack)
-            }
+            GameUIEvent.ExitGame ->
+                handleExitGame()
 
             GameUIEvent.SaveState ->
                 autoSave()
@@ -109,11 +105,24 @@ class GameViewModel @Inject constructor(
             is GameUIEvent.NumberClicked ->
                 onNumberClicked(event.number)
 
-            is GameUIEvent.StartNewGame -> {
-                setState(currentState.copy(showNewGameDialog = false))
-                setEffect(GameUIEffect.NavigateToNewGame(event.difficultyOrdinal))
-            }
+            is GameUIEvent.StartNewGame ->
+                handleStartNewGame(event.difficultyOrdinal)
         }
+
+    private fun handleShowPauseDialog() {
+        onPause()
+        setState(currentState.copy(showPauseDialog = true))
+    }
+
+    private fun handleExitGame() {
+        setState(currentState.copy(showPauseDialog = false))
+        setEffect(GameUIEffect.NavigateBack)
+    }
+
+    private fun handleStartNewGame(difficultyOrdinal: Int) {
+        setState(currentState.copy(showNewGameDialog = false))
+        setEffect(GameUIEffect.NavigateToNewGame(difficultyOrdinal))
+    }
 
     private suspend fun startNewGame() {
         val settings = settingsRepository.currentSettings

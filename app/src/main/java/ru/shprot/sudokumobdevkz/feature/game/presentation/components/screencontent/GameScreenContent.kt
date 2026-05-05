@@ -127,6 +127,34 @@ fun GameScreenContent(
             )
         }
     }
+
+    if (uiState.showPauseDialog) {
+        PauseDialog(
+            timer = uiState.timer,
+            errors = uiState.errors,
+            maxErrors = uiState.maxErrors,
+            onResume = {
+                onEvent(GameUIEvent.DismissPauseDialog)
+                onEvent(GameUIEvent.ResumeClicked)
+            },
+            onRestart = {
+                onEvent(GameUIEvent.ShowNewGameDialog)
+            },
+            onExit = {
+                onEvent(GameUIEvent.ExitGame)
+            },
+        )
+    }
+
+    if (uiState.showNewGameDialog) {
+        NewGameDialog(
+            initialDifficulty = uiState.difficulty.ordinal,
+            onStartGame = { newDifficulty ->
+                onEvent(GameUIEvent.StartNewGame(newDifficulty))
+            },
+            onDismiss = { onEvent(GameUIEvent.DismissNewGameDialog) },
+        )
+    }
 }
 
 @Composable

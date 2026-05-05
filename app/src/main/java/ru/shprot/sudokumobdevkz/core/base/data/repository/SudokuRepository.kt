@@ -18,7 +18,8 @@ import ru.shprot.sudokumobdevkz.core.base.data.database.entity.StatisticEntity
 import ru.shprot.sudokumobdevkz.core.base.data.remote.FirebaseApi
 import ru.shprot.sudokumobdevkz.core.base.data.util.safeRunCatching
 import ru.shprot.sudokumobdevkz.core.base.data.remote.FirebaseStatDto
-import ru.shprot.sudokumobdevkz.core.base.data.repository.GameSaveData.CellSave
+import ru.shprot.sudokumobdevkz.core.base.domain.model.GameSaveData
+import ru.shprot.sudokumobdevkz.core.base.domain.model.PercentileResult
 import ru.shprot.sudokumobdevkz.core.base.domain.model.Difficulty
 import javax.inject.Inject
 import javax.inject.Singleton

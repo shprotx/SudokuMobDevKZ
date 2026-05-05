@@ -17,7 +17,6 @@ import androidx.compose.material.icons.filled.Palette
 import androidx.compose.material.icons.filled.Save
 import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material.icons.filled.Security
-import androidx.compose.material.icons.filled.VolumeUp
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -25,6 +24,8 @@ import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonDefault
 import ru.shprot.sudokumobdevkz.core.uicommon.toolbar.ToolbarDefault
+import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.SettingsLockedDialog
+import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.SettingsResetDialog
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsCard
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsDivider
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsNavItem
@@ -32,18 +33,6 @@ import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.setting
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsToggleItem
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.contract.SettingsUIEvent
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.contract.SettingsUIState
-
-private fun sensitiveToggleHandler(
-    uiState: SettingsUIState,
-    onEvent: (SettingsUIEvent) -> Unit,
-    transform: (Boolean) -> SettingsUIEvent,
-): (Boolean) -> Unit = { value ->
-    if (uiState.hasActiveStandardGame) {
-        onEvent(SettingsUIEvent.ShowLockedDialog)
-    } else {
-        onEvent(transform(value))
-    }
-}
 
 @Composable
 fun SettingsScreenContent(
@@ -73,9 +62,7 @@ fun SettingsScreenContent(
                     icon = Icons.Filled.CheckCircle,
                     title = stringResource(R.string.check_errors),
                     checked = uiState.settings.checkErrors,
-                    onCheckedChange = sensitiveToggleHandler(uiState, onEvent) { v ->
-                        SettingsUIEvent.SettingChanged { copy(checkErrors = v) }
-                    },
+                    onCheckedChange = { onEvent(SettingsUIEvent.ToggleCheckErrors) },
                 )
 
                 SettingsDivider()
@@ -84,9 +71,7 @@ fun SettingsScreenContent(
                     icon = Icons.Filled.ContentCopy,
                     title = stringResource(R.string.highlight_duplicates),
                     checked = uiState.settings.highlightDuplicates,
-                    onCheckedChange = { v ->
-                        onEvent(SettingsUIEvent.SettingChanged { copy(highlightDuplicates = v) })
-                    },
+                    onCheckedChange = { onEvent(SettingsUIEvent.ToggleHighlightDuplicates) },
                 )
 
                 SettingsDivider()
@@ -95,9 +80,7 @@ fun SettingsScreenContent(
                     icon = Icons.Filled.Save,
                     title = stringResource(R.string.auto_save),
                     checked = uiState.settings.autoSave,
-                    onCheckedChange = { v ->
-                        onEvent(SettingsUIEvent.SettingChanged { copy(autoSave = v) })
-                    },
+                    onCheckedChange = { onEvent(SettingsUIEvent.ToggleAutoSave) },
                 )
 
                 SettingsDivider()
@@ -106,9 +89,7 @@ fun SettingsScreenContent(
                     icon = Icons.Filled.Schedule,
                     title = stringResource(R.string.show_timer),
                     checked = uiState.settings.showTimer,
-                    onCheckedChange = { v ->
-                        onEvent(SettingsUIEvent.SettingChanged { copy(showTimer = v) })
-                    },
+                    onCheckedChange = { onEvent(SettingsUIEvent.ToggleShowTimer) },
                 )
 
                 SettingsDivider()
@@ -118,9 +99,7 @@ fun SettingsScreenContent(
                     iconTint = AppTheme.colors.error,
                     title = stringResource(R.string.show_errors),
                     checked = uiState.settings.showErrors,
-                    onCheckedChange = { v ->
-                        onEvent(SettingsUIEvent.SettingChanged { copy(showErrors = v) })
-                    },
+                    onCheckedChange = { onEvent(SettingsUIEvent.ToggleShowErrors) },
                 )
 
                 SettingsDivider()
@@ -130,9 +109,7 @@ fun SettingsScreenContent(
                     iconTint = AppTheme.colors.warning,
                     title = stringResource(R.string.unlimited_errors),
                     checked = uiState.settings.unlimitedErrors,
-                    onCheckedChange = sensitiveToggleHandler(uiState, onEvent) { v ->
-                        SettingsUIEvent.SettingChanged { copy(unlimitedErrors = v) }
-                    },
+                    onCheckedChange = { onEvent(SettingsUIEvent.ToggleUnlimitedErrors) },
                 )
 
                 SettingsDivider()
@@ -142,9 +119,7 @@ fun SettingsScreenContent(
                     iconTint = AppTheme.colors.warning,
                     title = stringResource(R.string.unlimited_hints),
                     checked = uiState.settings.unlimitedHints,
-                    onCheckedChange = sensitiveToggleHandler(uiState, onEvent) { v ->
-                        SettingsUIEvent.SettingChanged { copy(unlimitedHints = v) }
-                    },
+                    onCheckedChange = { onEvent(SettingsUIEvent.ToggleUnlimitedHints) },
                 )
 
                 SettingsDivider()
@@ -154,9 +129,7 @@ fun SettingsScreenContent(
                     title = stringResource(R.string.track_statistics),
                     checked = uiState.settings.trackStatistics && uiState.settings.isStandardMode,
                     enabled = uiState.settings.isStandardMode,
-                    onCheckedChange = { v ->
-                        onEvent(SettingsUIEvent.SettingChanged { copy(trackStatistics = v) })
-                    },
+                    onCheckedChange = { onEvent(SettingsUIEvent.ToggleTrackStatistics) },
                 )
             }
 
@@ -167,25 +140,9 @@ fun SettingsScreenContent(
                     icon = Icons.Filled.Palette,
                     title = stringResource(R.string.dark_theme_label),
                     checked = uiState.settings.isDarkTheme,
-                    onCheckedChange = { v ->
-                        onEvent(SettingsUIEvent.SettingChanged { copy(isDarkTheme = v) })
-                    },
+                    onCheckedChange = { onEvent(SettingsUIEvent.ToggleDarkTheme) },
                 )
             }
-
-            // TODO: Sound section — uncomment when sounds are implemented
-            // SettingsSectionHeader(title = stringResource(R.string.sound))
-            //
-            // SettingsCard {
-            //     SettingsToggleItem(
-            //         icon = Icons.Filled.VolumeUp,
-            //         title = stringResource(R.string.sounds),
-            //         checked = uiState.settings.soundsEnabled,
-            //         onCheckedChange = { v ->
-            //             onEvent(SettingsUIEvent.SettingChanged { copy(soundsEnabled = v) })
-            //         },
-            //     )
-            // }
 
             SettingsSectionHeader(title = stringResource(R.string.other))
 
@@ -209,5 +166,18 @@ fun SettingsScreenContent(
                 onClick = { onEvent(SettingsUIEvent.ShowResetDialog) },
             )
         }
+    }
+
+    if (uiState.showResetDialog) {
+        SettingsResetDialog(
+            onConfirm = { onEvent(SettingsUIEvent.ResetConfirmed) },
+            onDismiss = { onEvent(SettingsUIEvent.DismissResetDialog) },
+        )
+    }
+
+    if (uiState.showLockedSettingDialog) {
+        SettingsLockedDialog(
+            onDismiss = { onEvent(SettingsUIEvent.DismissLockedDialog) },
+        )
     }
 }

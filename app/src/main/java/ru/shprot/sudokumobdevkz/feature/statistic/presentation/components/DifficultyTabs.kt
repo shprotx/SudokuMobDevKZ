@@ -10,22 +10,25 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import ru.shprot.sudokumobdevkz.R
+import ru.shprot.sudokumobdevkz.core.base.domain.model.Difficulty
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 @Composable
 fun DifficultyTabs(
     modifier: Modifier = Modifier,
-    tabs: List<String>,
     selectedTab: Int,
     onTabSelected: (Int) -> Unit,
 ) {
+
     TabRow(
-        selectedTabIndex = selectedTab,
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = AppTheme.paddings.large),
+        selectedTabIndex = selectedTab,
         containerColor = Color.Transparent,
         contentColor = AppTheme.colors.primary,
         indicator = { tabPositions ->
@@ -37,18 +40,29 @@ fun DifficultyTabs(
         },
         divider = {},
     ) {
-        tabs.forEachIndexed { index, title ->
+        Difficulty.entries.forEachIndexed { index, diff ->
+            val label = stringResource(
+                when (diff) {
+                    Difficulty.EASY -> R.string.difficulty_easy
+                    Difficulty.MEDIUM -> R.string.difficulty_middle
+                    Difficulty.HARD -> R.string.difficulty_expert
+                }
+            )
             Tab(
                 selected = selectedTab == index,
                 onClick = { onTabSelected(index) },
                 text = {
                     Text(
-                        text = title,
+                        text = label,
                         style = AppTheme.typography.body2,
-                        fontWeight = if (selectedTab == index) FontWeight.SemiBold
-                        else FontWeight.Normal,
-                        color = if (selectedTab == index) AppTheme.colors.primary
-                        else AppTheme.colors.textSecondary,
+                        fontWeight = when (selectedTab == index) {
+                            true -> FontWeight.SemiBold
+                            false -> FontWeight.Normal
+                        },
+                        color = when (selectedTab == index) {
+                            true -> AppTheme.colors.primary
+                            false -> AppTheme.colors.textSecondary
+                        },
                         maxLines = 1,
                     )
                 },

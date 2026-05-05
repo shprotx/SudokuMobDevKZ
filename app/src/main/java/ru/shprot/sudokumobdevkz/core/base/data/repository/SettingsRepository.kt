@@ -1,6 +1,7 @@
 package ru.shprot.sudokumobdevkz.core.base.data.repository
 
 import android.content.Context
+import ru.shprot.sudokumobdevkz.core.base.domain.model.AppSettings
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.edit

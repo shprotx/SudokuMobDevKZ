@@ -11,8 +11,6 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import ru.shprot.sudokumobdevkz.feature.game.presentation.components.screencontent.GameScreenContent
-import ru.shprot.sudokumobdevkz.feature.game.presentation.components.NewGameDialog
-import ru.shprot.sudokumobdevkz.feature.game.presentation.components.PauseDialog
 import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameUIEffect
 import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameUIEvent
 import ru.shprot.sudokumobdevkz.feature.game.presentation.viewmodel.GameViewModel
@@ -65,34 +63,6 @@ fun GameScreen(
                     }
             }
         }
-    }
-
-    if (state.showPauseDialog) {
-        PauseDialog(
-            timer = state.timer,
-            errors = state.errors,
-            maxErrors = state.maxErrors,
-            onResume = {
-                viewModel.setEvent(GameUIEvent.DismissPauseDialog)
-                viewModel.setEvent(GameUIEvent.ResumeClicked)
-            },
-            onRestart = {
-                viewModel.setEvent(GameUIEvent.ShowNewGameDialog)
-            },
-            onExit = {
-                viewModel.setEvent(GameUIEvent.ExitGame)
-            },
-        )
-    }
-
-    if (state.showNewGameDialog) {
-        NewGameDialog(
-            initialDifficulty = state.difficulty.ordinal,
-            onStartGame = { newDifficulty ->
-                viewModel.setEvent(GameUIEvent.StartNewGame(newDifficulty))
-            },
-            onDismiss = { viewModel.setEvent(GameUIEvent.DismissNewGameDialog) },
-        )
     }
 
     GameScreenContent(

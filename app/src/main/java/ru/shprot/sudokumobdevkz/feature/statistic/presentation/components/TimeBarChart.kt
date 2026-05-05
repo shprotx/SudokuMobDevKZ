@@ -184,13 +184,13 @@ internal fun TimeBarChart(
     }
 }
 
-private fun formatTime(seconds: Int): String {
+internal fun formatTime(seconds: Int): String {
     val m = seconds / 60
     val s = seconds % 60
     return "%d:%02d".format(m, s)
 }
 
-private fun generateTimeLabels(maxSeconds: Int): List<String> {
+internal fun generateTimeLabels(maxSeconds: Int): List<String> {
     val step = when {
         maxSeconds <= 120 -> 30
         maxSeconds <= 300 -> 60

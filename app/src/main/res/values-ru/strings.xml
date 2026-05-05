@@ -150,6 +150,8 @@
     <string name="sounds">Звуки</string>
     <string name="other">Другое</string>
     <string name="privacy_policy">Политика конфиденциальности</string>
+    <string name="ok">OK</string>
+    <string name="reset_statistics_title">Сбросить статистику?</string>
     <string name="reset_statistics">Сбросить статистику</string>
     <string name="reset_statistics_confirm">Статистика для всех сложностей будет удалена безвозвратно.</string>
     <string name="reset_statistics_diff_confirm">Статистика для сложности \"%s\" будет удалена.</string>
