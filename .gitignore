@@ -8,3 +8,7 @@ local.properties
 /captures
 .externalNativeBuild
 .cxx
+
+docs/specs/
+docs/tmp/
+reports/
