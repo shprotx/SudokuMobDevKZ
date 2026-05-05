@@ -6,54 +6,70 @@
 -keepattributes SourceFile,LineNumberTable
 -renamesourcefileattribute SourceFile
 
-# --- Keep annotations used by Room, RxJava, etc. ---
+# --- Keep annotations used by Room, Hilt, Serialization ---
 -keepattributes *Annotation*,Signature,InnerClasses,EnclosingMethod
 
 # ============================================================
 # Room Database
 # ============================================================
 # Keep Entity classes (fields are mapped to DB columns by name)
--keep class ru.shprot.sudokumobdevkz.model.game.Square { *; }
--keep class ru.shprot.sudokumobdevkz.model.game.GameState { *; }
--keep class ru.shprot.sudokumobdevkz.model.game.Statistic { *; }
+-keep class ru.shprot.sudokumobdevkz.core.base.data.database.entity.** { *; }
 
 # Keep DAOs (Room generates implementations at compile time)
--keep interface ru.shprot.sudokumobdevkz.model.database.** { *; }
-
-# Keep TypeConverters
--keep class ru.shprot.sudokumobdevkz.model.database.DraftsVisibilityConverter { *; }
+-keep interface ru.shprot.sudokumobdevkz.core.base.data.database.dao.** { *; }
 
 # Keep Room database class
--keep class ru.shprot.sudokumobdevkz.model.database.SudokuDatabase { *; }
+-keep class ru.shprot.sudokumobdevkz.core.base.data.database.SudokuComposeDatabase { *; }
 
 # ============================================================
-# Parcelable
+# KotlinX Serialization
 # ============================================================
--keepclassmembers class * implements android.os.Parcelable {
-    public static final ** CREATOR;
+-keepattributes RuntimeVisibleAnnotations,AnnotationDefault
+-keepclassmembers class kotlinx.serialization.json.** { *** Companion; }
+-keepclasseswithmembers class kotlinx.serialization.json.** {
+    kotlinx.serialization.KSerializer serializer(...);
+}
+
+# Keep @Serializable classes
+-keep,includedescriptorclasses class ru.shprot.sudokumobdevkz.core.base.data.remote.**$$serializer { *; }
+-keepclassmembers class ru.shprot.sudokumobdevkz.core.base.data.remote.** {
+    *** Companion;
+    *** serializer(...);
+}
+-keep,includedescriptorclasses class ru.shprot.sudokumobdevkz.core.base.data.repository.**$$serializer { *; }
+-keepclassmembers class ru.shprot.sudokumobdevkz.core.base.data.repository.** {
+    *** Companion;
+    *** serializer(...);
 }
 
 # ============================================================
-# RxJava 2
+# Retrofit
 # ============================================================
--dontwarn io.reactivex.**
--keep class io.reactivex.** { *; }
--keepclassmembers class io.reactivex.** { *; }
+-keepattributes Exceptions
+-keepclassmembers,allowshrinking,allowobfuscation interface * {
+    @retrofit2.http.* <methods>;
+}
+-dontwarn retrofit2.**
+-keep interface ru.shprot.sudokumobdevkz.core.base.data.remote.FirebaseApi { *; }
 
 # ============================================================
-# Neumorphism (JitPack library, reflection-based custom views)
+# OkHttp
 # ============================================================
--keep class soup.neumorphism.** { *; }
+-dontwarn okhttp3.**
+-dontwarn okio.**
+
+# ============================================================
+# Navigation Compose (type-safe routes)
+# ============================================================
+-keep class ru.shprot.sudokumobdevkz.feature.**.navigation.** { *; }
+-keep class ru.shprot.sudokumobdevkz.core.base.presentation.navigation.** { *; }
+
+# ============================================================
+# Hilt
+# ============================================================
+-dontwarn dagger.hilt.**
 
 # ============================================================
 # Google Play In-App Review
 # ============================================================
 -keep class com.google.android.play.core.review.** { *; }
-
-# ============================================================
-# General Android
-# ============================================================
-# Keep custom Views (inflated from XML by name)
--keep class ru.shprot.sudokumobdevkz.model.game.utils.SquareCardView { *; }
--keep class ru.shprot.sudokumobdevkz.model.game.utils.SquareCardLayout { *; }
--keep class ru.shprot.sudokumobdevkz.model.game.utils.MyCardLayout { *; }

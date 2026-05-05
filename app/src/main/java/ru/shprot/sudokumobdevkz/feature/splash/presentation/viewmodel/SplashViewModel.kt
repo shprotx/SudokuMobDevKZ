@@ -1,0 +1,52 @@
+package ru.shprot.sudokumobdevkz.feature.splash.presentation.viewmodel
+
+import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import ru.shprot.sudokumobdevkz.core.base.data.repository.SudokuRepository
+import ru.shprot.sudokumobdevkz.core.base.presentation.viewmodel.BaseViewModel
+import ru.shprot.sudokumobdevkz.feature.splash.domain.model.GridPoint
+import ru.shprot.sudokumobdevkz.feature.splash.presentation.contract.SplashUIEffect
+import ru.shprot.sudokumobdevkz.feature.splash.presentation.contract.SplashUIEvent
+import ru.shprot.sudokumobdevkz.feature.splash.presentation.contract.SplashUIState
+import ru.shprot.sudokumobdevkz.feature.splash.presentation.contract.SplashUIState.Companion.INITIAL_FILLED
+import javax.inject.Inject
+
+@HiltViewModel
+class SplashViewModel @Inject constructor(
+    private val repository: SudokuRepository,
+) : BaseViewModel<SplashUIEvent, SplashUIState, SplashUIEffect>(SplashUIState()) {
+
+    init {
+        syncStatistic()
+        startAnimation()
+    }
+
+    override fun handleUIEvent(event: SplashUIEvent) = Unit
+
+    private fun startAnimation() {
+        viewModelScope.launch {
+            val emptyCells = (0 until 9).flatMap { row ->
+                (0 until 9).map { col -> GridPoint(row, col) }
+            }.filter { it !in INITIAL_FILLED }.shuffled()
+
+            delay(400)
+
+            for (index in emptyCells.indices) {
+                setState(currentState.copy(
+                    visibleCells = INITIAL_FILLED + emptyCells.take(index + 1).toSet(),
+                ))
+                delay(25)
+            }
+
+            delay(300)
+
+            setEffect(SplashUIEffect.NavigateToMenu)
+        }
+    }
+
+    private fun syncStatistic() {
+        viewModelScope.launch { repository.syncStatisticsFromFirebase() }
+    }
+}

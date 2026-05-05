@@ -100,6 +100,91 @@
 
     <string name="how_desc_three" translatable="false">Use notes to mark possible candidates in a cell. Toggle note mode with the button below the grid.\n\nNotes disappear automatically when you place a final number.</string>
 
-
+    <!-- Compose screens -->
+    <string name="subtitle_slogan">Train your brain. Relax. Enjoy \uD83C\uDF3F</string>
+    <string name="daily_challenge">Daily challenge</string>
+    <string name="daily_challenge_desc">New puzzle every day</string>
+    <string name="progress">Progress</string>
+    <string name="new_game_desc">Start a new puzzle</string>
+    <string name="select_difficulty">Select difficulty</string>
+    <string name="for_beginners">For beginners</string>
+    <string name="for_experienced">For experienced</string>
+    <string name="for_experts">For experts</string>
+    <string name="achievements">Achievements</string>
+    <string name="achievements_desc">Unlock new rewards</string>
+    <string name="statistic_desc">See your achievements</string>
+    <string name="how_to_play_desc">Rules and tips</string>
+    <string name="settings_desc">Theme, sound and more</string>
+    <string name="overview">Overview</string>
+    <string name="best_time_label">Best time</string>
+    <string name="average_time_label">Average time</string>
+    <string name="win_percent_label">Win percent</string>
+    <string name="wins_no_errors_label">Wins without errors</string>
+    <string name="game_statistics">Game statistics</string>
+    <string name="time_dynamics">Time dynamics</string>
+    <string name="no_data">No data</string>
+    <string name="errors_format">Errors %1$d/%2$d</string>
+    <string name="generating">Generating…</string>
+    <string name="continue_playing">Continue playing</string>
+    <string name="resume">Resume</string>
+    <string name="restart">Restart</string>
+    <string name="exit_to_menu">Exit to menu</string>
+    <string name="start">Start</string>
+    <string name="play_again">Play again</string>
+    <string name="try_again">Try again</string>
+    <string name="win_subtitle">Great work! Puzzle solved.</string>
+    <string name="lose_subtitle">Don\'t give up — try again!</string>
+    <string name="time_label">Time</string>
+    <string name="errors_label">Errors</string>
+    <string name="difficulty_label">Difficulty</string>
+    <string name="learn_in_3_steps">Master sudoku in 3 steps</string>
+    <string name="simple_rules">Simple rules — endless combinations</string>
+    <string name="step_n">Step %d</string>
+    <string name="useful_tips">Useful tips</string>
+    <string name="tip_start_simple">Start simple</string>
+    <string name="tip_start_simple_desc">Look for rows and columns with 1–2 missing numbers first.</string>
+    <string name="tip_elimination">Elimination method</string>
+    <string name="tip_elimination_desc">If a number is already in a row and column — exclude it from intersection candidates.</string>
+    <string name="tip_no_guessing">Don\'t guess</string>
+    <string name="tip_no_guessing_desc">Sudoku can always be solved logically. If you need to guess — look for another cell.</string>
+    <string name="tip_speed">Train speed</string>
+    <string name="tip_speed_desc">With experience you\'ll solve puzzles faster. Track time in statistics.</string>
+    <string name="got_it_play">Got it, play!</string>
+    <string name="game_label">Game</string>
+    <string name="dark_theme_label">Dark theme</string>
+    <string name="data_collection">Data collection</string>
+    <string name="data_usage">Data usage</string>
+    <string name="data_storage">Data storage</string>
+    <string name="user_rights">User rights</string>
+    <string name="policy_changes">Policy changes</string>
+    <string name="check_errors">Check errors</string>
+    <string name="highlight_duplicates">Highlight duplicates</string>
+    <string name="auto_save">Auto save</string>
+    <string name="show_timer">Show timer</string>
+    <string name="show_errors">Show errors</string>
+    <string name="unlimited_errors">Unlimited errors</string>
+    <string name="track_statistics">Track statistics</string>
+    <string name="appearance">Appearance</string>
+    <string name="sound">Sound</string>
+    <string name="sounds">Sounds</string>
+    <string name="other">Other</string>
+    <string name="privacy_policy">Privacy policy</string>
+    <string name="ok">OK</string>
+    <string name="reset_statistics_title">Reset statistics?</string>
+    <string name="reset_statistics">Reset statistics</string>
+    <string name="reset_statistics_confirm">Statistics for all difficulties will be permanently deleted.</string>
+    <string name="reset_statistics_diff_confirm">Statistics for difficulty \"%s\" will be deleted.</string>
+    <string name="reset">Reset</string>
+    <string name="privacy_data_collection">The app collects a minimal set of data needed for game statistics: time, errors, and game results. Data is linked to an anonymous device ID and contains no personal information.</string>
+    <string name="privacy_data_usage">Collected data is used exclusively for:\n• Displaying your game statistics\n• Calculating your percentile among other players\nData is not shared with third parties or used for advertising.</string>
+    <string name="privacy_data_storage">Game statistics are stored locally and synced with Firebase Realtime Database for the player comparison feature. You can delete your data at any time via Settings → Reset statistics.</string>
+    <string name="privacy_user_rights">You have the right to:\n• Delete all your data via app settings\n• Disable statistics sync\n• Request server data deletion by contacting the developer</string>
+    <string name="privacy_changes">We may update this policy. The current version is always available in the app.</string>
+    <string name="privacy_last_updated">Last updated: May 2026</string>
+    <string name="casual_games">Casual games</string>
+    <string name="settings_locked_during_game">Cannot change while a standard game is in progress</string>
+    <string name="on_label" translatable="false">ON</string>
+    <string name="off_label" translatable="false">OFF</string>
+    <string name="version_format" translatable="false">v%s</string>
 
 </resources>
