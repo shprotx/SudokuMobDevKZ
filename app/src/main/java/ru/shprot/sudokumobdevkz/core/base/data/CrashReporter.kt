@@ -14,12 +14,10 @@ import kotlinx.serialization.json.Json
 import ru.shprot.sudokumobdevkz.BuildConfig
 import ru.shprot.sudokumobdevkz.core.base.data.remote.CrashDto
 import ru.shprot.sudokumobdevkz.core.base.data.remote.FirebaseApi
+import ru.shprot.sudokumobdevkz.core.base.data.util.DateTimeUtils
 import ru.shprot.sudokumobdevkz.core.base.data.util.safeRunCatching
 import java.io.PrintWriter
 import java.io.StringWriter
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 object CrashReporter {
 
@@ -49,7 +47,7 @@ object CrashReporter {
             val pInfo = context.packageManager.getPackageInfo(context.packageName, 0)
 
             val crash = CrashDto(
-                timestamp = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US).format(Date()),
+                timestamp = DateTimeUtils.formatCrashTimestamp(),
                 versionName = pInfo.versionName ?: "unknown",
                 versionCode = pInfo.longVersionCode.toInt(),
                 device = "${Build.MANUFACTURER} ${Build.MODEL}",
@@ -78,7 +76,7 @@ object CrashReporter {
                 val deviceId = Settings.Secure.getString(
                     context.contentResolver, Settings.Secure.ANDROID_ID,
                 )
-                val timestamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(Date())
+                val timestamp = DateTimeUtils.formatCrashFileName()
 
                 firebaseApi.uploadCrash(deviceId, timestamp, crash)
                 Log.i(TAG, "Crash report sent")

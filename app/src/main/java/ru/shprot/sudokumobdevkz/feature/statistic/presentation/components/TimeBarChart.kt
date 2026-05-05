@@ -25,10 +25,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.GameHistoryEntity
+import ru.shprot.sudokumobdevkz.core.base.data.util.DateTimeUtils
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 @Composable
 internal fun TimeBarChart(
@@ -38,8 +36,7 @@ internal fun TimeBarChart(
     val maxTime = games.maxOf { it.timeSeconds }.coerceAtLeast(60)
     val chartHeight = 160.dp
     val barWidth = 36.dp
-    val dateFormat = SimpleDateFormat("dd.MM", Locale.getDefault())
-    val timeLabels = generateTimeLabels(maxTime)
+    val timeLabels = DateTimeUtils.generateTimeLabels(maxTime)
     val listState = rememberLazyListState()
 
     LaunchedEffect(games.size) {
@@ -95,7 +92,7 @@ internal fun TimeBarChart(
                             horizontalAlignment = Alignment.CenterHorizontally,
                         ) {
                             Text(
-                                text = formatTime(game.timeSeconds),
+                                text = DateTimeUtils.formatShortTime(game.timeSeconds),
                                 style = AppTheme.typography.caption2,
                                 fontWeight = FontWeight.SemiBold,
                                 color = AppTheme.colors.textSecondary,
@@ -126,7 +123,7 @@ internal fun TimeBarChart(
             items(games) { game ->
                 Text(
                     modifier = Modifier.width(barWidth),
-                    text = dateFormat.format(Date(game.timestamp)),
+                    text = DateTimeUtils.formatShortDate(game.timestamp),
                     style = AppTheme.typography.caption2,
                     color = AppTheme.colors.textSecondary,
                     textAlign = TextAlign.Center,
@@ -134,28 +131,4 @@ internal fun TimeBarChart(
             }
         }
     }
-}
-
-internal fun formatTime(seconds: Int): String {
-    val m = seconds / 60
-    val s = seconds % 60
-    return "%d:%02d".format(m, s)
-}
-
-internal fun generateTimeLabels(maxSeconds: Int): List<String> {
-    val step = when {
-        maxSeconds <= 120 -> 30
-        maxSeconds <= 300 -> 60
-        maxSeconds <= 600 -> 120
-        maxSeconds <= 1800 -> 300
-        else -> 600
-    }
-    val labels = mutableListOf("0:00")
-    var current = step
-    while (current <= maxSeconds) {
-        labels.add(formatTime(current))
-        current += step
-    }
-    if (labels.size < 3) labels.add(formatTime(maxSeconds))
-    return labels
 }

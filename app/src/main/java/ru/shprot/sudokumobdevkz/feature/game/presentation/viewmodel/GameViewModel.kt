@@ -10,6 +10,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.shprot.sudokumobdevkz.core.base.domain.model.GameSaveData
+import ru.shprot.sudokumobdevkz.core.base.data.util.DateTimeUtils
 import ru.shprot.sudokumobdevkz.core.base.data.util.safeRunCatching
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SettingsRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SudokuRepository
@@ -183,7 +184,7 @@ class GameViewModel @Inject constructor(
                 solution = data.solution,
                 difficulty = restoredDifficulty,
                 timeSeconds = data.timeSeconds,
-                timer = "%02d:%02d".format(data.timeSeconds / 60, data.timeSeconds % 60),
+                timer = DateTimeUtils.formatTimer(data.timeSeconds),
                 errors = data.errors,
                 maxErrors = data.maxErrors,
                 hintsRemaining = data.hintsRemaining,
@@ -417,7 +418,7 @@ class GameViewModel @Inject constructor(
                     setState(
                         currentState.copy(
                             timeSeconds = newTime,
-                            timer = "%02d:%02d".format(newTime / 60, newTime % 60),
+                            timer = DateTimeUtils.formatTimer(newTime),
                         )
                     )
                 }

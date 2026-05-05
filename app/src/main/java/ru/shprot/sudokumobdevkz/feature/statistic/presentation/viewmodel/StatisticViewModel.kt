@@ -12,6 +12,7 @@ import ru.shprot.sudokumobdevkz.feature.statistic.presentation.contract.Statisti
 import ru.shprot.sudokumobdevkz.feature.statistic.presentation.contract.StatisticUIEvent
 import ru.shprot.sudokumobdevkz.feature.statistic.presentation.contract.StatisticUIState
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SudokuRepository
+import ru.shprot.sudokumobdevkz.core.base.data.util.DateTimeUtils
 import javax.inject.Inject
 
 @HiltViewModel
@@ -68,8 +69,8 @@ class StatisticViewModel @Inject constructor(
             }.collectLatest { (stat, history) ->
                 setState(
                     currentState.copy(
-                        bestTime = stat?.bestTime?.toTimeString() ?: "--:--",
-                        averageTime = stat?.averageTime?.toTimeString() ?: "--:--",
+                        bestTime = stat?.bestTime?.let { if (it <= 0) "--:--" else DateTimeUtils.formatTimer(it) } ?: "--:--",
+                        averageTime = stat?.averageTime?.let { if (it <= 0) "--:--" else DateTimeUtils.formatTimer(it) } ?: "--:--",
                         percentOfWins = "${stat?.percentOfWins ?: 0}%",
                         winsWithoutErrors = "${stat?.winsWithoutErrors ?: 0}",
                         gamesStarted = "${stat?.gamesStarted ?: 0}",
@@ -96,10 +97,4 @@ class StatisticViewModel @Inject constructor(
         }
     }
 
-    private fun Int.toTimeString(): String {
-        if (this <= 0) return "--:--"
-        val m = this / 60
-        val s = this % 60
-        return "%02d:%02d".format(m, s)
-    }
 }
