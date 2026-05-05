@@ -71,7 +71,7 @@ fun GameStatusBar(
 
             Text(
                 modifier = Modifier.padding(start = AppTheme.paddings.small),
-                text = "$lives",
+                text = lives.toString(),
                 style = AppTheme.typography.body2,
                 fontWeight = FontWeight.SemiBold,
                 color = AppTheme.colors.text,

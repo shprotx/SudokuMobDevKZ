@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.base.domain.model.Difficulty
+import ru.shprot.sudokumobdevkz.core.base.domain.model.dotColor
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonDefault
 import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonText
@@ -41,12 +42,6 @@ fun NewGameDialog(
     onDismiss: () -> Unit,
 ) {
     var selectedDifficulty by rememberSaveable { mutableIntStateOf(initialDifficulty) }
-
-    val dotColors = listOf(
-        AppTheme.colors.primary,
-        Color(0xFFFF9500),
-        Color(0xFFFF3B30),
-    )
 
     Dialog(onDismissRequest = onDismiss) {
 
@@ -98,19 +93,13 @@ fun NewGameDialog(
                         .padding(top = AppTheme.paddings.extraLarge),
                     horizontalArrangement = Arrangement.spacedBy(AppTheme.paddings.default),
                 ) {
-                    val labels = listOf(
-                        stringResource(R.string.difficulty_easy),
-                        stringResource(R.string.difficulty_middle),
-                        stringResource(R.string.difficulty_expert),
-                    )
-
                     Difficulty.entries.forEachIndexed { index, diff ->
                         DifficultyOption(
                             modifier = Modifier.weight(1f),
-                            label = labels[index],
+                            label = stringResource(diff.titleRes),
                             emoji = diff.emoji,
-                            dotCount = index + 1,
-                            dotColor = dotColors[index],
+                            dotCount = diff.dotCount,
+                            dotColor = diff.dotColor(),
                             isSelected = selectedDifficulty == index,
                             onClick = { selectedDifficulty = index },
                         )
