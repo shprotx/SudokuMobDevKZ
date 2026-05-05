@@ -33,7 +33,7 @@ fun ToolbarDefault(
             .statusBarsPadding()
             .fillMaxWidth()
             .padding(
-                horizontal = AppTheme.paddings.small,
+                horizontal = AppTheme.paddings.large,
                 vertical = AppTheme.paddings.medium,
             ),
     ) {
