@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.filled.LocalFireDepartment
 import androidx.compose.material3.Card
@@ -23,13 +24,19 @@ import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 @Composable
-fun DailyChallengeCard(modifier: Modifier) {
+fun DailyChallengeCard(
+    modifier: Modifier,
+    streak: Int,
+    isCompleted: Boolean,
+    onClick: () -> Unit,
+) {
     Card(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(AppTheme.sizes.cornerRadiusLarge),
         colors = CardDefaults.cardColors(
             containerColor = AppTheme.colors.backgroundCardAccent,
         ),
+        onClick = onClick,
     ) {
         Row(
             modifier = Modifier
@@ -38,10 +45,10 @@ fun DailyChallengeCard(modifier: Modifier) {
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Icon(
+                modifier = Modifier.size(AppTheme.sizes.iconLarge),
                 imageVector = Icons.Filled.LocalFireDepartment,
                 contentDescription = null,
                 tint = Color(0xFFFF9500),
-                modifier = Modifier.size(AppTheme.sizes.iconLarge),
             )
 
             Column(
@@ -63,21 +70,25 @@ fun DailyChallengeCard(modifier: Modifier) {
                 )
             }
 
-            Text(
-                text = stringResource(R.string.progress),
-                style = AppTheme.typography.caption1,
-                color = AppTheme.colors.textSecondary,
-            )
-
-            Text(
-                modifier = Modifier.padding(start = AppTheme.paddings.small),
-                text = "0/3",
-                style = AppTheme.typography.body2,
-                fontWeight = FontWeight.Bold,
-                color = AppTheme.colors.primary,
-            )
+            if (isCompleted) {
+                Icon(
+                    modifier = Modifier.size(AppTheme.sizes.iconMedium),
+                    imageVector = Icons.Filled.CheckCircle,
+                    contentDescription = null,
+                    tint = AppTheme.colors.primary,
+                )
+            } else if (streak > 0) {
+                Text(
+                    modifier = Modifier.padding(end = AppTheme.paddings.small),
+                    text = streak.toString(),
+                    style = AppTheme.typography.h4,
+                    fontWeight = FontWeight.Bold,
+                    color = AppTheme.colors.primary,
+                )
+            }
 
             Icon(
+                modifier = Modifier,
                 imageVector = Icons.Filled.ChevronRight,
                 contentDescription = null,
                 tint = AppTheme.colors.textSecondary,

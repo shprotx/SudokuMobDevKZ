@@ -18,4 +18,6 @@ data class StatisticUIState(
     val totalPlayers: Int = 0,
     val casualGamesPlayed: String = "0",
     val showResetDialog: Boolean = false,
+    val dailyCurrentStreak: Int = 0,
+    val dailyBestStreak: Int = 0,
 ) : UIState

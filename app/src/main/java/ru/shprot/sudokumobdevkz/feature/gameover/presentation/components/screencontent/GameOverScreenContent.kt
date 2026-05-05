@@ -60,6 +60,22 @@ fun GameOverScreenContent(
                 isWin = uiState.isWin,
             )
 
+            if (uiState.isDailyChallenge && uiState.isWin) {
+                StreakBanner(
+                    modifier = Modifier.padding(top = AppTheme.paddings.large),
+                    title = stringResource(R.string.daily_streak_label),
+                    subtitle = stringResource(R.string.streak_days, uiState.newStreak),
+                )
+            }
+
+            if (uiState.isDailyChallenge && !uiState.isWin) {
+                StreakBanner(
+                    modifier = Modifier.padding(top = AppTheme.paddings.large),
+                    title = stringResource(R.string.daily_try_again),
+                    subtitle = stringResource(R.string.daily_try_tomorrow),
+                )
+            }
+
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -100,19 +116,22 @@ fun GameOverScreenContent(
 
             ButtonDefault(
                 modifier = Modifier,
-                text = when (uiState.isWin) {
-                    true -> stringResource(R.string.play_again)
-                    false -> stringResource(R.string.try_again)
+                text = when {
+                    uiState.isDailyChallenge -> stringResource(R.string.go_to_main_page)
+                    uiState.isWin -> stringResource(R.string.play_again)
+                    else -> stringResource(R.string.try_again)
                 },
                 onClick = { onEvent(GameOverUIEvent.PlayAgainClicked) },
             )
 
-            ButtonOutlined(
-                modifier = Modifier
-                    .padding(top = AppTheme.paddings.default),
-                text = stringResource(R.string.go_to_main_page),
-                onClick = { onEvent(GameOverUIEvent.BackToMenuClicked) },
-            )
+            if (!uiState.isDailyChallenge) {
+                ButtonOutlined(
+                    modifier = Modifier
+                        .padding(top = AppTheme.paddings.default),
+                    text = stringResource(R.string.go_to_main_page),
+                    onClick = { onEvent(GameOverUIEvent.BackToMenuClicked) },
+                )
+            }
         }
     }
 }

@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">Sudoku</string>
-    <string name="mistakes_start">Mistakes 0/3</string>
-    <string name="mistakes">Mistakes </string>
     <string name="difficulty_easy">Easy</string>
     <string name="difficulty_middle">Middle</string>
     <string name="difficulty_expert">Expert</string>
@@ -12,91 +10,28 @@
     <string name="how_to_play">How To Play</string>
     <string name="statistic">Statistic</string>
     <string name="pause">PAUSE</string>
-    <string name="continue_game">Continue Game</string>
-    <string name="hint_used">Hint used</string>
-    <string name="hins_over">Hints are over :(</string>
-    <string name="win">You won :)</string>
-    <string name="lose">Game over</string>
 
-
-    <!-- untranslatable -->
-    <string name="mis_count" translatable="false">/3</string>
-    <string name="timer" translatable="false">00:00</string>
-    <string name="percent" translatable="false">%</string>
-    <string name="zero" translatable="false">0</string>
-    <string name="one" translatable="false">1</string>
-    <string name="two" translatable="false">2</string>
-    <string name="tree" translatable="false">3</string>
-    <string name="four" translatable="false">4</string>
-    <string name="five" translatable="false">5</string>
-    <string name="six" translatable="false">6</string>
-    <string name="seven" translatable="false">7</string>
-    <string name="eight" translatable="false">8</string>
-    <string name="nine" translatable="false">9</string>
-
-
-    <string name="unknown">Unknown</string>
     <string name="game_over">Game over</string>
-    <string name="main_page">Main page</string>
-    <string name="game">Game</string>
-    <string name="average_time">Average time:</string>
-    <string name="best_time">Best time:</string>
     <string name="game_started">Game started:</string>
     <string name="game_won">Game won:</string>
-    <string name="wins_without_mistakes">Wins without mistakes:</string>
     <string name="best_wins_line">Best wins line:</string>
     <string name="current_wins_line">Current wins line:</string>
     <string name="percent_of_wins">Percent of wins:</string>
-    <string name="clear_statistic">Clear statistic</string>
     <string name="go_to_main_page">Go to main page</string>
-    <string name="full_statistic">Full statistic</string>
     <string name="you_won">You won!</string>
-    <string name="your_time">Time:</string>
     <string name="faster_than">You\'re faster than %d%% of players</string>
     <string name="go_back">Go back</string>
-    <string name="app_language">App language:</string>
-    <string name="support_the_developer">Support the developer</string>
-    <string name="change_theme">Change theme</string>
-    <string name="rate_app">Rate app</string>
-    <string name="remove_ads">Remove ads</string>
-    <string name="support_ololo">Support, ololo</string>
-    <string name="rate_ololo">rate ololo</string>
-    <string name="skip">Skip</string>
-    <string name="finish">Finish</string>
     <string name="no_repetitions">No repetitions</string>
     <string name="always_unique">Always unique solution</string>
     <string name="use_notes">Use notes</string>
-    <string name="to_the_begining">Beginning</string>
-    <string name="light_theme">Light</string>
-    <string name="dark_theme">Dark</string>
     <string name="undo">Undo</string>
     <string name="erase">Erase</string>
     <string name="note">Note</string>
-    <string name="green">Green</string>
-    <string name="play_market">If you liked the app, you can support the developer by giving a fair rating in the Play Market, as well as share the app with friends.</string>
     <string name="unlimited_hints">Unlimited hints</string>
-    <string name="unlimited_mistakes">Don\'t count mistakes</string>
-    <string name="rate_error_message">Something went wrong. Maybe, a bad internet connection?</string>
-    <string name="of_course">Of course!</string>
-    <string name="later">Later</string>
-    <string name="than_rate_us">Than rate us?</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
-    <string name="do_you_like_sudoku">Do you like sudoku?</string>
-    <string name="great">Great!</string>
 
     <string name="how_desc_one" translatable="false">Fill every cell with a number from 1 to 9.\n\nThe same number cannot appear twice in any row, column, or 3×3 block.</string>
 
     <string name="how_desc_two" translatable="false">Each puzzle has exactly one solution. Tap an empty cell, then pick a number below the grid.\n\nLook for cells where only one number fits.</string>
-
-    <!-- Update -->
-    <string name="update_available_title">New version available</string>
-    <string name="update_button">Update</string>
-    <string name="update_later">Later</string>
-    <string name="update_downloading">Downloading… %d%%</string>
-    <string name="update_error">Download failed. Try again later.</string>
-    <string name="update_play_protect_hint">Google Play Protect may show a warning — this is normal for apps installed outside the Play Store.</string>
-    <string name="clear_statistic_confirm">Are you sure you want to clear all statistics? This action cannot be undone.</string>
 
     <string name="how_desc_three" translatable="false">Use notes to mark possible candidates in a cell. Toggle note mode with the button below the grid.\n\nNotes disappear automatically when you place a final number.</string>
 
@@ -165,8 +100,6 @@
     <string name="unlimited_errors">Unlimited errors</string>
     <string name="track_statistics">Track statistics</string>
     <string name="appearance">Appearance</string>
-    <string name="sound">Sound</string>
-    <string name="sounds">Sounds</string>
     <string name="other">Other</string>
     <string name="privacy_policy">Privacy policy</string>
     <string name="ok">OK</string>
@@ -186,5 +119,13 @@
     <string name="on_label" translatable="false">ON</string>
     <string name="off_label" translatable="false">OFF</string>
     <string name="version_format" translatable="false">v%s</string>
+    <string name="streak_days">🔥 %d days</string>
+    <string name="daily_completed">Completed!</string>
+    <string name="daily_play">Play</string>
+    <string name="daily_try_tomorrow">Come back tomorrow</string>
+    <string name="daily_try_again">Try again</string>
+    <string name="daily_streak_label">Current streak</string>
+    <string name="daily_difficulty_format" translatable="false">%1$s  %2$s</string>
+    <string name="daily_best_streak_label">Best streak</string>
 
 </resources>

@@ -10,6 +10,8 @@ sealed interface GameUIEffect : UIEffect {
         val isWin: Boolean,
         val time: String,
         val errors: Int,
+        val isDailyChallenge: Boolean = false,
+        val newStreak: Int = 0,
     ) : GameUIEffect
 
     class NavigateToNewGame(val difficultyOrdinal: Int) : GameUIEffect

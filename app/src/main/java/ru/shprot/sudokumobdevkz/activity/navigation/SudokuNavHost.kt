@@ -6,6 +6,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import ru.shprot.sudokumobdevkz.feature.dailychallenge.presentation.navigation.DailyChallengeRoutes
+import ru.shprot.sudokumobdevkz.feature.dailychallenge.presentation.screen.DailyChallengeScreen
+import ru.shprot.sudokumobdevkz.feature.dailychallenge.presentation.viewmodel.DailyChallengeViewModel
 import ru.shprot.sudokumobdevkz.feature.game.presentation.navigation.GameRoutes
 import ru.shprot.sudokumobdevkz.feature.game.presentation.screen.GameScreen
 import ru.shprot.sudokumobdevkz.feature.game.presentation.viewmodel.GameViewModel
@@ -76,6 +79,11 @@ fun SudokuNavHost(
         composable<HowToPlayRoutes.HowToPlayScreen> {
             val viewModel: HowToPlayViewModel = hiltViewModel()
             HowToPlayScreen(navController = navController, viewModel = viewModel)
+        }
+
+        composable<DailyChallengeRoutes.DailyChallengeScreen> {
+            val viewModel: DailyChallengeViewModel = hiltViewModel()
+            DailyChallengeScreen(navController = navController, viewModel = viewModel)
         }
     }
 }

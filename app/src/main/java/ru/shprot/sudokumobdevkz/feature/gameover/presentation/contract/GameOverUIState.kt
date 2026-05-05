@@ -8,4 +8,6 @@ data class GameOverUIState(
     val time: String = "00:00",
     val errors: Int = 0,
     val difficulty: Difficulty = Difficulty.EASY,
+    val isDailyChallenge: Boolean = false,
+    val newStreak: Int = 0,
 ) : UIState

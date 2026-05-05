@@ -10,5 +10,6 @@ sealed class GameRoutes : NavRoute() {
     data class GameScreen(
         val difficultyOrdinal: Int = 0,
         val continueGame: Boolean = false,
+        val isDailyChallenge: Boolean = false,
     ) : GameRoutes()
 }

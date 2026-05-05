@@ -26,6 +26,8 @@ class GameOverViewModel @Inject constructor(
                 time = route.time,
                 errors = route.errors,
                 difficulty = difficulty,
+                isDailyChallenge = route.isDailyChallenge,
+                newStreak = route.newStreak,
             )
         )
     }
@@ -33,9 +35,17 @@ class GameOverViewModel @Inject constructor(
     override fun handleUIEvent(event: GameOverUIEvent) =
         when (event) {
             GameOverUIEvent.PlayAgainClicked ->
-                setEffect(GameOverUIEffect.NavigateToNewGame(currentState.difficulty.ordinal))
+                handlePlayAgainClicked()
 
             GameOverUIEvent.BackToMenuClicked ->
                 setEffect(GameOverUIEffect.NavigateToMenu)
         }
+
+    private fun handlePlayAgainClicked() {
+        if (currentState.isDailyChallenge) {
+            setEffect(GameOverUIEffect.NavigateToMenu)
+        } else {
+            setEffect(GameOverUIEffect.NavigateToNewGame(currentState.difficulty.ordinal))
+        }
+    }
 }

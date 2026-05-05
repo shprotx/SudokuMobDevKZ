@@ -25,4 +25,5 @@ data class GameUIState(
     val showPauseDialog: Boolean = false,
     val showNewGameDialog: Boolean = false,
     val isStandardMode: Boolean = true,
+    val isDailyChallenge: Boolean = false,
 ) : UIState

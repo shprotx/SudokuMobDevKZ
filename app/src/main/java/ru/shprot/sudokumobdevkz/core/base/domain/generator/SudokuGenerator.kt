@@ -4,6 +4,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.shprot.sudokumobdevkz.core.base.domain.generator.solver.DancingLinksAlgorithm
 import ru.shprot.sudokumobdevkz.core.base.domain.model.Difficulty
+import kotlin.random.Random
 
 data class GeneratedPuzzle(
     val solution: Array<IntArray>,
@@ -31,15 +32,24 @@ object SudokuGenerator {
     private const val SIZE = 9
     private const val CELLS = 81
 
-    suspend fun generate(difficulty: Difficulty): GeneratedPuzzle = withContext(Dispatchers.Default) {
+    suspend fun generate(difficulty: Difficulty): GeneratedPuzzle =
+        generateInternal(difficulty, Random.Default)
+
+    suspend fun generate(difficulty: Difficulty, seed: Long): GeneratedPuzzle =
+        generateInternal(difficulty, Random(seed))
+
+    private suspend fun generateInternal(
+        difficulty: Difficulty,
+        random: Random,
+    ): GeneratedPuzzle = withContext(Dispatchers.Default) {
         val grid = Array(SIZE) { IntArray(SIZE) }
         val available = Array(CELLS) { (1..9).toMutableList() }
 
-        generateGrid(grid, available)
+        generateGrid(grid, available, random)
 
         val solution = Array(SIZE) { row -> grid[row].copyOf() }
 
-        val emptyCells = dig(grid, difficulty)
+        val emptyCells = dig(grid, difficulty, random)
 
         val visibleCount = CELLS - emptyCells
 
@@ -50,11 +60,15 @@ object SudokuGenerator {
         )
     }
 
-    private fun generateGrid(grid: Array<IntArray>, available: Array<MutableList<Int>>) {
+    private fun generateGrid(
+        grid: Array<IntArray>,
+        available: Array<MutableList<Int>>,
+        random: Random,
+    ) {
         var count = 0
         while (count < CELLS) {
             if (available[count].isNotEmpty()) {
-                val randomIndex = (Math.random() * available[count].size).toInt()
+                val randomIndex = random.nextInt(available[count].size)
                 val value = available[count][randomIndex]
                 val row = count / SIZE
                 val col = count % SIZE
@@ -92,12 +106,12 @@ object SudokuGenerator {
         return false
     }
 
-    private fun dig(grid: Array<IntArray>, difficulty: Difficulty): Int {
+    private fun dig(grid: Array<IntArray>, difficulty: Difficulty, random: Random): Int {
         val zeros = mutableListOf<Int>()
-        var emptyCells = digForExpert(grid, difficulty, zeros)
+        var emptyCells = digForExpert(grid, difficulty, zeros, random)
 
         if (difficulty != Difficulty.HARD) {
-            emptyCells = openSomeCells(grid, difficulty, emptyCells, zeros)
+            emptyCells = openSomeCells(grid, difficulty, emptyCells, zeros, random)
         }
 
         return emptyCells
@@ -107,8 +121,9 @@ object SudokuGenerator {
         grid: Array<IntArray>,
         difficulty: Difficulty,
         zeros: MutableList<Int>,
+        random: Random,
     ): Int {
-        val positions = (0 until CELLS).toMutableList().apply { shuffle() }
+        val positions = (0 until CELLS).toMutableList().apply { shuffle(random) }
         var emptyCells = 0
 
         for (pos in positions) {
@@ -135,8 +150,9 @@ object SudokuGenerator {
         difficulty: Difficulty,
         emptyCells: Int,
         zeros: MutableList<Int>,
+        random: Random,
     ): Int {
-        zeros.shuffle()
+        zeros.shuffle(random)
         val targetVisible = difficulty.visibleCells
         var haveToOpen = targetVisible - (CELLS - emptyCells)
         var currentEmpty = emptyCells

@@ -64,6 +64,13 @@ internal fun MenuLandscapeContent(
                 )
             }
 
+            DailyChallengeCard(
+                modifier = Modifier.padding(top = AppTheme.paddings.large),
+                streak = uiState.dailyChallengeStreak,
+                isCompleted = uiState.isDailyChallengeCompleted,
+                onClick = { onEvent(MenuUIEvent.DailyChallengeClicked) },
+            )
+
             DifficultySelector(
                 modifier = Modifier.padding(top = AppTheme.paddings.xxl),
                 selectedDifficulty = uiState.selectedDifficulty,

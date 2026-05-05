@@ -6,24 +6,27 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
+import ru.shprot.sudokumobdevkz.core.base.data.repository.DailyChallengeRepository
+import ru.shprot.sudokumobdevkz.core.base.data.repository.SudokuRepository
+import ru.shprot.sudokumobdevkz.core.base.data.util.DateTimeUtils
 import ru.shprot.sudokumobdevkz.core.base.domain.model.Difficulty
 import ru.shprot.sudokumobdevkz.core.base.presentation.viewmodel.BaseViewModel
 import ru.shprot.sudokumobdevkz.feature.statistic.presentation.contract.StatisticUIEffect
 import ru.shprot.sudokumobdevkz.feature.statistic.presentation.contract.StatisticUIEvent
 import ru.shprot.sudokumobdevkz.feature.statistic.presentation.contract.StatisticUIState
-import ru.shprot.sudokumobdevkz.core.base.data.repository.SudokuRepository
-import ru.shprot.sudokumobdevkz.core.base.data.util.DateTimeUtils
 import javax.inject.Inject
 
 @HiltViewModel
 class StatisticViewModel @Inject constructor(
     private val repository: SudokuRepository,
+    private val dailyChallengeRepository: DailyChallengeRepository,
 ) : BaseViewModel<StatisticUIEvent, StatisticUIState, StatisticUIEffect>(StatisticUIState()) {
 
     private var observeJob: Job? = null
 
     init {
         observeDifficulty(Difficulty.EASY)
+        loadDailyStreaks()
     }
 
     override fun handleUIEvent(event: StatisticUIEvent) =
@@ -55,6 +58,19 @@ class StatisticViewModel @Inject constructor(
     private fun handleResetRequested(tabIndex: Int) {
         viewModelScope.launch(exceptionHandler) {
             repository.resetStatistic(Difficulty.fromOrdinal(tabIndex))
+        }
+    }
+
+    private fun loadDailyStreaks() {
+        viewModelScope.launch(exceptionHandler) {
+            val current = dailyChallengeRepository.getCurrentStreak()
+            val longest = dailyChallengeRepository.getLongestStreak()
+            setState(
+                currentState.copy(
+                    dailyCurrentStreak = current,
+                    dailyBestStreak = maxOf(longest, current),
+                )
+            )
         }
     }
 
@@ -96,5 +112,4 @@ class StatisticViewModel @Inject constructor(
             setState(currentState.copy(percentile = result.percentile, totalPlayers = result.totalPlayers))
         }
     }
-
 }

@@ -12,5 +12,7 @@ sealed class GameOverRoutes : NavRoute() {
         val time: String = "00:00",
         val errors: Int = 0,
         val difficultyOrdinal: Int = 0,
+        val isDailyChallenge: Boolean = false,
+        val newStreak: Int = 0,
     ) : GameOverRoutes()
 }

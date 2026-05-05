@@ -1,6 +1,9 @@
 package ru.shprot.sudokumobdevkz.core.base.data.util
 
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 import java.util.Date
 import java.util.Locale
 
@@ -9,6 +12,7 @@ object DateTimeUtils {
     private val shortDateFormat = SimpleDateFormat("dd.MM", Locale.getDefault())
     private val crashTimestampFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US)
     private val crashFileFormat = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US)
+    private val localizedLongDate = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)
 
     fun formatTimer(seconds: Int): String {
         val m = seconds / 60
@@ -24,6 +28,9 @@ object DateTimeUtils {
 
     fun formatShortDate(timestampMs: Long): String =
         shortDateFormat.format(Date(timestampMs))
+
+    fun formatLocalizedDate(dateKey: String): String =
+        LocalDate.parse(dateKey).format(localizedLongDate)
 
     fun formatCrashTimestamp(): String =
         crashTimestampFormat.format(Date())
