@@ -19,6 +19,12 @@ interface StatisticDao {
     @Query("SELECT * FROM statistic_table WHERE difficulty = :difficulty")
     fun observeByDifficulty(difficulty: Int): Flow<StatisticEntity?>
 
+    @Query("SELECT * FROM statistic_table")
+    fun observeAll(): Flow<List<StatisticEntity>>
+
+    @Query("SELECT * FROM statistic_table")
+    suspend fun getAll(): List<StatisticEntity>
+
     @Query("DELETE FROM statistic_table WHERE difficulty = :difficulty")
     suspend fun deleteByDifficulty(difficulty: Int)
 }
