@@ -73,6 +73,7 @@ internal fun MenuPortraitContent(
                     bottom = AppTheme.paddings.xxxl,
                 ),
             onStatisticClick = { onEvent(MenuUIEvent.NavigateToStatistic) },
+            onAchievementsClick = { onEvent(MenuUIEvent.NavigateToAchievements) },
             onHowToPlayClick = { onEvent(MenuUIEvent.NavigateToHowToPlay) },
             onSettingsClick = { onEvent(MenuUIEvent.NavigateToSettings) },
         )

@@ -88,6 +88,7 @@ internal fun MenuLandscapeContent(
             MenuNavigationCards(
                 modifier = Modifier,
                 onStatisticClick = { onEvent(MenuUIEvent.NavigateToStatistic) },
+                onAchievementsClick = { onEvent(MenuUIEvent.NavigateToAchievements) },
                 onHowToPlayClick = { onEvent(MenuUIEvent.NavigateToHowToPlay) },
                 onSettingsClick = { onEvent(MenuUIEvent.NavigateToSettings) },
             )

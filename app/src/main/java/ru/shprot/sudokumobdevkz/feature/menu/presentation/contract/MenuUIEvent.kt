@@ -5,6 +5,7 @@ import ru.shprot.sudokumobdevkz.core.base.presentation.contract.UIEvent
 sealed interface MenuUIEvent : UIEvent {
     data object ContinueGameClicked : MenuUIEvent
     data object NavigateToStatistic : MenuUIEvent
+    data object NavigateToAchievements : MenuUIEvent
     data object NavigateToSettings : MenuUIEvent
     data object NavigateToHowToPlay : MenuUIEvent
     data object DailyChallengeClicked : MenuUIEvent

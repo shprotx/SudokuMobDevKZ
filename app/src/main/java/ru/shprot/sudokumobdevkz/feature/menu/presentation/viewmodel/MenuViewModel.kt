@@ -35,6 +35,9 @@ class MenuViewModel @Inject constructor(
             MenuUIEvent.NavigateToStatistic ->
                 setEffect(MenuUIEffect.NavigateToStatistic)
 
+            MenuUIEvent.NavigateToAchievements ->
+                setEffect(MenuUIEffect.NavigateToAchievements)
+
             MenuUIEvent.NavigateToSettings ->
                 setEffect(MenuUIEffect.NavigateToSettings)
 

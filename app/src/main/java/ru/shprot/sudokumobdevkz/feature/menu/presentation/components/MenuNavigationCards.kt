@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material.icons.filled.BarChart
+import androidx.compose.material.icons.filled.EmojiEvents
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -16,6 +17,7 @@ import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 fun MenuNavigationCards(
     modifier: Modifier,
     onStatisticClick: () -> Unit,
+    onAchievementsClick: () -> Unit,
     onHowToPlayClick: () -> Unit,
     onSettingsClick: () -> Unit,
 ) {
@@ -31,19 +33,18 @@ fun MenuNavigationCards(
         )
 
         MenuNavCard(
+            icon = Icons.Filled.EmojiEvents,
+            title = stringResource(R.string.achievements),
+            subtitle = stringResource(R.string.achievements_desc),
+            onClick = onAchievementsClick,
+        )
+
+        MenuNavCard(
             icon = Icons.AutoMirrored.Filled.MenuBook,
             title = stringResource(R.string.how_to_play),
             subtitle = stringResource(R.string.how_to_play_desc),
             onClick = onHowToPlayClick,
         )
-
-        // TODO: Achievements — uncomment when implemented
-        // MenuNavCard(
-        //     icon = Icons.Filled.Star,
-        //     title = stringResource(R.string.achievements),
-        //     subtitle = stringResource(R.string.achievements_desc),
-        //     onClick = { },
-        // )
 
         MenuNavCard(
             icon = Icons.Filled.Settings,
