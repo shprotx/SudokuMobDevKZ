@@ -13,6 +13,8 @@ data class Size(
     val buttonHeightSmall: Dp = 40.dp,
     val cardMinHeight: Dp = 80.dp,
     val chipHeight: Dp = 36.dp,
+    val toolbarButton: Dp = 36.dp,
+    val toolbarIcon: Dp = 18.dp,
     val bottomNavHeight: Dp = 64.dp,
     val toolbarHeight: Dp = 56.dp,
     val numberPanelButton: Dp = 34.dp,

@@ -27,6 +27,9 @@ class AchievementsViewModel @Inject constructor(
         when (event) {
             AchievementsUIEvent.BackClicked ->
                 setEffect(AchievementsUIEffect.NavigateBack)
+
+            AchievementsUIEvent.SettingsClicked ->
+                setEffect(AchievementsUIEffect.NavigateToSettings)
         }
 
     private fun observeAchievements() {

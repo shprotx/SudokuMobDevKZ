@@ -23,7 +23,7 @@ internal fun ToolbarCircleButton(
 
     Box(
         modifier = modifier
-            .size(36.dp)
+            .size(AppTheme.sizes.toolbarButton)
             .border(1.dp, AppTheme.colors.divider, CircleShape),
         contentAlignment = Alignment.Center,
     ) {
@@ -33,7 +33,7 @@ internal fun ToolbarCircleButton(
         ) {
 
             Icon(
-                modifier = Modifier.size(18.dp),
+                modifier = Modifier.size(AppTheme.sizes.toolbarIcon),
                 imageVector = icon,
                 contentDescription = contentDescription,
                 tint = AppTheme.colors.iconTint,
