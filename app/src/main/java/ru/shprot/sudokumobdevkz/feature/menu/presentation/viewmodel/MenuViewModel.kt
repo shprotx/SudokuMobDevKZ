@@ -3,6 +3,7 @@ package ru.shprot.sudokumobdevkz.feature.menu.presentation.viewmodel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import ru.shprot.sudokumobdevkz.core.base.data.repository.AchievementsRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.DailyChallengeRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SettingsRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SudokuRepository
@@ -17,6 +18,7 @@ class MenuViewModel @Inject constructor(
     private val repository: SudokuRepository,
     private val settingsRepository: SettingsRepository,
     private val dailyChallengeRepository: DailyChallengeRepository,
+    private val achievementsRepository: AchievementsRepository,
 ) : BaseViewModel<MenuUIEvent, MenuUIState, MenuUIEffect>(MenuUIState()) {
 
     init {
@@ -25,6 +27,7 @@ class MenuViewModel @Inject constructor(
         updateState {
             copy(selectedDifficulty = settingsRepository.currentSettings.selectedDifficultyOrdinal)
         }
+        checkRetroactiveAchievements()
     }
 
     override fun handleUIEvent(event: MenuUIEvent) =
@@ -83,6 +86,17 @@ class MenuViewModel @Inject constructor(
                     dailyChallengeStreak = streak,
                     isDailyChallengeCompleted = challenge.isCompleted,
                 )
+            }
+        }
+    }
+
+    private fun checkRetroactiveAchievements() {
+        viewModelScope.launch(exceptionHandler) {
+            val unlocked = achievementsRepository.checkAndUnlock(emitToFlow = false)
+            when {
+                unlocked.isEmpty() -> Unit
+                unlocked.size > 3 -> achievementsRepository.emitRetroactiveBatch(unlocked.size)
+                else -> achievementsRepository.emitUnlockedToFlow(unlocked)
             }
         }
     }

@@ -36,6 +36,12 @@ class AchievementsRepositoryImpl @Inject constructor(
     )
     override val newlyUnlocked: SharedFlow<UnlockedAchievement> = _newlyUnlocked.asSharedFlow()
 
+    private val _retroactiveBatch = MutableSharedFlow<Int>(
+        replay = 0,
+        extraBufferCapacity = 4,
+    )
+    override val retroactiveBatch: SharedFlow<Int> = _retroactiveBatch.asSharedFlow()
+
     override val achievementsState: Flow<List<AchievementState>> =
         combine(
             statisticDao.observeAll(),
@@ -77,6 +83,14 @@ class AchievementsRepositoryImpl @Inject constructor(
             }
         }
         return newly
+    }
+
+    override suspend fun emitUnlockedToFlow(events: List<UnlockedAchievement>) {
+        events.forEach { _newlyUnlocked.emit(it) }
+    }
+
+    override suspend fun emitRetroactiveBatch(count: Int) {
+        _retroactiveBatch.emit(count)
     }
 
     private suspend fun buildContextOnce(): AchievementContext {

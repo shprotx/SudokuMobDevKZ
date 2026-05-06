@@ -9,7 +9,13 @@ interface AchievementsRepository {
 
     val newlyUnlocked: SharedFlow<UnlockedAchievement>
 
+    val retroactiveBatch: SharedFlow<Int>
+
     val achievementsState: Flow<List<AchievementState>>
 
     suspend fun checkAndUnlock(emitToFlow: Boolean = true): List<UnlockedAchievement>
+
+    suspend fun emitUnlockedToFlow(events: List<UnlockedAchievement>)
+
+    suspend fun emitRetroactiveBatch(count: Int)
 }
