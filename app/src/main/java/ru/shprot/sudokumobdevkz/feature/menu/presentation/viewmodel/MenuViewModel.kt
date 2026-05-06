@@ -3,6 +3,8 @@ package ru.shprot.sudokumobdevkz.feature.menu.presentation.viewmodel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import ru.shprot.sudokumobdevkz.core.base.data.repository.AchievementsRepository
+import ru.shprot.sudokumobdevkz.core.base.data.repository.DailyChallengeRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SettingsRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SudokuRepository
 import ru.shprot.sudokumobdevkz.core.base.presentation.viewmodel.BaseViewModel
@@ -15,13 +17,17 @@ import javax.inject.Inject
 class MenuViewModel @Inject constructor(
     private val repository: SudokuRepository,
     private val settingsRepository: SettingsRepository,
+    private val dailyChallengeRepository: DailyChallengeRepository,
+    private val achievementsRepository: AchievementsRepository,
 ) : BaseViewModel<MenuUIEvent, MenuUIState, MenuUIEffect>(MenuUIState()) {
 
     init {
         checkSavedGame()
+        loadDailyChallenge()
         updateState {
             copy(selectedDifficulty = settingsRepository.currentSettings.selectedDifficultyOrdinal)
         }
+        checkRetroactiveAchievements()
     }
 
     override fun handleUIEvent(event: MenuUIEvent) =
@@ -32,14 +38,20 @@ class MenuViewModel @Inject constructor(
             MenuUIEvent.NavigateToStatistic ->
                 setEffect(MenuUIEffect.NavigateToStatistic)
 
+            MenuUIEvent.NavigateToAchievements ->
+                setEffect(MenuUIEffect.NavigateToAchievements)
+
             MenuUIEvent.NavigateToSettings ->
                 setEffect(MenuUIEffect.NavigateToSettings)
 
             MenuUIEvent.NavigateToHowToPlay ->
                 setEffect(MenuUIEffect.NavigateToHowToPlay)
 
+            MenuUIEvent.DailyChallengeClicked ->
+                setEffect(MenuUIEffect.NavigateToDailyChallenge)
+
             MenuUIEvent.ScreenResumed ->
-                checkSavedGame()
+                onScreenResumed()
 
             is MenuUIEvent.NewGameClicked ->
                 setEffect(MenuUIEffect.NavigateToGame(event.difficultyOrdinal))
@@ -53,10 +65,39 @@ class MenuViewModel @Inject constructor(
         settingsRepository.update { copy(selectedDifficultyOrdinal = difficultyOrdinal) }
     }
 
+    private fun onScreenResumed() {
+        checkSavedGame()
+        loadDailyChallenge()
+    }
+
     private fun checkSavedGame() {
         viewModelScope.launch(exceptionHandler) {
             val hasSaved = repository.hasSavedGame()
             updateState { copy(hasSavedGame = hasSaved) }
+        }
+    }
+
+    private fun loadDailyChallenge() {
+        viewModelScope.launch(exceptionHandler) {
+            val challenge = dailyChallengeRepository.getTodayChallenge()
+            val streak = dailyChallengeRepository.getCurrentStreak()
+            updateState {
+                copy(
+                    dailyChallengeStreak = streak,
+                    isDailyChallengeCompleted = challenge.isCompleted,
+                )
+            }
+        }
+    }
+
+    private fun checkRetroactiveAchievements() {
+        viewModelScope.launch(exceptionHandler) {
+            val unlocked = achievementsRepository.checkAndUnlock(emitToFlow = false)
+            when {
+                unlocked.isEmpty() -> Unit
+                unlocked.size > 3 -> achievementsRepository.emitRetroactiveBatch(unlocked.size)
+                else -> achievementsRepository.emitUnlockedToFlow(unlocked)
+            }
         }
     }
 }

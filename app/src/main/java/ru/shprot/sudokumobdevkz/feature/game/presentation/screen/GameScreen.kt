@@ -52,6 +52,8 @@ fun GameScreen(
                             time = effect.time,
                             errors = effect.errors,
                             difficultyOrdinal = state.difficulty.ordinal,
+                            isDailyChallenge = effect.isDailyChallenge,
+                            newStreak = effect.newStreak,
                         )
                     ) {
                         popUpTo<GameRoutes.GameScreen> { inclusive = true }

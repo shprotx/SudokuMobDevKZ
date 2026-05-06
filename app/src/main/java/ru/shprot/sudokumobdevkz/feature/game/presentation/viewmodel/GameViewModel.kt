@@ -12,6 +12,8 @@ import kotlinx.coroutines.withContext
 import ru.shprot.sudokumobdevkz.core.base.domain.model.GameSaveData
 import ru.shprot.sudokumobdevkz.core.base.data.util.DateTimeUtils
 import ru.shprot.sudokumobdevkz.core.base.data.util.safeRunCatching
+import ru.shprot.sudokumobdevkz.core.base.data.repository.AchievementsRepository
+import ru.shprot.sudokumobdevkz.core.base.data.repository.DailyChallengeRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SettingsRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SudokuRepository
 import ru.shprot.sudokumobdevkz.core.base.domain.generator.SudokuGenerator
@@ -29,17 +31,20 @@ class GameViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val repository: SudokuRepository,
     private val settingsRepository: SettingsRepository,
+    private val dailyChallengeRepository: DailyChallengeRepository,
+    private val achievementsRepository: AchievementsRepository,
 ) : BaseViewModel<GameUIEvent, GameUIState, GameUIEffect>(GameUIState()) {
 
     private val route = savedStateHandle.toRoute<GameRoutes.GameScreen>()
     private val difficulty: Difficulty = Difficulty.fromOrdinal(route.difficultyOrdinal)
     private val continueGame: Boolean = route.continueGame
+    private val isDailyChallenge: Boolean = route.isDailyChallenge
     private val undoStack = mutableListOf<UndoEntry>()
     private var timerJob: Job? = null
 
     init {
         viewModelScope.launch(exceptionHandler) {
-            if (continueGame) {
+            if (continueGame && !isDailyChallenge) {
                 val saved = repository.loadSavedGame()
                 if (saved != null) {
                     restoreGame(saved)
@@ -131,11 +136,28 @@ class GameViewModel @Inject constructor(
         val hints = if (settings.unlimitedHints) Int.MAX_VALUE else 3
         val isStandard = settings.isStandardMode
 
-        setState(currentState.copy(isGenerating = true, difficulty = difficulty, maxErrors = maxErrors, hintsRemaining = hints, isStandardMode = isStandard))
-        countAbandonedGame()
-        repository.deleteSavedGame()
+        setState(
+            currentState.copy(
+                isGenerating = true,
+                difficulty = difficulty,
+                maxErrors = maxErrors,
+                hintsRemaining = hints,
+                isStandardMode = isStandard,
+                isDailyChallenge = isDailyChallenge,
+            )
+        )
+        if (!isDailyChallenge) {
+            countAbandonedGame()
+            repository.deleteSavedGame()
+        }
 
-        val puzzle = SudokuGenerator.generate(difficulty)
+        val puzzle = if (isDailyChallenge) {
+            val dateKey = dailyChallengeRepository.todayDateKey()
+            val seed = dailyChallengeRepository.dailySeed(dateKey)
+            SudokuGenerator.generate(difficulty, seed)
+        } else {
+            SudokuGenerator.generate(difficulty)
+        }
 
         val cells = List(9) { row ->
             List(9) { col ->
@@ -200,7 +222,7 @@ class GameViewModel @Inject constructor(
 
     private suspend fun saveGameStateSync() {
         val state = currentState
-        if (state.isGenerating || state.isGameOver) return
+        if (state.isGenerating || state.isGameOver || state.isDailyChallenge) return
 
         repository.saveGame(
             GameSaveData(
@@ -431,34 +453,57 @@ class GameViewModel @Inject constructor(
         setState(currentState.copy(isGameOver = true, isWin = isWin))
 
         viewModelScope.launch(exceptionHandler) {
-            repository.deleteSavedGame()
+            val newStreak = when {
+                isDailyChallenge && isWin ->
+                    dailyChallengeRepository.markCompleted(
+                        dateKey = dailyChallengeRepository.todayDateKey(),
+                        timeSeconds = currentState.timeSeconds,
+                        errors = currentState.errors,
+                    )
 
-            if (currentState.isStandardMode) {
-                repository.updateStatistic(
-                    difficulty = difficulty,
-                    isWin = isWin,
-                    timeSeconds = currentState.timeSeconds,
-                    errorCount = currentState.errors,
-                )
-            } else {
-                repository.incrementCasualGames(difficulty)
+                isDailyChallenge ->
+                    0
+
+                else ->
+                    persistRegularGameResult(isWin)
             }
 
-            repository.saveGameResult(
-                difficulty = difficulty,
-                timeSeconds = currentState.timeSeconds,
-                errors = currentState.errors,
-                isWin = isWin,
+            achievementsRepository.checkAndUnlock()
+
+            setEffect(
+                GameUIEffect.NavigateToGameOver(
+                    isWin = isWin,
+                    time = currentState.timer,
+                    errors = currentState.errors,
+                    isDailyChallenge = isDailyChallenge,
+                    newStreak = newStreak,
+                )
             )
         }
+    }
 
-        setEffect(
-            GameUIEffect.NavigateToGameOver(
+    private suspend fun persistRegularGameResult(isWin: Boolean): Int {
+        repository.deleteSavedGame()
+
+        if (currentState.isStandardMode) {
+            repository.updateStatistic(
+                difficulty = difficulty,
                 isWin = isWin,
-                time = currentState.timer,
-                errors = currentState.errors,
+                timeSeconds = currentState.timeSeconds,
+                errorCount = currentState.errors,
             )
+        } else {
+            repository.incrementCasualGames(difficulty)
+        }
+
+        repository.saveGameResult(
+            difficulty = difficulty,
+            timeSeconds = currentState.timeSeconds,
+            errors = currentState.errors,
+            isWin = isWin,
         )
+
+        return 0
     }
 
     private fun clearNotesForNumber(cells: MutableList<MutableList<CellData>>, row: Int, col: Int, number: Int) {

@@ -15,6 +15,12 @@ interface GameHistoryDao {
     @Query("SELECT * FROM game_history_table WHERE difficulty = :difficulty ORDER BY timestamp DESC LIMIT :limit")
     fun getRecentGames(difficulty: Int, limit: Int = 7): Flow<List<GameHistoryEntity>>
 
+    @Query("SELECT * FROM game_history_table WHERE isWin = 1 ORDER BY timestamp DESC LIMIT :limit")
+    fun observeRecentWins(limit: Int): Flow<List<GameHistoryEntity>>
+
+    @Query("SELECT * FROM game_history_table WHERE isWin = 1 ORDER BY timestamp DESC LIMIT :limit")
+    suspend fun getRecentWins(limit: Int): List<GameHistoryEntity>
+
     @Query("DELETE FROM game_history_table WHERE difficulty = :difficulty")
     suspend fun deleteByDifficulty(difficulty: Int)
 }

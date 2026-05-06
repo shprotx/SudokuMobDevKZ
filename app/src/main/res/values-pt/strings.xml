@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">Sudoku</string>
-    <string name="mistakes_start">Erros 0/3</string>
-    <string name="mistakes">Erros </string>
     <string name="difficulty_easy">Fácil</string>
     <string name="difficulty_middle">Médio</string>
     <string name="difficulty_expert">Difícil</string>
@@ -12,62 +10,99 @@
     <string name="how_to_play">Como Jogar</string>
     <string name="statistic">Estatísticas</string>
     <string name="pause">PAUSA</string>
-    <string name="continue_game">Continuar Jogo</string>
-    <string name="hint_used">Dica utilizada</string>
-    <string name="hins_over">Dicas acabaram :(</string>
-    <string name="win">Você venceu :)</string>
-    <string name="lose">Fim de jogo</string>
-    <string name="unknown">Indefinido</string>
     <string name="game_over">Fim do jogo</string>
-    <string name="main_page">Página principal</string>
-    <string name="game">Sudoku</string>
-    <string name="average_time">Tempo médio:</string>
-    <string name="best_time">Melhor tempo:</string>
     <string name="game_started">Jogos iniciados:</string>
     <string name="game_won">Jogos vencidos:</string>
-    <string name="wins_without_mistakes">Vitórias sem erros:</string>
     <string name="best_wins_line">Melhor sequência de vitórias:</string>
     <string name="current_wins_line">Sequência atual de vitórias:</string>
     <string name="percent_of_wins">Porcentagem de vitórias:</string>
-    <string name="clear_statistic">Limpar estatísticas</string>
     <string name="go_to_main_page">Ir para página principal</string>
-    <string name="full_statistic">Estatísticas completas</string>
     <string name="you_won">Você venceu!</string>
     <string name="go_back">Voltar</string>
-    <string name="app_language">Idioma do aplicativo:</string>
-    <string name="support_the_developer">Apoie o desenvolvedor</string>
-    <string name="change_theme">Alterar tema</string>
-    <string name="rate_app">Avalie o aplicativo</string>
-    <string name="remove_ads">Remover anúncios</string>
-    <string name="support_ololo">Apoiar ololo</string>
-    <string name="rate_ololo">Avaliar ololo</string>
-    <string name="skip">Pular</string>
-    <string name="finish">Concluir</string>
     <string name="no_repetitions">Sem repetições</string>
     <string name="always_unique">Solução sempre única</string>
     <string name="use_notes">Use notas</string>
-    <string name="to_the_begining">Voltar ao início</string>
-    <string name="light_theme">Tema claro</string>
-    <string name="dark_theme">Tema escuro</string>
     <string name="undo">Desfazer</string>
     <string name="erase">Apagar</string>
     <string name="note">Notas</string>
-    <string name="green">Verde</string>
-    <string name="play_market">Se você gostou do aplicativo, pode apoiar o desenvolvedor dando uma avaliação justa no Play Market e compartilhando o aplicativo com amigos.</string>
     <string name="unlimited_hints">Dicas ilimitadas</string>
-    <string name="unlimited_mistakes">Não contar erros</string>
-    <string name="rate_error_message">Algo deu errado :( Talvez seja a conexão com a internet?</string>
-    <string name="of_course">Claro!</string>
-    <string name="later">Mais tarde</string>
-    <string name="than_rate_us">Então, você pode avaliar nosso aplicativo?</string>
-    <string name="yes">Sim</string>
-    <string name="no">Não</string>
-    <string name="do_you_like_sudoku">Você gosta de Sudoku?</string>
-    <string name="great">Ótimo!</string>
 
     <string name="how_desc_one">O objetivo do jogo é preencher todas as células com números de 1 a 9. Os números não podem se repetir em nenhuma das linhas, colunas ou blocos. Observe cuidadosamente o campo de jogo e preencha os quadrados vazios com números.</string>
 
     <string name="how_desc_two">Cada jogo tem apenas uma solução única. A ilustração mostra que apenas o número 5 se encaixa na célula selecionada. Mas a solução nem sempre é tão óbvia. Para inserir o valor correto, toque na célula vazia e, em seguida, selecione o número apropriado abaixo do campo de jogo.</string>
 
     <string name="how_desc_three">Quando você resolve um sudoku em papel, faz anotações a lápis. Você também pode fazer isso aqui :) O modo de anotações é ativado pelo botão correspondente na parte inferior da tela. As anotações são seus melhores amigos. Além disso, não há necessidade de apagá-las posteriormente - no momento em que você inserir sua solução final na célula, as anotações desaparecerão automaticamente.</string>
+    <string name="streak_days">🔥 %d dias</string>
+    <string name="daily_completed">Resolvido!</string>
+    <string name="daily_play">Jogar</string>
+    <string name="daily_try_tomorrow">Volte amanhã</string>
+    <string name="daily_try_again">Tente novamente</string>
+    <string name="daily_streak_label">Sequência atual</string>
+    <string name="daily_best_streak_label">Melhor sequência</string>
+
+    <string name="achievements">Conquistas</string>
+    <string name="achievements_desc">Veja seus distintivos desbloqueados</string>
+    <string name="achievements_section_unlocked">Desbloqueadas</string>
+    <string name="achievements_section_in_progress">Em andamento</string>
+    <string name="achievements_section_locked">Bloqueadas</string>
+    <string name="achievement_secret_title">Conquista secreta</string>
+    <string name="achievement_secret_desc">Desbloqueie para descobrir</string>
+    <string name="achievement_unlocked_toast">Conquista desbloqueada: %1$s</string>
+    <string name="achievement_unlocked_action">Ver</string>
+    <string name="achievements_retroactive_toast">Você ganhou %1$d conquistas</string>
+
+    <string name="achievement_wins_first_title">Primeira vitória</string>
+    <string name="achievement_wins_first_desc">Vença seu primeiro sudoku</string>
+    <string name="achievement_wins_10_title">Amador</string>
+    <string name="achievement_wins_10_desc">Vença 10 partidas</string>
+    <string name="achievement_wins_50_title">Experiente</string>
+    <string name="achievement_wins_50_desc">Vença 50 partidas</string>
+    <string name="achievement_wins_200_title">Mestre</string>
+    <string name="achievement_wins_200_desc">Vença 200 partidas</string>
+    <string name="achievement_wins_500_title">Lenda</string>
+    <string name="achievement_wins_500_desc">Vença 500 partidas</string>
+
+    <string name="achievement_diff_easy_25_title">Tático</string>
+    <string name="achievement_diff_easy_25_desc">Vença 25 partidas fáceis</string>
+    <string name="achievement_diff_medium_25_title">Estrategista</string>
+    <string name="achievement_diff_medium_25_desc">Vença 25 partidas médias</string>
+    <string name="achievement_diff_hard_25_title">Grão-mestre</string>
+    <string name="achievement_diff_hard_25_desc">Vença 25 partidas difíceis</string>
+    <string name="achievement_diff_universal_title">Versátil</string>
+    <string name="achievement_diff_universal_desc">Vença 10 partidas em cada dificuldade</string>
+
+    <string name="achievement_perfect_1_title">Perfeccionista</string>
+    <string name="achievement_perfect_1_desc">Vença sem um único erro</string>
+    <string name="achievement_perfect_10_title">Cirurgião</string>
+    <string name="achievement_perfect_10_desc">Vença 10 partidas sem erros</string>
+    <string name="achievement_perfect_50_title">Impecável</string>
+    <string name="achievement_perfect_50_desc">Vença 50 partidas sem erros</string>
+
+    <string name="achievement_speed_easy_title">Mão rápida</string>
+    <string name="achievement_speed_easy_desc">Termine uma partida fácil em 2:30 ou menos</string>
+    <string name="achievement_speed_medium_title">Atirador</string>
+    <string name="achievement_speed_medium_desc">Termine uma partida média em 4:00 ou menos</string>
+    <string name="achievement_speed_hard_title">Relâmpago</string>
+    <string name="achievement_speed_hard_desc">Termine uma partida difícil em 7:00 ou menos</string>
+
+    <string name="achievement_streak_3_title">Em chamas</string>
+    <string name="achievement_streak_3_desc">Vença 3 partidas seguidas</string>
+    <string name="achievement_streak_10_title">Sequência quente</string>
+    <string name="achievement_streak_10_desc">Vença 10 partidas seguidas</string>
+    <string name="achievement_streak_25_title">Imparável</string>
+    <string name="achievement_streak_25_desc">Vença 25 partidas seguidas</string>
+
+    <string name="achievement_daily_1_title">Diário</string>
+    <string name="achievement_daily_1_desc">Conclua seu primeiro desafio diário</string>
+    <string name="achievement_daily_streak_7_title">Constância</string>
+    <string name="achievement_daily_streak_7_desc">Sequência diária de 7 dias</string>
+    <string name="achievement_daily_streak_30_title">Disciplina</string>
+    <string name="achievement_daily_streak_30_desc">Sequência diária de 30 dias</string>
+    <string name="achievement_daily_streak_100_title">Todos os dias</string>
+    <string name="achievement_daily_streak_100_desc">Sequência diária de 100 dias</string>
+
+    <string name="achievement_secret_night_owl_title">Coruja</string>
+    <string name="achievement_secret_night_owl_desc">Vença uma partida entre 00:00 e 05:00</string>
+    <string name="achievement_secret_early_bird_title">Madrugador</string>
+    <string name="achievement_secret_early_bird_desc">Vença uma partida entre 05:00 e 08:00</string>
 </resources>

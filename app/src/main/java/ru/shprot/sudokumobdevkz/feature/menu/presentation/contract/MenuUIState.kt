@@ -5,4 +5,6 @@ import ru.shprot.sudokumobdevkz.core.base.presentation.contract.UIState
 data class MenuUIState(
     val hasSavedGame: Boolean = false,
     val selectedDifficulty: Int = 0,
+    val dailyChallengeStreak: Int = 0,
+    val isDailyChallengeCompleted: Boolean = false,
 ) : UIState

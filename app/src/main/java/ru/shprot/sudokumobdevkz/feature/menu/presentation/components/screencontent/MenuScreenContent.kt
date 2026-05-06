@@ -1,20 +1,8 @@
 package ru.shprot.sudokumobdevkz.feature.menu.presentation.components.screencontent
-import ru.shprot.sudokumobdevkz.feature.menu.presentation.components.*
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import android.content.res.Configuration
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import ru.shprot.sudokumobdevkz.R
-import ru.shprot.sudokumobdevkz.core.theme.AppTheme
-import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonOutlined
+import androidx.compose.ui.platform.LocalConfiguration
 import ru.shprot.sudokumobdevkz.feature.menu.presentation.contract.MenuUIEvent
 import ru.shprot.sudokumobdevkz.feature.menu.presentation.contract.MenuUIState
 
@@ -23,59 +11,11 @@ fun MenuScreenContent(
     uiState: MenuUIState,
     onEvent: (MenuUIEvent) -> Unit,
 ) {
+    when (LocalConfiguration.current.orientation) {
+        Configuration.ORIENTATION_LANDSCAPE ->
+            MenuLandscapeContent(uiState = uiState, onEvent = onEvent)
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(AppTheme.colors.background)
-            .verticalScroll(rememberScrollState())
-            .padding(horizontal = AppTheme.paddings.large),
-    ) {
-
-        MenuHeader(
-            modifier = Modifier
-                .statusBarsPadding()
-                .padding(top = AppTheme.paddings.large),
-            onSettingsClick = { onEvent(MenuUIEvent.NavigateToSettings) },
-        )
-
-        // TODO: DailyChallengeCard — uncomment when daily challenge is implemented
-        // DailyChallengeCard(
-        //     modifier = Modifier.padding(top = AppTheme.paddings.extraLarge),
-        // )
-
-        NewGameButton(
-            modifier = Modifier.padding(top = AppTheme.paddings.large),
-            onClick = { onEvent(MenuUIEvent.NewGameClicked(uiState.selectedDifficulty)) },
-        )
-
-        if (uiState.hasSavedGame) {
-            ButtonOutlined(
-                modifier = Modifier
-                    .padding(top = AppTheme.paddings.large),
-                text = stringResource(R.string.continue_playing),
-                borderColor = AppTheme.colors.primary,
-                textColor = AppTheme.colors.primary,
-                onClick = { onEvent(MenuUIEvent.ContinueGameClicked) },
-            )
-        }
-
-        DifficultySelector(
-            modifier = Modifier.padding(top = AppTheme.paddings.xxl),
-            selectedDifficulty = uiState.selectedDifficulty,
-            onDifficultySelected = { onEvent(MenuUIEvent.DifficultySelected(it)) },
-        )
-
-        MenuNavigationCards(
-            modifier = Modifier
-                .navigationBarsPadding()
-                .padding(
-                    top = AppTheme.paddings.xxl,
-                    bottom = AppTheme.paddings.xxxl,
-                ),
-            onStatisticClick = { onEvent(MenuUIEvent.NavigateToStatistic) },
-            onHowToPlayClick = { onEvent(MenuUIEvent.NavigateToHowToPlay) },
-            onSettingsClick = { onEvent(MenuUIEvent.NavigateToSettings) },
-        )
+        else ->
+            MenuPortraitContent(uiState = uiState, onEvent = onEvent)
     }
 }

@@ -10,6 +10,8 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import ru.shprot.sudokumobdevkz.feature.achievements.presentation.navigation.AchievementsRoutes
+import ru.shprot.sudokumobdevkz.feature.dailychallenge.presentation.navigation.DailyChallengeRoutes
 import ru.shprot.sudokumobdevkz.feature.game.presentation.navigation.GameRoutes
 import ru.shprot.sudokumobdevkz.feature.howtoplay.presentation.navigation.HowToPlayRoutes
 import ru.shprot.sudokumobdevkz.feature.menu.presentation.components.screencontent.MenuScreenContent
@@ -46,11 +48,17 @@ fun MenuScreen(
                 MenuUIEffect.NavigateToStatistic ->
                     navController.navigate(StatisticRoutes.StatisticScreen)
 
+                MenuUIEffect.NavigateToAchievements ->
+                    navController.navigate(AchievementsRoutes.AchievementsScreen)
+
                 MenuUIEffect.NavigateToSettings ->
                     navController.navigate(SettingsRoutes.SettingsScreen)
 
                 MenuUIEffect.NavigateToHowToPlay ->
                     navController.navigate(HowToPlayRoutes.HowToPlayScreen)
+
+                MenuUIEffect.NavigateToDailyChallenge ->
+                    navController.navigate(DailyChallengeRoutes.DailyChallengeScreen)
 
                 is MenuUIEffect.NavigateToGame ->
                     navController.navigate(GameRoutes.GameScreen(difficultyOrdinal = effect.difficultyOrdinal))

@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">СУДОКУ</string>
-    <string name="mistakes_start">Қателер 0/3</string>
-    <string name="mistakes">Қателер </string>
     <string name="difficulty_easy">Жеңіл</string>
     <string name="difficulty_middle">Орташа</string>
     <string name="difficulty_expert">Сарапшы</string>
@@ -12,70 +10,97 @@
     <string name="how_to_play">Қалай ойнауға болады</string>
     <string name="statistic">Статистика</string>
     <string name="pause">Кідірту</string>
-    <string name="continue_game">Ойынды жалғастыру</string>
-    <string name="hint_used">Кеңес қолданылды</string>
-    <string name="hins_over">Кеңестер аяқталды</string>
-    <string name="win">Сіз жеңдіңіз :)</string>
-    <string name="lose">Тағы бір рет :(</string>
-    <string name="unknown">Белгісіздік</string>
     <string name="game_over">Ойын аяқталды</string>
-    <string name="main_page">Басты бет</string>
-    <string name="game">Судоку</string>
-    <string name="average_time">Орташа уақыт:</string>
-    <string name="best_time">Ең жақсы уақыт:</string>
     <string name="game_started">Ойын басталды:</string>
     <string name="game_won">Ойын жеңілді:</string>
-    <string name="wins_without_mistakes">Қателіксіз жеңістер:</string>
     <string name="best_wins_line">Ең жақсы жеңістер дәрежесі:</string>
     <string name="current_wins_line">Қазіргі жеңістер дәрежесі:</string>
     <string name="percent_of_wins">Жеңіс пайызы:</string>
-    <string name="clear_statistic">Статистиканы тазарту</string>
     <string name="go_to_main_page">Басты бетке өту</string>
-    <string name="full_statistic">Барлық статистика</string>
     <string name="you_won">Жеңілді!</string>
     <string name="go_back">Артқа</string>
-    <string name="app_language">Қолданба тілі:</string>
-    <string name="support_the_developer">Әзірлеушіге көмек көрсету</string>
-    <string name="change_theme">Тақырыпты өзгерту</string>
-    <string name="rate_app">Қолданбаны бағалау</string>
-    <string name="remove_ads">Рекламаны алып тастау</string>
-    <string name="support_ololo">Ололоға көмектесу</string>
-    <string name="rate_ololo">Ololoға баға беру</string>
-    <string name="skip">Өткізіп өту</string>
-    <string name="finish">Аяқтау</string>
     <string name="no_repetitions">Қайталап жоқ</string>
     <string name="always_unique">Шешім әрдайым уникалды</string>
     <string name="use_notes">Түсіндірмелерді пайдаланыңыз</string>
-    <string name="to_the_begining">Бастапқыға</string>
-    <string name="light_theme">Жарық</string>
-    <string name="dark_theme">Қарау</string>
     <string name="undo">Болдырмау</string>
     <string name="erase">Тазалау</string>
     <string name="note">Түсіндірме</string>
-    <string name="green">Жасыл</string>
-    <string name="play_market">Әгәр сізге бұл қосымша ұнатса, Play Market-те тиімді бағалауға болатын нысан туралы пікір білдіріп, оны досыңызбен бөлісе аласыз.</string>
     <string name="unlimited_hints">Шығыссыз анықтамалар</string>
-    <string name="unlimited_mistakes">Қателерді есепке алмасу</string>
-    <string name="rate_error_message">Кешіріңіз, біреуі бұзылды :( Интернет-қосымша жамауында болуы мүмкін ме?</string>
-    <string name="of_course">Жақсы</string>
-    <string name="later">Кейінірек</string>
-    <string name="than_rate_us">Сондықтан бізге бағалау беруге болады ма?</string>
-    <string name="yes">Иә</string>
-    <string name="no">Жоқ</string>
-    <string name="do_you_like_sudoku">Судоку сізге ұнады ма?</string>
-    <string name="great">Жақсы!</string>
-
-    <!-- Update -->
-    <string name="update_available_title">Жаңа нұсқа қол жетімді</string>
-    <string name="update_button">Жаңарту</string>
-    <string name="update_later">Кейінірек</string>
-    <string name="update_downloading">Жүктелуде… %d%%</string>
-    <string name="update_error">Жүктеу қатесі. Кейінірек қайталаңыз.</string>
-    <string name="update_play_protect_hint">Google Play Protect ескерту көрсетуі мүмкін — бұл Play Store-дан тыс орнатылған қолданбалар үшін қалыпты жағдай.</string>
-    <string name="clear_statistic_confirm">Барлық статистиканы тазалағыңыз келетініне сенімдісіз бе? Бұл әрекетті қайтару мүмкін емес.</string>
 
     <string name="how_desc_one">Әр ұяшыққа 1-ден 9-ға дейін сан жазыңыз.\n\nБір сан жолда, бағанда немесе 3×3 блокта қайталанбауы керек.</string>
     <string name="how_desc_two">Әр басқатырғыштың бір ғана шешімі бар. Бос ұяшықты басып, өріс астындағы санды таңдаңыз.\n\nТек бір сан сиятын ұяшықтарды іздеңіз.</string>
     <string name="how_desc_three">Ұяшықтағы мүмкін нұсқаларды белгілеу үшін жазбаларды пайдаланыңыз. Өріс астындағы батырмамен жазба режимін қосыңыз.\n\nСоңғы санды жазған кезде жазбалар автоматты түрде жоғалады.</string>
+    <string name="streak_days">🔥 %d күн</string>
+    <string name="daily_completed">Шешілді!</string>
+    <string name="daily_play">Ойнау</string>
+    <string name="daily_try_tomorrow">Ертең қайта оралыңыз</string>
+    <string name="daily_try_again">Қайта көріңіз</string>
+    <string name="daily_streak_label">Ағымдағы серия</string>
+    <string name="daily_best_streak_label">Ең үздік серия</string>
 
+    <string name="achievements">Жетістіктер</string>
+    <string name="achievements_desc">Алынған белгілерді көру</string>
+    <string name="achievements_section_unlocked">Алынды</string>
+    <string name="achievements_section_in_progress">Орындалуда</string>
+    <string name="achievements_section_locked">Жабық</string>
+    <string name="achievement_secret_title">Құпия жетістік</string>
+    <string name="achievement_secret_desc">Білу үшін ашыңыз</string>
+    <string name="achievement_unlocked_toast">Жетістік ашылды: %1$s</string>
+    <string name="achievement_unlocked_action">Көру</string>
+    <string name="achievements_retroactive_toast">Сізге %1$d жетістік берілді</string>
+
+    <string name="achievement_wins_first_title">Алғашқы жеңіс</string>
+    <string name="achievement_wins_first_desc">Алғашқы судокуыңды жең</string>
+    <string name="achievement_wins_10_title">Әуесқой</string>
+    <string name="achievement_wins_10_desc">10 ойын жеңіп ал</string>
+    <string name="achievement_wins_50_title">Тәжірибелі</string>
+    <string name="achievement_wins_50_desc">50 ойын жеңіп ал</string>
+    <string name="achievement_wins_200_title">Шебер</string>
+    <string name="achievement_wins_200_desc">200 ойын жеңіп ал</string>
+    <string name="achievement_wins_500_title">Аңыз</string>
+    <string name="achievement_wins_500_desc">500 ойын жеңіп ал</string>
+
+    <string name="achievement_diff_easy_25_title">Тактик</string>
+    <string name="achievement_diff_easy_25_desc">Жеңіл деңгейде 25 ойын жең</string>
+    <string name="achievement_diff_medium_25_title">Стратег</string>
+    <string name="achievement_diff_medium_25_desc">Орташа деңгейде 25 ойын жең</string>
+    <string name="achievement_diff_hard_25_title">Гроссмейстер</string>
+    <string name="achievement_diff_hard_25_desc">Қиын деңгейде 25 ойын жең</string>
+    <string name="achievement_diff_universal_title">Әмбебап</string>
+    <string name="achievement_diff_universal_desc">Әр деңгейде 10 жеңіс</string>
+
+    <string name="achievement_perfect_1_title">Перфекционист</string>
+    <string name="achievement_perfect_1_desc">Бір де қатесіз жең</string>
+    <string name="achievement_perfect_10_title">Хирург</string>
+    <string name="achievement_perfect_10_desc">Қатесіз 10 жеңіс</string>
+    <string name="achievement_perfect_50_title">Мінсіз</string>
+    <string name="achievement_perfect_50_desc">Қатесіз 50 жеңіс</string>
+
+    <string name="achievement_speed_easy_title">Жылдам қол</string>
+    <string name="achievement_speed_easy_desc">Жеңіл ойынды 2:30-да немесе жылдамырақ аяқта</string>
+    <string name="achievement_speed_medium_title">Мерген</string>
+    <string name="achievement_speed_medium_desc">Орташа ойынды 4:00-де немесе жылдамырақ аяқта</string>
+    <string name="achievement_speed_hard_title">Найзағай</string>
+    <string name="achievement_speed_hard_desc">Қиын ойынды 7:00-де немесе жылдамырақ аяқта</string>
+
+    <string name="achievement_streak_3_title">Қызуда</string>
+    <string name="achievement_streak_3_desc">Қатарынан 3 жеңіс</string>
+    <string name="achievement_streak_10_title">Ыстық серия</string>
+    <string name="achievement_streak_10_desc">Қатарынан 10 жеңіс</string>
+    <string name="achievement_streak_25_title">Тоқтаусыз</string>
+    <string name="achievement_streak_25_desc">Қатарынан 25 жеңіс</string>
+
+    <string name="achievement_daily_1_title">Күнделік</string>
+    <string name="achievement_daily_1_desc">Алғашқы күнделікті тапсырманы аяқта</string>
+    <string name="achievement_daily_streak_7_title">Тұрақтылық</string>
+    <string name="achievement_daily_streak_7_desc">7 күн қатарынан күнделікті</string>
+    <string name="achievement_daily_streak_30_title">Тәртіп</string>
+    <string name="achievement_daily_streak_30_desc">30 күн қатарынан күнделікті</string>
+    <string name="achievement_daily_streak_100_title">Күн сайын</string>
+    <string name="achievement_daily_streak_100_desc">100 күн қатарынан күнделікті</string>
+
+    <string name="achievement_secret_night_owl_title">Түнгі үкі</string>
+    <string name="achievement_secret_night_owl_desc">00:00 мен 05:00 аралығында жең</string>
+    <string name="achievement_secret_early_bird_title">Ерте торғай</string>
+    <string name="achievement_secret_early_bird_desc">05:00 мен 08:00 аралығында жең</string>
 </resources>
