@@ -2,7 +2,7 @@ package ru.shprot.sudokumobdevkz.core.base.domain.achievement
 
 import androidx.annotation.StringRes
 
-data class Achievement(
+class Achievement(
     val id: String,
     @StringRes val titleRes: Int,
     @StringRes val descRes: Int,

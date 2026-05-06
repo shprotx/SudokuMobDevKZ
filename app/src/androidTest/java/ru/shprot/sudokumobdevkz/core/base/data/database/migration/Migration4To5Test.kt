@@ -10,7 +10,7 @@ import org.junit.runner.RunWith
 import ru.shprot.sudokumobdevkz.core.base.data.database.SudokuComposeDatabase
 
 @RunWith(AndroidJUnit4::class)
-class Migration_4_5_Test {
+class Migration4To5Test {
 
     private val dbName = "migration-test"
 
