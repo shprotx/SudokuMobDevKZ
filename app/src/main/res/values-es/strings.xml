@@ -38,4 +38,69 @@
     <string name="daily_streak_label">Racha actual</string>
     <string name="daily_best_streak_label">Mejor racha</string>
 
+    <string name="achievements">Logros</string>
+    <string name="achievements_desc">Ver tus insignias desbloqueadas</string>
+    <string name="achievements_section_unlocked">Desbloqueados</string>
+    <string name="achievements_section_in_progress">En progreso</string>
+    <string name="achievements_section_locked">Bloqueados</string>
+    <string name="achievement_secret_title">Logro secreto</string>
+    <string name="achievement_secret_desc">Desbloquéalo para descubrirlo</string>
+    <string name="achievement_unlocked_toast">Logro desbloqueado: %1$s</string>
+    <string name="achievement_unlocked_action">Ver</string>
+    <string name="achievements_retroactive_toast">Has obtenido %1$d logros</string>
+
+    <string name="achievement_wins_first_title">Primera victoria</string>
+    <string name="achievement_wins_first_desc">Gana tu primer sudoku</string>
+    <string name="achievement_wins_10_title">Aficionado</string>
+    <string name="achievement_wins_10_desc">Gana 10 partidas</string>
+    <string name="achievement_wins_50_title">Experimentado</string>
+    <string name="achievement_wins_50_desc">Gana 50 partidas</string>
+    <string name="achievement_wins_200_title">Maestro</string>
+    <string name="achievement_wins_200_desc">Gana 200 partidas</string>
+    <string name="achievement_wins_500_title">Leyenda</string>
+    <string name="achievement_wins_500_desc">Gana 500 partidas</string>
+
+    <string name="achievement_diff_easy_25_title">Táctico</string>
+    <string name="achievement_diff_easy_25_desc">Gana 25 partidas fáciles</string>
+    <string name="achievement_diff_medium_25_title">Estratega</string>
+    <string name="achievement_diff_medium_25_desc">Gana 25 partidas intermedias</string>
+    <string name="achievement_diff_hard_25_title">Gran maestro</string>
+    <string name="achievement_diff_hard_25_desc">Gana 25 partidas difíciles</string>
+    <string name="achievement_diff_universal_title">Polivalente</string>
+    <string name="achievement_diff_universal_desc">Gana 10 partidas en cada dificultad</string>
+
+    <string name="achievement_perfect_1_title">Perfeccionista</string>
+    <string name="achievement_perfect_1_desc">Gana sin un solo error</string>
+    <string name="achievement_perfect_10_title">Cirujano</string>
+    <string name="achievement_perfect_10_desc">Gana 10 partidas sin errores</string>
+    <string name="achievement_perfect_50_title">Impecable</string>
+    <string name="achievement_perfect_50_desc">Gana 50 partidas sin errores</string>
+
+    <string name="achievement_speed_easy_title">Mano rápida</string>
+    <string name="achievement_speed_easy_desc">Termina una partida fácil en 2:30 o menos</string>
+    <string name="achievement_speed_medium_title">Tirador</string>
+    <string name="achievement_speed_medium_desc">Termina una partida intermedia en 4:00 o menos</string>
+    <string name="achievement_speed_hard_title">Relámpago</string>
+    <string name="achievement_speed_hard_desc">Termina una partida difícil en 7:00 o menos</string>
+
+    <string name="achievement_streak_3_title">En racha</string>
+    <string name="achievement_streak_3_desc">Gana 3 partidas seguidas</string>
+    <string name="achievement_streak_10_title">Racha caliente</string>
+    <string name="achievement_streak_10_desc">Gana 10 partidas seguidas</string>
+    <string name="achievement_streak_25_title">Imparable</string>
+    <string name="achievement_streak_25_desc">Gana 25 partidas seguidas</string>
+
+    <string name="achievement_daily_1_title">Diario</string>
+    <string name="achievement_daily_1_desc">Completa tu primer reto diario</string>
+    <string name="achievement_daily_streak_7_title">Constancia</string>
+    <string name="achievement_daily_streak_7_desc">Racha diaria de 7 días</string>
+    <string name="achievement_daily_streak_30_title">Disciplina</string>
+    <string name="achievement_daily_streak_30_desc">Racha diaria de 30 días</string>
+    <string name="achievement_daily_streak_100_title">Cada día</string>
+    <string name="achievement_daily_streak_100_desc">Racha diaria de 100 días</string>
+
+    <string name="achievement_secret_night_owl_title">Búho nocturno</string>
+    <string name="achievement_secret_night_owl_desc">Gana una partida entre las 00:00 y las 05:00</string>
+    <string name="achievement_secret_early_bird_title">Madrugador</string>
+    <string name="achievement_secret_early_bird_desc">Gana una partida entre las 05:00 y las 08:00</string>
 </resources>

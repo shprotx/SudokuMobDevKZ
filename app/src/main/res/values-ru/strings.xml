@@ -44,7 +44,7 @@
     <string name="for_experienced">Для опытных</string>
     <string name="for_experts">Для экспертов</string>
     <string name="achievements">Достижения</string>
-    <string name="achievements_desc">Открывай новые награды</string>
+    <string name="achievements_desc">Полученные бейджи</string>
     <string name="statistic_desc">Смотри свои достижения</string>
     <string name="how_to_play_desc">Правила и советы</string>
     <string name="settings_desc">Тема, звук и другое</string>
@@ -121,4 +121,68 @@
     <string name="daily_try_again">Попробуй ещё</string>
     <string name="daily_streak_label">Текущая серия</string>
     <string name="daily_best_streak_label">Лучшая серия</string>
+
+    <string name="achievements_section_unlocked">Получено</string>
+    <string name="achievements_section_in_progress">В процессе</string>
+    <string name="achievements_section_locked">Заблокировано</string>
+    <string name="achievement_secret_title">Секретное достижение</string>
+    <string name="achievement_secret_desc">Откройте, чтобы узнать</string>
+    <string name="achievement_unlocked_toast">Получено: %1$s</string>
+    <string name="achievement_unlocked_action">Посмотреть</string>
+    <string name="achievements_retroactive_toast">Вам начислено %1$d достижений</string>
+
+    <string name="achievement_wins_first_title">Первая победа</string>
+    <string name="achievement_wins_first_desc">Выиграйте первое судоку</string>
+    <string name="achievement_wins_10_title">Любитель</string>
+    <string name="achievement_wins_10_desc">Выиграйте 10 партий</string>
+    <string name="achievement_wins_50_title">Опытный</string>
+    <string name="achievement_wins_50_desc">Выиграйте 50 партий</string>
+    <string name="achievement_wins_200_title">Мастер</string>
+    <string name="achievement_wins_200_desc">Выиграйте 200 партий</string>
+    <string name="achievement_wins_500_title">Легенда</string>
+    <string name="achievement_wins_500_desc">Выиграйте 500 партий</string>
+
+    <string name="achievement_diff_easy_25_title">Тактик</string>
+    <string name="achievement_diff_easy_25_desc">Выиграйте 25 партий на лёгкой</string>
+    <string name="achievement_diff_medium_25_title">Стратег</string>
+    <string name="achievement_diff_medium_25_desc">Выиграйте 25 партий на средней</string>
+    <string name="achievement_diff_hard_25_title">Гранд-мастер</string>
+    <string name="achievement_diff_hard_25_desc">Выиграйте 25 партий на сложной</string>
+    <string name="achievement_diff_universal_title">Универсал</string>
+    <string name="achievement_diff_universal_desc">По 10 побед на каждой сложности</string>
+
+    <string name="achievement_perfect_1_title">Перфекционист</string>
+    <string name="achievement_perfect_1_desc">Выиграйте без единой ошибки</string>
+    <string name="achievement_perfect_10_title">Хирург</string>
+    <string name="achievement_perfect_10_desc">10 побед без ошибок</string>
+    <string name="achievement_perfect_50_title">Безупречный</string>
+    <string name="achievement_perfect_50_desc">50 побед без ошибок</string>
+
+    <string name="achievement_speed_easy_title">Быстрая рука</string>
+    <string name="achievement_speed_easy_desc">Лёгкая за 2:30 или быстрее</string>
+    <string name="achievement_speed_medium_title">Скорострел</string>
+    <string name="achievement_speed_medium_desc">Средняя за 4:00 или быстрее</string>
+    <string name="achievement_speed_hard_title">Молниеносный</string>
+    <string name="achievement_speed_hard_desc">Сложная за 7:00 или быстрее</string>
+
+    <string name="achievement_streak_3_title">В ударе</string>
+    <string name="achievement_streak_3_desc">3 победы подряд</string>
+    <string name="achievement_streak_10_title">Горячая серия</string>
+    <string name="achievement_streak_10_desc">10 побед подряд</string>
+    <string name="achievement_streak_25_title">Непобедимый</string>
+    <string name="achievement_streak_25_desc">25 побед подряд</string>
+
+    <string name="achievement_daily_1_title">Дневник</string>
+    <string name="achievement_daily_1_desc">Завершите первый daily-вызов</string>
+    <string name="achievement_daily_streak_7_title">Постоянство</string>
+    <string name="achievement_daily_streak_7_desc">7 дней daily подряд</string>
+    <string name="achievement_daily_streak_30_title">Дисциплина</string>
+    <string name="achievement_daily_streak_30_desc">30 дней daily подряд</string>
+    <string name="achievement_daily_streak_100_title">Каждый день</string>
+    <string name="achievement_daily_streak_100_desc">100 дней daily подряд</string>
+
+    <string name="achievement_secret_night_owl_title">Полуночник</string>
+    <string name="achievement_secret_night_owl_desc">Победа между 00:00 и 05:00</string>
+    <string name="achievement_secret_early_bird_title">Ранняя пташка</string>
+    <string name="achievement_secret_early_bird_desc">Победа между 05:00 и 08:00</string>
 </resources>

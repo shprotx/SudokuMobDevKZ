@@ -39,4 +39,70 @@
     <string name="daily_try_again">Tente novamente</string>
     <string name="daily_streak_label">Sequência atual</string>
     <string name="daily_best_streak_label">Melhor sequência</string>
+
+    <string name="achievements">Conquistas</string>
+    <string name="achievements_desc">Veja seus distintivos desbloqueados</string>
+    <string name="achievements_section_unlocked">Desbloqueadas</string>
+    <string name="achievements_section_in_progress">Em andamento</string>
+    <string name="achievements_section_locked">Bloqueadas</string>
+    <string name="achievement_secret_title">Conquista secreta</string>
+    <string name="achievement_secret_desc">Desbloqueie para descobrir</string>
+    <string name="achievement_unlocked_toast">Conquista desbloqueada: %1$s</string>
+    <string name="achievement_unlocked_action">Ver</string>
+    <string name="achievements_retroactive_toast">Você ganhou %1$d conquistas</string>
+
+    <string name="achievement_wins_first_title">Primeira vitória</string>
+    <string name="achievement_wins_first_desc">Vença seu primeiro sudoku</string>
+    <string name="achievement_wins_10_title">Amador</string>
+    <string name="achievement_wins_10_desc">Vença 10 partidas</string>
+    <string name="achievement_wins_50_title">Experiente</string>
+    <string name="achievement_wins_50_desc">Vença 50 partidas</string>
+    <string name="achievement_wins_200_title">Mestre</string>
+    <string name="achievement_wins_200_desc">Vença 200 partidas</string>
+    <string name="achievement_wins_500_title">Lenda</string>
+    <string name="achievement_wins_500_desc">Vença 500 partidas</string>
+
+    <string name="achievement_diff_easy_25_title">Tático</string>
+    <string name="achievement_diff_easy_25_desc">Vença 25 partidas fáceis</string>
+    <string name="achievement_diff_medium_25_title">Estrategista</string>
+    <string name="achievement_diff_medium_25_desc">Vença 25 partidas médias</string>
+    <string name="achievement_diff_hard_25_title">Grão-mestre</string>
+    <string name="achievement_diff_hard_25_desc">Vença 25 partidas difíceis</string>
+    <string name="achievement_diff_universal_title">Versátil</string>
+    <string name="achievement_diff_universal_desc">Vença 10 partidas em cada dificuldade</string>
+
+    <string name="achievement_perfect_1_title">Perfeccionista</string>
+    <string name="achievement_perfect_1_desc">Vença sem um único erro</string>
+    <string name="achievement_perfect_10_title">Cirurgião</string>
+    <string name="achievement_perfect_10_desc">Vença 10 partidas sem erros</string>
+    <string name="achievement_perfect_50_title">Impecável</string>
+    <string name="achievement_perfect_50_desc">Vença 50 partidas sem erros</string>
+
+    <string name="achievement_speed_easy_title">Mão rápida</string>
+    <string name="achievement_speed_easy_desc">Termine uma partida fácil em 2:30 ou menos</string>
+    <string name="achievement_speed_medium_title">Atirador</string>
+    <string name="achievement_speed_medium_desc">Termine uma partida média em 4:00 ou menos</string>
+    <string name="achievement_speed_hard_title">Relâmpago</string>
+    <string name="achievement_speed_hard_desc">Termine uma partida difícil em 7:00 ou menos</string>
+
+    <string name="achievement_streak_3_title">Em chamas</string>
+    <string name="achievement_streak_3_desc">Vença 3 partidas seguidas</string>
+    <string name="achievement_streak_10_title">Sequência quente</string>
+    <string name="achievement_streak_10_desc">Vença 10 partidas seguidas</string>
+    <string name="achievement_streak_25_title">Imparável</string>
+    <string name="achievement_streak_25_desc">Vença 25 partidas seguidas</string>
+
+    <string name="achievement_daily_1_title">Diário</string>
+    <string name="achievement_daily_1_desc">Conclua seu primeiro desafio diário</string>
+    <string name="achievement_daily_streak_7_title">Constância</string>
+    <string name="achievement_daily_streak_7_desc">Sequência diária de 7 dias</string>
+    <string name="achievement_daily_streak_30_title">Disciplina</string>
+    <string name="achievement_daily_streak_30_desc">Sequência diária de 30 dias</string>
+    <string name="achievement_daily_streak_100_title">Todos os dias</string>
+    <string name="achievement_daily_streak_100_desc">Sequência diária de 100 dias</string>
+
+    <string name="achievement_secret_night_owl_title">Coruja</string>
+    <string name="achievement_secret_night_owl_desc">Vença uma partida entre 00:00 e 05:00</string>
+    <string name="achievement_secret_early_bird_title">Madrugador</string>
+    <string name="achievement_secret_early_bird_desc">Vença uma partida entre 05:00 e 08:00</string>
 </resources>

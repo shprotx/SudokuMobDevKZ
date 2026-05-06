@@ -38,4 +38,69 @@
     <string name="daily_streak_label">Поточна серія</string>
     <string name="daily_best_streak_label">Найкраща серія</string>
 
+    <string name="achievements">Досягнення</string>
+    <string name="achievements_desc">Отримані бейджі</string>
+    <string name="achievements_section_unlocked">Отримано</string>
+    <string name="achievements_section_in_progress">У процесі</string>
+    <string name="achievements_section_locked">Заблоковано</string>
+    <string name="achievement_secret_title">Секретне досягнення</string>
+    <string name="achievement_secret_desc">Відкрийте, щоб дізнатися</string>
+    <string name="achievement_unlocked_toast">Отримано: %1$s</string>
+    <string name="achievement_unlocked_action">Переглянути</string>
+    <string name="achievements_retroactive_toast">Вам нараховано %1$d досягнень</string>
+
+    <string name="achievement_wins_first_title">Перша перемога</string>
+    <string name="achievement_wins_first_desc">Виграйте перше судоку</string>
+    <string name="achievement_wins_10_title">Аматор</string>
+    <string name="achievement_wins_10_desc">Виграйте 10 партій</string>
+    <string name="achievement_wins_50_title">Досвідчений</string>
+    <string name="achievement_wins_50_desc">Виграйте 50 партій</string>
+    <string name="achievement_wins_200_title">Майстер</string>
+    <string name="achievement_wins_200_desc">Виграйте 200 партій</string>
+    <string name="achievement_wins_500_title">Легенда</string>
+    <string name="achievement_wins_500_desc">Виграйте 500 партій</string>
+
+    <string name="achievement_diff_easy_25_title">Тактик</string>
+    <string name="achievement_diff_easy_25_desc">Виграйте 25 партій на легкому</string>
+    <string name="achievement_diff_medium_25_title">Стратег</string>
+    <string name="achievement_diff_medium_25_desc">Виграйте 25 партій на середньому</string>
+    <string name="achievement_diff_hard_25_title">Гросмейстер</string>
+    <string name="achievement_diff_hard_25_desc">Виграйте 25 партій на складному</string>
+    <string name="achievement_diff_universal_title">Універсал</string>
+    <string name="achievement_diff_universal_desc">По 10 перемог на кожній складності</string>
+
+    <string name="achievement_perfect_1_title">Перфекціоніст</string>
+    <string name="achievement_perfect_1_desc">Виграйте без жодної помилки</string>
+    <string name="achievement_perfect_10_title">Хірург</string>
+    <string name="achievement_perfect_10_desc">10 перемог без помилок</string>
+    <string name="achievement_perfect_50_title">Бездоганний</string>
+    <string name="achievement_perfect_50_desc">50 перемог без помилок</string>
+
+    <string name="achievement_speed_easy_title">Швидка рука</string>
+    <string name="achievement_speed_easy_desc">Легка за 2:30 або швидше</string>
+    <string name="achievement_speed_medium_title">Снайпер</string>
+    <string name="achievement_speed_medium_desc">Середня за 4:00 або швидше</string>
+    <string name="achievement_speed_hard_title">Блискавичний</string>
+    <string name="achievement_speed_hard_desc">Складна за 7:00 або швидше</string>
+
+    <string name="achievement_streak_3_title">У вогні</string>
+    <string name="achievement_streak_3_desc">3 перемоги поспіль</string>
+    <string name="achievement_streak_10_title">Гаряча серія</string>
+    <string name="achievement_streak_10_desc">10 перемог поспіль</string>
+    <string name="achievement_streak_25_title">Невпинний</string>
+    <string name="achievement_streak_25_desc">25 перемог поспіль</string>
+
+    <string name="achievement_daily_1_title">Щоденник</string>
+    <string name="achievement_daily_1_desc">Завершіть перший щоденний виклик</string>
+    <string name="achievement_daily_streak_7_title">Постійність</string>
+    <string name="achievement_daily_streak_7_desc">7 днів щоденного поспіль</string>
+    <string name="achievement_daily_streak_30_title">Дисципліна</string>
+    <string name="achievement_daily_streak_30_desc">30 днів щоденного поспіль</string>
+    <string name="achievement_daily_streak_100_title">Щодня</string>
+    <string name="achievement_daily_streak_100_desc">100 днів щоденного поспіль</string>
+
+    <string name="achievement_secret_night_owl_title">Сова</string>
+    <string name="achievement_secret_night_owl_desc">Перемога між 00:00 і 05:00</string>
+    <string name="achievement_secret_early_bird_title">Рання пташка</string>
+    <string name="achievement_secret_early_bird_desc">Перемога між 05:00 і 08:00</string>
 </resources>
