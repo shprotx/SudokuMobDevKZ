@@ -47,11 +47,13 @@ fun ToolbarDefault(
 
         Text(
             modifier = Modifier
-                .align(Alignment.Center),
+                .align(Alignment.Center)
+                .padding(horizontal = AppTheme.sizes.toolbarButton + AppTheme.paddings.small),
             text = title,
             style = AppTheme.typography.h3,
             color = AppTheme.colors.text,
             textAlign = TextAlign.Center,
+            maxLines = 2,
         )
 
         onEndIconClick?.let {

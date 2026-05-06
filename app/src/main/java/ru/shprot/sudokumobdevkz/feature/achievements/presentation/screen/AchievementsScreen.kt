@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.collectLatest
 import ru.shprot.sudokumobdevkz.feature.achievements.presentation.components.screencontent.AchievementsScreenContent
 import ru.shprot.sudokumobdevkz.feature.achievements.presentation.contract.AchievementsUIEffect
 import ru.shprot.sudokumobdevkz.feature.achievements.presentation.viewmodel.AchievementsViewModel
+import ru.shprot.sudokumobdevkz.feature.settings.presentation.navigation.SettingsRoutes
 
 @Composable
 fun AchievementsScreen(
@@ -23,6 +24,9 @@ fun AchievementsScreen(
             when (effect) {
                 AchievementsUIEffect.NavigateBack ->
                     navController.popBackStack()
+
+                AchievementsUIEffect.NavigateToSettings ->
+                    navController.navigate(SettingsRoutes.SettingsScreen)
             }
         }
     }
