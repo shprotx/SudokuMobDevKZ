@@ -1,0 +1,28 @@
+package ru.shprot.sudokumobdevkz.core.base.domain.achievement
+
+enum class AchievementIconKey {
+    TROPHY_BRONZE,
+    MEDAL_BRONZE,
+    MEDAL_SILVER,
+    MEDAL_GOLD,
+    CROWN,
+    LEAF,
+    SUN,
+    MOUNTAIN,
+    COMPASS,
+    CHECK,
+    TARGET,
+    GEM,
+    BOLT,
+    BOLT_DOUBLE,
+    BOLT_TRIPLE,
+    FIRE_SMALL,
+    FIRE_MEDIUM,
+    FIRE_BIG,
+    CALENDAR_CHECK,
+    CALENDAR_WEEK,
+    CALENDAR_MONTH,
+    CALENDAR_YEAR,
+    MOON,
+    SUNRISE,
+}

@@ -4,8 +4,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -57,6 +60,7 @@ fun DailyChallengeScreenContent(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .height(IntrinsicSize.Max)
                     .padding(top = AppTheme.paddings.large),
                 horizontalArrangement = Arrangement.spacedBy(
                     space = AppTheme.paddings.default,
@@ -64,13 +68,13 @@ fun DailyChallengeScreenContent(
                 ),
             ) {
                 StreakBadge(
-                    modifier = Modifier,
+                    modifier = Modifier.fillMaxHeight(),
                     streak = uiState.currentStreak,
                     label = stringResource(R.string.daily_streak_label),
                 )
 
                 StreakBadge(
-                    modifier = Modifier,
+                    modifier = Modifier.fillMaxHeight(),
                     streak = uiState.longestStreak,
                     label = stringResource(R.string.daily_best_streak_label),
                 )

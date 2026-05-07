@@ -106,7 +106,7 @@ fun StatisticScreenContent(
 
             TimeChartSection(
                 modifier = Modifier.padding(top = AppTheme.paddings.xxl),
-                recentGames = uiState.recentGames,
+                dailyPlaytimes = uiState.dailyPlaytimes,
             )
 
             Row(

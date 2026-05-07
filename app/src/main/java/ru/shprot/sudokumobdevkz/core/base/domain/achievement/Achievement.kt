@@ -6,7 +6,7 @@ class Achievement(
     val id: String,
     @StringRes val titleRes: Int,
     @StringRes val descRes: Int,
-    val iconKey: String,
+    val iconKey: AchievementIconKey,
     val category: AchievementCategory,
     val hidden: Boolean,
     val evaluate: (AchievementContext) -> AchievementProgress,

@@ -455,11 +455,7 @@ class GameViewModel @Inject constructor(
         viewModelScope.launch(exceptionHandler) {
             val newStreak = when {
                 isDailyChallenge && isWin ->
-                    dailyChallengeRepository.markCompleted(
-                        dateKey = dailyChallengeRepository.todayDateKey(),
-                        timeSeconds = currentState.timeSeconds,
-                        errors = currentState.errors,
-                    )
+                    persistDailyChallengeWin()
 
                 isDailyChallenge ->
                     0
@@ -504,6 +500,23 @@ class GameViewModel @Inject constructor(
         )
 
         return 0
+    }
+
+    private suspend fun persistDailyChallengeWin(): Int {
+        val streak = dailyChallengeRepository.markCompleted(
+            dateKey = dailyChallengeRepository.todayDateKey(),
+            timeSeconds = currentState.timeSeconds,
+            errors = currentState.errors,
+        )
+
+        repository.saveGameResult(
+            difficulty = difficulty,
+            timeSeconds = currentState.timeSeconds,
+            errors = currentState.errors,
+            isWin = true,
+        )
+
+        return streak
     }
 
     private fun clearNotesForNumber(cells: MutableList<MutableList<CellData>>, row: Int, col: Int, number: Int) {

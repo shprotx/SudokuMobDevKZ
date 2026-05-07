@@ -16,13 +16,14 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import ru.shprot.sudokumobdevkz.core.base.domain.achievement.AchievementIconKey
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 import ru.shprot.sudokumobdevkz.feature.achievements.presentation.util.AchievementIconMapper
 
 @Composable
 internal fun LockedAchievementIcon(
     modifier: Modifier,
-    iconKey: String,
+    iconKey: AchievementIconKey,
 ) {
     val blurSupported = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
     Box(

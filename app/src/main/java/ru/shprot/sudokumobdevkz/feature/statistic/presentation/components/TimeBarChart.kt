@@ -24,43 +24,48 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import ru.shprot.sudokumobdevkz.core.base.data.database.entity.GameHistoryEntity
 import ru.shprot.sudokumobdevkz.core.base.data.util.DateTimeUtils
+import ru.shprot.sudokumobdevkz.core.base.domain.model.DailyPlaytime
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 @Composable
 internal fun TimeBarChart(
     modifier: Modifier,
-    games: List<GameHistoryEntity>,
+    dailyPlaytimes: List<DailyPlaytime>,
 ) {
-    val maxTime = games.maxOf { it.timeSeconds }.coerceAtLeast(60)
+    val maxTime = dailyPlaytimes.maxOf { it.totalSeconds }.coerceAtLeast(60)
     val chartHeight = 160.dp
     val barWidth = 36.dp
     val timeLabels = DateTimeUtils.generateTimeLabels(maxTime)
+    val dateFormatter = DateTimeFormatter.ofPattern("dd.MM", Locale.getDefault())
     val listState = rememberLazyListState()
 
-    LaunchedEffect(games.size) {
-        if (games.isNotEmpty()) listState.animateScrollToItem(games.size - 1)
+    LaunchedEffect(dailyPlaytimes.size) {
+        if (dailyPlaytimes.isNotEmpty()) {
+            listState.scrollToItem(dailyPlaytimes.size - 1)
+        }
     }
 
-    Column(modifier = modifier) {
-        Row(modifier = Modifier.fillMaxWidth()) {
-            Column(
-                modifier = Modifier
-                    .width(40.dp)
-                    .height(chartHeight),
-                verticalArrangement = Arrangement.SpaceBetween,
-            ) {
-                timeLabels.reversed().forEach { label ->
-                    Text(
-                        text = label,
-                        style = AppTheme.typography.caption2,
-                        color = AppTheme.colors.textSecondary,
-                    )
-                }
+    Row(modifier = modifier) {
+        Column(
+            modifier = Modifier
+                .width(40.dp)
+                .height(chartHeight),
+            verticalArrangement = Arrangement.SpaceBetween,
+        ) {
+            timeLabels.reversed().forEach { label ->
+                Text(
+                    text = label,
+                    style = AppTheme.typography.caption2,
+                    color = AppTheme.colors.textSecondary,
+                )
             }
+        }
 
-            Box(modifier = Modifier.weight(1f)) {
+        Column(modifier = Modifier.weight(1f)) {
+            Box {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -76,59 +81,77 @@ internal fun TimeBarChart(
                 }
 
                 LazyRow(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(chartHeight),
+                    modifier = Modifier.fillMaxWidth(),
                     state = listState,
                     horizontalArrangement = Arrangement.spacedBy(AppTheme.paddings.medium),
                     verticalAlignment = Alignment.Bottom,
                 ) {
-                    items(games) { game ->
-                        val fraction = (game.timeSeconds.toFloat() / maxTime).coerceIn(0f, 1f)
-                        val barColor = if (game.isWin) AppTheme.colors.primary else AppTheme.colors.error.copy(alpha = 0.6f)
-
-                        Column(
-                            modifier = Modifier.width(barWidth),
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                        ) {
-                            Text(
-                                text = DateTimeUtils.formatShortTime(game.timeSeconds),
-                                style = AppTheme.typography.caption2,
-                                fontWeight = FontWeight.SemiBold,
-                                color = AppTheme.colors.textSecondary,
-                            )
-
-                            Box(
-                                modifier = Modifier
-                                    .padding(top = AppTheme.paddings.extraSmall)
-                                    .width(barWidth)
-                                    .fillMaxHeight(fraction)
-                                    .clip(RoundedCornerShape(topStart = 4.dp, topEnd = 4.dp))
-                                    .background(barColor),
-                            )
-                        }
+                    items(dailyPlaytimes) { day ->
+                        DailyBarColumn(
+                            day = day,
+                            maxTime = maxTime,
+                            barWidth = barWidth,
+                            chartHeight = chartHeight,
+                            dateFormatter = dateFormatter,
+                        )
                     }
                 }
             }
         }
+    }
+}
 
-        LazyRow(
+@Composable
+private fun DailyBarColumn(
+    day: DailyPlaytime,
+    maxTime: Int,
+    barWidth: androidx.compose.ui.unit.Dp,
+    chartHeight: androidx.compose.ui.unit.Dp,
+    dateFormatter: DateTimeFormatter,
+) {
+    val fraction = (day.totalSeconds.toFloat() / maxTime).coerceIn(0f, 1f)
+
+    Column(
+        modifier = Modifier.width(barWidth),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 40.dp, top = AppTheme.paddings.small),
-            state = listState,
-            horizontalArrangement = Arrangement.spacedBy(AppTheme.paddings.medium),
-            userScrollEnabled = false,
+                .height(chartHeight)
+                .width(barWidth),
+            contentAlignment = Alignment.BottomCenter,
         ) {
-            items(games) { game ->
+            Column(
+                modifier = Modifier.fillMaxHeight(),
+                verticalArrangement = Arrangement.Bottom,
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
                 Text(
-                    modifier = Modifier.width(barWidth),
-                    text = DateTimeUtils.formatShortDate(game.timestamp),
+                    text = if (day.totalSeconds > 0) DateTimeUtils.formatShortTime(day.totalSeconds) else "",
                     style = AppTheme.typography.caption2,
+                    fontWeight = FontWeight.SemiBold,
                     color = AppTheme.colors.textSecondary,
-                    textAlign = TextAlign.Center,
+                )
+
+                Box(
+                    modifier = Modifier
+                        .padding(top = AppTheme.paddings.extraSmall)
+                        .width(barWidth)
+                        .fillMaxHeight(fraction)
+                        .clip(RoundedCornerShape(topStart = 4.dp, topEnd = 4.dp))
+                        .background(AppTheme.colors.primary),
                 )
             }
         }
+
+        Text(
+            modifier = Modifier
+                .padding(top = AppTheme.paddings.small)
+                .width(barWidth),
+            text = day.date.format(dateFormatter),
+            style = AppTheme.typography.caption2,
+            color = AppTheme.colors.textSecondary,
+            textAlign = TextAlign.Center,
+        )
     }
 }
