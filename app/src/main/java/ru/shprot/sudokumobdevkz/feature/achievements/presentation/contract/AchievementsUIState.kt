@@ -8,6 +8,6 @@ data class AchievementsUIState(
     val totalUnlocked: Int = 0,
     val totalCount: Int = 0,
     val unlocked: List<AchievementState> = emptyList(),
-    val inProgress: List<AchievementState> = emptyList(),
     val locked: List<AchievementState> = emptyList(),
+    val selected: AchievementState? = null,
 ) : UIState

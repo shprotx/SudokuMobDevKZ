@@ -5,20 +5,28 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 import ru.shprot.sudokumobdevkz.core.uicommon.toolbar.ToolbarDefault
-import ru.shprot.sudokumobdevkz.feature.achievements.presentation.components.AchievementCard
+import ru.shprot.sudokumobdevkz.feature.achievements.presentation.components.AchievementDetailDialog
+import ru.shprot.sudokumobdevkz.feature.achievements.presentation.components.AchievementGridTile
 import ru.shprot.sudokumobdevkz.feature.achievements.presentation.components.AchievementsHeader
 import ru.shprot.sudokumobdevkz.feature.achievements.presentation.components.AchievementsSectionTitle
 import ru.shprot.sudokumobdevkz.feature.achievements.presentation.contract.AchievementsUIEvent
 import ru.shprot.sudokumobdevkz.feature.achievements.presentation.contract.AchievementsUIState
+
+private val GridIconSize = 92.dp
 
 @Composable
 fun AchievementsScreenContent(
@@ -38,59 +46,65 @@ fun AchievementsScreenContent(
             onEndIconClick = { onEvent(AchievementsUIEvent.SettingsClicked) },
         )
 
-        LazyColumn(
+        LazyVerticalGrid(
             modifier = Modifier
                 .fillMaxSize()
                 .navigationBarsPadding(),
+            columns = GridCells.Fixed(3),
             contentPadding = PaddingValues(AppTheme.paddings.large),
-            verticalArrangement = Arrangement.spacedBy(AppTheme.paddings.default),
+            horizontalArrangement = Arrangement.spacedBy(AppTheme.paddings.medium),
+            verticalArrangement = Arrangement.spacedBy(AppTheme.paddings.medium),
         ) {
-            item {
+            item(span = { GridItemSpan(maxLineSpan) }) {
                 AchievementsHeader(
-                    modifier = Modifier,
+                    modifier = Modifier.fillMaxWidth(),
                     unlocked = uiState.totalUnlocked,
                     total = uiState.totalCount,
                 )
             }
 
             if (uiState.unlocked.isNotEmpty()) {
-                item {
+                item(span = { GridItemSpan(maxLineSpan) }) {
                     AchievementsSectionTitle(
-                        modifier = Modifier,
+                        modifier = Modifier.padding(top = AppTheme.paddings.medium),
                         titleRes = R.string.achievements_section_unlocked,
                         count = uiState.unlocked.size,
                     )
                 }
                 items(items = uiState.unlocked, key = { it.achievement.id }) { state ->
-                    AchievementCard(modifier = Modifier, state = state)
-                }
-            }
-
-            if (uiState.inProgress.isNotEmpty()) {
-                item {
-                    AchievementsSectionTitle(
+                    AchievementGridTile(
                         modifier = Modifier,
-                        titleRes = R.string.achievements_section_in_progress,
-                        count = uiState.inProgress.size,
+                        state = state,
+                        iconSize = GridIconSize,
+                        onClick = { onEvent(AchievementsUIEvent.AchievementClicked(state)) },
                     )
-                }
-                items(items = uiState.inProgress, key = { it.achievement.id }) { state ->
-                    AchievementCard(modifier = Modifier, state = state)
                 }
             }
 
             if (uiState.locked.isNotEmpty()) {
-                item {
+                item(span = { GridItemSpan(maxLineSpan) }) {
                     AchievementsSectionTitle(
-                        modifier = Modifier,
+                        modifier = Modifier.padding(top = AppTheme.paddings.medium),
                         titleRes = R.string.achievements_section_locked,
                         count = uiState.locked.size,
                     )
                 }
                 items(items = uiState.locked, key = { it.achievement.id }) { state ->
-                    AchievementCard(modifier = Modifier, state = state)
+                    AchievementGridTile(
+                        modifier = Modifier,
+                        state = state,
+                        iconSize = GridIconSize,
+                        onClick = { onEvent(AchievementsUIEvent.AchievementClicked(state)) },
+                    )
                 }
             }
         }
+    }
+
+    uiState.selected?.let { selected ->
+        AchievementDetailDialog(
+            state = selected,
+            onDismiss = { onEvent(AchievementsUIEvent.DismissDialog) },
+        )
     }
 }

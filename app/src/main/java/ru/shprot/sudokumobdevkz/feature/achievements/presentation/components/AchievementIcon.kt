@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.sp
 import ru.shprot.sudokumobdevkz.core.base.domain.achievement.AchievementIconKey
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
@@ -30,12 +31,13 @@ import kotlin.math.sin
 internal fun AchievementIcon(
     modifier: Modifier,
     iconKey: AchievementIconKey,
+    size: Dp = AppTheme.sizes.iconXL,
 ) {
     val visual = AchievementVisuals.resolve(iconKey)
-    val emojiFontSize = AppTheme.sizes.iconXL.value.times(0.42f).sp
+    val emojiFontSize = size.value.times(0.42f).sp
 
     Box(
-        modifier = modifier.size(AppTheme.sizes.iconXL),
+        modifier = modifier.size(size),
         contentAlignment = Alignment.Center,
     ) {
         Canvas(modifier = Modifier.fillMaxSize()) {
