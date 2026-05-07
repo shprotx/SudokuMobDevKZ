@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import ru.shprot.sudokumobdevkz.core.base.presentation.navigation.NavRoute
 import ru.shprot.sudokumobdevkz.feature.achievements.presentation.navigation.AchievementsRoutes
 import ru.shprot.sudokumobdevkz.feature.achievements.presentation.screen.AchievementsScreen
 import ru.shprot.sudokumobdevkz.feature.achievements.presentation.viewmodel.AchievementsViewModel
@@ -39,10 +40,11 @@ import ru.shprot.sudokumobdevkz.feature.statistic.presentation.viewmodel.Statist
 @Composable
 fun SudokuNavHost(
     navController: NavHostController = rememberNavController(),
+    startDestination: NavRoute = SplashRoutes.SplashScreen,
 ) {
     NavHost(
         navController = navController,
-        startDestination = SplashRoutes.SplashScreen,
+        startDestination = startDestination,
     ) {
         composable<SplashRoutes.SplashScreen> {
             val viewModel: SplashViewModel = hiltViewModel()

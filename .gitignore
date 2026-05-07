@@ -11,3 +11,7 @@ local.properties
 
 docs/
 reports/
+.superpowers/
+marketing/
+app/release/
+*.aab

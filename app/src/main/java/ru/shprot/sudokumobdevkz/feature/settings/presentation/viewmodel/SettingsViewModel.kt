@@ -84,6 +84,9 @@ class SettingsViewModel @Inject constructor(
 
             SettingsUIEvent.ToggleSounds ->
                 settingsRepository.update { copy(soundsEnabled = !soundsEnabled) }
+
+            SettingsUIEvent.ShareAppClicked ->
+                setEffect(SettingsUIEffect.ShareApp)
         }
 
     private fun handleResetConfirmed() {

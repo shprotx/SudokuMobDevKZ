@@ -22,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -38,12 +39,20 @@ fun NewGameButton(
             .fillMaxWidth()
             .height(100.dp),
         shape = RoundedCornerShape(AppTheme.sizes.cornerRadiusXL),
-        colors = CardDefaults.cardColors(containerColor = AppTheme.colors.primary),
+        colors = CardDefaults.cardColors(containerColor = Color.Transparent),
         onClick = onClick,
     ) {
         Row(
             modifier = Modifier
                 .fillMaxSize()
+                .background(
+                    brush = Brush.linearGradient(
+                        colors = listOf(
+                            AppTheme.colors.primary,
+                            AppTheme.colors.primaryDark,
+                        ),
+                    ),
+                )
                 .padding(horizontal = AppTheme.paddings.xxl),
             verticalAlignment = Alignment.CenterVertically,
         ) {

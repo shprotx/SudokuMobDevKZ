@@ -147,6 +147,14 @@ Custom theming via `AppTheme` object:
 
 **ALWAYS use `AppTheme` for all styling instead of hardcoded values.**
 
+### Dual-version themes (API 31+ splash)
+
+Тема `Theme.SudokuMobDevKZ` определена в двух наборах файлов:
+- `res/values/themes.xml` + `res/values-night/themes.xml` — для API 29–30 (без системного splash)
+- `res/values-v31/themes.xml` + `res/values-night-v31/themes.xml` — для API 31+ (parent `Theme.SplashScreen` со splash-атрибутами)
+
+Любые изменения темы (statusBarColor, windowBackground и т.п.) должны вноситься **синхронно во все 4 файла**.
+
 ## Room Database
 
 Tables: `StatisticEntity`, `GameHistoryEntity`, `SavedGameEntity`. DB version 2 with `fallbackToDestructiveMigration()`.

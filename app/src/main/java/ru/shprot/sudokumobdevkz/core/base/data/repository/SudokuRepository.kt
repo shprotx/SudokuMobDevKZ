@@ -4,9 +4,12 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.provider.Settings
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -39,6 +42,8 @@ class SudokuRepository @Inject constructor(
     private val firebaseApi: FirebaseApi,
     private val json: Json,
 ) {
+
+    private val syncScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     // --- Statistics ---
 
     suspend fun syncStatisticsFromFirebase() = withContext(Dispatchers.IO) {
@@ -84,7 +89,7 @@ class SudokuRepository @Inject constructor(
             ?: StatisticEntity(difficulty.firebaseKey)
         val updated = existing.updated(isWin, timeSeconds, errorCount)
         statisticDao.upsert(updated)
-        syncToFirebase(updated)
+        syncScope.launch { syncToFirebase(updated) }
     }
 
     suspend fun incrementCasualGames(difficulty: Difficulty) {

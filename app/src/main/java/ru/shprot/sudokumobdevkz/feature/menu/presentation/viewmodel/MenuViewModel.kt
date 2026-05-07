@@ -3,6 +3,7 @@ package ru.shprot.sudokumobdevkz.feature.menu.presentation.viewmodel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import ru.shprot.sudokumobdevkz.core.base.data.StatisticSync
 import ru.shprot.sudokumobdevkz.core.base.data.repository.AchievementsRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.DailyChallengeRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SettingsRepository
@@ -19,9 +20,11 @@ class MenuViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val dailyChallengeRepository: DailyChallengeRepository,
     private val achievementsRepository: AchievementsRepository,
+    private val statisticSync: StatisticSync,
 ) : BaseViewModel<MenuUIEvent, MenuUIState, MenuUIEffect>(MenuUIState()) {
 
     init {
+        statisticSync.ensureStarted()
         checkSavedGame()
         loadDailyChallenge()
         updateState {

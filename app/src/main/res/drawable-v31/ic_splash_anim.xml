@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:drawable="@drawable/ic_splash_static">
+
+    <target android:name="cell_00">
+        <aapt:attr name="android:animation">
+            <set android:ordering="sequentially">
+                <objectAnimator
+                    android:propertyName="fillAlpha"
+                    android:duration="200"
+                    android:valueFrom="0"
+                    android:valueTo="0"/>
+                <objectAnimator
+                    android:propertyName="fillAlpha"
+                    android:duration="280"
+                    android:valueFrom="0"
+                    android:valueTo="0.95"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"/>
+            </set>
+        </aapt:attr>
+    </target>
+
+    <target android:name="cell_10">
+        <aapt:attr name="android:animation">
+            <set android:ordering="sequentially">
+                <objectAnimator
+                    android:propertyName="fillAlpha"
+                    android:duration="260"
+                    android:valueFrom="0"
+                    android:valueTo="0"/>
+                <objectAnimator
+                    android:propertyName="fillAlpha"
+                    android:duration="280"
+                    android:valueFrom="0"
+                    android:valueTo="0.78"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"/>
+            </set>
+        </aapt:attr>
+    </target>
+
+    <target android:name="cell_01">
+        <aapt:attr name="android:animation">
+            <set android:ordering="sequentially">
+                <objectAnimator
+                    android:propertyName="fillAlpha"
+                    android:duration="260"
+                    android:valueFrom="0"
+                    android:valueTo="0"/>
+                <objectAnimator
+                    android:propertyName="fillAlpha"
+                    android:duration="280"
+                    android:valueFrom="0"
+                    android:valueTo="0.78"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"/>
+            </set>
+        </aapt:attr>
+    </target>
+
+    <target android:name="cell_20">
+        <aapt:attr name="android:animation">
+            <set android:ordering="sequentially">
+                <objectAnimator
+                    android:propertyName="fillAlpha"
+                    android:duration="320"
+                    android:valueFrom="0"
+                    android:valueTo="0"/>
+                <objectAnimator
+                    android:propertyName="fillAlpha"
+                    android:duration="280"
+                    android:valueFrom="0"
+                    android:valueTo="0.55"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"/>
+            </set>
+        </aapt:attr>
+    </target>
+
+    <target android:name="cell_11">
+        <aapt:attr name="android:animation">
+            <set android:ordering="sequentially">
+                <objectAnimator
+                    android:propertyName="fillAlpha"
+                    android:duration="320"
+                    android:valueFrom="0"
+                    android:valueTo="0"/>
+                <objectAnimator
+                    android:propertyName="fillAlpha"
+                    android:duration="280"
+                    android:valueFrom="0"
+                    android:valueTo="0.55"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"/>
+            </set>
+        </aapt:attr>
+    </target>
+
+    <target android:name="cell_02">
+        <aapt:attr name="android:animation">
+            <set android:ordering="sequentially">
+                <objectAnimator
+                    android:propertyName="fillAlpha"
+                    android:duration="320"
+                    android:valueFrom="0"
+                    android:valueTo="0"/>
+                <objectAnimator
+                    android:propertyName="fillAlpha"
+                    android:duration="280"
+                    android:valueFrom="0"
+                    android:valueTo="0.55"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"/>
+            </set>
+        </aapt:attr>
+    </target>
+
+    <target android:name="cell_21">
+        <aapt:attr name="android:animation">
+            <set android:ordering="sequentially">
+                <objectAnimator
+                    android:propertyName="fillAlpha"
+                    android:duration="380"
+                    android:valueFrom="0"
+                    android:valueTo="0"/>
+                <objectAnimator
+                    android:propertyName="fillAlpha"
+                    android:duration="280"
+                    android:valueFrom="0"
+                    android:valueTo="0.32"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"/>
+            </set>
+        </aapt:attr>
+    </target>
+
+    <target android:name="cell_12">
+        <aapt:attr name="android:animation">
+            <set android:ordering="sequentially">
+                <objectAnimator
+                    android:propertyName="fillAlpha"
+                    android:duration="380"
+                    android:valueFrom="0"
+                    android:valueTo="0"/>
+                <objectAnimator
+                    android:propertyName="fillAlpha"
+                    android:duration="280"
+                    android:valueFrom="0"
+                    android:valueTo="0.32"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"/>
+            </set>
+        </aapt:attr>
+    </target>
+
+    <target android:name="hero_group">
+        <aapt:attr name="android:animation">
+            <set android:ordering="sequentially">
+                <set android:ordering="together">
+                    <objectAnimator
+                        android:propertyName="scaleX"
+                        android:duration="580"
+                        android:valueFrom="0"
+                        android:valueTo="0"/>
+                    <objectAnimator
+                        android:propertyName="scaleY"
+                        android:duration="580"
+                        android:valueFrom="0"
+                        android:valueTo="0"/>
+                </set>
+                <set android:ordering="together">
+                    <objectAnimator
+                        android:propertyName="scaleX"
+                        android:duration="240"
+                        android:valueFrom="0"
+                        android:valueTo="1"
+                        android:interpolator="@android:interpolator/overshoot"/>
+                    <objectAnimator
+                        android:propertyName="scaleY"
+                        android:duration="240"
+                        android:valueFrom="0"
+                        android:valueTo="1"
+                        android:interpolator="@android:interpolator/overshoot"/>
+                </set>
+            </set>
+        </aapt:attr>
+    </target>
+
+    <target android:name="digit_bowl">
+        <aapt:attr name="android:animation">
+            <set android:ordering="sequentially">
+                <objectAnimator
+                    android:propertyName="fillAlpha"
+                    android:duration="780"
+                    android:valueFrom="0"
+                    android:valueTo="0"/>
+                <objectAnimator
+                    android:propertyName="fillAlpha"
+                    android:duration="200"
+                    android:valueFrom="0"
+                    android:valueTo="1"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"/>
+            </set>
+        </aapt:attr>
+    </target>
+
+    <target android:name="digit_tail">
+        <aapt:attr name="android:animation">
+            <set android:ordering="sequentially">
+                <objectAnimator
+                    android:propertyName="fillAlpha"
+                    android:duration="780"
+                    android:valueFrom="0"
+                    android:valueTo="0"/>
+                <objectAnimator
+                    android:propertyName="fillAlpha"
+                    android:duration="200"
+                    android:valueFrom="0"
+                    android:valueTo="1"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"/>
+            </set>
+        </aapt:attr>
+    </target>
+
+    <target android:name="digit_hole">
+        <aapt:attr name="android:animation">
+            <set android:ordering="sequentially">
+                <objectAnimator
+                    android:propertyName="fillAlpha"
+                    android:duration="780"
+                    android:valueFrom="0"
+                    android:valueTo="0"/>
+                <objectAnimator
+                    android:propertyName="fillAlpha"
+                    android:duration="200"
+                    android:valueFrom="0"
+                    android:valueTo="1"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"/>
+            </set>
+        </aapt:attr>
+    </target>
+
+    <target android:name="digit_group">
+        <aapt:attr name="android:animation">
+            <set android:ordering="sequentially">
+                <objectAnimator
+                    android:propertyName="translateY"
+                    android:duration="780"
+                    android:valueFrom="4"
+                    android:valueTo="4"/>
+                <objectAnimator
+                    android:propertyName="translateY"
+                    android:duration="200"
+                    android:valueFrom="4"
+                    android:valueTo="0"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"/>
+            </set>
+        </aapt:attr>
+    </target>
+</animated-vector>
