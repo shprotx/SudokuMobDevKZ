@@ -13,3 +13,5 @@ docs/
 reports/
 .superpowers/
 marketing/
+app/release/
+*.aab
