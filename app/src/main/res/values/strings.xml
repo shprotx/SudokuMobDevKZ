@@ -113,7 +113,7 @@
     <string name="share_app">Share app</string>
     <string name="share_app_subject">Sudoku</string>
     <string name="share_app_chooser_title">Share via</string>
-    <string name="share_app_text">Try this Sudoku — clean and beautiful: https://github.com/shprotx/SudokuMobDevKZ/releases</string>
+    <string name="share_app_text">Try this Sudoku — free, no ads: https://play.google.com/store/apps/details?id=ru.shprot.sudokumobdevkz</string>
     <string name="ok">OK</string>
     <string name="reset_statistics_title">Reset statistics?</string>
     <string name="reset_statistics">Reset statistics</string>

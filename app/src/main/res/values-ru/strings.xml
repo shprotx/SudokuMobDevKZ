@@ -103,7 +103,7 @@
     <string name="share_app">Поделиться приложением</string>
     <string name="share_app_subject">Sudoku</string>
     <string name="share_app_chooser_title">Поделиться через</string>
-    <string name="share_app_text">Попробуй это судоку — простое и красивое: https://github.com/shprotx/SudokuMobDevKZ/releases</string>
+    <string name="share_app_text">Попробуй это судоку — бесплатно, без рекламы: https://play.google.com/store/apps/details?id=ru.shprot.sudokumobdevkz</string>
     <string name="ok">OK</string>
     <string name="reset_statistics_title">Сбросить статистику?</string>
     <string name="reset_statistics">Сбросить статистику</string>
