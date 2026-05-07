@@ -4,7 +4,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import ru.shprot.sudokumobdevkz.core.base.data.repository.SudokuRepository
+import ru.shprot.sudokumobdevkz.core.base.data.StatisticSync
 import ru.shprot.sudokumobdevkz.core.base.presentation.viewmodel.BaseViewModel
 import ru.shprot.sudokumobdevkz.feature.splash.domain.model.GridPoint
 import ru.shprot.sudokumobdevkz.feature.splash.presentation.contract.SplashUIEffect
@@ -15,11 +15,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
-    private val repository: SudokuRepository,
+    private val statisticSync: StatisticSync,
 ) : BaseViewModel<SplashUIEvent, SplashUIState, SplashUIEffect>(SplashUIState()) {
 
     init {
-        syncStatistic()
+        statisticSync.ensureStarted()
         startAnimation()
     }
 
@@ -44,9 +44,5 @@ class SplashViewModel @Inject constructor(
 
             setEffect(SplashUIEffect.NavigateToMenu)
         }
-    }
-
-    private fun syncStatistic() {
-        viewModelScope.launch { repository.syncStatisticsFromFirebase() }
     }
 }
