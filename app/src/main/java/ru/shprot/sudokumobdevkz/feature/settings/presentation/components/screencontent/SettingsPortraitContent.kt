@@ -17,6 +17,7 @@ import androidx.compose.material.icons.filled.Palette
 import androidx.compose.material.icons.filled.Save
 import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material.icons.filled.Security
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -188,6 +189,15 @@ internal fun OtherSettingsCard(
     onEvent: (SettingsUIEvent) -> Unit,
 ) {
     SettingsCard(modifier = Modifier) {
+        SettingsNavItem(
+            modifier = Modifier,
+            icon = Icons.Filled.Share,
+            title = stringResource(R.string.share_app),
+            onClick = { onEvent(SettingsUIEvent.ShareAppClicked) },
+        )
+
+        SettingsDivider(modifier = Modifier)
+
         SettingsNavItem(
             modifier = Modifier,
             icon = Icons.Filled.Security,
