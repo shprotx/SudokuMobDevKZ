@@ -20,6 +20,7 @@ import ru.shprot.sudokumobdevkz.core.base.data.database.entity.DailyChallengeEnt
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.GameHistoryEntity
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.StatisticEntity
 import ru.shprot.sudokumobdevkz.core.base.domain.achievement.UnlockedAchievement
+import ru.shprot.sudokumobdevkz.core.base.domain.model.Difficulty
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class AchievementsRepositoryTest {
@@ -52,15 +53,44 @@ class AchievementsRepositoryTest {
 
     @Test
     fun checkAndUnlock_unlocksWinsFirst_afterOneWin() = runTest {
-        statisticDao.seed(listOf(StatisticEntity(difficulty = 0, gamesWon = 1)))
+        statisticDao.seed(listOf(StatisticEntity(difficulty = Difficulty.EASY.firebaseKey, gamesWon = 1)))
         val result = repository.checkAndUnlock()
         assertTrue(result.any { it.achievement.id == "wins_first" })
         assertEquals(1, achievementsDao.allInserted().count { it.id == "wins_first" })
     }
 
     @Test
+    fun checkAndUnlock_unlocksSpeedEasy_whenBestTimeUnderTarget() = runTest {
+        statisticDao.seed(
+            listOf(
+                StatisticEntity(
+                    difficulty = Difficulty.EASY.firebaseKey,
+                    gamesWon = 1,
+                    bestTime = 133,
+                ),
+            ),
+        )
+        val result = repository.checkAndUnlock()
+        assertTrue(result.any { it.achievement.id == "speed_easy" })
+    }
+
+    @Test
+    fun checkAndUnlock_unlocksDifficultyAchievement_byFirebaseKey() = runTest {
+        statisticDao.seed(
+            listOf(
+                StatisticEntity(
+                    difficulty = Difficulty.MEDIUM.firebaseKey,
+                    gamesWon = 25,
+                ),
+            ),
+        )
+        val result = repository.checkAndUnlock()
+        assertTrue(result.any { it.achievement.id == "diff_medium_25" })
+    }
+
+    @Test
     fun checkAndUnlock_isIdempotent() = runTest {
-        statisticDao.seed(listOf(StatisticEntity(difficulty = 0, gamesWon = 1)))
+        statisticDao.seed(listOf(StatisticEntity(difficulty = Difficulty.EASY.firebaseKey, gamesWon = 1)))
         repository.checkAndUnlock()
         val secondRun = repository.checkAndUnlock()
         assertEquals(emptyList<UnlockedAchievement>(), secondRun)
@@ -68,7 +98,7 @@ class AchievementsRepositoryTest {
 
     @Test
     fun checkAndUnlock_emitsToFlow_whenEmitToFlowTrue() = runTest {
-        statisticDao.seed(listOf(StatisticEntity(difficulty = 0, gamesWon = 1)))
+        statisticDao.seed(listOf(StatisticEntity(difficulty = Difficulty.EASY.firebaseKey, gamesWon = 1)))
         val collected = mutableListOf<UnlockedAchievement>()
         val job = launch(UnconfinedTestDispatcher(testScheduler)) {
             repository.newlyUnlocked.collect { collected.add(it) }
@@ -81,7 +111,7 @@ class AchievementsRepositoryTest {
 
     @Test
     fun checkAndUnlock_doesNotEmitToFlow_whenEmitToFlowFalse() = runTest {
-        statisticDao.seed(listOf(StatisticEntity(difficulty = 0, gamesWon = 1)))
+        statisticDao.seed(listOf(StatisticEntity(difficulty = Difficulty.EASY.firebaseKey, gamesWon = 1)))
         val collected = mutableListOf<UnlockedAchievement>()
         val job = launch(UnconfinedTestDispatcher(testScheduler)) {
             repository.newlyUnlocked.collect { collected.add(it) }

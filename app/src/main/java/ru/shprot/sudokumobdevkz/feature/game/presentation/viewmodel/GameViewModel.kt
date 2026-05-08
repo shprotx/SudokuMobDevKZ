@@ -468,7 +468,12 @@ class GameViewModel @Inject constructor(
                     persistRegularGameResult(isWin)
             }
 
-            achievementsRepository.checkAndUnlock()
+            val unlocked = achievementsRepository.checkAndUnlock(emitToFlow = false)
+            when {
+                unlocked.isEmpty() -> Unit
+                unlocked.size > 1 -> achievementsRepository.emitRetroactiveBatch(unlocked.size)
+                else -> achievementsRepository.emitUnlockedToFlow(unlocked)
+            }
 
             setEffect(
                 GameUIEffect.NavigateToGameOver(

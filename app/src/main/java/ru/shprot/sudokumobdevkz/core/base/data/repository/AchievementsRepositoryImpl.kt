@@ -106,8 +106,8 @@ class AchievementsRepositoryImpl @Inject constructor(
         recentWins: List<GameHistoryEntity>,
     ): AchievementContext {
         val statsMap = Difficulty.entries.associateWith { diff ->
-            stats.firstOrNull { it.difficulty == diff.ordinal }
-                ?: StatisticEntity(diff.ordinal)
+            stats.firstOrNull { it.difficulty == diff.firebaseKey }
+                ?: StatisticEntity(diff.firebaseKey)
         }
         val dailyCompletedCount = dailies.count { it.isCompleted }
         val dailyStreaks = computeDailyStreaks(dailies)
