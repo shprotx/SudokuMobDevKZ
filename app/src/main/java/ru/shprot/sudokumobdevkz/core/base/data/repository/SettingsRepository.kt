@@ -49,6 +49,7 @@ class SettingsRepository @Inject constructor(
                 prefs[Keys.TRACK_STATISTICS] = newSettings.trackStatistics
                 prefs[Keys.DARK_THEME] = newSettings.isDarkTheme
                 prefs[Keys.SOUNDS] = newSettings.soundsEnabled
+                prefs[Keys.COMPACT_NUMBER_PAD] = newSettings.compactNumberPad
                 prefs[Keys.SELECTED_DIFFICULTY] = newSettings.selectedDifficultyOrdinal
             }
         }
@@ -65,6 +66,7 @@ class SettingsRepository @Inject constructor(
         trackStatistics = this[Keys.TRACK_STATISTICS] ?: true,
         isDarkTheme = this[Keys.DARK_THEME] ?: false,
         soundsEnabled = this[Keys.SOUNDS] ?: true,
+        compactNumberPad = this[Keys.COMPACT_NUMBER_PAD] ?: true,
         selectedDifficultyOrdinal = this[Keys.SELECTED_DIFFICULTY] ?: 0,
     )
 
@@ -79,6 +81,7 @@ class SettingsRepository @Inject constructor(
         val TRACK_STATISTICS = booleanPreferencesKey("track_statistics")
         val DARK_THEME = booleanPreferencesKey("dark_theme")
         val SOUNDS = booleanPreferencesKey("sounds")
+        val COMPACT_NUMBER_PAD = booleanPreferencesKey("compact_number_pad")
         val SELECTED_DIFFICULTY = intPreferencesKey("selected_difficulty")
     }
 }
