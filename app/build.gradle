@@ -20,8 +20,8 @@ android {
         applicationId "ru.shprot.sudokumobdevkz"
         minSdk 29
         targetSdk 36
-        versionCode 24
-        versionName "2.2.1"
+        versionCode 26
+        versionName "2.4.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -91,6 +91,7 @@ dependencies {
 
     // --- Activity / Lifecycle ---
     implementation 'androidx.activity:activity-compose:1.10.1'
+    implementation 'androidx.core:core-splashscreen:1.0.1'
     def lifecycle_version = "2.9.1"
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-runtime-compose:$lifecycle_version"
@@ -124,7 +125,7 @@ dependencies {
     implementation 'com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:1.0.0'
 
     // --- Google Play ---
-    implementation 'com.google.android.play:review:2.0.2'
+    implementation 'com.google.android.play:review-ktx:2.0.2'
 
 
     // --- Testing ---

@@ -15,13 +15,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ru.shprot.sudokumobdevkz.R
-import ru.shprot.sudokumobdevkz.core.base.data.database.entity.GameHistoryEntity
+import ru.shprot.sudokumobdevkz.core.base.domain.model.DailyPlaytime
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 @Composable
 fun TimeChartSection(
     modifier: Modifier,
-    recentGames: List<GameHistoryEntity> = emptyList(),
+    dailyPlaytimes: List<DailyPlaytime> = emptyList(),
 ) {
     Column(modifier = modifier) {
         Text(
@@ -35,7 +35,8 @@ fun TimeChartSection(
             shape = RoundedCornerShape(AppTheme.sizes.cornerRadiusLarge),
             colors = CardDefaults.cardColors(containerColor = AppTheme.colors.backgroundCard),
         ) {
-            if (recentGames.isEmpty()) {
+            val hasData = dailyPlaytimes.any { it.totalSeconds > 0 }
+            if (!hasData) {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -54,7 +55,7 @@ fun TimeChartSection(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(AppTheme.paddings.large),
-                    games = recentGames.reversed(),
+                    dailyPlaytimes = dailyPlaytimes,
                 )
             }
         }

@@ -72,13 +72,19 @@ internal fun SettingsLandscapeContent(
                 OtherSettingsCard(onEvent = onEvent)
 
                 ButtonDefault(
-                    modifier = Modifier.padding(
-                        top = AppTheme.paddings.xxl,
-                        bottom = AppTheme.paddings.xxxl,
-                    ),
+                    modifier = Modifier.padding(top = AppTheme.paddings.xxl),
                     text = stringResource(R.string.reset_statistics),
                     containerColor = AppTheme.colors.error,
                     onClick = { onEvent(SettingsUIEvent.ShowResetDialog) },
+                )
+
+                ButtonDefault(
+                    modifier = Modifier.padding(
+                        top = AppTheme.paddings.medium,
+                        bottom = AppTheme.paddings.xxxl,
+                    ),
+                    text = stringResource(R.string.go_back),
+                    onClick = { onEvent(SettingsUIEvent.BackClicked) },
                 )
             }
         }

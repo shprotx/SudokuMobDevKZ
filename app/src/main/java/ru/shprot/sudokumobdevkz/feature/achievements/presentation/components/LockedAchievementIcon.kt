@@ -3,7 +3,6 @@ package ru.shprot.sudokumobdevkz.feature.achievements.presentation.components
 import android.os.Build
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
@@ -15,51 +14,55 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import ru.shprot.sudokumobdevkz.core.base.domain.achievement.AchievementIconKey
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
-import ru.shprot.sudokumobdevkz.feature.achievements.presentation.util.AchievementIconMapper
 
 @Composable
 internal fun LockedAchievementIcon(
     modifier: Modifier,
-    iconKey: String,
+    iconKey: AchievementIconKey,
+    size: Dp = AppTheme.sizes.iconXL,
 ) {
     val blurSupported = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+    val lockSize = size.times(0.32f)
     Box(
         modifier = modifier
-            .size(AppTheme.sizes.iconXL)
+            .size(size)
             .clip(CircleShape)
             .background(AppTheme.colors.divider),
         contentAlignment = Alignment.Center,
     ) {
         if (blurSupported) {
-            Icon(
-                imageVector = AchievementIconMapper.resolve(iconKey),
-                contentDescription = null,
-                tint = AppTheme.colors.textSecondary,
+            AchievementIcon(
                 modifier = Modifier
-                    .padding(AppTheme.paddings.small)
-                    .size(AppTheme.sizes.iconLarge)
-                    .blur(8.dp)
-                    .alpha(0.4f),
+                    .blur(size.times(0.18f))
+                    .alpha(0.55f),
+                iconKey = iconKey,
+                size = size,
             )
         } else {
-            Icon(
-                imageVector = AchievementIconMapper.resolve(iconKey),
-                contentDescription = null,
-                tint = AppTheme.colors.textSecondary,
-                modifier = Modifier
-                    .padding(AppTheme.paddings.small)
-                    .size(AppTheme.sizes.iconLarge)
-                    .alpha(0.35f),
+            AchievementIcon(
+                modifier = Modifier.alpha(0.4f),
+                iconKey = iconKey,
+                size = size,
             )
         }
 
-        Icon(
-            imageVector = Icons.Filled.Lock,
-            contentDescription = null,
-            tint = AppTheme.colors.textSecondary,
-            modifier = Modifier.size(AppTheme.sizes.iconSmall),
-        )
+        Box(
+            modifier = Modifier
+                .size(lockSize.times(1.6f))
+                .clip(CircleShape)
+                .background(AppTheme.colors.background.copy(alpha = 0.65f)),
+            contentAlignment = Alignment.Center,
+        ) {
+            Icon(
+                imageVector = Icons.Filled.Lock,
+                contentDescription = null,
+                tint = AppTheme.colors.textSecondary,
+                modifier = Modifier.size(lockSize),
+            )
+        }
     }
 }

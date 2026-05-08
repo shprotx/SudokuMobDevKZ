@@ -18,36 +18,35 @@ import androidx.compose.material.icons.filled.Park
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.WbSunny
 import androidx.compose.material.icons.filled.WbTwilight
-import androidx.compose.material.icons.filled.Workspaces
 import androidx.compose.ui.graphics.vector.ImageVector
+import ru.shprot.sudokumobdevkz.core.base.domain.achievement.AchievementIconKey
 
 object AchievementIconMapper {
 
-    fun resolve(iconKey: String): ImageVector = when (iconKey) {
-        "trophy_bronze" -> Icons.Filled.EmojiEvents
-        "medal_bronze" -> Icons.Filled.MilitaryTech
-        "medal_silver" -> Icons.Filled.MilitaryTech
-        "medal_gold" -> Icons.Filled.MilitaryTech
-        "crown" -> Icons.Filled.Star
-        "leaf" -> Icons.Filled.Park
-        "sun" -> Icons.Filled.WbSunny
-        "mountain" -> Icons.Filled.Landscape
-        "compass" -> Icons.Filled.Explore
-        "check" -> Icons.Filled.CheckCircle
-        "target" -> Icons.Filled.GpsFixed
-        "gem" -> Icons.Filled.Diamond
-        "bolt" -> Icons.Filled.Bolt
-        "bolt_double" -> Icons.Filled.Bolt
-        "bolt_triple" -> Icons.Filled.Bolt
-        "fire_small" -> Icons.Filled.LocalFireDepartment
-        "fire_medium" -> Icons.Filled.LocalFireDepartment
-        "fire_big" -> Icons.Filled.LocalFireDepartment
-        "calendar_check" -> Icons.Filled.CalendarToday
-        "calendar_week" -> Icons.Filled.CalendarViewWeek
-        "calendar_month" -> Icons.Filled.CalendarMonth
-        "calendar_year" -> Icons.Filled.CalendarMonth
-        "moon" -> Icons.Filled.NightsStay
-        "sunrise" -> Icons.Filled.WbTwilight
-        else -> Icons.Filled.Workspaces
+    fun resolve(iconKey: AchievementIconKey): ImageVector = when (iconKey) {
+        AchievementIconKey.TROPHY_BRONZE -> Icons.Filled.EmojiEvents
+        AchievementIconKey.MEDAL_BRONZE -> Icons.Filled.MilitaryTech
+        AchievementIconKey.MEDAL_SILVER -> Icons.Filled.MilitaryTech
+        AchievementIconKey.MEDAL_GOLD -> Icons.Filled.MilitaryTech
+        AchievementIconKey.CROWN -> Icons.Filled.Star
+        AchievementIconKey.LEAF -> Icons.Filled.Park
+        AchievementIconKey.SUN -> Icons.Filled.WbSunny
+        AchievementIconKey.MOUNTAIN -> Icons.Filled.Landscape
+        AchievementIconKey.COMPASS -> Icons.Filled.Explore
+        AchievementIconKey.CHECK -> Icons.Filled.CheckCircle
+        AchievementIconKey.TARGET -> Icons.Filled.GpsFixed
+        AchievementIconKey.GEM -> Icons.Filled.Diamond
+        AchievementIconKey.BOLT -> Icons.Filled.Bolt
+        AchievementIconKey.BOLT_DOUBLE -> Icons.Filled.Bolt
+        AchievementIconKey.BOLT_TRIPLE -> Icons.Filled.Bolt
+        AchievementIconKey.FIRE_SMALL -> Icons.Filled.LocalFireDepartment
+        AchievementIconKey.FIRE_MEDIUM -> Icons.Filled.LocalFireDepartment
+        AchievementIconKey.FIRE_BIG -> Icons.Filled.LocalFireDepartment
+        AchievementIconKey.CALENDAR_CHECK -> Icons.Filled.CalendarToday
+        AchievementIconKey.CALENDAR_WEEK -> Icons.Filled.CalendarViewWeek
+        AchievementIconKey.CALENDAR_MONTH -> Icons.Filled.CalendarMonth
+        AchievementIconKey.CALENDAR_YEAR -> Icons.Filled.CalendarMonth
+        AchievementIconKey.MOON -> Icons.Filled.NightsStay
+        AchievementIconKey.SUNRISE -> Icons.Filled.WbTwilight
     }
 }

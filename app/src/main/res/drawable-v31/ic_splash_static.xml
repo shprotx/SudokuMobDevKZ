@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <path android:pathData="M0,0 L108,0 L108,108 L0,108 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="54"
+                android:startY="-1"
+                android:endX="54"
+                android:endY="107"
+                android:type="linear">
+                <item android:offset="0" android:color="#FF34C759"/>
+                <item android:offset="1" android:color="#FF2DA44E"/>
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <path
+        android:name="cell_00"
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.95"
+        android:pathData="M31,29 L41,29 A2,2 0 0 1 43,31 L43,41 A2,2 0 0 1 41,43 L31,43 A2,2 0 0 1 29,41 L29,31 A2,2 0 0 1 31,29 Z"/>
+
+    <path
+        android:name="cell_10"
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.78"
+        android:pathData="M49,29 L59,29 A2,2 0 0 1 61,31 L61,41 A2,2 0 0 1 59,43 L49,43 A2,2 0 0 1 47,41 L47,31 A2,2 0 0 1 49,29 Z"/>
+
+    <path
+        android:name="cell_01"
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.78"
+        android:pathData="M31,47 L41,47 A2,2 0 0 1 43,49 L43,59 A2,2 0 0 1 41,61 L31,61 A2,2 0 0 1 29,59 L29,49 A2,2 0 0 1 31,47 Z"/>
+
+    <path
+        android:name="cell_20"
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.55"
+        android:pathData="M67,29 L77,29 A2,2 0 0 1 79,31 L79,41 A2,2 0 0 1 77,43 L67,43 A2,2 0 0 1 65,41 L65,31 A2,2 0 0 1 67,29 Z"/>
+
+    <path
+        android:name="cell_11"
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.55"
+        android:pathData="M49,47 L59,47 A2,2 0 0 1 61,49 L61,59 A2,2 0 0 1 59,61 L49,61 A2,2 0 0 1 47,59 L47,49 A2,2 0 0 1 49,47 Z"/>
+
+    <path
+        android:name="cell_02"
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.55"
+        android:pathData="M31,65 L41,65 A2,2 0 0 1 43,67 L43,77 A2,2 0 0 1 41,79 L31,79 A2,2 0 0 1 29,77 L29,67 A2,2 0 0 1 31,65 Z"/>
+
+    <path
+        android:name="cell_21"
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.32"
+        android:pathData="M67,47 L77,47 A2,2 0 0 1 79,49 L79,59 A2,2 0 0 1 77,61 L67,61 A2,2 0 0 1 65,59 L65,49 A2,2 0 0 1 67,47 Z"/>
+
+    <path
+        android:name="cell_12"
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.32"
+        android:pathData="M49,65 L59,65 A2,2 0 0 1 61,67 L61,77 A2,2 0 0 1 59,79 L49,79 A2,2 0 0 1 47,77 L47,67 A2,2 0 0 1 49,65 Z"/>
+
+    <group
+        android:name="hero_group"
+        android:pivotX="72"
+        android:pivotY="72"
+        android:scaleX="1"
+        android:scaleY="1">
+        <path
+            android:name="hero_cell"
+            android:fillColor="#FFD54F"
+            android:pathData="M67,65 L77,65 A2,2 0 0 1 79,67 L79,77 A2,2 0 0 1 77,79 L67,79 A2,2 0 0 1 65,77 L65,67 A2,2 0 0 1 67,65 Z"/>
+    </group>
+
+    <group
+        android:name="digit_group"
+        android:translateX="0"
+        android:translateY="0">
+        <path
+            android:name="digit_bowl"
+            android:fillColor="#1B5E20"
+            android:fillAlpha="1"
+            android:pathData="M72,71 m-3.5,0 a3.5,3.5 0 1 1 7,0 a3.5,3.5 0 1 1 -7,0 Z"/>
+        <path
+            android:name="digit_tail"
+            android:fillColor="#1B5E20"
+            android:fillAlpha="1"
+            android:pathData="M74,71 L75.8,71 L75.8,77.5 L74,77.5 Z"/>
+        <path
+            android:name="digit_hole"
+            android:fillColor="#FFD54F"
+            android:fillAlpha="1"
+            android:pathData="M72,71 m-1.4,0 a1.4,1.4 0 1 1 2.8,0 a1.4,1.4 0 1 1 -2.8,0 Z"/>
+    </group>
+</vector>

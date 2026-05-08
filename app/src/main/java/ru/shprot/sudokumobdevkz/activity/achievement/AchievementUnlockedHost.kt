@@ -39,10 +39,12 @@ fun AchievementUnlockedHost(
 ) {
     val viewModel: AchievementUnlockedHostViewModel = hiltViewModel()
     var visibleMessage by remember { mutableStateOf<String?>(null) }
+    var actionConsumed by remember { mutableStateOf(false) }
 
     LaunchedEffect(viewModel) {
         viewModel.messages.consumeAsFlow().collect { message ->
             visibleMessage = message
+            actionConsumed = false
             delay(SNACKBAR_DURATION_MS)
             visibleMessage = null
         }
@@ -59,8 +61,13 @@ fun AchievementUnlockedHost(
                     .padding(AppTheme.paddings.large),
                 message = message,
                 onAction = {
-                    visibleMessage = null
-                    navController.navigate(AchievementsRoutes.AchievementsScreen)
+                    if (!actionConsumed) {
+                        actionConsumed = true
+                        visibleMessage = null
+                        navController.navigate(AchievementsRoutes.AchievementsScreen) {
+                            launchSingleTop = true
+                        }
+                    }
                 },
             )
         }

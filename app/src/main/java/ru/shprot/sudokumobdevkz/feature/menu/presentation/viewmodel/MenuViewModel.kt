@@ -3,10 +3,13 @@ package ru.shprot.sudokumobdevkz.feature.menu.presentation.viewmodel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import ru.shprot.sudokumobdevkz.core.base.data.StatisticSync
 import ru.shprot.sudokumobdevkz.core.base.data.repository.AchievementsRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.DailyChallengeRepository
+import ru.shprot.sudokumobdevkz.core.base.data.repository.ReviewRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SettingsRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SudokuRepository
+import ru.shprot.sudokumobdevkz.core.base.domain.usecase.ShouldRequestReviewUseCase
 import ru.shprot.sudokumobdevkz.core.base.presentation.viewmodel.BaseViewModel
 import ru.shprot.sudokumobdevkz.feature.menu.presentation.contract.MenuUIEffect
 import ru.shprot.sudokumobdevkz.feature.menu.presentation.contract.MenuUIEvent
@@ -19,15 +22,20 @@ class MenuViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val dailyChallengeRepository: DailyChallengeRepository,
     private val achievementsRepository: AchievementsRepository,
+    private val statisticSync: StatisticSync,
+    private val reviewRepository: ReviewRepository,
+    private val shouldRequestReviewUseCase: ShouldRequestReviewUseCase,
 ) : BaseViewModel<MenuUIEvent, MenuUIState, MenuUIEffect>(MenuUIState()) {
 
     init {
+        statisticSync.ensureStarted()
         checkSavedGame()
         loadDailyChallenge()
         updateState {
             copy(selectedDifficulty = settingsRepository.currentSettings.selectedDifficultyOrdinal)
         }
         checkRetroactiveAchievements()
+        checkReviewRequest()
     }
 
     override fun handleUIEvent(event: MenuUIEvent) =
@@ -98,6 +106,16 @@ class MenuViewModel @Inject constructor(
                 unlocked.size > 3 -> achievementsRepository.emitRetroactiveBatch(unlocked.size)
                 else -> achievementsRepository.emitUnlockedToFlow(unlocked)
             }
+        }
+    }
+
+    private fun checkReviewRequest() {
+        viewModelScope.launch(exceptionHandler) {
+            if (shouldRequestReviewUseCase()) {
+                reviewRepository.markReviewRequested()
+                setEffect(MenuUIEffect.RequestInAppReview)
+            }
+            reviewRepository.clearSessionWon()
         }
     }
 }

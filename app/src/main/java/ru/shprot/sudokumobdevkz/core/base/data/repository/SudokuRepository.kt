@@ -4,8 +4,12 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.provider.Settings
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -18,9 +22,14 @@ import ru.shprot.sudokumobdevkz.core.base.data.database.entity.StatisticEntity
 import ru.shprot.sudokumobdevkz.core.base.data.remote.FirebaseApi
 import ru.shprot.sudokumobdevkz.core.base.data.util.safeRunCatching
 import ru.shprot.sudokumobdevkz.core.base.data.remote.FirebaseStatDto
+import ru.shprot.sudokumobdevkz.core.base.domain.model.DailyPlaytime
 import ru.shprot.sudokumobdevkz.core.base.domain.model.GameSaveData
 import ru.shprot.sudokumobdevkz.core.base.domain.model.PercentileResult
 import ru.shprot.sudokumobdevkz.core.base.domain.model.Difficulty
+import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneId
+import java.time.temporal.ChronoUnit
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -32,7 +41,10 @@ class SudokuRepository @Inject constructor(
     private val savedGameDao: SavedGameDao,
     private val firebaseApi: FirebaseApi,
     private val json: Json,
+    private val dailyChallengeRepository: DailyChallengeRepository,
 ) {
+
+    private val syncScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     // --- Statistics ---
 
     suspend fun syncStatisticsFromFirebase() = withContext(Dispatchers.IO) {
@@ -68,6 +80,12 @@ class SudokuRepository @Inject constructor(
     fun observeStatistic(difficulty: Difficulty): Flow<StatisticEntity?> =
         statisticDao.observeByDifficulty(difficulty.firebaseKey)
 
+    suspend fun totalWins(): Int {
+        val standard = statisticDao.getAll().sumOf { it.gamesWon }
+        val daily = dailyChallengeRepository.completedCount()
+        return standard + daily
+    }
+
     suspend fun updateStatistic(
         difficulty: Difficulty,
         isWin: Boolean,
@@ -78,7 +96,7 @@ class SudokuRepository @Inject constructor(
             ?: StatisticEntity(difficulty.firebaseKey)
         val updated = existing.updated(isWin, timeSeconds, errorCount)
         statisticDao.upsert(updated)
-        syncToFirebase(updated)
+        syncScope.launch { syncToFirebase(updated) }
     }
 
     suspend fun incrementCasualGames(difficulty: Difficulty) {
@@ -113,6 +131,33 @@ class SudokuRepository @Inject constructor(
 
     fun observeRecentGames(difficulty: Difficulty, limit: Int = 7): Flow<List<GameHistoryEntity>> =
         gameHistoryDao.getRecentGames(difficulty.firebaseKey, limit)
+
+    fun observeDailyPlaytime(): Flow<List<DailyPlaytime>> {
+        val zone = ZoneId.systemDefault()
+        return gameHistoryDao.observeSince(0L).map { games ->
+            aggregateDailyPlaytime(games, zone)
+        }
+    }
+
+    private fun aggregateDailyPlaytime(
+        games: List<GameHistoryEntity>,
+        zone: ZoneId,
+    ): List<DailyPlaytime> {
+        if (games.isEmpty()) return emptyList()
+
+        val totalsByDate = games
+            .groupBy { Instant.ofEpochMilli(it.timestamp).atZone(zone).toLocalDate() }
+            .mapValues { (_, list) -> list.sumOf { it.timeSeconds } }
+
+        val today = LocalDate.now(zone)
+        val startDate = totalsByDate.keys.min()
+        val totalDays = ChronoUnit.DAYS.between(startDate, today).toInt() + 1
+
+        return (0 until totalDays).map { offset ->
+            val date = startDate.plusDays(offset.toLong())
+            DailyPlaytime(date = date, totalSeconds = totalsByDate[date] ?: 0)
+        }
+    }
 
     // --- Saved Game ---
 

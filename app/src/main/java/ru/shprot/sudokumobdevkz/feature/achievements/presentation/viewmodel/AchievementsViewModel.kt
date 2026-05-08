@@ -30,6 +30,12 @@ class AchievementsViewModel @Inject constructor(
 
             AchievementsUIEvent.SettingsClicked ->
                 setEffect(AchievementsUIEffect.NavigateToSettings)
+
+            AchievementsUIEvent.DismissDialog ->
+                updateState { copy(selected = null) }
+
+            is AchievementsUIEvent.AchievementClicked ->
+                updateState { copy(selected = event.state) }
         }
 
     private fun observeAchievements() {
@@ -41,18 +47,16 @@ class AchievementsViewModel @Inject constructor(
     private fun AchievementsUIState.fromItems(items: List<AchievementState>): AchievementsUIState {
         val unlocked = items.filter { it.unlockedAt != null }
             .sortedByDescending { it.unlockedAt }
-        val inProgress = items.filter {
-            it.unlockedAt == null && !it.achievement.hidden && it.progress.current > 0
-        }.sortedByDescending { it.progress.ratio }
-        val locked = items.filter {
-            it.unlockedAt == null && (it.achievement.hidden || it.progress.current == 0)
-        }.sortedBy { it.achievement.hidden }
+        val locked = items.filter { it.unlockedAt == null }
+            .sortedWith(
+                compareBy<AchievementState> { it.achievement.hidden }
+                    .thenByDescending { it.progress.ratio },
+            )
         return copy(
             isLoading = false,
             totalUnlocked = unlocked.size,
             totalCount = items.size,
             unlocked = unlocked,
-            inProgress = inProgress,
             locked = locked,
         )
     }

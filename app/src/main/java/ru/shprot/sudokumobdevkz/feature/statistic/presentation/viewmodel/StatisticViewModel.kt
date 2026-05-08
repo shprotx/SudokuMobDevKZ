@@ -4,7 +4,6 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import ru.shprot.sudokumobdevkz.core.base.data.repository.DailyChallengeRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SudokuRepository
@@ -26,6 +25,7 @@ class StatisticViewModel @Inject constructor(
 
     init {
         observeDifficulty(Difficulty.EASY)
+        observeDailyPlaytime()
         loadDailyStreaks()
     }
 
@@ -77,12 +77,7 @@ class StatisticViewModel @Inject constructor(
     private fun observeDifficulty(difficulty: Difficulty) {
         observeJob?.cancel()
         observeJob = viewModelScope.launch {
-            combine(
-                repository.observeStatistic(difficulty),
-                repository.observeRecentGames(difficulty),
-            ) { stat, history ->
-                stat to history
-            }.collectLatest { (stat, history) ->
+            repository.observeStatistic(difficulty).collectLatest { stat ->
                 setState(
                     currentState.copy(
                         bestTime = stat?.bestTime?.let { if (it <= 0) "--:--" else DateTimeUtils.formatTimer(it) } ?: "--:--",
@@ -94,10 +89,17 @@ class StatisticViewModel @Inject constructor(
                         bestWinsLine = "${stat?.bestWinsLine ?: 0}",
                         currentWinsLine = "${stat?.currentWinsLine ?: 0}",
                         casualGamesPlayed = "${stat?.casualGamesPlayed ?: 0}",
-                        recentGames = history,
                     )
                 )
                 fetchPercentile(difficulty, stat?.averageTime ?: 0)
+            }
+        }
+    }
+
+    private fun observeDailyPlaytime() {
+        viewModelScope.launch {
+            repository.observeDailyPlaytime().collectLatest { dailyPlaytimes ->
+                setState(currentState.copy(dailyPlaytimes = dailyPlaytimes))
             }
         }
     }

@@ -103,4 +103,5 @@
     <string name="achievement_secret_night_owl_desc">00:00 мен 05:00 аралығында жең</string>
     <string name="achievement_secret_early_bird_title">Ерте торғай</string>
     <string name="achievement_secret_early_bird_desc">05:00 мен 08:00 аралығында жең</string>
+    <string name="settings_rate_app">Қолданбаны бағалау</string>
 </resources>

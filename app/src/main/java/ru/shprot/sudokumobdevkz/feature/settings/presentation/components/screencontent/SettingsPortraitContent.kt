@@ -17,6 +17,8 @@ import androidx.compose.material.icons.filled.Palette
 import androidx.compose.material.icons.filled.Save
 import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material.icons.filled.Security
+import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.filled.StarRate
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -63,15 +65,21 @@ internal fun SettingsPortraitContent(
             OtherSettingsCard(onEvent = onEvent)
 
             ButtonDefault(
-                modifier = Modifier
-                    .navigationBarsPadding()
-                    .padding(
-                        top = AppTheme.paddings.xxl,
-                        bottom = AppTheme.paddings.xxxl,
-                    ),
+                modifier = Modifier.padding(top = AppTheme.paddings.xxl),
                 text = stringResource(R.string.reset_statistics),
                 containerColor = AppTheme.colors.error,
                 onClick = { onEvent(SettingsUIEvent.ShowResetDialog) },
+            )
+
+            ButtonDefault(
+                modifier = Modifier
+                    .navigationBarsPadding()
+                    .padding(
+                        top = AppTheme.paddings.medium,
+                        bottom = AppTheme.paddings.xxxl,
+                    ),
+                text = stringResource(R.string.go_back),
+                onClick = { onEvent(SettingsUIEvent.BackClicked) },
             )
         }
     }
@@ -188,6 +196,24 @@ internal fun OtherSettingsCard(
     onEvent: (SettingsUIEvent) -> Unit,
 ) {
     SettingsCard(modifier = Modifier) {
+        SettingsNavItem(
+            modifier = Modifier,
+            icon = Icons.Filled.StarRate,
+            title = stringResource(R.string.settings_rate_app),
+            onClick = { onEvent(SettingsUIEvent.RateAppClicked) },
+        )
+
+        SettingsDivider(modifier = Modifier)
+
+        SettingsNavItem(
+            modifier = Modifier,
+            icon = Icons.Filled.Share,
+            title = stringResource(R.string.share_app),
+            onClick = { onEvent(SettingsUIEvent.ShareAppClicked) },
+        )
+
+        SettingsDivider(modifier = Modifier)
+
         SettingsNavItem(
             modifier = Modifier,
             icon = Icons.Filled.Security,

@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -42,13 +43,14 @@ internal fun DifficultyCard(
     Card(
         modifier = Modifier
             .width(105.dp)
+            .shadow(
+                elevation = if (isSelected) AppTheme.sizes.elevationMedium else 0.dp,
+                shape = RoundedCornerShape(AppTheme.sizes.cornerRadiusLarge),
+            )
             .clickable(onClick = onClick),
         shape = RoundedCornerShape(AppTheme.sizes.cornerRadiusLarge),
         colors = CardDefaults.cardColors(containerColor = bgColor),
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = if (isSelected) AppTheme.sizes.elevationMedium else 0.dp,
-            pressedElevation = 0.dp,
-        ),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
     ) {
         Column(
             modifier = Modifier

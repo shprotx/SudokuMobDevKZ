@@ -14,6 +14,7 @@ import ru.shprot.sudokumobdevkz.core.base.data.util.DateTimeUtils
 import ru.shprot.sudokumobdevkz.core.base.data.util.safeRunCatching
 import ru.shprot.sudokumobdevkz.core.base.data.repository.AchievementsRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.DailyChallengeRepository
+import ru.shprot.sudokumobdevkz.core.base.data.repository.ReviewRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SettingsRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SudokuRepository
 import ru.shprot.sudokumobdevkz.core.base.domain.generator.SudokuGenerator
@@ -33,6 +34,7 @@ class GameViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val dailyChallengeRepository: DailyChallengeRepository,
     private val achievementsRepository: AchievementsRepository,
+    private val reviewRepository: ReviewRepository,
 ) : BaseViewModel<GameUIEvent, GameUIState, GameUIEffect>(GameUIState()) {
 
     private val route = savedStateHandle.toRoute<GameRoutes.GameScreen>()
@@ -453,13 +455,11 @@ class GameViewModel @Inject constructor(
         setState(currentState.copy(isGameOver = true, isWin = isWin))
 
         viewModelScope.launch(exceptionHandler) {
+            if (isWin) reviewRepository.markSessionWon()
+
             val newStreak = when {
                 isDailyChallenge && isWin ->
-                    dailyChallengeRepository.markCompleted(
-                        dateKey = dailyChallengeRepository.todayDateKey(),
-                        timeSeconds = currentState.timeSeconds,
-                        errors = currentState.errors,
-                    )
+                    persistDailyChallengeWin()
 
                 isDailyChallenge ->
                     0
@@ -468,7 +468,12 @@ class GameViewModel @Inject constructor(
                     persistRegularGameResult(isWin)
             }
 
-            achievementsRepository.checkAndUnlock()
+            val unlocked = achievementsRepository.checkAndUnlock(emitToFlow = false)
+            when {
+                unlocked.isEmpty() -> Unit
+                unlocked.size > 1 -> achievementsRepository.emitRetroactiveBatch(unlocked.size)
+                else -> achievementsRepository.emitUnlockedToFlow(unlocked)
+            }
 
             setEffect(
                 GameUIEffect.NavigateToGameOver(
@@ -504,6 +509,23 @@ class GameViewModel @Inject constructor(
         )
 
         return 0
+    }
+
+    private suspend fun persistDailyChallengeWin(): Int {
+        val streak = dailyChallengeRepository.markCompleted(
+            dateKey = dailyChallengeRepository.todayDateKey(),
+            timeSeconds = currentState.timeSeconds,
+            errors = currentState.errors,
+        )
+
+        repository.saveGameResult(
+            difficulty = difficulty,
+            timeSeconds = currentState.timeSeconds,
+            errors = currentState.errors,
+            isWin = true,
+        )
+
+        return streak
     }
 
     private fun clearNotesForNumber(cells: MutableList<MutableList<CellData>>, row: Int, col: Int, number: Int) {
