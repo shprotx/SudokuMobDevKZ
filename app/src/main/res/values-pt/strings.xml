@@ -106,5 +106,4 @@
     <string name="achievement_secret_early_bird_title">Madrugador</string>
     <string name="achievement_secret_early_bird_desc">Vença uma partida entre 05:00 e 08:00</string>
     <string name="settings_rate_app">Avaliar o app</string>
-    <string name="error_play_store_unavailable">Não foi possível abrir o Google Play</string>
 </resources>

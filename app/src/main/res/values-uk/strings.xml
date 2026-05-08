@@ -104,5 +104,4 @@
     <string name="achievement_secret_early_bird_title">Рання пташка</string>
     <string name="achievement_secret_early_bird_desc">Перемога між 05:00 і 08:00</string>
     <string name="settings_rate_app">Оцінити застосунок</string>
-    <string name="error_play_store_unavailable">Не вдалося відкрити Google Play</string>
 </resources>
