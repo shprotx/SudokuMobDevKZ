@@ -8,7 +8,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import kotlinx.coroutines.flow.collectLatest
+import ru.shprot.sudokumobdevkz.BuildConfig
 import ru.shprot.sudokumobdevkz.R
+import ru.shprot.sudokumobdevkz.core.base.presentation.util.PlayStoreLauncher
 import ru.shprot.sudokumobdevkz.core.base.presentation.util.ShareLauncher
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.screencontent.SettingsScreenContent
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.contract.SettingsUIEffect
@@ -41,6 +43,12 @@ fun SettingsScreen(
                         text = shareText,
                         subject = shareSubject,
                         chooserTitle = shareChooserTitle,
+                    )
+
+                SettingsUIEffect.OpenPlayStore ->
+                    PlayStoreLauncher.openPlayStore(
+                        context = context,
+                        packageName = BuildConfig.APPLICATION_ID,
                     )
             }
         }

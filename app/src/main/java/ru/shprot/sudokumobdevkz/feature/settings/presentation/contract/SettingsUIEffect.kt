@@ -6,4 +6,5 @@ sealed interface SettingsUIEffect : UIEffect {
     data object NavigateBack : SettingsUIEffect
     data object NavigateToPrivacyPolicy : SettingsUIEffect
     data object ShareApp : SettingsUIEffect
+    data object OpenPlayStore : SettingsUIEffect
 }

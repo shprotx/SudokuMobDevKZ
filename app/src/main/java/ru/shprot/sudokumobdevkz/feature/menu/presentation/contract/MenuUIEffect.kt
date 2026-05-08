@@ -9,6 +9,7 @@ sealed interface MenuUIEffect : UIEffect {
     data object NavigateToSettings : MenuUIEffect
     data object NavigateToHowToPlay : MenuUIEffect
     data object NavigateToDailyChallenge : MenuUIEffect
+    data object RequestInAppReview : MenuUIEffect
 
     class NavigateToGame(val difficultyOrdinal: Int) : MenuUIEffect
 }

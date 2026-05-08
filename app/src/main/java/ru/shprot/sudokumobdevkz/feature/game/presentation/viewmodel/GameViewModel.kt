@@ -14,6 +14,7 @@ import ru.shprot.sudokumobdevkz.core.base.data.util.DateTimeUtils
 import ru.shprot.sudokumobdevkz.core.base.data.util.safeRunCatching
 import ru.shprot.sudokumobdevkz.core.base.data.repository.AchievementsRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.DailyChallengeRepository
+import ru.shprot.sudokumobdevkz.core.base.data.repository.ReviewRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SettingsRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SudokuRepository
 import ru.shprot.sudokumobdevkz.core.base.domain.generator.SudokuGenerator
@@ -33,6 +34,7 @@ class GameViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val dailyChallengeRepository: DailyChallengeRepository,
     private val achievementsRepository: AchievementsRepository,
+    private val reviewRepository: ReviewRepository,
 ) : BaseViewModel<GameUIEvent, GameUIState, GameUIEffect>(GameUIState()) {
 
     private val route = savedStateHandle.toRoute<GameRoutes.GameScreen>()
@@ -453,6 +455,8 @@ class GameViewModel @Inject constructor(
         setState(currentState.copy(isGameOver = true, isWin = isWin))
 
         viewModelScope.launch(exceptionHandler) {
+            if (isWin) reviewRepository.markSessionWon()
+
             val newStreak = when {
                 isDailyChallenge && isWin ->
                     persistDailyChallengeWin()

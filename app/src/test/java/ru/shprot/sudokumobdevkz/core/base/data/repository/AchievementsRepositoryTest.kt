@@ -151,6 +151,9 @@ internal class FakeGameHistoryDao : GameHistoryDao {
         flow.value = items
     }
 
+    override fun observeSince(sinceMs: Long): Flow<List<GameHistoryEntity>> =
+        error("observeSince")
+
     override fun observeRecentWins(limit: Int): Flow<List<GameHistoryEntity>> = flow
 
     override suspend fun getRecentWins(limit: Int): List<GameHistoryEntity> = flow.value

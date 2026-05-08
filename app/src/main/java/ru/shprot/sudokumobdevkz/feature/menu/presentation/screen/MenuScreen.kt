@@ -3,13 +3,16 @@ package ru.shprot.sudokumobdevkz.feature.menu.presentation.screen
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
-import kotlinx.coroutines.flow.collectLatest
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import kotlinx.coroutines.flow.collectLatest
+import ru.shprot.sudokumobdevkz.core.base.data.review.InAppReviewLauncher
+import ru.shprot.sudokumobdevkz.core.base.presentation.util.findActivity
 import ru.shprot.sudokumobdevkz.feature.achievements.presentation.navigation.AchievementsRoutes
 import ru.shprot.sudokumobdevkz.feature.dailychallenge.presentation.navigation.DailyChallengeRoutes
 import ru.shprot.sudokumobdevkz.feature.game.presentation.navigation.GameRoutes
@@ -27,6 +30,7 @@ fun MenuScreen(
     viewModel: MenuViewModel,
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
+    val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
 
     DisposableEffect(lifecycleOwner) {
@@ -62,6 +66,9 @@ fun MenuScreen(
 
                 is MenuUIEffect.NavigateToGame ->
                     navController.navigate(GameRoutes.GameScreen(difficultyOrdinal = effect.difficultyOrdinal))
+
+                MenuUIEffect.RequestInAppReview ->
+                    context.findActivity()?.let { InAppReviewLauncher.launch(it) }
             }
         }
     }
