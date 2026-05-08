@@ -62,6 +62,8 @@ fun MenuScreen(
 
                 is MenuUIEffect.NavigateToGame ->
                     navController.navigate(GameRoutes.GameScreen(difficultyOrdinal = effect.difficultyOrdinal))
+
+                MenuUIEffect.RequestInAppReview -> Unit
             }
         }
     }
