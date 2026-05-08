@@ -73,3 +73,6 @@
 # Google Play In-App Review
 # ============================================================
 -keep class com.google.android.play.core.review.** { *; }
+
+# Annotation referenced by play-services-tasks shim, missing in runtime classpath
+-dontwarn com.google.android.gms.common.annotation.NoNullnessRewrite
