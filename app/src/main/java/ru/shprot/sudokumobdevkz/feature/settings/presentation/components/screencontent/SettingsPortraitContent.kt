@@ -18,6 +18,7 @@ import androidx.compose.material.icons.filled.Save
 import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material.icons.filled.Security
 import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.filled.StarRate
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -189,6 +190,15 @@ internal fun OtherSettingsCard(
     onEvent: (SettingsUIEvent) -> Unit,
 ) {
     SettingsCard(modifier = Modifier) {
+        SettingsNavItem(
+            modifier = Modifier,
+            icon = Icons.Filled.StarRate,
+            title = stringResource(R.string.settings_rate_app),
+            onClick = { onEvent(SettingsUIEvent.RateAppClicked) },
+        )
+
+        SettingsDivider(modifier = Modifier)
+
         SettingsNavItem(
             modifier = Modifier,
             icon = Icons.Filled.Share,

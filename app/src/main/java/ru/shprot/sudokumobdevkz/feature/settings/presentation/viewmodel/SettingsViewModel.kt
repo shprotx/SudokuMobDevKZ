@@ -87,6 +87,9 @@ class SettingsViewModel @Inject constructor(
 
             SettingsUIEvent.ShareAppClicked ->
                 setEffect(SettingsUIEffect.ShareApp)
+
+            SettingsUIEvent.RateAppClicked ->
+                setEffect(SettingsUIEffect.OpenPlayStore)
         }
 
     private fun handleResetConfirmed() {
