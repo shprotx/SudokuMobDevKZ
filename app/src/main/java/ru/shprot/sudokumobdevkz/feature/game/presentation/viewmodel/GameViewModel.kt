@@ -7,6 +7,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.shprot.sudokumobdevkz.core.base.domain.model.GameSaveData
@@ -54,6 +55,11 @@ class GameViewModel @Inject constructor(
                 }
             }
             startNewGame()
+        }
+        viewModelScope.launch {
+            settingsRepository.settings.collectLatest { settings ->
+                updateState { copy(compactNumberPadPreference = settings.compactNumberPad) }
+            }
         }
     }
 
