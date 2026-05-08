@@ -41,6 +41,7 @@ class SudokuRepository @Inject constructor(
     private val savedGameDao: SavedGameDao,
     private val firebaseApi: FirebaseApi,
     private val json: Json,
+    private val dailyChallengeRepository: DailyChallengeRepository,
 ) {
 
     private val syncScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
@@ -78,6 +79,12 @@ class SudokuRepository @Inject constructor(
 
     fun observeStatistic(difficulty: Difficulty): Flow<StatisticEntity?> =
         statisticDao.observeByDifficulty(difficulty.firebaseKey)
+
+    suspend fun totalWins(): Int {
+        val standard = statisticDao.getAll().sumOf { it.gamesWon }
+        val daily = dailyChallengeRepository.completedCount()
+        return standard + daily
+    }
 
     suspend fun updateStatistic(
         difficulty: Difficulty,

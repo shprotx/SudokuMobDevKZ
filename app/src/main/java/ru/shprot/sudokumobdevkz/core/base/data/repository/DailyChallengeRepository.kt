@@ -81,4 +81,6 @@ class DailyChallengeRepository @Inject constructor(
         }
         return longest
     }
+
+    suspend fun completedCount(): Int = dao.getAllCompleted().size
 }
