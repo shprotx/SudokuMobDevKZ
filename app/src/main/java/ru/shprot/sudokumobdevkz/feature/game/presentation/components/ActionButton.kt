@@ -4,6 +4,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
@@ -23,8 +24,10 @@ import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 @Composable
 internal fun ActionButton(
+    modifier: Modifier = Modifier,
     icon: ImageVector,
     label: String,
+    stretched: Boolean = false,
     badge: String? = null,
     isHighlighted: Boolean = false,
     onClick: () -> Unit,
@@ -33,11 +36,14 @@ internal fun ActionButton(
     val borderColor = if (isHighlighted) AppTheme.colors.primary else AppTheme.colors.divider
     val iconTint = if (isHighlighted) AppTheme.colors.primary else AppTheme.colors.iconTint
 
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
         Box(contentAlignment = Alignment.Center) {
             Box(
                 modifier = Modifier
-                    .width(72.dp)
+                    .let { if (stretched) it.fillMaxWidth() else it.width(72.dp) }
                     .height(56.dp)
                     .border(1.dp, borderColor, shape)
                     .clickable(onClick = onClick),
