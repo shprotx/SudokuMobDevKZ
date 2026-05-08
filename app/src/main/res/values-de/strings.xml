@@ -105,4 +105,6 @@
     <string name="achievement_secret_night_owl_desc">Gewinne ein Spiel zwischen 00:00 und 05:00</string>
     <string name="achievement_secret_early_bird_title">Frühaufsteher</string>
     <string name="achievement_secret_early_bird_desc">Gewinne ein Spiel zwischen 05:00 und 08:00</string>
+    <string name="settings_rate_app">App bewerten</string>
+    <string name="error_play_store_unavailable">Google Play konnte nicht geöffnet werden</string>
 </resources>

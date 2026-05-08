@@ -114,6 +114,8 @@
     <string name="share_app_subject">Sudoku</string>
     <string name="share_app_chooser_title">Share via</string>
     <string name="share_app_text">Try this Sudoku — free, no ads: https://play.google.com/store/apps/details?id=ru.shprot.sudokumobdevkz</string>
+    <string name="settings_rate_app">Rate the app</string>
+    <string name="error_play_store_unavailable">Couldn\'t open Google Play</string>
     <string name="ok">OK</string>
     <string name="reset_statistics_title">Reset statistics?</string>
     <string name="reset_statistics">Reset statistics</string>
