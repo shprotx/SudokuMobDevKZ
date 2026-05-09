@@ -82,7 +82,6 @@ internal fun GamePortraitContent(
                 availableNumbers = uiState.availableNumbers,
                 isNotesMode = uiState.isNotesEnabled,
                 onNumberClick = { onEvent(GameUIEvent.NumberClicked(it)) },
-                onUndoClick = { onEvent(GameUIEvent.UndoClicked) },
             )
         } else {
             NumberPanel(
@@ -98,11 +97,10 @@ internal fun GamePortraitContent(
         GameActionsBar(
             modifier = Modifier
                 .navigationBarsPadding()
-                .padding(horizontal = AppTheme.paddings.large)
+                .padding(horizontal = if (useCompactPad) AppTheme.paddings.medium else AppTheme.paddings.large)
                 .padding(bottom = AppTheme.paddings.medium),
             isNotesEnabled = uiState.isNotesEnabled,
             hintsRemaining = uiState.hintsRemaining,
-            showUndo = !useCompactPad,
             stretched = useCompactPad,
             onUndoClick = { onEvent(GameUIEvent.UndoClicked) },
             onEraseClick = { onEvent(GameUIEvent.EraseClicked) },
