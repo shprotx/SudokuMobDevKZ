@@ -26,8 +26,8 @@ internal fun NumberCell(
     onClick: (Int) -> Unit,
 ) {
     val shape = RoundedCornerShape(AppTheme.sizes.cornerRadiusMedium)
-    val borderColor = if (isNotesMode) AppTheme.colors.divider.copy(alpha = 0.5f) else AppTheme.colors.divider
-    val textColor = if (isNotesMode) AppTheme.colors.draftText else AppTheme.colors.text
+    val borderColor = if (isNotesMode) AppTheme.colors.divider.copy(alpha = 0.5f) else AppTheme.colors.primary
+    val textColor = if (isNotesMode) AppTheme.colors.draftText else AppTheme.colors.primary
     val fontWeight = if (isNotesMode) FontWeight.Light else FontWeight.Medium
 
     Box(

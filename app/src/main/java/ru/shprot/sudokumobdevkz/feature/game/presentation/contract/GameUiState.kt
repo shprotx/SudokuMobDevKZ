@@ -26,5 +26,5 @@ data class GameUIState(
     val showNewGameDialog: Boolean = false,
     val isStandardMode: Boolean = true,
     val isDailyChallenge: Boolean = false,
-    val compactNumberPadPreference: Boolean = true,
+    val compactNumberPadPreference: Boolean = false,
 ) : UIState
