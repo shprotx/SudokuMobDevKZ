@@ -12,6 +12,7 @@ import androidx.compose.material.icons.filled.BarChart
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.GridView
 import androidx.compose.material.icons.filled.Lightbulb
 import androidx.compose.material.icons.filled.Palette
 import androidx.compose.material.icons.filled.Save
@@ -23,6 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import ru.shprot.sudokumobdevkz.R
+import ru.shprot.sudokumobdevkz.core.base.presentation.util.deviceFitsTwoRowInPortrait
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonDefault
 import ru.shprot.sudokumobdevkz.core.uicommon.toolbar.ToolbarDefault
@@ -171,6 +173,19 @@ internal fun GameSettingsCard(
             checked = uiState.settings.trackStatistics && uiState.settings.isStandardMode,
             enabled = uiState.settings.isStandardMode,
             onCheckedChange = { onEvent(SettingsUIEvent.ToggleTrackStatistics) },
+        )
+
+        val compactPadAvailable = deviceFitsTwoRowInPortrait()
+
+        SettingsDivider(modifier = Modifier)
+
+        SettingsToggleItem(
+            modifier = Modifier,
+            icon = Icons.Filled.GridView,
+            title = stringResource(R.string.compact_number_pad),
+            checked = uiState.settings.compactNumberPad && compactPadAvailable,
+            enabled = compactPadAvailable,
+            onCheckedChange = { onEvent(SettingsUIEvent.ToggleCompactNumberPad) },
         )
     }
 }

@@ -21,7 +21,8 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
-import ru.shprot.sudokumobdevkz.feature.splash.presentation.components.SolvedGridAnimation
+import ru.shprot.sudokumobdevkz.core.uicommon.sudokuanim.SolvedGridAnimation
+import ru.shprot.sudokumobdevkz.core.uicommon.sudokuanim.SolvedPuzzleData
 import ru.shprot.sudokumobdevkz.feature.splash.presentation.contract.SplashUIEvent
 import ru.shprot.sudokumobdevkz.feature.splash.presentation.contract.SplashUIState
 
@@ -72,8 +73,8 @@ internal fun SplashPortrait(uiState: SplashUIState) {
                 .fillMaxWidth(0.7f)
                 .aspectRatio(1f),
             visibleCells = uiState.visibleCells,
-            initialFilled = SplashUIState.INITIAL_FILLED,
-            solvedGrid = SplashUIState.SOLVED_GRID,
+            initialFilled = SolvedPuzzleData.INITIAL_FILLED,
+            solvedGrid = SolvedPuzzleData.SOLVED_GRID,
         )
     }
 }
@@ -110,8 +111,8 @@ internal fun SplashLandscape(uiState: SplashUIState) {
                 .fillMaxHeight(0.75f)
                 .aspectRatio(1f),
             visibleCells = uiState.visibleCells,
-            initialFilled = SplashUIState.INITIAL_FILLED,
-            solvedGrid = SplashUIState.SOLVED_GRID,
+            initialFilled = SolvedPuzzleData.INITIAL_FILLED,
+            solvedGrid = SolvedPuzzleData.SOLVED_GRID,
         )
     }
 }

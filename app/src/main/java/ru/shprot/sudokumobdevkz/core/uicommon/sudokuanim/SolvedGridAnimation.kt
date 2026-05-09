@@ -1,4 +1,4 @@
-package ru.shprot.sudokumobdevkz.feature.splash.presentation.components
+package ru.shprot.sudokumobdevkz.core.uicommon.sudokuanim
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.Composable
@@ -14,7 +14,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.Density
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
-import ru.shprot.sudokumobdevkz.feature.splash.domain.model.GridPoint
 
 @Composable
 fun SolvedGridAnimation(

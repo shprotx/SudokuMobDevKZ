@@ -6,11 +6,11 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.shprot.sudokumobdevkz.core.base.data.StatisticSync
 import ru.shprot.sudokumobdevkz.core.base.presentation.viewmodel.BaseViewModel
-import ru.shprot.sudokumobdevkz.feature.splash.domain.model.GridPoint
+import ru.shprot.sudokumobdevkz.core.uicommon.sudokuanim.GridPoint
+import ru.shprot.sudokumobdevkz.core.uicommon.sudokuanim.SolvedPuzzleData.INITIAL_FILLED
 import ru.shprot.sudokumobdevkz.feature.splash.presentation.contract.SplashUIEffect
 import ru.shprot.sudokumobdevkz.feature.splash.presentation.contract.SplashUIEvent
 import ru.shprot.sudokumobdevkz.feature.splash.presentation.contract.SplashUIState
-import ru.shprot.sudokumobdevkz.feature.splash.presentation.contract.SplashUIState.Companion.INITIAL_FILLED
 import javax.inject.Inject
 
 @HiltViewModel
