@@ -1,6 +1,5 @@
 package ru.shprot.sudokumobdevkz.feature.menu.presentation.components
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,7 +20,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
@@ -38,7 +36,7 @@ fun DailyChallengeCard(
         colors = CardDefaults.cardColors(
             containerColor = AppTheme.colors.backgroundCardAccent,
         ),
-        border = BorderStroke(1.dp, AppTheme.colors.divider),
+        elevation = CardDefaults.cardElevation(defaultElevation = AppTheme.sizes.elevationSmall),
         onClick = onClick,
     ) {
         Row(

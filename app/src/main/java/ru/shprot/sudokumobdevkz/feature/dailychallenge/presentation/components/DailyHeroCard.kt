@@ -1,6 +1,5 @@
 package ru.shprot.sudokumobdevkz.feature.dailychallenge.presentation.components
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,7 +22,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
@@ -40,7 +38,7 @@ fun DailyHeroCard(
         colors = CardDefaults.cardColors(
             containerColor = AppTheme.colors.backgroundCardAccent,
         ),
-        border = BorderStroke(1.dp, AppTheme.colors.divider),
+        elevation = CardDefaults.cardElevation(defaultElevation = AppTheme.sizes.elevationSmall),
     ) {
         Column(
             modifier = Modifier
