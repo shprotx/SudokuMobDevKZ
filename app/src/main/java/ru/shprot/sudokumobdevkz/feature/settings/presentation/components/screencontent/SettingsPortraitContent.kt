@@ -22,9 +22,9 @@ import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.StarRate
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import ru.shprot.sudokumobdevkz.R
+import ru.shprot.sudokumobdevkz.core.base.presentation.util.deviceFitsTwoRowInPortrait
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonDefault
 import ru.shprot.sudokumobdevkz.core.uicommon.toolbar.ToolbarDefault
@@ -175,14 +175,16 @@ internal fun GameSettingsCard(
             onCheckedChange = { onEvent(SettingsUIEvent.ToggleTrackStatistics) },
         )
 
+        val compactPadAvailable = deviceFitsTwoRowInPortrait()
+
         SettingsDivider(modifier = Modifier)
 
         SettingsToggleItem(
             modifier = Modifier,
             icon = Icons.Filled.GridView,
             title = stringResource(R.string.compact_number_pad),
-            checked = uiState.settings.compactNumberPad && deviceFitsTwoRowInPortrait(),
-            enabled = deviceFitsTwoRowInPortrait(),
+            checked = uiState.settings.compactNumberPad && compactPadAvailable,
+            enabled = compactPadAvailable,
             onCheckedChange = { onEvent(SettingsUIEvent.ToggleCompactNumberPad) },
         )
     }
@@ -234,14 +236,4 @@ internal fun OtherSettingsCard(
             onClick = { onEvent(SettingsUIEvent.NavigateToPrivacyPolicy) },
         )
     }
-}
-
-@Composable
-internal fun deviceFitsTwoRowInPortrait(): Boolean {
-    val configuration = LocalConfiguration.current
-    val width = configuration.screenWidthDp
-    val height = configuration.screenHeightDp
-    val portraitHeight = maxOf(width, height)
-    val portraitWidth = minOf(width, height)
-    return (portraitHeight - portraitWidth) >= 380
 }
