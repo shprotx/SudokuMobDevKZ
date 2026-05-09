@@ -54,15 +54,20 @@ feature/
 
 ## Скриншоты
 
+Светлая тема:
+
 <p float="left">
-  <img src="screenshots/01_menu.png" width="200" />
-  <img src="screenshots/02_game.png" width="200" />
-  <img src="screenshots/03_game_highlight.png" width="200" />
+  <img src="screenshots/01_menu_light.png" width="220" />
+  <img src="screenshots/02_game_light.png" width="220" />
+  <img src="screenshots/03_settings_light.png" width="220" />
 </p>
+
+Тёмная тема:
+
 <p float="left">
-  <img src="screenshots/04_statistics.png" width="200" />
-  <img src="screenshots/05_settings.png" width="200" />
-  <img src="screenshots/06_how_to_play.png" width="200" />
+  <img src="screenshots/01_menu_dark.png" width="220" />
+  <img src="screenshots/02_game_dark.png" width="220" />
+  <img src="screenshots/03_settings_dark.png" width="220" />
 </p>
 
 ## Сборка
