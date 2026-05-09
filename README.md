@@ -57,17 +57,19 @@ feature/
 Светлая тема:
 
 <p float="left">
-  <img src="screenshots/01_menu_light.png" width="220" />
-  <img src="screenshots/02_game_light.png" width="220" />
-  <img src="screenshots/03_settings_light.png" width="220" />
+  <img src="screenshots/01_menu_light.png" width="200" />
+  <img src="screenshots/02_game_light.png" width="200" />
+  <img src="screenshots/03_settings_light.png" width="200" />
+  <img src="screenshots/04_statistics_light.png" width="200" />
 </p>
 
 Тёмная тема:
 
 <p float="left">
-  <img src="screenshots/01_menu_dark.png" width="220" />
-  <img src="screenshots/02_game_dark.png" width="220" />
-  <img src="screenshots/03_settings_dark.png" width="220" />
+  <img src="screenshots/01_menu_dark.png" width="200" />
+  <img src="screenshots/02_game_dark.png" width="200" />
+  <img src="screenshots/03_settings_dark.png" width="200" />
+  <img src="screenshots/04_statistics_dark.png" width="200" />
 </p>
 
 ## Сборка
