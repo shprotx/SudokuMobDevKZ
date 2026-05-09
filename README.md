@@ -8,6 +8,8 @@
 ## Особенности
 
 - 3 уровня сложности (лёгкий, средний, экспертный)
+- Ежедневная задача с серией дней подряд
+- 24 ачивки за прогресс и аккуратность
 - Светлая и тёмная темы
 - Подробная статистика с онлайн-перцентилями (Firebase)
 - Стандартный и упрощённый режимы игры
@@ -16,6 +18,7 @@
 - Подсказки, отмена хода, пауза с сокрытием поля
 - Автосохранение — продолжайте партию после выхода
 - Полностью израсходованные цифры скрываются
+- Компактная двухрядная клавиатура для маленьких экранов
 - Локализация: EN / RU / KK
 
 ## Стек
@@ -46,6 +49,8 @@ feature/
 ├── game/              — игровой экран
 ├── menu/              — главное меню
 ├── statistic/         — статистика
+├── achievements/      — ачивки
+├── dailychallenge/    — ежедневная задача
 ├── settings/          — настройки + политика конфиденциальности
 ├── gameover/          — экран результата
 ├── howtoplay/         — как играть
@@ -54,22 +59,12 @@ feature/
 
 ## Скриншоты
 
-Светлая тема:
-
 <p float="left">
-  <img src="screenshots/01_menu_light.png" width="200" />
-  <img src="screenshots/02_game_light.png" width="200" />
-  <img src="screenshots/03_settings_light.png" width="200" />
-  <img src="screenshots/04_statistics_light.png" width="200" />
-</p>
-
-Тёмная тема:
-
-<p float="left">
-  <img src="screenshots/01_menu_dark.png" width="200" />
-  <img src="screenshots/02_game_dark.png" width="200" />
-  <img src="screenshots/03_settings_dark.png" width="200" />
-  <img src="screenshots/04_statistics_dark.png" width="200" />
+  <img src="screenshots/01_menu_light.png" width="180" />
+  <img src="screenshots/02_game_light.png" width="180" />
+  <img src="screenshots/03_settings_light.png" width="180" />
+  <img src="screenshots/04_statistics_light.png" width="180" />
+  <img src="screenshots/05_achievements_light.png" width="180" />
 </p>
 
 ## Сборка
