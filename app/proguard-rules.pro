@@ -73,3 +73,8 @@
 # Google Play In-App Review
 # ============================================================
 -keep class com.google.android.play.core.review.** { *; }
+
+# ============================================================
+# Google Play Services — annotations not on classpath
+# ============================================================
+-dontwarn com.google.android.gms.common.annotation.NoNullnessRewrite
