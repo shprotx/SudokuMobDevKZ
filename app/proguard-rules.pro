@@ -77,4 +77,5 @@
 # ============================================================
 # Google Play Services — annotations not on classpath
 # ============================================================
+# Annotation referenced by play-services-tasks shim (via play:review-ktx), missing in runtime classpath.
 -dontwarn com.google.android.gms.common.annotation.NoNullnessRewrite
