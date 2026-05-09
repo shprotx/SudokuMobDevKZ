@@ -12,6 +12,7 @@ import androidx.compose.material.icons.filled.BarChart
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.GridView
 import androidx.compose.material.icons.filled.Lightbulb
 import androidx.compose.material.icons.filled.Palette
 import androidx.compose.material.icons.filled.Save
@@ -21,6 +22,7 @@ import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.StarRate
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
@@ -172,6 +174,17 @@ internal fun GameSettingsCard(
             enabled = uiState.settings.isStandardMode,
             onCheckedChange = { onEvent(SettingsUIEvent.ToggleTrackStatistics) },
         )
+
+        SettingsDivider(modifier = Modifier)
+
+        SettingsToggleItem(
+            modifier = Modifier,
+            icon = Icons.Filled.GridView,
+            title = stringResource(R.string.compact_number_pad),
+            checked = uiState.settings.compactNumberPad && deviceFitsTwoRowInPortrait(),
+            enabled = deviceFitsTwoRowInPortrait(),
+            onCheckedChange = { onEvent(SettingsUIEvent.ToggleCompactNumberPad) },
+        )
     }
 }
 
@@ -221,4 +234,14 @@ internal fun OtherSettingsCard(
             onClick = { onEvent(SettingsUIEvent.NavigateToPrivacyPolicy) },
         )
     }
+}
+
+@Composable
+internal fun deviceFitsTwoRowInPortrait(): Boolean {
+    val configuration = LocalConfiguration.current
+    val width = configuration.screenWidthDp
+    val height = configuration.screenHeightDp
+    val portraitHeight = maxOf(width, height)
+    val portraitWidth = minOf(width, height)
+    return (portraitHeight - portraitWidth) >= 380
 }

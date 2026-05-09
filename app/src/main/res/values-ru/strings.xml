@@ -93,6 +93,7 @@
     <string name="check_errors">Проверять ошибки</string>
     <string name="highlight_duplicates">Подсветка дубликатов</string>
     <string name="auto_save">Автосохранение</string>
+    <string name="compact_number_pad">Компактная клавиатура (2 ряда)</string>
     <string name="show_timer">Показывать время</string>
     <string name="show_errors">Показывать ошибки</string>
     <string name="unlimited_errors">Бесконечные ошибки</string>
