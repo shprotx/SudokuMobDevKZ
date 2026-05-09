@@ -4,6 +4,7 @@ import ru.shprot.sudokumobdevkz.feature.game.presentation.components.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Spacer
@@ -14,86 +15,108 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import ru.shprot.sudokumobdevkz.R
-import ru.shprot.sudokumobdevkz.core.base.domain.model.Difficulty
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameUIEvent
 import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameUIState
+
+private val TwoRowFitThresholdDp = 380.dp
 
 @Composable
 internal fun GamePortraitContent(
     uiState: GameUIState,
     onEvent: (GameUIEvent) -> Unit,
 ) {
-    Column(
+    BoxWithConstraints(
         modifier = Modifier
             .fillMaxSize()
-            .background(AppTheme.colors.background)
-            .clickable(
-                interactionSource = remember { MutableInteractionSource() },
-                indication = null,
-            ) {
-                onEvent(GameUIEvent.DeselectClicked)
-            },
+            .background(AppTheme.colors.background),
     ) {
-        GameToolbar(
-            modifier = Modifier,
-            onBackClick = { onEvent(GameUIEvent.BackClicked) },
-            onRestartClick = { onEvent(GameUIEvent.NewGameClicked) },
-            onPauseClick = { onEvent(GameUIEvent.ShowPauseDialog) },
-            onSettingsClick = { onEvent(GameUIEvent.SettingsClicked) },
-        )
+        val deviceFitsTwoRow = (maxHeight - maxWidth) >= TwoRowFitThresholdDp
+        val useCompactPad = uiState.compactNumberPadPreference && deviceFitsTwoRow
 
-        WeightSpacer()
-
-        GameStatusBar(
-            modifier = Modifier,
-            difficultyLabel = stringResource(uiState.difficulty.titleRes),
-            errors = uiState.errors,
-            maxErrors = uiState.maxErrors,
-            lives = uiState.maxErrors - uiState.errors,
-            timer = uiState.timer,
-        )
-
-        SudokuGrid(
-            modifier = Modifier.padding(
-                top = AppTheme.paddings.default,
-                start = AppTheme.paddings.medium,
-                end = AppTheme.paddings.medium,
-            ),
-            cells = uiState.cells,
-            selectedRow = uiState.selectedRow,
-            selectedCol = uiState.selectedCol,
-            isPaused = uiState.isPaused,
-            highlightedNumber = uiState.highlightedNumber,
-            onCellClick = { row, col ->
-                onEvent(GameUIEvent.CellClicked(row, col))
-            },
-        )
-
-        WeightSpacer()
-
-        NumberPanel(
-            modifier = Modifier.padding(horizontal = AppTheme.paddings.medium),
-            availableNumbers = uiState.availableNumbers,
-            isNotesMode = uiState.isNotesEnabled,
-            onNumberClick = { onEvent(GameUIEvent.NumberClicked(it)) },
-        )
-
-        WeightSpacer()
-
-        GameActionsBar(
+        Column(
             modifier = Modifier
-                .navigationBarsPadding()
-                .padding(horizontal = AppTheme.paddings.large)
-                .padding(bottom = AppTheme.paddings.medium),
-            isNotesEnabled = uiState.isNotesEnabled,
-            hintsRemaining = uiState.hintsRemaining,
-            onUndoClick = { onEvent(GameUIEvent.UndoClicked) },
-            onEraseClick = { onEvent(GameUIEvent.EraseClicked) },
-            onNotesClick = { onEvent(GameUIEvent.NotesToggled) },
-            onHintClick = { onEvent(GameUIEvent.HintClicked) },
-        )
+                .fillMaxSize()
+                .clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = null,
+                ) {
+                    onEvent(GameUIEvent.DeselectClicked)
+                },
+        ) {
+            GameToolbar(
+                modifier = Modifier,
+                onBackClick = { onEvent(GameUIEvent.BackClicked) },
+                onRestartClick = { onEvent(GameUIEvent.NewGameClicked) },
+                onPauseClick = { onEvent(GameUIEvent.ShowPauseDialog) },
+                onSettingsClick = { onEvent(GameUIEvent.SettingsClicked) },
+            )
+
+            WeightSpacer()
+
+            GameStatusBar(
+                modifier = Modifier,
+                difficultyLabel = stringResource(uiState.difficulty.titleRes),
+                errors = uiState.errors,
+                maxErrors = uiState.maxErrors,
+                lives = uiState.maxErrors - uiState.errors,
+                timer = uiState.timer,
+            )
+
+            SudokuGrid(
+                modifier = Modifier.padding(
+                    top = AppTheme.paddings.default,
+                    start = AppTheme.paddings.medium,
+                    end = AppTheme.paddings.medium,
+                ),
+                cells = uiState.cells,
+                selectedRow = uiState.selectedRow,
+                selectedCol = uiState.selectedCol,
+                isPaused = uiState.isPaused,
+                highlightedNumber = uiState.highlightedNumber,
+                onCellClick = { row, col ->
+                    onEvent(GameUIEvent.CellClicked(row, col))
+                },
+            )
+
+            WeightSpacer()
+
+            if (useCompactPad) {
+                NumberPadTwoRow(
+                    modifier = Modifier.padding(horizontal = AppTheme.paddings.medium),
+                    availableNumbers = uiState.availableNumbers,
+                    isNotesMode = uiState.isNotesEnabled,
+                    onNumberClick = { onEvent(GameUIEvent.NumberClicked(it)) },
+                    onUndoClick = { onEvent(GameUIEvent.UndoClicked) },
+                )
+            } else {
+                NumberPanel(
+                    modifier = Modifier.padding(horizontal = AppTheme.paddings.medium),
+                    availableNumbers = uiState.availableNumbers,
+                    isNotesMode = uiState.isNotesEnabled,
+                    onNumberClick = { onEvent(GameUIEvent.NumberClicked(it)) },
+                )
+            }
+
+            WeightSpacer()
+
+            GameActionsBar(
+                modifier = Modifier
+                    .navigationBarsPadding()
+                    .padding(horizontal = AppTheme.paddings.large)
+                    .padding(bottom = AppTheme.paddings.medium),
+                isNotesEnabled = uiState.isNotesEnabled,
+                hintsRemaining = uiState.hintsRemaining,
+                showUndo = !useCompactPad,
+                stretched = useCompactPad,
+                onUndoClick = { onEvent(GameUIEvent.UndoClicked) },
+                onEraseClick = { onEvent(GameUIEvent.EraseClicked) },
+                onNotesClick = { onEvent(GameUIEvent.NotesToggled) },
+                onHintClick = { onEvent(GameUIEvent.HintClicked) },
+            )
+        }
     }
 }
 
