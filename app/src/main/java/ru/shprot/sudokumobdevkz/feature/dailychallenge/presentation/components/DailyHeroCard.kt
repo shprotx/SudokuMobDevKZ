@@ -38,6 +38,7 @@ fun DailyHeroCard(
         colors = CardDefaults.cardColors(
             containerColor = AppTheme.colors.backgroundCardAccent,
         ),
+        elevation = CardDefaults.cardElevation(defaultElevation = AppTheme.sizes.elevationSmall),
     ) {
         Column(
             modifier = Modifier

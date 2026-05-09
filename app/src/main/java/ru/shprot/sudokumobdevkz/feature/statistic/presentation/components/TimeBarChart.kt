@@ -35,10 +35,11 @@ internal fun TimeBarChart(
     modifier: Modifier,
     dailyPlaytimes: List<DailyPlaytime>,
 ) {
-    val maxTime = dailyPlaytimes.maxOf { it.totalSeconds }.coerceAtLeast(60)
+    val rawMax = dailyPlaytimes.maxOf { it.totalSeconds }.coerceAtLeast(60)
+    val chartMax = DateTimeUtils.chartMaxSeconds(rawMax)
     val chartHeight = 160.dp
     val barWidth = 36.dp
-    val timeLabels = DateTimeUtils.generateTimeLabels(maxTime)
+    val timeLabels = DateTimeUtils.generateTimeLabels(rawMax)
     val dateFormatter = DateTimeFormatter.ofPattern("dd.MM", Locale.getDefault())
     val listState = rememberLazyListState()
 
@@ -89,7 +90,7 @@ internal fun TimeBarChart(
                     items(dailyPlaytimes) { day ->
                         DailyBarColumn(
                             day = day,
-                            maxTime = maxTime,
+                            maxTime = chartMax,
                             barWidth = barWidth,
                             chartHeight = chartHeight,
                             dateFormatter = dateFormatter,

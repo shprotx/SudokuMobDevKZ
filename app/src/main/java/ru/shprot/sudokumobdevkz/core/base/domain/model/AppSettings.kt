@@ -11,7 +11,7 @@ data class AppSettings(
     val trackStatistics: Boolean = true,
     val isDarkTheme: Boolean = false,
     val soundsEnabled: Boolean = true,
-    val compactNumberPad: Boolean = true,
+    val compactNumberPad: Boolean = false,
     val selectedDifficultyOrdinal: Int = 0,
 ) {
     val isStandardMode: Boolean get() = checkErrors && !unlimitedErrors && !unlimitedHints

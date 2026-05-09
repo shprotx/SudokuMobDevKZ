@@ -75,12 +75,6 @@ fun StatisticScreenContent(
                 winsWithoutErrors = uiState.winsWithoutErrors,
             )
 
-            DailyStreakRow(
-                modifier = Modifier.padding(top = AppTheme.paddings.default),
-                currentStreak = uiState.dailyCurrentStreak,
-                bestStreak = uiState.dailyBestStreak,
-            )
-
             if (uiState.percentile >= 0) {
                 Text(
                     modifier = Modifier

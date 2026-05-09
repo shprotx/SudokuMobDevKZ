@@ -66,7 +66,7 @@ class SettingsRepository @Inject constructor(
         trackStatistics = this[Keys.TRACK_STATISTICS] ?: true,
         isDarkTheme = this[Keys.DARK_THEME] ?: false,
         soundsEnabled = this[Keys.SOUNDS] ?: true,
-        compactNumberPad = this[Keys.COMPACT_NUMBER_PAD] ?: true,
+        compactNumberPad = this[Keys.COMPACT_NUMBER_PAD] ?: false,
         selectedDifficultyOrdinal = this[Keys.SELECTED_DIFFICULTY] ?: 0,
     )
 

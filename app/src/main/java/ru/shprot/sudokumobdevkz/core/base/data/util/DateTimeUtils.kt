@@ -39,20 +39,28 @@ object DateTimeUtils {
         crashFileFormat.format(Date())
 
     fun generateTimeLabels(maxSeconds: Int): List<String> {
-        val step = when {
-            maxSeconds <= 120 -> 30
-            maxSeconds <= 300 -> 60
-            maxSeconds <= 600 -> 120
-            maxSeconds <= 1800 -> 300
-            else -> 600
-        }
+        val step = chartStep(maxSeconds)
+        val chartMax = chartMaxSeconds(maxSeconds)
         val labels = mutableListOf("0:00")
         var current = step
-        while (current <= maxSeconds) {
+        while (current <= chartMax) {
             labels.add(formatShortTime(current))
             current += step
         }
-        if (labels.size < 3) labels.add(formatShortTime(maxSeconds))
+        if (labels.size < 3) labels.add(formatShortTime(chartMax))
         return labels
+    }
+
+    fun chartMaxSeconds(maxSeconds: Int): Int {
+        val step = chartStep(maxSeconds)
+        return ((maxSeconds + step - 1) / step) * step
+    }
+
+    private fun chartStep(maxSeconds: Int): Int = when {
+        maxSeconds <= 120 -> 30
+        maxSeconds <= 300 -> 60
+        maxSeconds <= 600 -> 120
+        maxSeconds <= 1800 -> 300
+        else -> 600
     }
 }

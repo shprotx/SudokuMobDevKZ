@@ -36,6 +36,7 @@ fun DailyChallengeCard(
         colors = CardDefaults.cardColors(
             containerColor = AppTheme.colors.backgroundCardAccent,
         ),
+        elevation = CardDefaults.cardElevation(defaultElevation = AppTheme.sizes.elevationSmall),
         onClick = onClick,
     ) {
         Row(
