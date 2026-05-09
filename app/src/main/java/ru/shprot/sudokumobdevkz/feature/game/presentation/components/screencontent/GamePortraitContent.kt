@@ -15,7 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import ru.shprot.sudokumobdevkz.R
-import ru.shprot.sudokumobdevkz.core.base.domain.model.Difficulty
+import ru.shprot.sudokumobdevkz.core.base.presentation.util.deviceFitsTwoRowInPortrait
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameUIEvent
 import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameUIState
@@ -25,6 +25,9 @@ internal fun GamePortraitContent(
     uiState: GameUIState,
     onEvent: (GameUIEvent) -> Unit,
 ) {
+    val deviceFitsTwoRow = deviceFitsTwoRowInPortrait()
+    val useCompactPad = uiState.compactNumberPadPreference && deviceFitsTwoRow
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -73,12 +76,22 @@ internal fun GamePortraitContent(
 
         WeightSpacer()
 
-        NumberPanel(
-            modifier = Modifier.padding(horizontal = AppTheme.paddings.medium),
-            availableNumbers = uiState.availableNumbers,
-            isNotesMode = uiState.isNotesEnabled,
-            onNumberClick = { onEvent(GameUIEvent.NumberClicked(it)) },
-        )
+        if (useCompactPad) {
+            NumberPadTwoRow(
+                modifier = Modifier.padding(horizontal = AppTheme.paddings.medium),
+                availableNumbers = uiState.availableNumbers,
+                isNotesMode = uiState.isNotesEnabled,
+                onNumberClick = { onEvent(GameUIEvent.NumberClicked(it)) },
+                onUndoClick = { onEvent(GameUIEvent.UndoClicked) },
+            )
+        } else {
+            NumberPanel(
+                modifier = Modifier.padding(horizontal = AppTheme.paddings.medium),
+                availableNumbers = uiState.availableNumbers,
+                isNotesMode = uiState.isNotesEnabled,
+                onNumberClick = { onEvent(GameUIEvent.NumberClicked(it)) },
+            )
+        }
 
         WeightSpacer()
 
@@ -89,6 +102,8 @@ internal fun GamePortraitContent(
                 .padding(bottom = AppTheme.paddings.medium),
             isNotesEnabled = uiState.isNotesEnabled,
             hintsRemaining = uiState.hintsRemaining,
+            showUndo = !useCompactPad,
+            stretched = useCompactPad,
             onUndoClick = { onEvent(GameUIEvent.UndoClicked) },
             onEraseClick = { onEvent(GameUIEvent.EraseClicked) },
             onNotesClick = { onEvent(GameUIEvent.NotesToggled) },

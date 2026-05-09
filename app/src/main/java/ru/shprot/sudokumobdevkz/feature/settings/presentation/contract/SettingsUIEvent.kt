@@ -19,6 +19,7 @@ sealed interface SettingsUIEvent : UIEvent {
     data object ToggleTrackStatistics : SettingsUIEvent
     data object ToggleDarkTheme : SettingsUIEvent
     data object ToggleSounds : SettingsUIEvent
+    data object ToggleCompactNumberPad : SettingsUIEvent
     data object ShareAppClicked : SettingsUIEvent
     data object RateAppClicked : SettingsUIEvent
 }

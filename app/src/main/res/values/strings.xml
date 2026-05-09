@@ -103,6 +103,7 @@
     <string name="check_errors">Check errors</string>
     <string name="highlight_duplicates">Highlight duplicates</string>
     <string name="auto_save">Auto save</string>
+    <string name="compact_number_pad">Compact number pad (2 rows)</string>
     <string name="show_timer">Show timer</string>
     <string name="show_errors">Show errors</string>
     <string name="unlimited_errors">Unlimited errors</string>

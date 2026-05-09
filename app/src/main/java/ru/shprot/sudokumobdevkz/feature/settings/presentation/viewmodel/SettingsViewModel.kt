@@ -85,6 +85,9 @@ class SettingsViewModel @Inject constructor(
             SettingsUIEvent.ToggleSounds ->
                 settingsRepository.update { copy(soundsEnabled = !soundsEnabled) }
 
+            SettingsUIEvent.ToggleCompactNumberPad ->
+                settingsRepository.update { copy(compactNumberPad = !compactNumberPad) }
+
             SettingsUIEvent.ShareAppClicked ->
                 setEffect(SettingsUIEffect.ShareApp)
 

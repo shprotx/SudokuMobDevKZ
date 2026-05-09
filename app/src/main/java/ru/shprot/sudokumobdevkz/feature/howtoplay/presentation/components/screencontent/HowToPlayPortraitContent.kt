@@ -3,7 +3,9 @@ import ru.shprot.sudokumobdevkz.feature.howtoplay.presentation.components.*
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -20,6 +22,7 @@ import androidx.compose.ui.res.stringResource
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonDefault
+import ru.shprot.sudokumobdevkz.core.uicommon.sudokuanim.AnimatedSolvedGrid
 import ru.shprot.sudokumobdevkz.core.uicommon.toolbar.ToolbarDefault
 import ru.shprot.sudokumobdevkz.feature.howtoplay.presentation.contract.HowToPlayUIEvent
 import ru.shprot.sudokumobdevkz.feature.howtoplay.presentation.contract.HowToPlayUIState
@@ -39,6 +42,17 @@ internal fun HowToPlayPortraitContent(
             modifier = Modifier,
             title = stringResource(R.string.how_to_play),
             onLeadIconClick = { onEvent(HowToPlayUIEvent.BackClicked) },
+        )
+
+        AnimatedSolvedGrid(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    top = AppTheme.paddings.large,
+                    start = AppTheme.paddings.large,
+                    end = AppTheme.paddings.large,
+                )
+                .aspectRatio(1f),
         )
 
         Column(modifier = Modifier.padding(horizontal = AppTheme.paddings.large)) {
