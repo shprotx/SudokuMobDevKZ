@@ -2,7 +2,6 @@ package ru.shprot.sudokumobdevkz.feature.howtoplay.presentation.components.scree
 import ru.shprot.sudokumobdevkz.feature.howtoplay.presentation.components.*
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,7 +17,6 @@ import androidx.compose.material.icons.filled.Speed
 import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import ru.shprot.sudokumobdevkz.R
@@ -46,22 +44,16 @@ internal fun HowToPlayPortraitContent(
             onLeadIconClick = { onEvent(HowToPlayUIEvent.BackClicked) },
         )
 
-        Box(
+        AnimatedSolvedGrid(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(
                     top = AppTheme.paddings.large,
                     start = AppTheme.paddings.large,
                     end = AppTheme.paddings.large,
-                ),
-            contentAlignment = Alignment.Center,
-        ) {
-            AnimatedSolvedGrid(
-                modifier = Modifier
-                    .fillMaxWidth(0.55f)
-                    .aspectRatio(1f),
-            )
-        }
+                )
+                .aspectRatio(1f),
+        )
 
         Column(modifier = Modifier.padding(horizontal = AppTheme.paddings.large)) {
             Text(
