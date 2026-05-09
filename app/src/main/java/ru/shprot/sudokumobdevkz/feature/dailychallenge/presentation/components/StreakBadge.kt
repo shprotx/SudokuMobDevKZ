@@ -1,19 +1,21 @@
 package ru.shprot.sudokumobdevkz.feature.dailychallenge.presentation.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.LocalFireDepartment
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 @Composable
@@ -21,13 +23,15 @@ fun StreakBadge(
     modifier: Modifier,
     streak: Int,
     label: String,
+    icon: ImageVector,
+    iconTint: Color,
 ) {
+    val shape = RoundedCornerShape(AppTheme.sizes.cornerRadiusFull)
     Row(
         modifier = modifier
-            .background(
-                color = AppTheme.colors.backgroundCardAccent,
-                shape = RoundedCornerShape(AppTheme.sizes.cornerRadiusFull),
-            )
+            .fillMaxWidth()
+            .background(color = AppTheme.colors.backgroundCardAccent, shape = shape)
+            .border(1.dp, AppTheme.colors.divider, shape)
             .padding(
                 horizontal = AppTheme.paddings.large,
                 vertical = AppTheme.paddings.medium,
@@ -36,9 +40,9 @@ fun StreakBadge(
     ) {
         Icon(
             modifier = Modifier.size(AppTheme.sizes.iconMedium),
-            imageVector = Icons.Filled.LocalFireDepartment,
+            imageVector = icon,
             contentDescription = null,
-            tint = Color(0xFFFF9500),
+            tint = iconTint,
         )
 
         Text(
