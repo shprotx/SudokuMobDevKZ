@@ -33,6 +33,7 @@ import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.setting
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsNavItem
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsSectionHeader
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsToggleItem
+import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsVersionFooter
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.contract.SettingsUIEvent
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.contract.SettingsUIState
 
@@ -74,15 +75,12 @@ internal fun SettingsPortraitContent(
             )
 
             ButtonDefault(
-                modifier = Modifier
-                    .navigationBarsPadding()
-                    .padding(
-                        top = AppTheme.paddings.medium,
-                        bottom = AppTheme.paddings.xxxl,
-                    ),
+                modifier = Modifier.padding(top = AppTheme.paddings.medium),
                 text = stringResource(R.string.go_back),
                 onClick = { onEvent(SettingsUIEvent.BackClicked) },
             )
+
+            SettingsVersionFooter(modifier = Modifier.navigationBarsPadding())
         }
     }
 }
