@@ -19,6 +19,7 @@ import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonDefault
 import ru.shprot.sudokumobdevkz.core.uicommon.toolbar.ToolbarDefault
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsSectionHeader
+import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsVersionFooter
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.contract.SettingsUIEvent
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.contract.SettingsUIState
 
@@ -79,13 +80,12 @@ internal fun SettingsLandscapeContent(
                 )
 
                 ButtonDefault(
-                    modifier = Modifier.padding(
-                        top = AppTheme.paddings.medium,
-                        bottom = AppTheme.paddings.xxxl,
-                    ),
+                    modifier = Modifier.padding(top = AppTheme.paddings.medium),
                     text = stringResource(R.string.go_back),
                     onClick = { onEvent(SettingsUIEvent.BackClicked) },
                 )
+
+                SettingsVersionFooter(modifier = Modifier)
             }
         }
     }
