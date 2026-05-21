@@ -9,7 +9,8 @@ local.properties
 .externalNativeBuild
 .cxx
 
-docs/
+docs/*
+!docs/release-process.md
 reports/
 .superpowers/
 marketing/
