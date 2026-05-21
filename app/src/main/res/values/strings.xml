@@ -196,4 +196,5 @@
     <string name="achievement_secret_night_owl_desc">Win a game between midnight and 5 AM</string>
     <string name="achievement_secret_early_bird_title">Early bird</string>
     <string name="achievement_secret_early_bird_desc">Win a game between 5 AM and 8 AM</string>
+    <string name="gms_app_id" translatable="false">TBD_PLAY_GAMES_APP_ID</string>
 </resources>
