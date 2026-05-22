@@ -2,6 +2,7 @@ package ru.shprot.sudokumobdevkz.core.base.data.cloud
 
 import android.app.Activity
 import com.google.android.gms.games.PlayGames
+import com.google.android.gms.games.leaderboard.LeaderboardVariant
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -89,12 +90,64 @@ class PlayGamesCloudServices @Inject constructor() : CloudGameServices {
         }
     }
 
-    override suspend fun submitScore(leaderboardId: String, score: Long) = Unit
+    override suspend fun submitScore(leaderboardId: String, score: Long) {
+        val activity = activityRef?.get() ?: return
+        runCatching {
+            PlayGames.getLeaderboardsClient(activity).submitScore(leaderboardId, score)
+        }
+    }
 
-    override suspend fun loadTopScores(leaderboardId: String, limit: Int): List<LeaderboardRow> =
-        emptyList()
+    override suspend fun loadTopScores(leaderboardId: String, limit: Int): List<LeaderboardRow> {
+        val activity = activityRef?.get() ?: return emptyList()
+        return runCatching {
+            val currentPlayerId = (_signInState.value as? SignInState.SignedIn)?.playerId
+            val data = PlayGames.getLeaderboardsClient(activity)
+                .loadTopScores(
+                    leaderboardId,
+                    LeaderboardVariant.TIME_SPAN_ALL_TIME,
+                    LeaderboardVariant.COLLECTION_PUBLIC,
+                    limit,
+                )
+                .await()
+                .get()
+                ?: return emptyList()
+            val buffer = data.scores ?: return emptyList()
+            val rows = buffer.map { score ->
+                LeaderboardRow(
+                    rank = score.rank,
+                    displayName = score.scoreHolderDisplayName.orEmpty(),
+                    avatarUrl = score.scoreHolderHiResImageUri?.toString()
+                        ?: score.scoreHolderIconImageUri?.toString(),
+                    rawScore = score.rawScore,
+                    displayScore = score.displayScore.orEmpty(),
+                    isCurrentPlayer = score.scoreHolder?.playerId == currentPlayerId,
+                )
+            }.toList()
+            buffer.release()
+            rows
+        }.getOrElse { emptyList() }
+    }
 
-    override suspend fun loadPlayerScore(leaderboardId: String): PlayerScore? = null
+    override suspend fun loadPlayerScore(leaderboardId: String): PlayerScore? {
+        val activity = activityRef?.get() ?: return null
+        return runCatching {
+            val score = PlayGames.getLeaderboardsClient(activity)
+                .loadCurrentPlayerLeaderboardScore(
+                    leaderboardId,
+                    LeaderboardVariant.TIME_SPAN_ALL_TIME,
+                    LeaderboardVariant.COLLECTION_PUBLIC,
+                )
+                .await()
+                .get()
+            score?.let {
+                PlayerScore(
+                    rank = it.rank,
+                    rawScore = it.rawScore,
+                    displayScore = it.displayScore.orEmpty(),
+                )
+            }
+        }.getOrNull()
+    }
 
     override suspend fun readSnapshot(name: String): ByteArray? = null
 
