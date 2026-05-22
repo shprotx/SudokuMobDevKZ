@@ -2,7 +2,9 @@ package ru.shprot.sudokumobdevkz.core.base.data.cloud
 
 import android.app.Activity
 import com.google.android.gms.games.PlayGames
+import com.google.android.gms.games.SnapshotsClient
 import com.google.android.gms.games.leaderboard.LeaderboardVariant
+import com.google.android.gms.games.snapshot.SnapshotMetadataChange
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -149,9 +151,58 @@ class PlayGamesCloudServices @Inject constructor() : CloudGameServices {
         }.getOrNull()
     }
 
-    override suspend fun readSnapshot(name: String): ByteArray? = null
+    override suspend fun readSnapshot(name: String): ByteArray? {
+        val activity = activityRef?.get() ?: return null
+        return runCatching {
+            val client = PlayGames.getSnapshotsClient(activity)
+            val result = client.open(
+                name,
+                true,
+                SnapshotsClient.RESOLUTION_POLICY_MOST_RECENTLY_MODIFIED,
+            ).await()
+            if (result.isConflict) {
+                val conflict = result.conflict ?: return@runCatching null
+                val winning = conflict.snapshot
+                val bytes = winning.snapshotContents.readFully()
+                client.resolveConflict(conflict.conflictId, winning).await()
+                bytes
+            } else {
+                val snapshot = result.data ?: return@runCatching null
+                val bytes = snapshot.snapshotContents.readFully()
+                client.discardAndClose(snapshot)
+                bytes
+            }
+        }.getOrNull()
+    }
 
-    override suspend fun writeSnapshot(name: String, bytes: ByteArray, description: String) = Unit
+    override suspend fun writeSnapshot(name: String, bytes: ByteArray, description: String) {
+        val activity = activityRef?.get() ?: return
+        runCatching {
+            val client = PlayGames.getSnapshotsClient(activity)
+            val result = client.open(
+                name,
+                true,
+                SnapshotsClient.RESOLUTION_POLICY_MOST_RECENTLY_MODIFIED,
+            ).await()
+            val metadata = SnapshotMetadataChange.Builder()
+                .setDescription(description)
+                .build()
+            if (result.isConflict) {
+                val conflict = result.conflict ?: return@runCatching
+                conflict.resolutionSnapshotContents.writeBytes(bytes)
+                client.resolveConflict(
+                    conflict.conflictId,
+                    conflict.conflictId,
+                    metadata,
+                    conflict.resolutionSnapshotContents,
+                ).await()
+            } else {
+                val snapshot = result.data ?: return@runCatching
+                snapshot.snapshotContents.writeBytes(bytes)
+                client.commitAndClose(snapshot, metadata).await()
+            }
+        }
+    }
 
     private suspend fun refreshPlayerState(activity: Activity) {
         runCatching {
