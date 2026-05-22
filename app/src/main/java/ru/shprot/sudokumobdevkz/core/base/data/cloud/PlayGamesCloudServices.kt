@@ -74,9 +74,20 @@ class PlayGamesCloudServices @Inject constructor() : CloudGameServices {
 
     override suspend fun signOut() = Unit
 
-    override suspend fun unlockAchievement(pgsId: String) = Unit
+    override suspend fun unlockAchievement(pgsId: String) {
+        val activity = activityRef?.get() ?: return
+        runCatching {
+            PlayGames.getAchievementsClient(activity).unlockImmediate(pgsId).await()
+        }
+    }
 
-    override suspend fun incrementAchievement(pgsId: String, steps: Int) = Unit
+    override suspend fun incrementAchievement(pgsId: String, steps: Int) {
+        if (steps <= 0) return
+        val activity = activityRef?.get() ?: return
+        runCatching {
+            PlayGames.getAchievementsClient(activity).incrementImmediate(pgsId, steps).await()
+        }
+    }
 
     override suspend fun submitScore(leaderboardId: String, score: Long) = Unit
 
