@@ -1,18 +1,26 @@
 package ru.shprot.sudokumobdevkz.di
 
-import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.CloudGameServices
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.NoOpCloudGameServices
+import ru.shprot.sudokumobdevkz.core.base.data.cloud.PlayGamesCloudServices
+import ru.shprot.sudokumobdevkz.core.base.data.util.GmsAvailability
+import javax.inject.Provider
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class CloudGameServicesModule {
+object CloudGameServicesModule {
 
-    @Binds
+    @Provides
     @Singleton
-    abstract fun bindCloudGameServices(impl: NoOpCloudGameServices): CloudGameServices
+    fun provideCloudGameServices(
+        gmsAvailability: GmsAvailability,
+        playGames: Provider<PlayGamesCloudServices>,
+        noOp: Provider<NoOpCloudGameServices>,
+    ): CloudGameServices =
+        if (gmsAvailability.hasGms) playGames.get() else noOp.get()
 }
