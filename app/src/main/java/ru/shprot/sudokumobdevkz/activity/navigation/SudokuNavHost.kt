@@ -22,6 +22,9 @@ import ru.shprot.sudokumobdevkz.feature.gameover.presentation.viewmodel.GameOver
 import ru.shprot.sudokumobdevkz.feature.howtoplay.presentation.navigation.HowToPlayRoutes
 import ru.shprot.sudokumobdevkz.feature.howtoplay.presentation.screen.HowToPlayScreen
 import ru.shprot.sudokumobdevkz.feature.howtoplay.presentation.viewmodel.HowToPlayViewModel
+import ru.shprot.sudokumobdevkz.feature.leaderboards.presentation.navigation.LeaderboardsRoutes
+import ru.shprot.sudokumobdevkz.feature.leaderboards.presentation.screen.LeaderboardsScreen
+import ru.shprot.sudokumobdevkz.feature.leaderboards.presentation.viewmodel.LeaderboardsViewModel
 import ru.shprot.sudokumobdevkz.feature.menu.presentation.navigation.MenuRoutes
 import ru.shprot.sudokumobdevkz.feature.menu.presentation.screen.MenuScreen
 import ru.shprot.sudokumobdevkz.feature.menu.presentation.viewmodel.MenuViewModel
@@ -94,6 +97,11 @@ fun SudokuNavHost(
         composable<DailyChallengeRoutes.DailyChallengeScreen> {
             val viewModel: DailyChallengeViewModel = hiltViewModel()
             DailyChallengeScreen(navController = navController, viewModel = viewModel)
+        }
+
+        composable<LeaderboardsRoutes.LeaderboardsScreen> {
+            val viewModel: LeaderboardsViewModel = hiltViewModel()
+            LeaderboardsScreen(navController = navController, viewModel = viewModel)
         }
     }
 }
