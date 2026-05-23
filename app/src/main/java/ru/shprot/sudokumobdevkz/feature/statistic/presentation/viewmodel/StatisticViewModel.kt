@@ -35,6 +35,7 @@ class StatisticViewModel @Inject constructor(
         observeDailyPlaytime()
         loadDailyStreaks()
         observeSignInState()
+        loadLeaderboardPreview()
     }
 
     override fun handleUIEvent(event: StatisticUIEvent) =
@@ -52,7 +53,7 @@ class StatisticViewModel @Inject constructor(
                 setState(currentState.copy(showResetDialog = true))
 
             StatisticUIEvent.OpenLeaderboardClicked ->
-                setEffect(StatisticUIEffect.NavigateToLeaderboard(currentState.selectedTab))
+                setEffect(StatisticUIEffect.NavigateToLeaderboard)
 
             StatisticUIEvent.SignInCtaClicked ->
                 setEffect(StatisticUIEffect.NavigateToSettings)
@@ -68,7 +69,6 @@ class StatisticViewModel @Inject constructor(
         setState(currentState.copy(selectedTab = index))
         val difficulty = Difficulty.fromOrdinal(index)
         observeDifficulty(difficulty)
-        loadLeaderboardPreview(difficulty)
     }
 
     private fun handleResetRequested(tabIndex: Int) {
@@ -110,7 +110,6 @@ class StatisticViewModel @Inject constructor(
                 fetchPercentile(difficulty, stat?.averageTime ?: 0)
             }
         }
-        loadLeaderboardPreview(difficulty)
     }
 
     private fun observeDailyPlaytime() {
@@ -129,13 +128,13 @@ class StatisticViewModel @Inject constructor(
                 val wasSignedIn = currentState.isSignedIn
                 updateState { copy(isSignedIn = signedIn) }
                 if (signedIn && !wasSignedIn) {
-                    loadLeaderboardPreview(Difficulty.fromOrdinal(currentState.selectedTab))
+                    loadLeaderboardPreview()
                 }
             }
         }
     }
 
-    private fun loadLeaderboardPreview(difficulty: Difficulty) {
+    private fun loadLeaderboardPreview() {
         if (!cloud.isAvailable || cloud.signInState.value !is SignInState.SignedIn) {
             updateState { copy(leaderboardPreview = null, isLeaderboardLoading = false) }
             return
@@ -143,7 +142,7 @@ class StatisticViewModel @Inject constructor(
         leaderboardJob?.cancel()
         leaderboardJob = viewModelScope.launch(exceptionHandler) {
             updateState { copy(isLeaderboardLoading = true) }
-            val data = loadLeaderboard(difficulty)
+            val data = loadLeaderboard()
             updateState {
                 copy(
                     leaderboardPreview = data,

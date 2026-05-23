@@ -17,7 +17,6 @@ enum class Difficulty(
     val dotCount: Int,
     @StringRes val titleRes: Int,
     @StringRes val subtitleRes: Int,
-    val leaderboardId: String,
 ) {
     EASY(
         firebaseKey = 1,
@@ -26,7 +25,6 @@ enum class Difficulty(
         dotCount = 1,
         titleRes = R.string.difficulty_easy,
         subtitleRes = R.string.for_beginners,
-        leaderboardId = "CgkIqffM1tUYEAIQZQ",
     ),
     MEDIUM(
         firebaseKey = 2,
@@ -35,7 +33,6 @@ enum class Difficulty(
         dotCount = 2,
         titleRes = R.string.difficulty_middle,
         subtitleRes = R.string.for_experienced,
-        leaderboardId = "CgkIqffM1tUYEAIQZg",
     ),
     HARD(
         firebaseKey = 3,
@@ -44,7 +41,6 @@ enum class Difficulty(
         dotCount = 3,
         titleRes = R.string.difficulty_expert,
         subtitleRes = R.string.for_experts,
-        leaderboardId = "CgkIqffM1tUYEAIQZw",
     );
 
     companion object {

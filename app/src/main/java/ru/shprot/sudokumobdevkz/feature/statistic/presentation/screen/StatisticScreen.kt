@@ -28,10 +28,8 @@ fun StatisticScreen(
                 StatisticUIEffect.NavigateToSettings ->
                     navController.navigate(SettingsRoutes.SettingsScreen)
 
-                is StatisticUIEffect.NavigateToLeaderboard ->
-                    navController.navigate(
-                        LeaderboardsRoutes.LeaderboardsScreen(effect.difficultyOrdinal),
-                    )
+                StatisticUIEffect.NavigateToLeaderboard ->
+                    navController.navigate(LeaderboardsRoutes.LeaderboardsScreen)
             }
         }
     }

@@ -29,7 +29,6 @@ import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonText
 @Composable
 internal fun LeaderboardPreviewCard(
     modifier: Modifier,
-    difficultyName: String,
     isSignedIn: Boolean,
     isLoading: Boolean,
     data: LeaderboardData?,
@@ -62,7 +61,7 @@ internal fun LeaderboardPreviewCard(
 
                 Text(
                     modifier = Modifier.padding(start = AppTheme.paddings.medium),
-                    text = stringResource(R.string.leaderboard_preview_title, difficultyName),
+                    text = stringResource(R.string.leaderboard_preview_title),
                     style = AppTheme.typography.body1,
                     color = AppTheme.colors.text,
                     fontWeight = FontWeight.SemiBold,
