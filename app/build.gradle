@@ -83,6 +83,7 @@ play {
     track.set('internal')
     releaseStatus.set(ReleaseStatus.DRAFT)
     resolutionStrategy.set(ResolutionStrategy.IGNORE)
+    releaseName.set(android.defaultConfig.versionName)
 }
 
 dependencies {
