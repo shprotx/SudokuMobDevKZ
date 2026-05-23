@@ -117,6 +117,7 @@ class SudokuRepository @Inject constructor(
         statisticDao.deleteByDifficulty(difficulty.firebaseKey)
         gameHistoryDao.deleteByDifficulty(difficulty.firebaseKey)
         clearFirebaseStatistic(difficulty)
+        syncToCloud.trigger()
     }
 
     // --- Game History (for bar chart) ---

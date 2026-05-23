@@ -219,4 +219,5 @@
     <string name="leaderboard_empty">Пока никто не сыграл — будьте первым.</string>
     <string name="leaderboards_title">Рейтинги</string>
     <string name="leaderboard_load_error">Не удалось загрузить рейтинг. Потяните вниз для обновления.</string>
+    <string name="reset_statistics_cloud_warning">Учтите: ваши лучшие результаты останутся в облачном лидерборде Google Play Games.</string>
 </resources>
