@@ -18,6 +18,7 @@ import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonDefault
 import ru.shprot.sudokumobdevkz.core.uicommon.toolbar.ToolbarDefault
+import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.cloud.CloudSection
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsSectionHeader
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsVersionFooter
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.contract.SettingsUIEvent
@@ -67,6 +68,8 @@ internal fun SettingsLandscapeContent(
                 SettingsSectionHeader(modifier = Modifier, title = stringResource(R.string.appearance))
 
                 AppearanceSettingsCard(uiState = uiState, onEvent = onEvent)
+
+                CloudSection(uiState = uiState, onEvent = onEvent)
 
                 SettingsSectionHeader(modifier = Modifier, title = stringResource(R.string.other))
 

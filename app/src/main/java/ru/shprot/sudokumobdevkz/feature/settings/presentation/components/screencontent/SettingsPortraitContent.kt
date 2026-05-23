@@ -28,6 +28,7 @@ import ru.shprot.sudokumobdevkz.core.base.presentation.util.deviceFitsTwoRowInPo
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonDefault
 import ru.shprot.sudokumobdevkz.core.uicommon.toolbar.ToolbarDefault
+import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.cloud.CloudSection
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsCard
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsDivider
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsNavItem
@@ -62,6 +63,8 @@ internal fun SettingsPortraitContent(
             SettingsSectionHeader(modifier = Modifier, title = stringResource(R.string.appearance))
 
             AppearanceSettingsCard(uiState = uiState, onEvent = onEvent)
+
+            CloudSection(uiState = uiState, onEvent = onEvent)
 
             SettingsSectionHeader(modifier = Modifier, title = stringResource(R.string.other))
 
