@@ -1,5 +1,6 @@
 package ru.shprot.sudokumobdevkz.feature.settings.presentation.screen
 
+import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -50,6 +51,26 @@ fun SettingsScreen(
                         context = context,
                         packageName = BuildConfig.APPLICATION_ID,
                     )
+
+                SettingsUIEffect.OpenPlayGamesApp -> {
+                    val playGamesIntent = context.packageManager
+                        .getLaunchIntentForPackage("com.google.android.play.games")
+                    if (playGamesIntent != null) {
+                        context.startActivity(playGamesIntent)
+                    } else {
+                        PlayStoreLauncher.openPlayStore(
+                            context = context,
+                            packageName = "com.google.android.play.games",
+                        )
+                    }
+                }
+
+                is SettingsUIEffect.ShowMessage ->
+                    Toast.makeText(
+                        context,
+                        context.getString(effect.messageRes),
+                        Toast.LENGTH_SHORT,
+                    ).show()
             }
         }
     }

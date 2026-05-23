@@ -10,6 +10,7 @@ object AchievementsRegistry {
     private val winsAchievements: List<Achievement> = listOf(
         Achievement(
             id = "wins_first",
+            pgsId = "CgkIqffM1tUYEAIQUA",
             titleRes = R.string.achievement_wins_first_title,
             descRes = R.string.achievement_wins_first_desc,
             iconKey = AchievementIconKey.TROPHY_BRONZE,
@@ -19,6 +20,7 @@ object AchievementsRegistry {
         ),
         Achievement(
             id = "wins_10",
+            pgsId = "CgkIqffM1tUYEAIQSg",
             titleRes = R.string.achievement_wins_10_title,
             descRes = R.string.achievement_wins_10_desc,
             iconKey = AchievementIconKey.MEDAL_BRONZE,
@@ -28,6 +30,7 @@ object AchievementsRegistry {
         ),
         Achievement(
             id = "wins_50",
+            pgsId = "CgkIqffM1tUYEAIQWw",
             titleRes = R.string.achievement_wins_50_title,
             descRes = R.string.achievement_wins_50_desc,
             iconKey = AchievementIconKey.MEDAL_SILVER,
@@ -37,6 +40,7 @@ object AchievementsRegistry {
         ),
         Achievement(
             id = "wins_200",
+            pgsId = "CgkIqffM1tUYEAIQWQ",
             titleRes = R.string.achievement_wins_200_title,
             descRes = R.string.achievement_wins_200_desc,
             iconKey = AchievementIconKey.MEDAL_GOLD,
@@ -46,6 +50,7 @@ object AchievementsRegistry {
         ),
         Achievement(
             id = "wins_500",
+            pgsId = "CgkIqffM1tUYEAIQTA",
             titleRes = R.string.achievement_wins_500_title,
             descRes = R.string.achievement_wins_500_desc,
             iconKey = AchievementIconKey.CROWN,
@@ -58,6 +63,7 @@ object AchievementsRegistry {
     private val difficultyAchievements: List<Achievement> = listOf(
         Achievement(
             id = "diff_easy_25",
+            pgsId = "CgkIqffM1tUYEAIQVA",
             titleRes = R.string.achievement_diff_easy_25_title,
             descRes = R.string.achievement_diff_easy_25_desc,
             iconKey = AchievementIconKey.LEAF,
@@ -69,6 +75,7 @@ object AchievementsRegistry {
         ),
         Achievement(
             id = "diff_medium_25",
+            pgsId = "CgkIqffM1tUYEAIQTQ",
             titleRes = R.string.achievement_diff_medium_25_title,
             descRes = R.string.achievement_diff_medium_25_desc,
             iconKey = AchievementIconKey.SUN,
@@ -80,6 +87,7 @@ object AchievementsRegistry {
         ),
         Achievement(
             id = "diff_hard_25",
+            pgsId = "CgkIqffM1tUYEAIQTg",
             titleRes = R.string.achievement_diff_hard_25_title,
             descRes = R.string.achievement_diff_hard_25_desc,
             iconKey = AchievementIconKey.MOUNTAIN,
@@ -91,6 +99,7 @@ object AchievementsRegistry {
         ),
         Achievement(
             id = "diff_universal",
+            pgsId = "CgkIqffM1tUYEAIQXQ",
             titleRes = R.string.achievement_diff_universal_title,
             descRes = R.string.achievement_diff_universal_desc,
             iconKey = AchievementIconKey.COMPASS,
@@ -110,6 +119,7 @@ object AchievementsRegistry {
     private val perfectAchievements: List<Achievement> = listOf(
         Achievement(
             id = "perfect_1",
+            pgsId = "CgkIqffM1tUYEAIQVQ",
             titleRes = R.string.achievement_perfect_1_title,
             descRes = R.string.achievement_perfect_1_desc,
             iconKey = AchievementIconKey.CHECK,
@@ -119,6 +129,7 @@ object AchievementsRegistry {
         ),
         Achievement(
             id = "perfect_10",
+            pgsId = "CgkIqffM1tUYEAIQWA",
             titleRes = R.string.achievement_perfect_10_title,
             descRes = R.string.achievement_perfect_10_desc,
             iconKey = AchievementIconKey.TARGET,
@@ -128,6 +139,7 @@ object AchievementsRegistry {
         ),
         Achievement(
             id = "perfect_50",
+            pgsId = "CgkIqffM1tUYEAIQVw",
             titleRes = R.string.achievement_perfect_50_title,
             descRes = R.string.achievement_perfect_50_desc,
             iconKey = AchievementIconKey.GEM,
@@ -140,6 +152,7 @@ object AchievementsRegistry {
     private val speedAchievements: List<Achievement> = listOf(
         Achievement(
             id = "speed_easy",
+            pgsId = "CgkIqffM1tUYEAIQWg",
             titleRes = R.string.achievement_speed_easy_title,
             descRes = R.string.achievement_speed_easy_desc,
             iconKey = AchievementIconKey.BOLT,
@@ -149,6 +162,7 @@ object AchievementsRegistry {
         ),
         Achievement(
             id = "speed_medium",
+            pgsId = "CgkIqffM1tUYEAIQUg",
             titleRes = R.string.achievement_speed_medium_title,
             descRes = R.string.achievement_speed_medium_desc,
             iconKey = AchievementIconKey.BOLT_DOUBLE,
@@ -158,6 +172,7 @@ object AchievementsRegistry {
         ),
         Achievement(
             id = "speed_hard",
+            pgsId = "CgkIqffM1tUYEAIQXA",
             titleRes = R.string.achievement_speed_hard_title,
             descRes = R.string.achievement_speed_hard_desc,
             iconKey = AchievementIconKey.BOLT_TRIPLE,
@@ -170,6 +185,7 @@ object AchievementsRegistry {
     private val streakAchievements: List<Achievement> = listOf(
         Achievement(
             id = "streak_3",
+            pgsId = "CgkIqffM1tUYEAIQTw",
             titleRes = R.string.achievement_streak_3_title,
             descRes = R.string.achievement_streak_3_desc,
             iconKey = AchievementIconKey.FIRE_SMALL,
@@ -179,6 +195,7 @@ object AchievementsRegistry {
         ),
         Achievement(
             id = "streak_10",
+            pgsId = "CgkIqffM1tUYEAIQVg",
             titleRes = R.string.achievement_streak_10_title,
             descRes = R.string.achievement_streak_10_desc,
             iconKey = AchievementIconKey.FIRE_MEDIUM,
@@ -188,6 +205,7 @@ object AchievementsRegistry {
         ),
         Achievement(
             id = "streak_25",
+            pgsId = "CgkIqffM1tUYEAIQSw",
             titleRes = R.string.achievement_streak_25_title,
             descRes = R.string.achievement_streak_25_desc,
             iconKey = AchievementIconKey.FIRE_BIG,
@@ -200,6 +218,7 @@ object AchievementsRegistry {
     private val dailyAchievements: List<Achievement> = listOf(
         Achievement(
             id = "daily_1",
+            pgsId = "CgkIqffM1tUYEAIQYQ",
             titleRes = R.string.achievement_daily_1_title,
             descRes = R.string.achievement_daily_1_desc,
             iconKey = AchievementIconKey.CALENDAR_CHECK,
@@ -211,6 +230,7 @@ object AchievementsRegistry {
         ),
         Achievement(
             id = "daily_streak_7",
+            pgsId = "CgkIqffM1tUYEAIQUw",
             titleRes = R.string.achievement_daily_streak_7_title,
             descRes = R.string.achievement_daily_streak_7_desc,
             iconKey = AchievementIconKey.CALENDAR_WEEK,
@@ -220,6 +240,7 @@ object AchievementsRegistry {
         ),
         Achievement(
             id = "daily_streak_30",
+            pgsId = "CgkIqffM1tUYEAIQXg",
             titleRes = R.string.achievement_daily_streak_30_title,
             descRes = R.string.achievement_daily_streak_30_desc,
             iconKey = AchievementIconKey.CALENDAR_MONTH,
@@ -229,6 +250,7 @@ object AchievementsRegistry {
         ),
         Achievement(
             id = "daily_streak_100",
+            pgsId = "CgkIqffM1tUYEAIQUQ",
             titleRes = R.string.achievement_daily_streak_100_title,
             descRes = R.string.achievement_daily_streak_100_desc,
             iconKey = AchievementIconKey.CALENDAR_YEAR,
@@ -241,6 +263,7 @@ object AchievementsRegistry {
     private val secretAchievements: List<Achievement> = listOf(
         Achievement(
             id = "secret_night_owl",
+            pgsId = "CgkIqffM1tUYEAIQXw",
             titleRes = R.string.achievement_secret_night_owl_title,
             descRes = R.string.achievement_secret_night_owl_desc,
             iconKey = AchievementIconKey.MOON,
@@ -254,6 +277,7 @@ object AchievementsRegistry {
         ),
         Achievement(
             id = "secret_early_bird",
+            pgsId = "CgkIqffM1tUYEAIQYA",
             titleRes = R.string.achievement_secret_early_bird_title,
             descRes = R.string.achievement_secret_early_bird_desc,
             iconKey = AchievementIconKey.SUNRISE,

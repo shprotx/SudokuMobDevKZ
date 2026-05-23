@@ -42,6 +42,7 @@ class AchievementsRepositoryTest {
             dailyChallengeDao = dailyDao,
             gameHistoryDao = gameHistoryDao,
             achievementUnlockedDao = achievementsDao,
+            syncToCloud = NoOpSyncToCloudUseCase,
         )
     }
 

@@ -9,9 +9,15 @@ local.properties
 .externalNativeBuild
 .cxx
 
-docs/
+docs/*
+!docs/release-process.md
 reports/
 .superpowers/
 marketing/
 app/release/
 *.aab
+
+# Google Play service-account JSON keys — never commit
+play-service-account*.json
+*-service-account*.json
+sudokumobdevkz-*.json

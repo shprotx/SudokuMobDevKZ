@@ -72,6 +72,11 @@ feature/
 ```bash
 ./gradlew assembleDebug      # Debug APK
 ./gradlew assembleRelease    # Release APK (нужен keystore в local.properties)
+./gradlew bundleRelease      # Release AAB для загрузки в Play Console
 ```
 
 Release-подпись: `KEYSTORE_FILE`, `KEYSTORE_PASS`, `KEYSTORE_ALIAS`, `KEYSTORE_ALIAS_PASS` в `local.properties` или env.
+
+## Релизный процесс
+
+Версионирование, треки Play Console, команды публикации и hotfix-flow — см. [docs/release-process.md](docs/release-process.md).

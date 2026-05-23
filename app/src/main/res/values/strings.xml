@@ -196,4 +196,25 @@
     <string name="achievement_secret_night_owl_desc">Win a game between midnight and 5 AM</string>
     <string name="achievement_secret_early_bird_title">Early bird</string>
     <string name="achievement_secret_early_bird_desc">Win a game between 5 AM and 8 AM</string>
+    <string name="gms_app_id" translatable="false">847632350121</string>
+
+    <string name="cloud_section_title">Cloud sync</string>
+    <string name="cloud_sign_in_with_play_games">Sign in with Play Games</string>
+    <string name="cloud_sign_in_failed">Sign-in failed. Try again later.</string>
+    <string name="cloud_sign_out">Sign out</string>
+    <string name="cloud_player_anonymous">Player</string>
+    <string name="cloud_sign_out_title">Sign out of Play Games</string>
+    <string name="cloud_sign_out_message">Sign-out is managed by the Play Games app. Open it to switch or remove the account.</string>
+    <string name="cloud_open_play_games">Open Play Games</string>
+    <string name="cloud_import_from_other_device">Import from another device</string>
+    <string name="cloud_import_empty">No cloud data found</string>
+    <string name="cloud_import_applied">Data imported</string>
+    <string name="cloud_import_title">Import progress</string>
+    <string name="cloud_import_message">Cloud has saved progress from another device. Pick how to combine.</string>
+    <string name="cloud_import_summary">On this device: %1$s\nIn cloud: %2$s\n(wins / achievements / daily completed)</string>
+    <string name="cloud_import_merge">Merge</string>
+    <string name="cloud_import_keep_local">Keep this device only</string>
+    <string name="cloud_import_use_cloud">Use cloud only</string>
+    <string name="cloud_auto_imported">Progress restored from cloud</string>
+    <string name="cloud_auto_synced">Progress saved to cloud</string>
 </resources>

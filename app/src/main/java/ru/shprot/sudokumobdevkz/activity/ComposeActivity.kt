@@ -21,6 +21,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.shprot.sudokumobdevkz.activity.achievement.AchievementUnlockedHost
 import ru.shprot.sudokumobdevkz.activity.navigation.SudokuNavHost
+import ru.shprot.sudokumobdevkz.core.base.data.cloud.CloudGameServices
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SettingsRepository
 import ru.shprot.sudokumobdevkz.core.base.presentation.navigation.NavRoute
 import ru.shprot.sudokumobdevkz.core.theme.SudokuTheme
@@ -34,6 +35,9 @@ class ComposeActivity : ComponentActivity() {
     @Inject
     lateinit var settingsRepository: SettingsRepository
 
+    @Inject
+    lateinit var cloudGameServices: CloudGameServices
+
     override fun onCreate(savedInstanceState: Bundle?) {
         val isAndroid12Plus = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
         if (isAndroid12Plus) {
@@ -46,6 +50,10 @@ class ComposeActivity : ComponentActivity() {
             }
         }
         super.onCreate(savedInstanceState)
+        cloudGameServices.attachActivity(this)
+        lifecycleScope.launch {
+            cloudGameServices.trySilentSignIn()
+        }
         enableEdgeToEdge(
             statusBarStyle = SystemBarStyle.auto(
                 android.graphics.Color.TRANSPARENT,
@@ -90,6 +98,11 @@ class ComposeActivity : ComponentActivity() {
                 )
             }
         }
+    }
+
+    override fun onDestroy() {
+        cloudGameServices.detachActivity()
+        super.onDestroy()
     }
 
     private companion object {
