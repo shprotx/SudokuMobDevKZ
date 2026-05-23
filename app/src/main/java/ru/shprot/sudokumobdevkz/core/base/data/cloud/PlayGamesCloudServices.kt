@@ -118,8 +118,12 @@ class PlayGamesCloudServices @Inject constructor() : CloudGameServices {
                 LeaderboardRow(
                     rank = score.rank,
                     displayName = score.scoreHolderDisplayName.orEmpty(),
-                    avatarUri = score.scoreHolderHiResImageUri
-                        ?: score.scoreHolderIconImageUri,
+                    avatarUrl = pickAvatarUrl(
+                        score.scoreHolder?.hiResImageUrl,
+                        score.scoreHolder?.iconImageUrl,
+                        score.scoreHolderHiResImageUri,
+                        score.scoreHolderIconImageUri,
+                    ),
                     rawScore = score.rawScore,
                     displayScore = score.displayScore.orEmpty(),
                     isCurrentPlayer = score.scoreHolder?.playerId == currentPlayerId,
@@ -210,9 +214,25 @@ class PlayGamesCloudServices @Inject constructor() : CloudGameServices {
             _signInState.value = SignInState.SignedIn(
                 playerId = player.playerId,
                 displayName = player.displayName.orEmpty(),
-                avatarUri = player.hiResImageUri ?: player.iconImageUri,
+                avatarUrl = pickAvatarUrl(
+                    player.hiResImageUrl,
+                    player.iconImageUrl,
+                    player.hiResImageUri,
+                    player.iconImageUri,
+                ),
             )
         }
+    }
+
+    private fun pickAvatarUrl(
+        hiResUrl: String?,
+        iconUrl: String?,
+        hiResUri: android.net.Uri?,
+        iconUri: android.net.Uri?,
+    ): String? {
+        val candidates = listOf(hiResUrl, iconUrl, hiResUri?.toString(), iconUri?.toString())
+        return candidates.firstOrNull { it != null && it.startsWith("http") }
+            ?: candidates.firstOrNull { it != null }
     }
 
     private companion object {

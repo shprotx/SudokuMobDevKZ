@@ -4,14 +4,15 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.CloudGameServices
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.SignInState
 import ru.shprot.sudokumobdevkz.core.base.data.repository.DailyChallengeRepository
+import ru.shprot.sudokumobdevkz.core.base.data.repository.LeaderboardRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SudokuRepository
 import ru.shprot.sudokumobdevkz.core.base.data.util.DateTimeUtils
 import ru.shprot.sudokumobdevkz.core.base.domain.model.Difficulty
-import ru.shprot.sudokumobdevkz.core.base.domain.usecase.cloud.LoadLeaderboardUseCase
 import ru.shprot.sudokumobdevkz.core.base.presentation.viewmodel.BaseViewModel
 import ru.shprot.sudokumobdevkz.feature.statistic.presentation.contract.StatisticUIEffect
 import ru.shprot.sudokumobdevkz.feature.statistic.presentation.contract.StatisticUIEvent
@@ -23,11 +24,10 @@ class StatisticViewModel @Inject constructor(
     private val repository: SudokuRepository,
     private val dailyChallengeRepository: DailyChallengeRepository,
     private val cloud: CloudGameServices,
-    private val loadLeaderboard: LoadLeaderboardUseCase,
+    private val leaderboardRepository: LeaderboardRepository,
 ) : BaseViewModel<StatisticUIEvent, StatisticUIState, StatisticUIEffect>(StatisticUIState()) {
 
     private var observeJob: Job? = null
-    private var leaderboardJob: Job? = null
 
     init {
         updateState { copy(isCloudAvailable = cloud.isAvailable) }
@@ -35,7 +35,7 @@ class StatisticViewModel @Inject constructor(
         observeDailyPlaytime()
         loadDailyStreaks()
         observeSignInState()
-        loadLeaderboardPreview()
+        observeLeaderboardRepository()
     }
 
     override fun handleUIEvent(event: StatisticUIEvent) =
@@ -67,8 +67,7 @@ class StatisticViewModel @Inject constructor(
 
     private fun handleTabSelected(index: Int) {
         setState(currentState.copy(selectedTab = index))
-        val difficulty = Difficulty.fromOrdinal(index)
-        observeDifficulty(difficulty)
+        observeDifficulty(Difficulty.fromOrdinal(index))
     }
 
     private fun handleResetRequested(tabIndex: Int) {
@@ -124,30 +123,23 @@ class StatisticViewModel @Inject constructor(
         if (!cloud.isAvailable) return
         viewModelScope.launch {
             cloud.signInState.collect { state ->
-                val signedIn = state is SignInState.SignedIn
-                val wasSignedIn = currentState.isSignedIn
-                updateState { copy(isSignedIn = signedIn) }
-                if (signedIn && !wasSignedIn) {
-                    loadLeaderboardPreview()
-                }
+                updateState { copy(isSignedIn = state is SignInState.SignedIn) }
             }
         }
     }
 
-    private fun loadLeaderboardPreview() {
-        if (!cloud.isAvailable || cloud.signInState.value !is SignInState.SignedIn) {
-            updateState { copy(leaderboardPreview = null, isLeaderboardLoading = false) }
-            return
-        }
-        leaderboardJob?.cancel()
-        leaderboardJob = viewModelScope.launch(exceptionHandler) {
-            updateState { copy(isLeaderboardLoading = true) }
-            val data = loadLeaderboard()
-            updateState {
-                copy(
-                    leaderboardPreview = data,
-                    isLeaderboardLoading = false,
-                )
+    private fun observeLeaderboardRepository() {
+        viewModelScope.launch {
+            combine(
+                leaderboardRepository.data,
+                leaderboardRepository.isLoading,
+            ) { data, loading -> data to loading }.collect { (data, loading) ->
+                updateState {
+                    copy(
+                        leaderboardPreview = data,
+                        isLeaderboardLoading = loading,
+                    )
+                }
             }
         }
     }
