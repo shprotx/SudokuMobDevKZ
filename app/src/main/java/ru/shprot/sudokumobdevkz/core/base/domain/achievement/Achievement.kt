@@ -4,6 +4,7 @@ import androidx.annotation.StringRes
 
 class Achievement(
     val id: String,
+    val pgsId: String?,
     @StringRes val titleRes: Int,
     @StringRes val descRes: Int,
     val iconKey: AchievementIconKey,

@@ -170,4 +170,31 @@ class AchievementsRegistryTest {
         val context = ctx(recentWins = listOf(winAt(6)))
         assertTrue(byId("secret_early_bird").evaluate(context).isUnlocked)
     }
+
+    @Test
+    fun allAchievements_havePgsId() {
+        val missing = AchievementsRegistry.all.filter { it.pgsId.isNullOrBlank() }
+        assertTrue(
+            "Achievements without PGS id: ${missing.map { it.id }}",
+            missing.isEmpty(),
+        )
+    }
+
+    @Test
+    fun allAchievements_havePgsIdInExpectedFormat() {
+        AchievementsRegistry.all.forEach { ach ->
+            val pgsId = ach.pgsId
+            assertTrue("${ach.id}: pgsId=$pgsId не начинается с CgkI", pgsId!!.startsWith("CgkI"))
+        }
+    }
+
+    @Test
+    fun allAchievements_havePgsIdsUnique() {
+        val ids = AchievementsRegistry.all.mapNotNull { it.pgsId }
+        assertEquals(
+            "Duplicate PGS ids detected",
+            ids.size,
+            ids.toSet().size,
+        )
+    }
 }
