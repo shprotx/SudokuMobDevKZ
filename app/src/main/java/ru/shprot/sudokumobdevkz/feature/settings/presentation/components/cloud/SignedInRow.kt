@@ -1,7 +1,6 @@
 package ru.shprot.sudokumobdevkz.feature.settings.presentation.components.cloud
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -16,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.stringResource
 import coil.compose.AsyncImage
 import ru.shprot.sudokumobdevkz.R
@@ -34,27 +34,17 @@ fun SignedInRow(
             .padding(vertical = AppTheme.paddings.default),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Box(
+        val personPainter = rememberVectorPainter(Icons.Filled.Person)
+        AsyncImage(
+            model = avatarUrl,
+            contentDescription = null,
+            placeholder = personPainter,
+            error = personPainter,
+            fallback = personPainter,
             modifier = Modifier
                 .size(AppTheme.sizes.iconMedium)
                 .clip(CircleShape),
-            contentAlignment = Alignment.Center,
-        ) {
-            if (avatarUrl != null) {
-                AsyncImage(
-                    model = avatarUrl,
-                    contentDescription = null,
-                    modifier = Modifier.size(AppTheme.sizes.iconMedium),
-                )
-            } else {
-                Icon(
-                    imageVector = Icons.Filled.Person,
-                    contentDescription = null,
-                    tint = AppTheme.colors.iconTint,
-                    modifier = Modifier.size(AppTheme.sizes.iconMedium),
-                )
-            }
-        }
+        )
 
         Text(
             modifier = Modifier
