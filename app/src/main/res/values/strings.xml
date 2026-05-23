@@ -206,4 +206,13 @@
     <string name="cloud_sign_out_title">Sign out of Play Games</string>
     <string name="cloud_sign_out_message">Sign-out is managed by the Play Games app. Open it to switch or remove the account.</string>
     <string name="cloud_open_play_games">Open Play Games</string>
+    <string name="cloud_import_from_other_device">Import from another device</string>
+    <string name="cloud_import_empty">No cloud data found</string>
+    <string name="cloud_import_applied">Data imported</string>
+    <string name="cloud_import_title">Import progress</string>
+    <string name="cloud_import_message">Cloud has saved progress from another device. Pick how to combine.</string>
+    <string name="cloud_import_summary">On this device: %1$s\nIn cloud: %2$s\n(wins / achievements / daily completed)</string>
+    <string name="cloud_import_merge">Merge</string>
+    <string name="cloud_import_keep_local">Keep this device only</string>
+    <string name="cloud_import_use_cloud">Use cloud only</string>
 </resources>

@@ -26,4 +26,9 @@ sealed interface SettingsUIEvent : UIEvent {
     data object SignOutClicked : SettingsUIEvent
     data object DismissSignOutHint : SettingsUIEvent
     data object OpenPlayGamesAppClicked : SettingsUIEvent
+    data object ImportFromCloudClicked : SettingsUIEvent
+    data object ImportChoiceMerge : SettingsUIEvent
+    data object ImportChoiceKeepLocal : SettingsUIEvent
+    data object ImportChoiceUseCloud : SettingsUIEvent
+    data object DismissImportDialog : SettingsUIEvent
 }

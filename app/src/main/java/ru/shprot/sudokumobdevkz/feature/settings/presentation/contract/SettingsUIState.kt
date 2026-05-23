@@ -13,4 +13,5 @@ data class SettingsUIState(
     val signInState: SignInState = SignInState.NotAvailable,
     val isSigningIn: Boolean = false,
     val showSignOutHint: Boolean = false,
+    val cloudImport: CloudImportState = CloudImportState.Idle,
 ) : UIState
