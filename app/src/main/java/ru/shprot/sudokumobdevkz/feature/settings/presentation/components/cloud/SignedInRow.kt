@@ -2,7 +2,6 @@ package ru.shprot.sudokumobdevkz.feature.settings.presentation.components.cloud
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -57,32 +56,38 @@ fun SignedInRow(
             }
         }
 
-        Column(
+        Text(
             modifier = Modifier
                 .weight(1f)
-                .padding(horizontal = AppTheme.paddings.default),
+                .padding(start = AppTheme.paddings.default),
+            text = displayName.ifBlank { stringResource(R.string.cloud_player_anonymous) },
+            style = AppTheme.typography.body1,
+            color = AppTheme.colors.text,
+        )
+
+        Row(
+            modifier = Modifier
+                .clickable(onClick = onSignOutClick)
+                .padding(
+                    horizontal = AppTheme.paddings.default,
+                    vertical = AppTheme.paddings.small,
+                ),
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                text = displayName.ifBlank { stringResource(R.string.cloud_player_anonymous) },
-                style = AppTheme.typography.body1,
-                color = AppTheme.colors.text,
-            )
-
-            Text(
-                text = stringResource(R.string.cloud_signed_in_subtitle),
+                text = stringResource(R.string.cloud_sign_out),
                 style = AppTheme.typography.body3,
                 color = AppTheme.colors.textSecondary,
             )
-        }
 
-        Icon(
-            imageVector = Icons.Filled.Logout,
-            contentDescription = stringResource(R.string.cloud_sign_out),
-            tint = AppTheme.colors.iconTint,
-            modifier = Modifier
-                .clickable(onClick = onSignOutClick)
-                .padding(AppTheme.paddings.small)
-                .size(AppTheme.sizes.iconSmall),
-        )
+            Icon(
+                imageVector = Icons.Filled.Logout,
+                contentDescription = null,
+                tint = AppTheme.colors.textSecondary,
+                modifier = Modifier
+                    .padding(start = AppTheme.paddings.small)
+                    .size(AppTheme.sizes.iconSmall),
+            )
+        }
     }
 }
