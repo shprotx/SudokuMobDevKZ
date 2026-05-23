@@ -46,6 +46,7 @@ class SudokuRepository @Inject constructor(
     private val dailyChallengeRepository: DailyChallengeRepository,
     private val syncToCloud: SyncToCloudUseCase,
     private val submitOverallScore: SubmitOverallScoreUseCase,
+    private val leaderboardRepository: LeaderboardRepository,
 ) {
 
     private val syncScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
@@ -104,6 +105,7 @@ class SudokuRepository @Inject constructor(
         syncToCloud.trigger()
         if (isWin && timeSeconds > 0) {
             submitOverallScore()
+            leaderboardRepository.refresh()
         }
     }
 

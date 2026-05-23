@@ -6,6 +6,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.SignInState
+import ru.shprot.sudokumobdevkz.core.base.data.repository.LeaderboardRepository
 import ru.shprot.sudokumobdevkz.core.base.domain.usecase.cloud.BackfillAchievementsUseCase
 import ru.shprot.sudokumobdevkz.core.base.domain.usecase.cloud.SubmitOverallScoreUseCase
 import ru.shprot.sudokumobdevkz.core.base.domain.usecase.cloud.SyncToCloudUseCase
@@ -20,6 +21,7 @@ class CloudSyncOrchestrator @Inject constructor(
     private val backfillTracker: CloudBackfillTracker,
     private val syncToCloud: SyncToCloudUseCase,
     private val submitOverallScore: SubmitOverallScoreUseCase,
+    private val leaderboardRepository: LeaderboardRepository,
 ) {
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
@@ -43,6 +45,7 @@ class CloudSyncOrchestrator @Inject constructor(
 
     private suspend fun handleSignedIn(playerId: String) {
         submitOverallScore()
+        leaderboardRepository.refresh()
         if (backfillTracker.wasBackfilledFor(playerId)) return
         backfill()
         backfillTracker.markBackfilledFor(playerId)
