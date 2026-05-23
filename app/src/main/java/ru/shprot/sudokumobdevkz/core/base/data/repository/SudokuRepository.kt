@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import ru.shprot.sudokumobdevkz.core.base.data.cloud.CloudGameServices
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.GameHistoryDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.SavedGameDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.StatisticDao
@@ -44,6 +45,7 @@ class SudokuRepository @Inject constructor(
     private val json: Json,
     private val dailyChallengeRepository: DailyChallengeRepository,
     private val syncToCloud: SyncToCloudUseCase,
+    private val cloud: CloudGameServices,
 ) {
 
     private val syncScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
@@ -100,6 +102,9 @@ class SudokuRepository @Inject constructor(
         statisticDao.upsert(updated)
         syncScope.launch { syncToFirebase(updated) }
         syncToCloud.trigger()
+        if (isWin && timeSeconds > 0) {
+            cloud.submitScore(difficulty.leaderboardId, timeSeconds.toLong())
+        }
     }
 
     suspend fun incrementCasualGames(difficulty: Difficulty) {
