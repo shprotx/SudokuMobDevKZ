@@ -16,6 +16,7 @@ import kotlinx.serialization.json.Json
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.GameHistoryDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.SavedGameDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.StatisticDao
+import ru.shprot.sudokumobdevkz.core.base.domain.usecase.cloud.SyncToCloudUseCase
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.GameHistoryEntity
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.SavedGameEntity
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.StatisticEntity
@@ -42,6 +43,7 @@ class SudokuRepository @Inject constructor(
     private val firebaseApi: FirebaseApi,
     private val json: Json,
     private val dailyChallengeRepository: DailyChallengeRepository,
+    private val syncToCloud: SyncToCloudUseCase,
 ) {
 
     private val syncScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
@@ -97,6 +99,7 @@ class SudokuRepository @Inject constructor(
         val updated = existing.updated(isWin, timeSeconds, errorCount)
         statisticDao.upsert(updated)
         syncScope.launch { syncToFirebase(updated) }
+        syncToCloud.trigger()
     }
 
     suspend fun incrementCasualGames(difficulty: Difficulty) {
@@ -175,6 +178,7 @@ class SudokuRepository @Inject constructor(
                 isStandardMode = data.isStandardMode,
             )
         )
+        syncToCloud.trigger()
     }
 
     suspend fun loadSavedGame(): GameSaveData? {
@@ -199,7 +203,10 @@ class SudokuRepository @Inject constructor(
 
     suspend fun hasSavedGame(): Boolean = savedGameDao.get() != null
 
-    suspend fun deleteSavedGame() = savedGameDao.delete()
+    suspend fun deleteSavedGame() {
+        savedGameDao.delete()
+        syncToCloud.trigger()
+    }
 
     // --- Firebase ---
 

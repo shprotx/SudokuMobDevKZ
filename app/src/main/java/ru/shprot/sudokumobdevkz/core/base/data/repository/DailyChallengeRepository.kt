@@ -3,6 +3,7 @@ package ru.shprot.sudokumobdevkz.core.base.data.repository
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.DailyChallengeDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.DailyChallengeEntity
 import ru.shprot.sudokumobdevkz.core.base.domain.model.Difficulty
+import ru.shprot.sudokumobdevkz.core.base.domain.usecase.cloud.SyncToCloudUseCase
 import java.time.LocalDate
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -10,6 +11,7 @@ import javax.inject.Singleton
 @Singleton
 class DailyChallengeRepository @Inject constructor(
     private val dao: DailyChallengeDao,
+    private val syncToCloud: SyncToCloudUseCase,
 ) {
 
     fun todayDateKey(): String = LocalDate.now().toString()
@@ -44,6 +46,7 @@ class DailyChallengeRepository @Inject constructor(
                 completedAt = System.currentTimeMillis(),
             )
         )
+        syncToCloud.trigger()
         return getCurrentStreak()
     }
 

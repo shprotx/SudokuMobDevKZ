@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.SignInState
 import ru.shprot.sudokumobdevkz.core.base.domain.usecase.cloud.BackfillAchievementsUseCase
+import ru.shprot.sudokumobdevkz.core.base.domain.usecase.cloud.SyncToCloudUseCase
 import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -16,6 +17,7 @@ class CloudSyncOrchestrator @Inject constructor(
     private val cloud: CloudGameServices,
     private val backfill: BackfillAchievementsUseCase,
     private val backfillTracker: CloudBackfillTracker,
+    private val syncToCloud: SyncToCloudUseCase,
 ) {
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
@@ -31,6 +33,9 @@ class CloudSyncOrchestrator @Inject constructor(
                     handleSignedIn(state.playerId)
                 }
             }
+        }
+        scope.launch {
+            syncToCloud.observeAndSync()
         }
     }
 

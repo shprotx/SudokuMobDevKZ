@@ -18,6 +18,7 @@ import ru.shprot.sudokumobdevkz.core.base.domain.achievement.AchievementState
 import ru.shprot.sudokumobdevkz.core.base.domain.achievement.AchievementsRegistry
 import ru.shprot.sudokumobdevkz.core.base.domain.achievement.UnlockedAchievement
 import ru.shprot.sudokumobdevkz.core.base.domain.model.Difficulty
+import ru.shprot.sudokumobdevkz.core.base.domain.usecase.cloud.SyncToCloudUseCase
 import java.time.LocalDate
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -28,6 +29,7 @@ class AchievementsRepositoryImpl @Inject constructor(
     private val dailyChallengeDao: DailyChallengeDao,
     private val gameHistoryDao: GameHistoryDao,
     private val achievementUnlockedDao: AchievementUnlockedDao,
+    private val syncToCloud: SyncToCloudUseCase,
 ) : AchievementsRepository {
 
     private val _newlyUnlocked = MutableSharedFlow<UnlockedAchievement>(
@@ -82,6 +84,7 @@ class AchievementsRepositoryImpl @Inject constructor(
                 if (emitToFlow) _newlyUnlocked.emit(event)
             }
         }
+        if (newly.isNotEmpty()) syncToCloud.trigger()
         return newly
     }
 
