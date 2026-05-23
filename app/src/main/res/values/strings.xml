@@ -215,4 +215,6 @@
     <string name="cloud_import_merge">Merge</string>
     <string name="cloud_import_keep_local">Keep this device only</string>
     <string name="cloud_import_use_cloud">Use cloud only</string>
+    <string name="cloud_auto_imported">Progress restored from cloud</string>
+    <string name="cloud_auto_synced">Progress saved to cloud</string>
 </resources>

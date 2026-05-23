@@ -46,4 +46,13 @@ class ImportFromCloudUseCase @Inject constructor(
         }
         progress.savedGame?.let { savedGameDao.save(it.toEntity()) }
     }
+
+    companion object {
+        fun isEmpty(progress: CloudProgress): Boolean {
+            val totalWins = progress.statistics.values.sumOf { it.gamesWon }
+            return totalWins == 0 &&
+                progress.unlockedAchievements.isEmpty() &&
+                progress.dailyChallenges.none { it.isCompleted }
+        }
+    }
 }

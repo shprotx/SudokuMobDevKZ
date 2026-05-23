@@ -150,8 +150,36 @@ class SettingsViewModel @Inject constructor(
         viewModelScope.launch(exceptionHandler) {
             val result = cloud.requestSignIn()
             updateState { copy(isSigningIn = false) }
-            if (result is SignInResult.Failure) {
-                setEffect(SettingsUIEffect.ShowMessage(R.string.cloud_sign_in_failed))
+            when (result) {
+                SignInResult.Success -> handlePostSignIn()
+                is SignInResult.Failure ->
+                    setEffect(SettingsUIEffect.ShowMessage(R.string.cloud_sign_in_failed))
+                SignInResult.Cancelled,
+                SignInResult.NotAvailable -> Unit
+            }
+        }
+    }
+
+    private suspend fun handlePostSignIn() {
+        val cloudProgress = importFromCloud.loadCloudSnapshot()
+            ?.takeUnless(ImportFromCloudUseCase::isEmpty)
+        val localProgress = importFromCloud.currentLocalProgress()
+        val localEmpty = ImportFromCloudUseCase.isEmpty(localProgress)
+
+        when {
+            cloudProgress != null && localEmpty -> {
+                importFromCloud.applyProgress(cloudProgress)
+                setEffect(SettingsUIEffect.ShowMessage(R.string.cloud_auto_imported))
+            }
+
+            cloudProgress != null ->
+                updateState {
+                    copy(cloudImport = CloudImportState.Choosing(localProgress, cloudProgress))
+                }
+
+            !localEmpty -> {
+                syncToCloud.syncNow()
+                setEffect(SettingsUIEffect.ShowMessage(R.string.cloud_auto_synced))
             }
         }
     }

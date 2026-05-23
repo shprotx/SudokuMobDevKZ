@@ -18,6 +18,8 @@ interface SyncToCloudUseCase {
 
     fun trigger()
 
+    suspend fun syncNow()
+
     suspend fun observeAndSync()
 
     companion object {
@@ -40,6 +42,10 @@ class SyncToCloudUseCaseImpl @Inject constructor(
 
     override fun trigger() {
         triggers.tryEmit(Unit)
+    }
+
+    override suspend fun syncNow() {
+        performSync()
     }
 
     override suspend fun observeAndSync() {

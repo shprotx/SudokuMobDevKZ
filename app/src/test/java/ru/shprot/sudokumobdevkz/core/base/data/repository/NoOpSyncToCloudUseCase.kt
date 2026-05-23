@@ -4,5 +4,6 @@ import ru.shprot.sudokumobdevkz.core.base.domain.usecase.cloud.SyncToCloudUseCas
 
 internal object NoOpSyncToCloudUseCase : SyncToCloudUseCase {
     override fun trigger() = Unit
+    override suspend fun syncNow() = Unit
     override suspend fun observeAndSync() = Unit
 }

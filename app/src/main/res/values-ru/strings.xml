@@ -209,4 +209,6 @@
     <string name="cloud_import_merge">Объединить</string>
     <string name="cloud_import_keep_local">Оставить только это устройство</string>
     <string name="cloud_import_use_cloud">Использовать только облако</string>
+    <string name="cloud_auto_imported">Прогресс восстановлен из облака</string>
+    <string name="cloud_auto_synced">Прогресс сохранён в облако</string>
 </resources>
