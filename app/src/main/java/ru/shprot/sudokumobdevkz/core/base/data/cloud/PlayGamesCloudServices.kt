@@ -118,8 +118,8 @@ class PlayGamesCloudServices @Inject constructor() : CloudGameServices {
                 LeaderboardRow(
                     rank = score.rank,
                     displayName = score.scoreHolderDisplayName.orEmpty(),
-                    avatarUrl = score.scoreHolderHiResImageUri?.toString()
-                        ?: score.scoreHolderIconImageUri?.toString(),
+                    avatarUri = score.scoreHolderHiResImageUri
+                        ?: score.scoreHolderIconImageUri,
                     rawScore = score.rawScore,
                     displayScore = score.displayScore.orEmpty(),
                     isCurrentPlayer = score.scoreHolder?.playerId == currentPlayerId,
@@ -210,7 +210,7 @@ class PlayGamesCloudServices @Inject constructor() : CloudGameServices {
             _signInState.value = SignInState.SignedIn(
                 playerId = player.playerId,
                 displayName = player.displayName.orEmpty(),
-                avatarUrl = player.hiResImageUri?.toString() ?: player.iconImageUri?.toString(),
+                avatarUri = player.hiResImageUri ?: player.iconImageUri,
             )
         }
     }

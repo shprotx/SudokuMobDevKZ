@@ -64,12 +64,12 @@ fun LeaderboardRowItem(
             contentAlignment = Alignment.Center,
         ) {
 
-            if (row.avatarUrl != null) {
+            if (row.avatarUri != null) {
                 AsyncImage(
                     modifier = Modifier
                         .size(AppTheme.sizes.iconLarge)
                         .clip(CircleShape),
-                    model = row.avatarUrl,
+                    model = row.avatarUri,
                     contentDescription = null,
                 )
             } else {

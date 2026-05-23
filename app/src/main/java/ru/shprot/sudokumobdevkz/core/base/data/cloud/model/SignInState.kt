@@ -1,5 +1,7 @@
 package ru.shprot.sudokumobdevkz.core.base.data.cloud.model
 
+import android.net.Uri
+
 sealed interface SignInState {
 
     data object NotAvailable : SignInState
@@ -9,6 +11,6 @@ sealed interface SignInState {
     data class SignedIn(
         val playerId: String,
         val displayName: String,
-        val avatarUrl: String?,
+        val avatarUri: Uri?,
     ) : SignInState
 }
