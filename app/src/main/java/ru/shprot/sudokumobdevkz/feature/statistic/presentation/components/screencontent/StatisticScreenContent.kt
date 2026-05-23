@@ -163,6 +163,7 @@ fun StatisticScreenContent(
         }
         StatisticResetDialog(
             difficultyName = difficultyName,
+            showCloudWarning = uiState.isCloudAvailable && uiState.isSignedIn,
             onConfirm = {
                 onEvent(StatisticUIEvent.ResetRequested(uiState.selectedTab))
                 onEvent(StatisticUIEvent.DismissResetDialog)

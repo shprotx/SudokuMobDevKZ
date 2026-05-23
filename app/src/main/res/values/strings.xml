@@ -225,4 +225,5 @@
     <string name="leaderboard_empty">No scores yet — finish a game to claim a spot.</string>
     <string name="leaderboards_title">Leaderboards</string>
     <string name="leaderboard_load_error">Could not load the leaderboard. Pull to refresh.</string>
+    <string name="reset_statistics_cloud_warning">Note: your best scores will stay in the Google Play Games leaderboard.</string>
 </resources>
