@@ -217,7 +217,7 @@
     <string name="cloud_import_use_cloud">Use cloud only</string>
     <string name="cloud_auto_imported">Progress restored from cloud</string>
     <string name="cloud_auto_synced">Progress saved to cloud</string>
-    <string name="leaderboard_preview_title">Top-10 · %1$s</string>
+    <string name="leaderboard_preview_title">Overall Rating · Top-10</string>
     <string name="leaderboard_sign_in_cta">Sign in with Play Games to see the global ranking.</string>
     <string name="leaderboard_open_settings">Go to Settings</string>
     <string name="leaderboard_open_full">Open full ranking</string>

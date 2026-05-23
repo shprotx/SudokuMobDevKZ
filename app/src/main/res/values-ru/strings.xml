@@ -211,7 +211,7 @@
     <string name="cloud_import_use_cloud">Использовать только облако</string>
     <string name="cloud_auto_imported">Прогресс восстановлен из облака</string>
     <string name="cloud_auto_synced">Прогресс сохранён в облако</string>
-    <string name="leaderboard_preview_title">Топ-10 · %1$s</string>
+    <string name="leaderboard_preview_title">Общий рейтинг · Топ-10</string>
     <string name="leaderboard_sign_in_cta">Войдите через Play Games, чтобы видеть глобальный рейтинг.</string>
     <string name="leaderboard_open_settings">В настройки</string>
     <string name="leaderboard_open_full">Открыть полный рейтинг</string>

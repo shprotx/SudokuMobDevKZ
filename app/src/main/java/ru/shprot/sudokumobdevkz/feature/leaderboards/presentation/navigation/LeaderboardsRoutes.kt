@@ -7,5 +7,5 @@ import ru.shprot.sudokumobdevkz.core.base.presentation.navigation.NavRoute
 sealed class LeaderboardsRoutes : NavRoute() {
 
     @Serializable
-    data class LeaderboardsScreen(val difficultyOrdinal: Int = 0) : LeaderboardsRoutes()
+    data object LeaderboardsScreen : LeaderboardsRoutes()
 }

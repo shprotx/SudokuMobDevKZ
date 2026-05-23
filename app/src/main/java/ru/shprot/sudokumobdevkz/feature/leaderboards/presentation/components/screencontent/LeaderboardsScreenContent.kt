@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
@@ -21,14 +22,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import ru.shprot.sudokumobdevkz.R
-import ru.shprot.sudokumobdevkz.core.base.domain.model.Difficulty
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonText
 import ru.shprot.sudokumobdevkz.core.uicommon.toolbar.ToolbarDefault
 import ru.shprot.sudokumobdevkz.feature.leaderboards.presentation.components.LeaderboardRowItem
 import ru.shprot.sudokumobdevkz.feature.leaderboards.presentation.contract.LeaderboardsUIEvent
 import ru.shprot.sudokumobdevkz.feature.leaderboards.presentation.contract.LeaderboardsUIState
-import ru.shprot.sudokumobdevkz.feature.statistic.presentation.components.DifficultyTabs
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -47,12 +46,6 @@ fun LeaderboardsScreenContent(
             modifier = Modifier,
             title = stringResource(R.string.leaderboards_title),
             onLeadIconClick = { onEvent(LeaderboardsUIEvent.BackClicked) },
-        )
-
-        DifficultyTabs(
-            modifier = Modifier,
-            selectedTab = uiState.selectedTab,
-            onTabSelected = { onEvent(LeaderboardsUIEvent.TabSelected(it)) },
         )
 
         PullToRefreshBox(
@@ -174,7 +167,7 @@ private fun LeaderboardList(uiState: LeaderboardsUIState) {
         modifier = Modifier
             .fillMaxSize()
             .navigationBarsPadding(),
-        contentPadding = androidx.compose.foundation.layout.PaddingValues(
+        contentPadding = PaddingValues(
             horizontal = AppTheme.paddings.large,
             vertical = AppTheme.paddings.default,
         ),
@@ -183,7 +176,7 @@ private fun LeaderboardList(uiState: LeaderboardsUIState) {
 
         items(
             items = data.topRows,
-            key = { row -> "${data.difficulty.name}-${row.rank}-${row.displayName}" },
+            key = { row -> "${row.rank}-${row.displayName}" },
         ) { row ->
             LeaderboardRowItem(
                 modifier = Modifier,
@@ -205,6 +198,19 @@ private fun LeaderboardList(uiState: LeaderboardsUIState) {
                     style = AppTheme.typography.body2,
                     color = AppTheme.colors.primary,
                     textAlign = TextAlign.Center,
+                )
+            }
+        }
+
+        if (uiState.debugAvatarLog.isNotEmpty()) {
+            item(key = "debug-avatar-log") {
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = AppTheme.paddings.xxl),
+                    text = "DEBUG avatars:\n" + uiState.debugAvatarLog,
+                    style = AppTheme.typography.body3,
+                    color = AppTheme.colors.textSecondary,
                 )
             }
         }

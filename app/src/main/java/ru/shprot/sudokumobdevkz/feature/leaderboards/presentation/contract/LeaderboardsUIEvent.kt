@@ -9,6 +9,4 @@ sealed interface LeaderboardsUIEvent : UIEvent {
     data object Refresh : LeaderboardsUIEvent
 
     data object SignInCtaClicked : LeaderboardsUIEvent
-
-    class TabSelected(val index: Int) : LeaderboardsUIEvent
 }

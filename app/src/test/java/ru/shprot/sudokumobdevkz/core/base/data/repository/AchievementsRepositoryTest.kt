@@ -189,6 +189,8 @@ internal class FakeGameHistoryDao : GameHistoryDao {
 
     override suspend fun getRecentWins(limit: Int): List<GameHistoryEntity> = flow.value
 
+    override suspend fun getAllWins(): List<GameHistoryEntity> = flow.value
+
     override suspend fun insert(entry: GameHistoryEntity): Unit =
         error("not used in test: insert")
 
