@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.collectLatest
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import ru.shprot.sudokumobdevkz.feature.leaderboards.presentation.navigation.LeaderboardsRoutes
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.navigation.SettingsRoutes
 import ru.shprot.sudokumobdevkz.feature.statistic.presentation.components.screencontent.StatisticScreenContent
 import ru.shprot.sudokumobdevkz.feature.statistic.presentation.contract.StatisticUIEffect
@@ -28,7 +29,9 @@ fun StatisticScreen(
                     navController.navigate(SettingsRoutes.SettingsScreen)
 
                 is StatisticUIEffect.NavigateToLeaderboard ->
-                    Unit
+                    navController.navigate(
+                        LeaderboardsRoutes.LeaderboardsScreen(effect.difficultyOrdinal),
+                    )
             }
         }
     }
