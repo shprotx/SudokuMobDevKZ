@@ -31,6 +31,6 @@ class CloudBackfillTracker @Inject constructor(
     }
 
     private companion object {
-        const val KEY_BACKFILLED_PLAYERS = "backfilled_players"
+        const val KEY_BACKFILLED_PLAYERS = "backfilled_players_v2"
     }
 }
