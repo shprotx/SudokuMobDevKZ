@@ -38,7 +38,7 @@ fun CloudSection(
                 SignedInRow(
                     modifier = Modifier,
                     displayName = state.displayName,
-                    avatarUrl = state.avatarUrl,
+                    avatarUri = state.avatarUri,
                     onSignOutClick = { onEvent(SettingsUIEvent.SignOutClicked) },
                 )
 

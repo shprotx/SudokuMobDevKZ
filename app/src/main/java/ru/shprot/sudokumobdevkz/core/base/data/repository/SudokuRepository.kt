@@ -103,7 +103,7 @@ class SudokuRepository @Inject constructor(
         syncScope.launch { syncToFirebase(updated) }
         syncToCloud.trigger()
         if (isWin && timeSeconds > 0) {
-            cloud.submitScore(difficulty.leaderboardId, timeSeconds.toLong())
+            cloud.submitScore(difficulty.leaderboardId, timeSeconds.toLong() * 1000L)
         }
     }
 

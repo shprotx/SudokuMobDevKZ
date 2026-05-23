@@ -1,5 +1,6 @@
 package ru.shprot.sudokumobdevkz.feature.settings.presentation.components.cloud
 
+import android.net.Uri
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -25,7 +26,7 @@ import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 fun SignedInRow(
     modifier: Modifier,
     displayName: String,
-    avatarUrl: String?,
+    avatarUri: Uri?,
     onSignOutClick: () -> Unit,
 ) {
     Row(
@@ -36,7 +37,7 @@ fun SignedInRow(
     ) {
         val personPainter = rememberVectorPainter(Icons.Filled.Person)
         AsyncImage(
-            model = avatarUrl,
+            model = avatarUri,
             contentDescription = null,
             placeholder = personPainter,
             error = personPainter,
