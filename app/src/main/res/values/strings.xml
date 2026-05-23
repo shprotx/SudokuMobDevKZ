@@ -197,4 +197,14 @@
     <string name="achievement_secret_early_bird_title">Early bird</string>
     <string name="achievement_secret_early_bird_desc">Win a game between 5 AM and 8 AM</string>
     <string name="gms_app_id" translatable="false">847632350121</string>
+
+    <string name="cloud_section_title">Cloud sync</string>
+    <string name="cloud_sign_in_with_play_games">Sign in with Play Games</string>
+    <string name="cloud_sign_in_failed">Sign-in failed. Try again later.</string>
+    <string name="cloud_signed_in_subtitle">Signed in with Play Games</string>
+    <string name="cloud_sign_out">Sign out</string>
+    <string name="cloud_player_anonymous">Player</string>
+    <string name="cloud_sign_out_title">Sign out of Play Games</string>
+    <string name="cloud_sign_out_message">Sign-out is managed by the Play Games app. Open it to switch or remove the account.</string>
+    <string name="cloud_open_play_games">Open Play Games</string>
 </resources>

@@ -4,6 +4,9 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import ru.shprot.sudokumobdevkz.R
+import ru.shprot.sudokumobdevkz.core.base.data.cloud.CloudGameServices
+import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.SignInResult
 import ru.shprot.sudokumobdevkz.core.base.domain.model.AppSettings
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SettingsRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SudokuRepository
@@ -18,12 +21,16 @@ import javax.inject.Inject
 class SettingsViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val sudokuRepository: SudokuRepository,
+    private val cloud: CloudGameServices,
 ) : BaseViewModel<SettingsUIEvent, SettingsUIState, SettingsUIEffect>(
     SettingsUIState()
 ) {
 
     init {
-        setState(currentState.copy(settings = settingsRepository.currentSettings))
+        setState(currentState.copy(
+            settings = settingsRepository.currentSettings,
+            isCloudAvailable = cloud.isAvailable,
+        ))
         viewModelScope.launch {
             settingsRepository.settings.collectLatest { settings ->
                 updateState { copy(settings = settings) }
@@ -32,6 +39,13 @@ class SettingsViewModel @Inject constructor(
         viewModelScope.launch {
             val saved = sudokuRepository.loadSavedGame()
             updateState { copy(hasActiveStandardGame = saved != null && saved.isStandardMode) }
+        }
+        if (cloud.isAvailable) {
+            viewModelScope.launch {
+                cloud.signInState.collect { state ->
+                    updateState { copy(signInState = state) }
+                }
+            }
         }
     }
 
@@ -93,7 +107,33 @@ class SettingsViewModel @Inject constructor(
 
             SettingsUIEvent.RateAppClicked ->
                 setEffect(SettingsUIEffect.OpenPlayStore)
+
+            SettingsUIEvent.SignInClicked ->
+                handleSignIn()
+
+            SettingsUIEvent.SignOutClicked ->
+                updateState { copy(showSignOutHint = true) }
+
+            SettingsUIEvent.DismissSignOutHint ->
+                updateState { copy(showSignOutHint = false) }
+
+            SettingsUIEvent.OpenPlayGamesAppClicked -> {
+                updateState { copy(showSignOutHint = false) }
+                setEffect(SettingsUIEffect.OpenPlayGamesApp)
+            }
         }
+
+    private fun handleSignIn() {
+        if (currentState.isSigningIn) return
+        updateState { copy(isSigningIn = true) }
+        viewModelScope.launch(exceptionHandler) {
+            val result = cloud.requestSignIn()
+            updateState { copy(isSigningIn = false) }
+            if (result is SignInResult.Failure) {
+                setEffect(SettingsUIEffect.ShowMessage(R.string.cloud_sign_in_failed))
+            }
+        }
+    }
 
     private fun handleResetConfirmed() {
         viewModelScope.launch(exceptionHandler) {

@@ -191,4 +191,14 @@
     <string name="achievement_secret_night_owl_desc">Победа между 00:00 и 05:00</string>
     <string name="achievement_secret_early_bird_title">Ранняя пташка</string>
     <string name="achievement_secret_early_bird_desc">Победа между 05:00 и 08:00</string>
+
+    <string name="cloud_section_title">Облачная синхронизация</string>
+    <string name="cloud_sign_in_with_play_games">Войти через Play Games</string>
+    <string name="cloud_sign_in_failed">Не удалось войти. Попробуйте позже.</string>
+    <string name="cloud_signed_in_subtitle">Вход через Play Games</string>
+    <string name="cloud_sign_out">Выйти</string>
+    <string name="cloud_player_anonymous">Игрок</string>
+    <string name="cloud_sign_out_title">Выйти из Play Games</string>
+    <string name="cloud_sign_out_message">Выход из Play Games управляется приложением Google Play Games. Откройте его, чтобы сменить или удалить аккаунт.</string>
+    <string name="cloud_open_play_games">Открыть Play Games</string>
 </resources>

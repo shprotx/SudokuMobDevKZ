@@ -22,4 +22,8 @@ sealed interface SettingsUIEvent : UIEvent {
     data object ToggleCompactNumberPad : SettingsUIEvent
     data object ShareAppClicked : SettingsUIEvent
     data object RateAppClicked : SettingsUIEvent
+    data object SignInClicked : SettingsUIEvent
+    data object SignOutClicked : SettingsUIEvent
+    data object DismissSignOutHint : SettingsUIEvent
+    data object OpenPlayGamesAppClicked : SettingsUIEvent
 }
