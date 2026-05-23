@@ -1,5 +1,6 @@
 package ru.shprot.sudokumobdevkz.feature.statistic.presentation.contract
 
+import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.LeaderboardData
 import ru.shprot.sudokumobdevkz.core.base.domain.model.DailyPlaytime
 import ru.shprot.sudokumobdevkz.core.base.presentation.contract.UIState
 
@@ -20,4 +21,8 @@ data class StatisticUIState(
     val showResetDialog: Boolean = false,
     val dailyCurrentStreak: Int = 0,
     val dailyBestStreak: Int = 0,
+    val isCloudAvailable: Boolean = false,
+    val isSignedIn: Boolean = false,
+    val leaderboardPreview: LeaderboardData? = null,
+    val isLeaderboardLoading: Boolean = false,
 ) : UIState

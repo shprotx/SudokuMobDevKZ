@@ -87,6 +87,23 @@ fun StatisticScreenContent(
                 )
             }
 
+            if (uiState.isCloudAvailable) {
+                val difficultyName = when (Difficulty.fromOrdinal(uiState.selectedTab)) {
+                    Difficulty.EASY -> stringResource(R.string.difficulty_easy)
+                    Difficulty.MEDIUM -> stringResource(R.string.difficulty_middle)
+                    Difficulty.HARD -> stringResource(R.string.difficulty_expert)
+                }
+                LeaderboardPreviewCard(
+                    modifier = Modifier.padding(top = AppTheme.paddings.large),
+                    difficultyName = difficultyName,
+                    isSignedIn = uiState.isSignedIn,
+                    isLoading = uiState.isLeaderboardLoading,
+                    data = uiState.leaderboardPreview,
+                    onOpenFull = { onEvent(StatisticUIEvent.OpenLeaderboardClicked) },
+                    onSignInCta = { onEvent(StatisticUIEvent.SignInCtaClicked) },
+                )
+            }
+
             GameStatisticsSection(
                 modifier = Modifier.padding(top = AppTheme.paddings.xxl),
                 gamesStarted = uiState.gamesStarted,

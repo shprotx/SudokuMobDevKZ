@@ -7,6 +7,8 @@ sealed interface StatisticUIEvent : UIEvent {
     data object DismissResetDialog : StatisticUIEvent
     data object BackClicked : StatisticUIEvent
     data object ResetClicked : StatisticUIEvent
+    data object OpenLeaderboardClicked : StatisticUIEvent
+    data object SignInCtaClicked : StatisticUIEvent
 
     class TabSelected(val index: Int) : StatisticUIEvent
     class ResetRequested(val tabIndex: Int) : StatisticUIEvent

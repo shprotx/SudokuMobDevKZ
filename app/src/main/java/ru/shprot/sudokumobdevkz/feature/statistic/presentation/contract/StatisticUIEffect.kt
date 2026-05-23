@@ -4,4 +4,6 @@ import ru.shprot.sudokumobdevkz.core.base.presentation.contract.UIEffect
 
 sealed interface StatisticUIEffect : UIEffect {
     data object NavigateBack : StatisticUIEffect
+    data object NavigateToSettings : StatisticUIEffect
+    data class NavigateToLeaderboard(val difficultyOrdinal: Int) : StatisticUIEffect
 }
