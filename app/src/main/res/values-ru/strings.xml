@@ -200,4 +200,13 @@
     <string name="cloud_sign_out_title">Выйти из Play Games</string>
     <string name="cloud_sign_out_message">Выход из Play Games управляется приложением Google Play Games. Откройте его, чтобы сменить или удалить аккаунт.</string>
     <string name="cloud_open_play_games">Открыть Play Games</string>
+    <string name="cloud_import_from_other_device">Импортировать с другого устройства</string>
+    <string name="cloud_import_empty">В облаке нет данных</string>
+    <string name="cloud_import_applied">Данные импортированы</string>
+    <string name="cloud_import_title">Импорт прогресса</string>
+    <string name="cloud_import_message">В облаке есть прогресс с другого устройства. Выберите, как объединить.</string>
+    <string name="cloud_import_summary">На этом устройстве: %1$s\nВ облаке: %2$s\n(побед / ачивок / дейликов)</string>
+    <string name="cloud_import_merge">Объединить</string>
+    <string name="cloud_import_keep_local">Оставить только это устройство</string>
+    <string name="cloud_import_use_cloud">Использовать только облако</string>
 </resources>

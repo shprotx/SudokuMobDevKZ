@@ -6,12 +6,16 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.CloudGameServices
+import ru.shprot.sudokumobdevkz.core.base.data.cloud.CloudProgressMerger
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.SignInResult
 import ru.shprot.sudokumobdevkz.core.base.domain.model.AppSettings
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SettingsRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SudokuRepository
 import ru.shprot.sudokumobdevkz.core.base.domain.model.Difficulty
+import ru.shprot.sudokumobdevkz.core.base.domain.usecase.cloud.ImportFromCloudUseCase
+import ru.shprot.sudokumobdevkz.core.base.domain.usecase.cloud.SyncToCloudUseCase
 import ru.shprot.sudokumobdevkz.core.base.presentation.viewmodel.BaseViewModel
+import ru.shprot.sudokumobdevkz.feature.settings.presentation.contract.CloudImportState
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.contract.SettingsUIEffect
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.contract.SettingsUIEvent
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.contract.SettingsUIState
@@ -22,6 +26,8 @@ class SettingsViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val sudokuRepository: SudokuRepository,
     private val cloud: CloudGameServices,
+    private val importFromCloud: ImportFromCloudUseCase,
+    private val syncToCloud: SyncToCloudUseCase,
 ) : BaseViewModel<SettingsUIEvent, SettingsUIState, SettingsUIEffect>(
     SettingsUIState()
 ) {
@@ -121,6 +127,21 @@ class SettingsViewModel @Inject constructor(
                 updateState { copy(showSignOutHint = false) }
                 setEffect(SettingsUIEffect.OpenPlayGamesApp)
             }
+
+            SettingsUIEvent.ImportFromCloudClicked ->
+                handleImportFromCloud()
+
+            SettingsUIEvent.ImportChoiceMerge ->
+                handleImportChoice(ImportChoice.MERGE)
+
+            SettingsUIEvent.ImportChoiceKeepLocal ->
+                handleImportChoice(ImportChoice.KEEP_LOCAL)
+
+            SettingsUIEvent.ImportChoiceUseCloud ->
+                handleImportChoice(ImportChoice.USE_CLOUD)
+
+            SettingsUIEvent.DismissImportDialog ->
+                updateState { copy(cloudImport = CloudImportState.Idle) }
         }
 
     private fun handleSignIn() {
@@ -151,4 +172,38 @@ class SettingsViewModel @Inject constructor(
             settingsRepository.update(transform)
         }
     }
+
+    private fun handleImportFromCloud() {
+        updateState { copy(cloudImport = CloudImportState.Loading) }
+        viewModelScope.launch(exceptionHandler) {
+            val cloudProgress = importFromCloud.loadCloudSnapshot()
+            if (cloudProgress == null) {
+                updateState { copy(cloudImport = CloudImportState.Idle) }
+                setEffect(SettingsUIEffect.ShowMessage(R.string.cloud_import_empty))
+                return@launch
+            }
+            val localProgress = importFromCloud.currentLocalProgress()
+            updateState {
+                copy(cloudImport = CloudImportState.Choosing(localProgress, cloudProgress))
+            }
+        }
+    }
+
+    private fun handleImportChoice(choice: ImportChoice) {
+        val state = currentState.cloudImport as? CloudImportState.Choosing ?: return
+        updateState { copy(cloudImport = CloudImportState.Applying) }
+        viewModelScope.launch(exceptionHandler) {
+            val progress = when (choice) {
+                ImportChoice.MERGE -> CloudProgressMerger.merge(state.local, state.cloud)
+                ImportChoice.KEEP_LOCAL -> state.local
+                ImportChoice.USE_CLOUD -> state.cloud
+            }
+            importFromCloud.applyProgress(progress)
+            syncToCloud.trigger()
+            updateState { copy(cloudImport = CloudImportState.Idle) }
+            setEffect(SettingsUIEffect.ShowMessage(R.string.cloud_import_applied))
+        }
+    }
+
+    private enum class ImportChoice { MERGE, KEEP_LOCAL, USE_CLOUD }
 }
