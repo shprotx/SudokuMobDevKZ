@@ -108,7 +108,7 @@ class SudokuRepository @Inject constructor(
         syncToCloud.trigger()
         if (isWin && timeSeconds > 0) {
             submitOverallScore()
-            leaderboardRepository.refresh()
+            leaderboardRepository.refresh(delayMs = SUBMIT_PROPAGATION_DELAY_MS)
         }
     }
 
@@ -311,4 +311,8 @@ class SudokuRepository @Inject constructor(
     @SuppressLint("HardwareIds")
     private fun getDeviceId(): String =
         Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
+
+    private companion object {
+        const val SUBMIT_PROPAGATION_DELAY_MS = 2000L
+    }
 }
