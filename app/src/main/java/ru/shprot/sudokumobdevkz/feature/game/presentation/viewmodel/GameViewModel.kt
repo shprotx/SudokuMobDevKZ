@@ -516,6 +516,10 @@ class GameViewModel @Inject constructor(
             isDaily = false,
         )
 
+        if (isWin && currentState.timeSeconds > 0 && currentState.isStandardMode) {
+            repository.submitLeaderboardForWin()
+        }
+
         return 0
     }
 
@@ -534,6 +538,10 @@ class GameViewModel @Inject constructor(
             hintsUsed = calculateHintsUsed(),
             isDaily = true,
         )
+
+        if (currentState.timeSeconds > 0) {
+            repository.submitLeaderboardForWin()
+        }
 
         return streak
     }

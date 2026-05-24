@@ -106,11 +106,12 @@ class SudokuRepository @Inject constructor(
         statisticDao.upsert(updated)
         syncScope.launch { syncToFirebase(updated) }
         syncToCloud.trigger()
-        if (isWin && timeSeconds > 0) {
-            syncScope.launch {
-                submitOverallScore()
-                leaderboardRepository.refresh()
-            }
+    }
+
+    fun submitLeaderboardForWin() {
+        syncScope.launch {
+            submitOverallScore()
+            leaderboardRepository.refresh()
         }
     }
 
