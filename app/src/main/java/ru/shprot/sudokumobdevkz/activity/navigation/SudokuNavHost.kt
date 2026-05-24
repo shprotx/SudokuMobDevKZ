@@ -1,5 +1,7 @@
 package ru.shprot.sudokumobdevkz.activity.navigation
 
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -48,6 +50,10 @@ fun SudokuNavHost(
     NavHost(
         navController = navController,
         startDestination = startDestination,
+        enterTransition = { EnterTransition.None },
+        exitTransition = { ExitTransition.None },
+        popEnterTransition = { EnterTransition.None },
+        popExitTransition = { ExitTransition.None },
     ) {
         composable<SplashRoutes.SplashScreen> {
             val viewModel: SplashViewModel = hiltViewModel()
