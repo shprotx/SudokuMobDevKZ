@@ -49,4 +49,41 @@ class RatingCalculatorTest {
         val hard = RatingCalculator.scoreForWin(Difficulty.HARD, 1200, 0)
         assertEquals(5L, hard / easy)
     }
+
+    @Test
+    fun `one hint applies 10 percent penalty`() {
+        // 500 × 1.0 × 1.3 × 0.9 = 585
+        assertEquals(585L, RatingCalculator.scoreForWin(Difficulty.HARD, 1200, 0, hintsUsed = 1))
+    }
+
+    @Test
+    fun `three hints apply 30 percent penalty`() {
+        // 500 × 1.0 × 1.3 × 0.7 = 455
+        assertEquals(455L, RatingCalculator.scoreForWin(Difficulty.HARD, 1200, 0, hintsUsed = 3))
+    }
+
+    @Test
+    fun `hints multiplier floored at 0_3`() {
+        // 10 hints would be -100%, capped at 0.3
+        // 500 × 1.0 × 1.3 × 0.3 = 195
+        assertEquals(195L, RatingCalculator.scoreForWin(Difficulty.HARD, 1200, 0, hintsUsed = 10))
+    }
+
+    @Test
+    fun `daily applies 1_5 multiplier`() {
+        // 500 × 1.0 × 1.3 × 1.0 × 1.5 = 975
+        assertEquals(
+            975L,
+            RatingCalculator.scoreForWin(Difficulty.HARD, 1200, 0, hintsUsed = 0, isDaily = true),
+        )
+    }
+
+    @Test
+    fun `daily with hints and errors stacks correctly`() {
+        // 250 × 1.0 × 1.0 × 0.8 × 1.5 = 300
+        assertEquals(
+            300L,
+            RatingCalculator.scoreForWin(Difficulty.MEDIUM, 600, 1, hintsUsed = 2, isDaily = true),
+        )
+    }
 }

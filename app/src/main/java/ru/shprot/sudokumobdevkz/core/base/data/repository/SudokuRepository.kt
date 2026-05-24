@@ -129,6 +129,8 @@ class SudokuRepository @Inject constructor(
         timeSeconds: Int,
         errors: Int,
         isWin: Boolean,
+        hintsUsed: Int = 0,
+        isDaily: Boolean = false,
     ) {
         gameHistoryDao.insert(
             GameHistoryEntity(
@@ -136,6 +138,8 @@ class SudokuRepository @Inject constructor(
                 timeSeconds = timeSeconds,
                 errors = errors,
                 isWin = isWin,
+                hintsUsed = hintsUsed,
+                isDaily = isDaily,
             )
         )
     }

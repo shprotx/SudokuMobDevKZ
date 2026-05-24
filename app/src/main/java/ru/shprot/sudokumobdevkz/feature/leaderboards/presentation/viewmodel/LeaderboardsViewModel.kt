@@ -54,15 +54,11 @@ class LeaderboardsViewModel @Inject constructor(
                 leaderboardRepository.data,
                 leaderboardRepository.isLoading,
             ) { data, loading -> data to loading }.collect { (data, loading) ->
-                val debugLog = data?.topRows.orEmpty().joinToString("\n") {
-                    "rank=${it.rank} name=${it.displayName} avatar=${it.avatarUrl}"
-                }
                 updateState {
                     copy(
                         data = data,
                         isLoading = loading && data == null,
                         isRefreshing = loading && data != null,
-                        debugAvatarLog = debugLog,
                     )
                 }
             }

@@ -29,6 +29,8 @@ class SubmitOverallScoreUseCase @Inject constructor(
                 difficulty = difficulty,
                 timeSeconds = entry.timeSeconds,
                 errors = entry.errors,
+                hintsUsed = entry.hintsUsed,
+                isDaily = entry.isDaily,
             )
         }
     }

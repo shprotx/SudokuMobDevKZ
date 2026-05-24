@@ -512,6 +512,8 @@ class GameViewModel @Inject constructor(
             timeSeconds = currentState.timeSeconds,
             errors = currentState.errors,
             isWin = isWin,
+            hintsUsed = calculateHintsUsed(),
+            isDaily = false,
         )
 
         return 0
@@ -529,9 +531,17 @@ class GameViewModel @Inject constructor(
             timeSeconds = currentState.timeSeconds,
             errors = currentState.errors,
             isWin = true,
+            hintsUsed = calculateHintsUsed(),
+            isDaily = true,
         )
 
         return streak
+    }
+
+    private fun calculateHintsUsed(): Int {
+        val settings = settingsRepository.currentSettings
+        if (settings.unlimitedHints) return 0
+        return (HINTS_INITIAL - currentState.hintsRemaining).coerceAtLeast(0)
     }
 
     private fun clearNotesForNumber(cells: MutableList<MutableList<CellData>>, row: Int, col: Int, number: Int) {
@@ -578,4 +588,8 @@ class GameViewModel @Inject constructor(
         map { it.toList() }
 
     private data class UndoEntry(val row: Int, val col: Int, val previousCell: CellData)
+
+    private companion object {
+        const val HINTS_INITIAL = 3
+    }
 }
