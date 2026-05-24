@@ -1,3 +1,4 @@
+• Auto-restore statistics from cloud on a new device
 • Global Top-10 leaderboard with player avatars
 • Unified rating formula: difficulty, time, mistakes, hints, daily
 • Achievements and cloud save via Google Play Games

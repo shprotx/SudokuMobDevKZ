@@ -17,6 +17,7 @@ class ImportFromCloudUseCase @Inject constructor(
     private val achievementUnlockedDao: AchievementUnlockedDao,
     private val dailyChallengeDao: DailyChallengeDao,
     private val savedGameDao: SavedGameDao,
+    private val syncToCloud: SyncToCloudUseCase,
 ) {
 
     suspend fun loadCloudSnapshot(): CloudProgress? {
@@ -34,7 +35,7 @@ class ImportFromCloudUseCase @Inject constructor(
         lastSyncTimestamp = 0L,
     )
 
-    suspend fun applyProgress(progress: CloudProgress) {
+    suspend fun applyProgress(progress: CloudProgress) = syncToCloud.withImport {
         progress.statistics.forEach { (difficultyKey, dto) ->
             statisticDao.upsert(dto.toEntity(difficultyKey))
         }
