@@ -1,7 +1,7 @@
 package ru.shprot.sudokumobdevkz.core.base.domain.usecase.cloud
 
 import ru.shprot.sudokumobdevkz.core.base.domain.model.Difficulty
-import kotlin.math.floor
+import kotlin.math.roundToLong
 
 object RatingCalculator {
 
@@ -9,6 +9,8 @@ object RatingCalculator {
         difficulty: Difficulty,
         timeSeconds: Int,
         errors: Int,
+        hintsUsed: Int = 0,
+        isDaily: Boolean = false,
     ): Long {
         if (timeSeconds <= 0) return 0L
         val base = base(difficulty)
@@ -16,7 +18,9 @@ object RatingCalculator {
         val rawSpeed = target.toDouble() / timeSeconds.toDouble()
         val speed = rawSpeed.coerceIn(MIN_SPEED, MAX_SPEED)
         val clean = if (errors == 0) CLEAN_BONUS else 1.0
-        return floor(base * speed * clean).toLong()
+        val hints = (1.0 - hintsUsed * HINTS_PENALTY_PER_USE).coerceAtLeast(MIN_HINTS_MULTIPLIER)
+        val daily = if (isDaily) DAILY_BONUS else 1.0
+        return (base * speed * clean * hints * daily).roundToLong()
     }
 
     fun base(difficulty: Difficulty): Int = when (difficulty) {
@@ -34,4 +38,7 @@ object RatingCalculator {
     private const val MIN_SPEED = 0.5
     private const val MAX_SPEED = 2.0
     private const val CLEAN_BONUS = 1.3
+    private const val HINTS_PENALTY_PER_USE = 0.1
+    private const val MIN_HINTS_MULTIPLIER = 0.3
+    private const val DAILY_BONUS = 1.5
 }

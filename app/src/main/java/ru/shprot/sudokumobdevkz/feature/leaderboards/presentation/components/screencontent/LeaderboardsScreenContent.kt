@@ -202,17 +202,5 @@ private fun LeaderboardList(uiState: LeaderboardsUIState) {
             }
         }
 
-        if (uiState.debugAvatarLog.isNotEmpty()) {
-            item(key = "debug-avatar-log") {
-                Text(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = AppTheme.paddings.xxl),
-                    text = "DEBUG avatars:\n" + uiState.debugAvatarLog,
-                    style = AppTheme.typography.body3,
-                    color = AppTheme.colors.textSecondary,
-                )
-            }
-        }
     }
 }

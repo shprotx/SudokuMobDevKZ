@@ -1,5 +1,6 @@
 package ru.shprot.sudokumobdevkz.core.base.data.database.entity
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -11,4 +12,8 @@ data class GameHistoryEntity(
     val errors: Int,
     val isWin: Boolean,
     val timestamp: Long = System.currentTimeMillis(),
+    @ColumnInfo(defaultValue = "0")
+    val hintsUsed: Int = 0,
+    @ColumnInfo(defaultValue = "0")
+    val isDaily: Boolean = false,
 )

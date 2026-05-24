@@ -15,6 +15,7 @@ import ru.shprot.sudokumobdevkz.core.base.data.database.dao.SavedGameDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.StatisticDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.migration.MIGRATION_3_4
 import ru.shprot.sudokumobdevkz.core.base.data.database.migration.MIGRATION_4_5
+import ru.shprot.sudokumobdevkz.core.base.data.database.migration.MIGRATION_5_6
 import javax.inject.Singleton
 
 @Module
@@ -25,7 +26,7 @@ object DatabaseModule {
     @Singleton
     fun provideDatabase(@ApplicationContext context: Context): SudokuComposeDatabase =
         Room.databaseBuilder(context, SudokuComposeDatabase::class.java, "sudoku_compose_db")
-            .addMigrations(MIGRATION_3_4, MIGRATION_4_5)
+            .addMigrations(MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6)
             .fallbackToDestructiveMigration()
             .build()
 
