@@ -11,6 +11,7 @@ import ru.shprot.sudokumobdevkz.core.base.data.database.dao.AchievementUnlockedD
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.DailyChallengeDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.SavedGameDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.StatisticDao
+import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -22,10 +23,23 @@ interface SyncToCloudUseCase {
 
     suspend fun observeAndSync()
 
+    fun beginImport()
+
+    fun endImport()
+
     companion object {
         const val SNAPSHOT_NAME = "progress_v1"
         const val SNAPSHOT_DESC = "Sudoku progress"
         const val DEBOUNCE_MS = 10_000L
+    }
+}
+
+suspend fun <T> SyncToCloudUseCase.withImport(block: suspend () -> T): T {
+    beginImport()
+    try {
+        return block()
+    } finally {
+        endImport()
     }
 }
 
@@ -39,6 +53,7 @@ class SyncToCloudUseCaseImpl @Inject constructor(
 ) : SyncToCloudUseCase {
 
     private val triggers = MutableSharedFlow<Unit>(extraBufferCapacity = 1)
+    private val importInProgress = AtomicBoolean(false)
 
     override fun trigger() {
         triggers.tryEmit(Unit)
@@ -54,7 +69,16 @@ class SyncToCloudUseCaseImpl @Inject constructor(
             .collect { performSync() }
     }
 
+    override fun beginImport() {
+        importInProgress.set(true)
+    }
+
+    override fun endImport() {
+        importInProgress.set(false)
+    }
+
     private suspend fun performSync() {
+        if (importInProgress.get()) return
         if (!cloud.isAvailable) return
         if (cloud.signInState.value !is SignInState.SignedIn) return
 
