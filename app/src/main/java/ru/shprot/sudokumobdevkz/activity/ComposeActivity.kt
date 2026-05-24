@@ -3,6 +3,7 @@ package ru.shprot.sudokumobdevkz.activity
 import android.app.Activity
 import android.os.Build
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
@@ -64,6 +65,10 @@ class ComposeActivity : ComponentActivity() {
                 android.graphics.Color.TRANSPARENT,
             ),
         )
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.attributes.layoutInDisplayCutoutMode =
+                WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_ALWAYS
+        }
         setContent {
             val settings by settingsRepository.settings.collectAsStateWithLifecycle(
                 initialValue = settingsRepository.currentSettings,

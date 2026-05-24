@@ -9,6 +9,8 @@ Android Sudoku game (100% Kotlin, Jetpack Compose) distributed via APK (GitHub R
 ```bash
 ./gradlew assembleDebug          # Build debug APK
 ./gradlew assembleRelease        # Build release APK (needs keystore in local.properties)
+./gradlew bundleRelease          # Build release AAB
+./gradlew publishReleaseBundle   # Upload AAB to Play Console (internal track, DRAFT). Plugin: com.github.triplet.play. Credentials: PLAY_SERVICE_ACCOUNT_FILE in local.properties.
 ./gradlew testDebugUnitTest      # Run unit tests
 ./gradlew connectedDebugAndroidTest  # Run instrumented tests
 ./gradlew clean                  # Clean build artifacts
