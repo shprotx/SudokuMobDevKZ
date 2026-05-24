@@ -4,7 +4,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -32,14 +31,13 @@ class LeaderboardRepository @Inject constructor(
 
     private var refreshJob: Job? = null
 
-    fun refresh(delayMs: Long = 0L) {
+    fun refresh() {
         refreshJob?.cancel()
         refreshJob = scope.launch {
             if (!cloud.isAvailable || cloud.signInState.value !is SignInState.SignedIn) {
                 _data.value = null
                 return@launch
             }
-            if (delayMs > 0) delay(delayMs)
             _isLoading.value = true
             runCatching { loadLeaderboard() }
                 .onSuccess { _data.value = it }

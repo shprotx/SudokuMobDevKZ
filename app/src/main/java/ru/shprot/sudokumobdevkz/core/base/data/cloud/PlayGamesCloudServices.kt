@@ -95,7 +95,9 @@ class PlayGamesCloudServices @Inject constructor() : CloudGameServices {
     override suspend fun submitScore(leaderboardId: String, score: Long) {
         val activity = activityRef?.get() ?: return
         runCatching {
-            PlayGames.getLeaderboardsClient(activity).submitScore(leaderboardId, score)
+            PlayGames.getLeaderboardsClient(activity)
+                .submitScoreImmediate(leaderboardId, score)
+                .await()
         }
     }
 
@@ -109,6 +111,7 @@ class PlayGamesCloudServices @Inject constructor() : CloudGameServices {
                     LeaderboardVariant.TIME_SPAN_ALL_TIME,
                     LeaderboardVariant.COLLECTION_PUBLIC,
                     limit,
+                    true,
                 )
                 .await()
                 .get()
