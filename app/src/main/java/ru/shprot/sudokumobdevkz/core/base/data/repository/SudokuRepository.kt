@@ -13,6 +13,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import ru.shprot.sudokumobdevkz.core.base.data.cloud.CloudGameServices
+import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.SignInState
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.GameHistoryDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.SavedGameDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.StatisticDao
@@ -47,6 +49,7 @@ class SudokuRepository @Inject constructor(
     private val syncToCloud: SyncToCloudUseCase,
     private val submitOverallScore: SubmitOverallScoreUseCase,
     private val leaderboardRepository: LeaderboardRepository,
+    private val cloud: CloudGameServices,
 ) {
 
     private val syncScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
@@ -225,7 +228,7 @@ class SudokuRepository @Inject constructor(
     private suspend fun syncToFirebase(stat: StatisticEntity) = withContext(Dispatchers.IO) {
         try {
             firebaseApi.uploadStatistic(
-                deviceId = getDeviceId(),
+                deviceId = currentFirebaseKey(),
                 difficulty = stat.difficulty,
                 stat = FirebaseStatDto(
                     averageTime = stat.averageTime,
@@ -242,7 +245,7 @@ class SudokuRepository @Inject constructor(
     private suspend fun clearFirebaseStatistic(difficulty: Difficulty) = withContext(Dispatchers.IO) {
         try {
             firebaseApi.uploadStatistic(
-                deviceId = getDeviceId(),
+                deviceId = currentFirebaseKey(),
                 difficulty = difficulty.firebaseKey,
                 stat = FirebaseStatDto(),
             )
@@ -253,7 +256,7 @@ class SudokuRepository @Inject constructor(
         withContext(Dispatchers.IO) {
             try {
                 val allStats = firebaseApi.getAllStats() ?: return@withContext PercentileResult(-1, 0)
-                val deviceId = getDeviceId()
+                val selfKey = currentFirebaseKey()
                 val diffKey = difficulty.firebaseKey.toString()
                 var totalPlayers = 0
                 var slowerCount = 0
@@ -261,7 +264,7 @@ class SudokuRepository @Inject constructor(
                 for ((uid, userData) in allStats) {
                     val diffData = userData[diffKey] ?: continue
                     val avgTime = diffData.averageTime
-                    if (avgTime <= 0 || uid == deviceId) continue
+                    if (avgTime <= 0 || uid == selfKey) continue
                     totalPlayers++
                     if (avgTime > userAverageTime) slowerCount++
                 }
@@ -275,6 +278,35 @@ class SudokuRepository @Inject constructor(
                 PercentileResult(-1, 0)
             }
         }
+
+    suspend fun migrateFirebaseKeyToPgs(playerId: String) = withContext(Dispatchers.IO) {
+        try {
+            val deviceKey = deviceFirebaseKey()
+            val playerKey = pgsFirebaseKey(playerId)
+            if (deviceKey == playerKey) return@withContext
+            val oldStats = firebaseApi.getOwnStats(deviceKey) ?: return@withContext
+            if (oldStats.isEmpty()) return@withContext
+
+            for ((diffKey, dto) in oldStats) {
+                val difficulty = diffKey.toIntOrNull() ?: continue
+                firebaseApi.uploadStatistic(playerKey, difficulty, dto)
+                firebaseApi.uploadStatistic(deviceKey, difficulty, FirebaseStatDto())
+            }
+        } catch (_: Exception) { }
+    }
+
+    private fun currentFirebaseKey(): String {
+        val signed = cloud.signInState.value
+        return if (signed is SignInState.SignedIn) {
+            pgsFirebaseKey(signed.playerId)
+        } else {
+            deviceFirebaseKey()
+        }
+    }
+
+    private fun pgsFirebaseKey(playerId: String): String = "pgs_$playerId"
+
+    private fun deviceFirebaseKey(): String = "dev_${getDeviceId()}"
 
     @SuppressLint("HardwareIds")
     private fun getDeviceId(): String =
