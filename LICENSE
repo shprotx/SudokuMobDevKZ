@@ -1,0 +1,60 @@
+Sudoku MobDevKZ — Source-Available, Non-Commercial, No-Republish License
+========================================================================
+
+Copyright (c) 2026 shprotx (https://github.com/shprotx)
+
+This source code is published for educational and reference purposes.
+The following rights are GRANTED to any person obtaining a copy of
+this source code:
+
+  1. View, read, and study the source code.
+  2. Fork the repository for personal study.
+  3. Submit bug reports, feature requests, and pull requests back
+     to this repository (https://github.com/shprotx/SudokuMobDevKZ).
+  4. Build the application from source and run it on devices you
+     personally own or control, for non-commercial use.
+
+The following uses are EXPRESSLY PROHIBITED without prior written
+permission from the copyright holder:
+
+  A. Publishing, distributing, or making available the compiled
+     application — whether unmodified, modified, repackaged, renamed,
+     or rebranded — on any application store, marketplace, or
+     distribution platform, including but not limited to Google Play,
+     Apple App Store, Huawei AppGallery, Amazon Appstore, F-Droid,
+     APKMirror, RuStore, NashStore, GetApps, Samsung Galaxy Store,
+     Aptoide, or any direct-download website.
+
+  B. Using the source code, in whole or in part, in any product,
+     service, or work that is sold, licensed, monetized through
+     advertising, in-app purchases, subscriptions, donations,
+     sponsorships, tips, or any other form of commercial or
+     monetary gain.
+
+  C. Using the name "Sudoku MobDevKZ", the package identifier
+     "ru.shprot.sudokumobdevkz", the application's logo, icon,
+     screenshots, color palette, or any other element of its
+     trade dress in derivative works, forks, or related projects
+     without explicit written permission.
+
+  D. Removing, altering, obscuring, or replacing this license file,
+     any copyright notices, or author attributions present in the
+     source code.
+
+  E. Sublicensing, relicensing, or redistributing the source code
+     under terms different from this license.
+
+For commercial licensing inquiries, partnership proposals, or
+exceptions to the above restrictions, contact the copyright holder
+through GitHub (https://github.com/shprotx).
+
+DISCLAIMER
+----------
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT, OR OTHERWISE, ARISING FROM, OUT OF, OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
