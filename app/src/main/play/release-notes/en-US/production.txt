@@ -1,9 +1,9 @@
+• Full Kazakh localization — all screens translated
 • Auto-restore statistics from cloud on a new device
 • Global Top-10 leaderboard with player avatars
 • Unified rating formula: difficulty, time, mistakes, hints, daily
 • Achievements and cloud save via Google Play Games
 • Daily Challenge with current/best streaks
 • Top-10 updates instantly after a win, no restart needed
-• Snappy screen transitions
 • Android 15/16 compatibility, edge-to-edge
 • Small statistics and chart fixes
