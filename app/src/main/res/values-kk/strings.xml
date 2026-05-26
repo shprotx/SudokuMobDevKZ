@@ -88,7 +88,10 @@
     <string name="tip_speed_desc">Тәжірибе арта келе басқатырғыштарды жылдамырақ шешетін боласыз. Уақытты статистикадан бақылаңыз.</string>
     <string name="got_it_play">Түсінікті, ойнайық!</string>
     <string name="game_label">Ойын</string>
-    <string name="dark_theme_label">Қараңғы тақырып</string>
+    <string name="theme_label">Тақырып</string>
+    <string name="theme_mode_system">Жүйелік</string>
+    <string name="theme_mode_light">Ашық</string>
+    <string name="theme_mode_dark">Қараңғы</string>
     <string name="data_collection">Деректерді жинау</string>
     <string name="data_usage">Деректерді пайдалану</string>
     <string name="data_storage">Деректерді сақтау</string>

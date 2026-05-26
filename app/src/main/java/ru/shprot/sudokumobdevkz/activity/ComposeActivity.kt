@@ -8,8 +8,10 @@ import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalView
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -24,6 +26,8 @@ import ru.shprot.sudokumobdevkz.activity.achievement.AchievementUnlockedHost
 import ru.shprot.sudokumobdevkz.activity.navigation.SudokuNavHost
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.CloudGameServices
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SettingsRepository
+import ru.shprot.sudokumobdevkz.core.base.domain.model.ThemeMode
+import ru.shprot.sudokumobdevkz.core.base.domain.model.resolveDark
 import ru.shprot.sudokumobdevkz.core.base.presentation.navigation.NavRoute
 import ru.shprot.sudokumobdevkz.core.theme.SudokuTheme
 import ru.shprot.sudokumobdevkz.feature.menu.presentation.navigation.MenuRoutes
@@ -74,17 +78,21 @@ class ComposeActivity : ComponentActivity() {
                 initialValue = settingsRepository.currentSettings,
             )
 
+            val isSystemDark = isSystemInDarkTheme()
+            val themeMode = remember(settings.themeModeId) { ThemeMode.fromId(settings.themeModeId) }
+            val isDark = themeMode.resolveDark(isSystemDark)
+
             val view = LocalView.current
             if (!view.isInEditMode) {
                 SideEffect {
                     val window = (view.context as Activity).window
                     val controller = WindowCompat.getInsetsController(window, view)
-                    controller.isAppearanceLightStatusBars = !settings.isDarkTheme
-                    controller.isAppearanceLightNavigationBars = !settings.isDarkTheme
+                    controller.isAppearanceLightStatusBars = !isDark
+                    controller.isAppearanceLightNavigationBars = !isDark
                 }
             }
 
-            SudokuTheme(darkTheme = settings.isDarkTheme) {
+            SudokuTheme(darkTheme = isDark) {
                 val navController = rememberNavController()
                 val startDestination: NavRoute = if (isAndroid12Plus) {
                     MenuRoutes.MenuScreen

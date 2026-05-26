@@ -24,8 +24,8 @@ android {
         applicationId "ru.shprot.sudokumobdevkz"
         minSdk 29
         targetSdk 36
-        versionCode 53
-        versionName "2.6.2"
+        versionCode 54
+        versionName "2.6.3"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -136,6 +136,9 @@ dependencies {
 
     // --- Coroutines ---
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2'
+
+    // --- Immutable Collections ---
+    implementation 'org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.8'
 
     // --- Retrofit + KotlinX Serialization ---
     implementation 'com.squareup.retrofit2:retrofit:2.11.0'

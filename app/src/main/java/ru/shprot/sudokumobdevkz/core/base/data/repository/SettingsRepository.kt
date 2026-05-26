@@ -2,8 +2,10 @@ package ru.shprot.sudokumobdevkz.core.base.data.repository
 
 import android.content.Context
 import ru.shprot.sudokumobdevkz.core.base.domain.model.AppSettings
+import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.preferencesDataStore
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -47,7 +49,7 @@ class SettingsRepository @Inject constructor(
                 prefs[Keys.UNLIMITED_ERRORS] = newSettings.unlimitedErrors
                 prefs[Keys.UNLIMITED_HINTS] = newSettings.unlimitedHints
                 prefs[Keys.TRACK_STATISTICS] = newSettings.trackStatistics
-                prefs[Keys.DARK_THEME] = newSettings.isDarkTheme
+                prefs[Keys.THEME_MODE_ID] = newSettings.themeModeId
                 prefs[Keys.SOUNDS] = newSettings.soundsEnabled
                 prefs[Keys.COMPACT_NUMBER_PAD] = newSettings.compactNumberPad
                 prefs[Keys.SELECTED_DIFFICULTY] = newSettings.selectedDifficultyOrdinal
@@ -55,7 +57,7 @@ class SettingsRepository @Inject constructor(
         }
     }
 
-    private fun androidx.datastore.preferences.core.Preferences.toAppSettings() = AppSettings(
+    private fun Preferences.toAppSettings() = AppSettings(
         checkErrors = this[Keys.CHECK_ERRORS] ?: true,
         highlightDuplicates = this[Keys.HIGHLIGHT_DUPLICATES] ?: true,
         autoSave = this[Keys.AUTO_SAVE] ?: true,
@@ -64,11 +66,17 @@ class SettingsRepository @Inject constructor(
         unlimitedErrors = this[Keys.UNLIMITED_ERRORS] ?: false,
         unlimitedHints = this[Keys.UNLIMITED_HINTS] ?: false,
         trackStatistics = this[Keys.TRACK_STATISTICS] ?: true,
-        isDarkTheme = this[Keys.DARK_THEME] ?: false,
+        themeModeId = resolveThemeModeId(),
         soundsEnabled = this[Keys.SOUNDS] ?: true,
         compactNumberPad = this[Keys.COMPACT_NUMBER_PAD] ?: false,
         selectedDifficultyOrdinal = this[Keys.SELECTED_DIFFICULTY] ?: 0,
     )
+
+    private fun Preferences.resolveThemeModeId(): String =
+        ThemeModeMigration.resolve(
+            storedId = this[Keys.THEME_MODE_ID],
+            legacyDarkTheme = this[Keys.LEGACY_DARK_THEME],
+        )
 
     private object Keys {
         val CHECK_ERRORS = booleanPreferencesKey("check_errors")
@@ -79,7 +87,8 @@ class SettingsRepository @Inject constructor(
         val UNLIMITED_ERRORS = booleanPreferencesKey("unlimited_errors")
         val UNLIMITED_HINTS = booleanPreferencesKey("unlimited_hints")
         val TRACK_STATISTICS = booleanPreferencesKey("track_statistics")
-        val DARK_THEME = booleanPreferencesKey("dark_theme")
+        val THEME_MODE_ID = stringPreferencesKey("theme_mode_id")
+        val LEGACY_DARK_THEME = booleanPreferencesKey("dark_theme")
         val SOUNDS = booleanPreferencesKey("sounds")
         val COMPACT_NUMBER_PAD = booleanPreferencesKey("compact_number_pad")
         val SELECTED_DIFFICULTY = intPreferencesKey("selected_difficulty")

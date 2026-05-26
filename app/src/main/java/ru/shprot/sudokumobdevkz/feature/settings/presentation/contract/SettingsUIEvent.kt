@@ -1,5 +1,6 @@
 package ru.shprot.sudokumobdevkz.feature.settings.presentation.contract
 
+import ru.shprot.sudokumobdevkz.core.base.domain.model.ThemeMode
 import ru.shprot.sudokumobdevkz.core.base.presentation.contract.UIEvent
 
 sealed interface SettingsUIEvent : UIEvent {
@@ -17,7 +18,7 @@ sealed interface SettingsUIEvent : UIEvent {
     data object ToggleShowTimer : SettingsUIEvent
     data object ToggleShowErrors : SettingsUIEvent
     data object ToggleTrackStatistics : SettingsUIEvent
-    data object ToggleDarkTheme : SettingsUIEvent
+    data class SelectThemeMode(val mode: ThemeMode) : SettingsUIEvent
     data object ToggleSounds : SettingsUIEvent
     data object ToggleCompactNumberPad : SettingsUIEvent
     data object ShareAppClicked : SettingsUIEvent
