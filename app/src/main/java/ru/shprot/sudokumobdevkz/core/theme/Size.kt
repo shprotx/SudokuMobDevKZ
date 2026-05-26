@@ -29,6 +29,8 @@ data class Size(
     val elevationSmall: Dp = 2.dp,
     val elevationMedium: Dp = 4.dp,
     val elevationLarge: Dp = 8.dp,
+    val dropdownMaxHeight: Dp = 320.dp,
+    val dropdownIndicatorSize: Dp = 8.dp,
 )
 
 internal val LocalAppSizes = staticCompositionLocalOf { Size() }

@@ -99,9 +99,6 @@ class SettingsViewModel @Inject constructor(
             SettingsUIEvent.ToggleTrackStatistics ->
                 settingsRepository.update { copy(trackStatistics = !trackStatistics) }
 
-            SettingsUIEvent.ToggleDarkTheme ->
-                settingsRepository.update { copy(isDarkTheme = !isDarkTheme) }
-
             SettingsUIEvent.ToggleSounds ->
                 settingsRepository.update { copy(soundsEnabled = !soundsEnabled) }
 
@@ -142,6 +139,9 @@ class SettingsViewModel @Inject constructor(
 
             SettingsUIEvent.DismissImportDialog ->
                 updateState { copy(cloudImport = CloudImportState.Idle) }
+
+            is SettingsUIEvent.SelectThemeMode ->
+                settingsRepository.update { copy(themeModeId = event.mode.id) }
         }
 
     private fun handleSignIn() {

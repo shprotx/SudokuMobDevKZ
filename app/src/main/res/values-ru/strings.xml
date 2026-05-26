@@ -84,7 +84,10 @@
     <string name="tip_speed_desc">С опытом ты будешь решать головоломки быстрее. Следи за временем в статистике.</string>
     <string name="got_it_play">Понятно, играть!</string>
     <string name="game_label">Игра</string>
-    <string name="dark_theme_label">Тёмная тема</string>
+    <string name="theme_label">Тема</string>
+    <string name="theme_mode_system">Системная</string>
+    <string name="theme_mode_light">Светлая</string>
+    <string name="theme_mode_dark">Тёмная</string>
     <string name="data_collection">Сбор данных</string>
     <string name="data_usage">Использование данных</string>
     <string name="data_storage">Хранение данных</string>

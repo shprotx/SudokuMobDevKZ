@@ -9,7 +9,7 @@ data class AppSettings(
     val unlimitedErrors: Boolean = false,
     val unlimitedHints: Boolean = false,
     val trackStatistics: Boolean = true,
-    val isDarkTheme: Boolean = false,
+    val themeModeId: String = ThemeMode.System.id,
     val soundsEnabled: Boolean = true,
     val compactNumberPad: Boolean = false,
     val selectedDifficultyOrdinal: Int = 0,
