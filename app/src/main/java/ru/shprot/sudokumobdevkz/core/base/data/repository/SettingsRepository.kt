@@ -2,6 +2,7 @@ package ru.shprot.sudokumobdevkz.core.base.data.repository
 
 import android.content.Context
 import ru.shprot.sudokumobdevkz.core.base.domain.model.AppSettings
+import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
@@ -56,7 +57,7 @@ class SettingsRepository @Inject constructor(
         }
     }
 
-    private fun androidx.datastore.preferences.core.Preferences.toAppSettings() = AppSettings(
+    private fun Preferences.toAppSettings() = AppSettings(
         checkErrors = this[Keys.CHECK_ERRORS] ?: true,
         highlightDuplicates = this[Keys.HIGHLIGHT_DUPLICATES] ?: true,
         autoSave = this[Keys.AUTO_SAVE] ?: true,
@@ -71,7 +72,7 @@ class SettingsRepository @Inject constructor(
         selectedDifficultyOrdinal = this[Keys.SELECTED_DIFFICULTY] ?: 0,
     )
 
-    private fun androidx.datastore.preferences.core.Preferences.resolveThemeModeId(): String =
+    private fun Preferences.resolveThemeModeId(): String =
         ThemeModeMigration.resolve(
             storedId = this[Keys.THEME_MODE_ID],
             legacyDarkTheme = this[Keys.LEGACY_DARK_THEME],
