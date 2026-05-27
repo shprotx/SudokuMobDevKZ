@@ -223,4 +223,11 @@
     <string name="leaderboards_title">Рейтинги</string>
     <string name="leaderboard_load_error">Не удалось загрузить рейтинг. Потяните вниз для обновления.</string>
     <string name="reset_statistics_cloud_warning">Учтите: ваши лучшие результаты останутся в облачном лидерборде Google Play Games.</string>
+    <string name="hint_mode_section_title">Режим подсказок</string>
+    <string name="hint_mode_single_shot_title">Одиночный</string>
+    <string name="hint_mode_single_shot_subtitle">Тап на кнопку — открывается одна клетка</string>
+    <string name="hint_mode_toggle_title">Выключатель</string>
+    <string name="hint_mode_toggle_subtitle">Кнопка остаётся активной, тапы по клеткам открывают их по одной</string>
+    <string name="hint_mode_active_description">Режим подсказок активен, нажмите на клетку</string>
+    <string name="hints_exhausted">Подсказки закончились</string>
 </resources>

@@ -229,4 +229,11 @@
     <string name="leaderboards_title">Leaderboards</string>
     <string name="leaderboard_load_error">Could not load the leaderboard. Pull to refresh.</string>
     <string name="reset_statistics_cloud_warning">Note: your best scores will stay in the Google Play Games leaderboard.</string>
+    <string name="hint_mode_section_title">Hint mode</string>
+    <string name="hint_mode_single_shot_title">Single tap</string>
+    <string name="hint_mode_single_shot_subtitle">Tap the button — one cell opens</string>
+    <string name="hint_mode_toggle_title">Toggle</string>
+    <string name="hint_mode_toggle_subtitle">Button stays on, taps on cells open them one by one</string>
+    <string name="hint_mode_active_description">Hint mode active, tap a cell</string>
+    <string name="hints_exhausted">No hints remaining</string>
 </resources>

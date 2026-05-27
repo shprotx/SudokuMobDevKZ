@@ -101,6 +101,7 @@ internal fun GamePortraitContent(
                 .padding(bottom = AppTheme.paddings.medium),
             isNotesEnabled = uiState.isNotesEnabled,
             hintsRemaining = uiState.hintsRemaining,
+            isHintModeActive = uiState.isHintModeActive,
             stretched = useCompactPad,
             onUndoClick = { onEvent(GameUIEvent.UndoClicked) },
             onEraseClick = { onEvent(GameUIEvent.EraseClicked) },

@@ -188,10 +188,17 @@ internal fun GameLandscapeContent(
                 onClick = { onEvent(GameUIEvent.NotesToggled) },
             )
 
+            val hintLabel = stringResource(R.string.hint)
             ActionButton(
                 icon = Icons.Filled.Lightbulb,
-                label = stringResource(R.string.hint),
-                badge = uiState.hintsRemaining.toString(),
+                label = hintLabel,
+                badge = if (uiState.hintsRemaining == Int.MAX_VALUE) null else uiState.hintsRemaining.toString(),
+                isHighlighted = uiState.isHintModeActive,
+                contentDescription = if (uiState.isHintModeActive) {
+                    stringResource(R.string.hint_mode_active_description)
+                } else {
+                    hintLabel
+                },
                 onClick = { onEvent(GameUIEvent.HintClicked) },
             )
         }

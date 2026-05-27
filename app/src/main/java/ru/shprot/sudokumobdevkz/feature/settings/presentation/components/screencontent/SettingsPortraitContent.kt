@@ -38,6 +38,7 @@ import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonDefault
 import ru.shprot.sudokumobdevkz.core.uicommon.dropdown.AppDropdown
 import ru.shprot.sudokumobdevkz.core.uicommon.toolbar.ToolbarDefault
+import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.HintModeSection
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.cloud.CloudSection
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsCard
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsDivider
@@ -70,6 +71,14 @@ internal fun SettingsPortraitContent(
             SettingsSectionHeader(modifier = Modifier, title = stringResource(R.string.game_label))
 
             GameSettingsCard(uiState = uiState, onEvent = onEvent)
+
+            SettingsSectionHeader(modifier = Modifier, title = stringResource(R.string.hint_mode_section_title))
+
+            HintModeSection(
+                modifier = Modifier,
+                selectedMode = uiState.settings.hintMode,
+                onModeSelected = { onEvent(SettingsUIEvent.SelectHintMode(it)) },
+            )
 
             SettingsSectionHeader(modifier = Modifier, title = stringResource(R.string.appearance))
 
