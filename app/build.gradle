@@ -24,8 +24,8 @@ android {
         applicationId "ru.shprot.sudokumobdevkz"
         minSdk 29
         targetSdk 36
-        versionCode 55
-        versionName "2.6.4"
+        versionCode 56
+        versionName "2.6.5"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
