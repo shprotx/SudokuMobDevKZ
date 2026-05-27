@@ -19,8 +19,6 @@ sealed interface SettingsUIEvent : UIEvent {
     data object ToggleShowTimer : SettingsUIEvent
     data object ToggleShowErrors : SettingsUIEvent
     data object ToggleTrackStatistics : SettingsUIEvent
-    data class SelectThemeMode(val mode: ThemeMode) : SettingsUIEvent
-    data class SelectHintMode(val mode: HintMode) : SettingsUIEvent
     data object ToggleSounds : SettingsUIEvent
     data object ToggleCompactNumberPad : SettingsUIEvent
     data object ShareAppClicked : SettingsUIEvent
@@ -34,4 +32,7 @@ sealed interface SettingsUIEvent : UIEvent {
     data object ImportChoiceKeepLocal : SettingsUIEvent
     data object ImportChoiceUseCloud : SettingsUIEvent
     data object DismissImportDialog : SettingsUIEvent
+
+    data class SelectThemeMode(val mode: ThemeMode) : SettingsUIEvent
+    data class SelectHintMode(val mode: HintMode) : SettingsUIEvent
 }

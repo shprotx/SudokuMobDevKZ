@@ -7,9 +7,13 @@ import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalView
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -28,6 +32,7 @@ import ru.shprot.sudokumobdevkz.core.base.domain.model.ThemeMode
 import ru.shprot.sudokumobdevkz.core.base.domain.model.resolveDark
 import ru.shprot.sudokumobdevkz.core.base.presentation.navigation.NavRoute
 import ru.shprot.sudokumobdevkz.core.theme.SudokuTheme
+import ru.shprot.sudokumobdevkz.core.uicommon.snackbar.AppSnackbarHost
 import ru.shprot.sudokumobdevkz.feature.menu.presentation.navigation.MenuRoutes
 import ru.shprot.sudokumobdevkz.feature.splash.presentation.navigation.SplashRoutes
 import javax.inject.Inject
@@ -88,16 +93,23 @@ class ComposeActivity : ComponentActivity() {
                 } else {
                     SplashRoutes.SplashScreen
                 }
-                AchievementUnlockedHost(
-                    modifier = Modifier,
-                    navController = navController,
-                    content = {
-                        SudokuNavHost(
-                            navController = navController,
-                            startDestination = startDestination,
-                        )
-                    },
-                )
+                Box(modifier = Modifier.fillMaxSize()) {
+                    AchievementUnlockedHost(
+                        modifier = Modifier,
+                        navController = navController,
+                        content = {
+                            SudokuNavHost(
+                                navController = navController,
+                                startDestination = startDestination,
+                            )
+                        },
+                    )
+                    AppSnackbarHost(
+                        modifier = Modifier
+                            .align(Alignment.BottomCenter)
+                            .navigationBarsPadding(),
+                    )
+                }
             }
         }
     }

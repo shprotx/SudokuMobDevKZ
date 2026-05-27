@@ -1,17 +1,16 @@
 package ru.shprot.sudokumobdevkz.feature.game.presentation.screen
 
-import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import kotlinx.coroutines.flow.collectLatest
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import ru.shprot.sudokumobdevkz.core.base.presentation.snackbar.SnackbarManager
 import ru.shprot.sudokumobdevkz.feature.game.presentation.components.screencontent.GameScreenContent
 import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameUIEffect
 import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameUIEvent
@@ -27,7 +26,6 @@ fun GameScreen(
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
-    val context = LocalContext.current
 
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
@@ -68,7 +66,7 @@ fun GameScreen(
                     }
 
                 is GameUIEffect.ShowMessage ->
-                    Toast.makeText(context, effect.messageRes, Toast.LENGTH_SHORT).show()
+                    SnackbarManager.show(effect.messageRes)
             }
         }
     }

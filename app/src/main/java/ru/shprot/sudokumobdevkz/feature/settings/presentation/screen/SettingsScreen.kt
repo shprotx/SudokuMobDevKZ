@@ -1,6 +1,5 @@
 package ru.shprot.sudokumobdevkz.feature.settings.presentation.screen
 
-import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -11,6 +10,7 @@ import androidx.navigation.NavController
 import kotlinx.coroutines.flow.collectLatest
 import ru.shprot.sudokumobdevkz.BuildConfig
 import ru.shprot.sudokumobdevkz.R
+import ru.shprot.sudokumobdevkz.core.base.presentation.snackbar.SnackbarManager
 import ru.shprot.sudokumobdevkz.core.base.presentation.util.PlayStoreLauncher
 import ru.shprot.sudokumobdevkz.core.base.presentation.util.ShareLauncher
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.screencontent.SettingsScreenContent
@@ -66,11 +66,7 @@ fun SettingsScreen(
                 }
 
                 is SettingsUIEffect.ShowMessage ->
-                    Toast.makeText(
-                        context,
-                        context.getString(effect.messageRes),
-                        Toast.LENGTH_SHORT,
-                    ).show()
+                    SnackbarManager.show(effect.messageRes)
             }
         }
     }

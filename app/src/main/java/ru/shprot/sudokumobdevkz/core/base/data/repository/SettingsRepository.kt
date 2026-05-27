@@ -72,7 +72,7 @@ class SettingsRepository @Inject constructor(
         soundsEnabled = this[Keys.SOUNDS] ?: true,
         compactNumberPad = this[Keys.COMPACT_NUMBER_PAD] ?: false,
         selectedDifficultyOrdinal = this[Keys.SELECTED_DIFFICULTY] ?: 0,
-        hintMode = this[Keys.HINT_MODE]?.let { runCatching { HintMode.valueOf(it) }.getOrNull() } ?: HintMode.SINGLE_SHOT,
+        hintMode = HintMode.from(this[Keys.HINT_MODE]),
     )
 
     private fun Preferences.resolveThemeModeId(): String =
