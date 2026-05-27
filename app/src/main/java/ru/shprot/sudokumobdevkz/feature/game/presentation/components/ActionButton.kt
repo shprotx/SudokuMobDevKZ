@@ -30,6 +30,7 @@ internal fun ActionButton(
     stretched: Boolean = false,
     badge: String? = null,
     isHighlighted: Boolean = false,
+    contentDescription: String = label,
     onClick: () -> Unit,
 ) {
     val shape = RoundedCornerShape(AppTheme.sizes.cornerRadiusMedium)
@@ -51,7 +52,7 @@ internal fun ActionButton(
             ) {
                 Icon(
                     imageVector = icon,
-                    contentDescription = label,
+                    contentDescription = contentDescription,
                     tint = iconTint,
                     modifier = Modifier.size(AppTheme.sizes.iconMedium),
                 )

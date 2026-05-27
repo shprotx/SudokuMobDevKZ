@@ -1,5 +1,6 @@
 package ru.shprot.sudokumobdevkz.feature.game.presentation.contract
 
+import androidx.annotation.StringRes
 import ru.shprot.sudokumobdevkz.core.base.presentation.contract.UIEffect
 
 sealed interface GameUIEffect : UIEffect {
@@ -15,4 +16,5 @@ sealed interface GameUIEffect : UIEffect {
     ) : GameUIEffect
 
     class NavigateToNewGame(val difficultyOrdinal: Int) : GameUIEffect
+    class ShowMessage(@StringRes val messageRes: Int) : GameUIEffect
 }

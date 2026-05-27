@@ -10,7 +10,9 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.base.domain.model.GameSaveData
+import ru.shprot.sudokumobdevkz.core.base.domain.model.HintMode
 import ru.shprot.sudokumobdevkz.core.base.data.util.DateTimeUtils
 import ru.shprot.sudokumobdevkz.core.base.data.util.safeRunCatching
 import ru.shprot.sudokumobdevkz.core.base.data.repository.AchievementsRepository
@@ -263,11 +265,16 @@ class GameViewModel @Inject constructor(
     }
 
     private fun autoSave() {
+        updateState { copy(isHintModeActive = false) }
         viewModelScope.launch(exceptionHandler) { saveGameStateSync() }
     }
 
     private fun onCellClicked(row: Int, col: Int) {
         if (currentState.isGenerating || currentState.isGameOver) return
+        if (currentState.isHintModeActive) {
+            applyHintToCell(row, col)
+            return
+        }
         val cell = currentState.cells[row][col]
         val highlighted = if (cell.value != 0 && !cell.isError) cell.value else 0
         setState(currentState.copy(selectedRow = row, selectedCol = col, highlightedNumber = highlighted))
@@ -375,13 +382,37 @@ class GameViewModel @Inject constructor(
     }
 
     private fun onNotesToggled() {
-        setState(currentState.copy(isNotesEnabled = !currentState.isNotesEnabled))
+        val newNotesEnabled = !currentState.isNotesEnabled
+        setState(currentState.copy(
+            isNotesEnabled = newNotesEnabled,
+            isHintModeActive = if (newNotesEnabled) false else currentState.isHintModeActive,
+        ))
     }
 
     private fun onHint() {
         val state = currentState
-        if (state.hintsRemaining <= 0 || state.isGameOver) return
+        if (state.isGameOver) return
 
+        val hintMode = settingsRepository.currentSettings.hintMode
+
+        if (hintMode == HintMode.TOGGLE) {
+            if (state.isHintModeActive) {
+                updateState { copy(isHintModeActive = false) }
+                return
+            }
+            if (state.hintsRemaining <= 0) {
+                setEffect(GameUIEffect.ShowMessage(R.string.hints_exhausted))
+                return
+            }
+            updateState { copy(isHintModeActive = true, isNotesEnabled = false) }
+            return
+        }
+
+        if (state.hintsRemaining <= 0) return
+        applyHintSingleShot(state)
+    }
+
+    private fun applyHintSingleShot(state: GameUIState) {
         val selectedRow = state.selectedRow
         val selectedCol = state.selectedCol
         val selectedCell = if (selectedRow >= 0 && selectedCol >= 0) state.cells[selectedRow][selectedCol] else null
@@ -427,9 +458,43 @@ class GameViewModel @Inject constructor(
         checkBoardCompletion(immutable)
     }
 
+    private fun applyHintToCell(row: Int, col: Int) {
+        val state = currentState
+        val cell = state.cells[row][col]
+        if (cell.isGiven) return
+        if (cell.value != 0 && !cell.isError) return
+
+        val correctValue = state.solution[row][col]
+        val newCells = state.cells.toMutableGrid()
+        newCells[row][col] = CellData(value = correctValue, isGiven = true)
+        clearNotesForNumber(newCells, row, col, correctValue)
+        val immutable = newCells.toImmutableGrid()
+
+        val newHintsRemaining = state.hintsRemaining - 1
+        val hintsExhausted = newHintsRemaining <= 0
+
+        setState(
+            state.copy(
+                cells = immutable,
+                selectedRow = row,
+                selectedCol = col,
+                hintsRemaining = newHintsRemaining,
+                availableNumbers = calcAvailableNumbers(immutable),
+                highlightedNumber = correctValue,
+                isHintModeActive = !hintsExhausted,
+            )
+        )
+
+        if (hintsExhausted) {
+            setEffect(GameUIEffect.ShowMessage(R.string.hints_exhausted))
+        }
+
+        checkBoardCompletion(immutable)
+    }
+
     private fun onPause() {
         timerJob?.cancel()
-        setState(currentState.copy(isPaused = true))
+        setState(currentState.copy(isPaused = true, isHintModeActive = false))
         viewModelScope.launch(exceptionHandler) { saveGameStateSync() }
     }
 
@@ -458,7 +523,7 @@ class GameViewModel @Inject constructor(
 
     private fun gameOver(isWin: Boolean) {
         timerJob?.cancel()
-        setState(currentState.copy(isGameOver = true, isWin = isWin))
+        setState(currentState.copy(isGameOver = true, isWin = isWin, isHintModeActive = false))
 
         viewModelScope.launch(exceptionHandler) {
             if (isWin) reviewRepository.markSessionWon()

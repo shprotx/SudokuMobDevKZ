@@ -108,4 +108,11 @@
     <string name="theme_mode_system">Sistema</string>
     <string name="theme_mode_light">Claro</string>
     <string name="theme_mode_dark">Oscuro</string>
+    <string name="hint_mode_section_title">Modo de pistas</string>
+    <string name="hint_mode_single_shot_title">Toque único</string>
+    <string name="hint_mode_single_shot_subtitle">Toca el botón — se abre una celda</string>
+    <string name="hint_mode_toggle_title">Interruptor</string>
+    <string name="hint_mode_toggle_subtitle">El botón permanece activo, los toques en las celdas las abren una por una</string>
+    <string name="hint_mode_active_description">Modo pista activo, toca una celda</string>
+    <string name="hints_exhausted">No quedan pistas</string>
 </resources>

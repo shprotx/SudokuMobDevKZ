@@ -218,4 +218,11 @@
     <string name="leaderboards_title">Рейтингтер</string>
     <string name="leaderboard_load_error">Рейтингті жүктеу мүмкін болмады. Жаңарту үшін төмен тартыңыз.</string>
     <string name="reset_statistics_cloud_warning">Ескеріңіз: ең үздік нәтижелеріңіз Google Play Games бұлттық лидербордында қалады.</string>
+    <string name="hint_mode_section_title">Кеңес режимі</string>
+    <string name="hint_mode_single_shot_title">Жалғыз басу</string>
+    <string name="hint_mode_single_shot_subtitle">Батырмаға басу — бір ұяшық ашылады</string>
+    <string name="hint_mode_toggle_title">Қосқыш</string>
+    <string name="hint_mode_toggle_subtitle">Батырма белсенді күйде қалады, ұяшықтарға тию оларды бір-бірлеп ашады</string>
+    <string name="hint_mode_active_description">Кеңес режимі белсенді, ұяшыққа басыңыз</string>
+    <string name="hints_exhausted">Кеңестер таусылды</string>
 </resources>

@@ -110,4 +110,11 @@
     <string name="theme_mode_system">Système</string>
     <string name="theme_mode_light">Clair</string>
     <string name="theme_mode_dark">Sombre</string>
+    <string name="hint_mode_section_title">Mode des indices</string>
+    <string name="hint_mode_single_shot_title">Appui unique</string>
+    <string name="hint_mode_single_shot_subtitle">Touche le bouton — une case s\'ouvre</string>
+    <string name="hint_mode_toggle_title">Interrupteur</string>
+    <string name="hint_mode_toggle_subtitle">Le bouton reste actif, les touches sur les cases les ouvrent une par une</string>
+    <string name="hint_mode_active_description">Mode indice actif, touchez une case</string>
+    <string name="hints_exhausted">Plus d\'indices disponibles</string>
 </resources>

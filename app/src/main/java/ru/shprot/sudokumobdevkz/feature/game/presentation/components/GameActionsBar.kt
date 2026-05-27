@@ -22,6 +22,7 @@ fun GameActionsBar(
     modifier: Modifier,
     isNotesEnabled: Boolean,
     hintsRemaining: Int,
+    isHintModeActive: Boolean = false,
     stretched: Boolean = false,
     onUndoClick: () -> Unit,
     onEraseClick: () -> Unit,
@@ -41,6 +42,7 @@ fun GameActionsBar(
                 ActionButtonsContent(
                     isNotesEnabled = isNotesEnabled,
                     hintsRemaining = hintsRemaining,
+                    isHintModeActive = isHintModeActive,
                     stretched = true,
                     onUndoClick = onUndoClick,
                     onEraseClick = onEraseClick,
@@ -57,6 +59,7 @@ fun GameActionsBar(
             ActionButtonsContent(
                 isNotesEnabled = isNotesEnabled,
                 hintsRemaining = hintsRemaining,
+                isHintModeActive = isHintModeActive,
                 stretched = false,
                 onUndoClick = onUndoClick,
                 onEraseClick = onEraseClick,
@@ -71,6 +74,7 @@ fun GameActionsBar(
 internal fun RowScope.ActionButtonsContent(
     isNotesEnabled: Boolean,
     hintsRemaining: Int,
+    isHintModeActive: Boolean,
     stretched: Boolean,
     onUndoClick: () -> Unit,
     onEraseClick: () -> Unit,
@@ -107,12 +111,22 @@ internal fun RowScope.ActionButtonsContent(
         onClick = onNotesClick,
     )
 
+    val hintBadge = if (hintsRemaining == Int.MAX_VALUE) null else hintsRemaining.toString()
+    val hintLabel = stringResource(R.string.hint)
+    val hintContentDescription = if (isHintModeActive) {
+        stringResource(R.string.hint_mode_active_description)
+    } else {
+        hintLabel
+    }
+
     ActionButton(
         modifier = slotModifier(),
         icon = Icons.Filled.Lightbulb,
-        label = stringResource(R.string.hint),
+        label = hintLabel,
         stretched = stretched,
-        badge = hintsRemaining.toString(),
+        badge = hintBadge,
+        isHighlighted = isHintModeActive,
+        contentDescription = hintContentDescription,
         onClick = onHintClick,
     )
 }

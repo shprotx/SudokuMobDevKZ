@@ -1,10 +1,12 @@
 package ru.shprot.sudokumobdevkz.feature.game.presentation.screen
 
+import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import kotlinx.coroutines.flow.collectLatest
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
@@ -25,6 +27,7 @@ fun GameScreen(
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
+    val context = LocalContext.current
 
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
@@ -63,6 +66,9 @@ fun GameScreen(
                     navController.navigate(GameRoutes.GameScreen(difficultyOrdinal = effect.difficultyOrdinal)) {
                         popUpTo<GameRoutes.GameScreen> { inclusive = true }
                     }
+
+                is GameUIEffect.ShowMessage ->
+                    Toast.makeText(context, effect.messageRes, Toast.LENGTH_SHORT).show()
             }
         }
     }

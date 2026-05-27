@@ -13,6 +13,7 @@ data class AppSettings(
     val soundsEnabled: Boolean = true,
     val compactNumberPad: Boolean = false,
     val selectedDifficultyOrdinal: Int = 0,
+    val hintMode: HintMode = HintMode.SINGLE_SHOT,
 ) {
     val isStandardMode: Boolean get() = checkErrors && !unlimitedErrors && !unlimitedHints
 }
