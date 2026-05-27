@@ -150,11 +150,7 @@ fun StatisticScreenContent(
     }
 
     if (uiState.showResetDialog) {
-        val difficultyName = when (Difficulty.fromOrdinal(uiState.selectedTab)) {
-            Difficulty.EASY -> stringResource(R.string.difficulty_easy)
-            Difficulty.MEDIUM -> stringResource(R.string.difficulty_middle)
-            Difficulty.HARD -> stringResource(R.string.difficulty_expert)
-        }
+        val difficultyName = stringResource(Difficulty.fromOrdinal(uiState.selectedTab).titleRes)
         StatisticResetDialog(
             difficultyName = difficultyName,
             showCloudWarning = uiState.isCloudAvailable && uiState.isSignedIn,

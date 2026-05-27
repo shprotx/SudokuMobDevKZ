@@ -86,4 +86,42 @@ class RatingCalculatorTest {
             RatingCalculator.scoreForWin(Difficulty.MEDIUM, 600, 1, hintsUsed = 2, isDaily = true),
         )
     }
+
+    @Test
+    fun `ultra base is 1000`() {
+        assertEquals(1000, RatingCalculator.base(Difficulty.ULTRA))
+    }
+
+    @Test
+    fun `ultra target time is 2400 seconds`() {
+        assertEquals(2400, RatingCalculator.targetTimeSeconds(Difficulty.ULTRA))
+    }
+
+    @Test
+    fun `ultra at exactly target without errors`() {
+        // 1000 × 1.0 × 1.3 = 1300
+        assertEquals(1300L, RatingCalculator.scoreForWin(Difficulty.ULTRA, 2400, 0))
+    }
+
+    @Test
+    fun `ultra at exactly target with errors`() {
+        // 1000 × 1.0 × 1.0 = 1000
+        assertEquals(1000L, RatingCalculator.scoreForWin(Difficulty.ULTRA, 2400, 1))
+    }
+
+    @Test
+    fun `ultra is double hard base`() {
+        assertEquals(
+            2 * RatingCalculator.base(Difficulty.HARD),
+            RatingCalculator.base(Difficulty.ULTRA),
+        )
+    }
+
+    @Test
+    fun `ultra is double hard target time`() {
+        assertEquals(
+            2 * RatingCalculator.targetTimeSeconds(Difficulty.HARD),
+            RatingCalculator.targetTimeSeconds(Difficulty.ULTRA),
+        )
+    }
 }

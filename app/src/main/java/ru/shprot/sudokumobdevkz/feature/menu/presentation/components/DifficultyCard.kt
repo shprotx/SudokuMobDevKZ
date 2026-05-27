@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -22,11 +21,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
 @Composable
 internal fun DifficultyCard(
+    modifier: Modifier,
     title: String,
     subtitle: String,
     icon: String,
@@ -41,16 +40,15 @@ internal fun DifficultyCard(
         AppTheme.colors.backgroundCard
 
     Card(
-        modifier = Modifier
-            .width(105.dp)
+        modifier = modifier
             .shadow(
-                elevation = if (isSelected) AppTheme.sizes.elevationMedium else 0.dp,
+                elevation = if (isSelected) AppTheme.sizes.elevationMedium else AppTheme.sizes.elevationSmall,
                 shape = RoundedCornerShape(AppTheme.sizes.cornerRadiusLarge),
             )
             .clickable(onClick = onClick),
         shape = RoundedCornerShape(AppTheme.sizes.cornerRadiusLarge),
         colors = CardDefaults.cardColors(containerColor = bgColor),
-        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = AppTheme.sizes.elevationSmall),
     ) {
         Column(
             modifier = Modifier
@@ -79,9 +77,9 @@ internal fun DifficultyCard(
 
             Row(
                 modifier = Modifier.padding(top = AppTheme.paddings.medium),
-                horizontalArrangement = Arrangement.spacedBy(4.dp),
+                horizontalArrangement = Arrangement.spacedBy(AppTheme.paddings.small),
             ) {
-                repeat(3) { index ->
+                repeat(4) { index ->
                     Box(
                         modifier = Modifier
                             .size(AppTheme.sizes.difficultyDot)

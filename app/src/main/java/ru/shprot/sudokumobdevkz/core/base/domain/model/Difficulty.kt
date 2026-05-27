@@ -8,11 +8,12 @@ fun Difficulty.dotColor(): Color = when (this) {
     Difficulty.EASY -> Color(0xFF34C759)
     Difficulty.MEDIUM -> Color(0xFFFF9500)
     Difficulty.HARD -> Color(0xFFFF3B30)
+    Difficulty.ULTRA -> Color(0xFF8B5CF6)
 }
 
 enum class Difficulty(
     val firebaseKey: Int,
-    val visibleCells: Int,
+    val visibleCells: IntRange,
     val emoji: String,
     val dotCount: Int,
     @StringRes val titleRes: Int,
@@ -20,27 +21,35 @@ enum class Difficulty(
 ) {
     EASY(
         firebaseKey = 1,
-        visibleCells = 40,
-        emoji = "\uD83C\uDF3F",
+        visibleCells = 40..40,
+        emoji = "🌿",
         dotCount = 1,
         titleRes = R.string.difficulty_easy,
         subtitleRes = R.string.for_beginners,
     ),
     MEDIUM(
         firebaseKey = 2,
-        visibleCells = 30,
-        emoji = "☀\uFE0F",
+        visibleCells = 30..30,
+        emoji = "☀️",
         dotCount = 2,
         titleRes = R.string.difficulty_middle,
         subtitleRes = R.string.for_experienced,
     ),
     HARD(
         firebaseKey = 3,
-        visibleCells = 27,
-        emoji = "\uD83D\uDC51",
+        visibleCells = 21..24,
+        emoji = "👑",
         dotCount = 3,
         titleRes = R.string.difficulty_expert,
         subtitleRes = R.string.for_experts,
+    ),
+    ULTRA(
+        firebaseKey = 4,
+        visibleCells = 17..20,
+        emoji = "💎",
+        dotCount = 4,
+        titleRes = R.string.difficulty_ultra,
+        subtitleRes = R.string.for_hardcore,
     );
 
     companion object {

@@ -18,9 +18,11 @@ class DailyChallengeRepository @Inject constructor(
 
     fun dailySeed(dateKey: String): Long = dateKey.replace("-", "").toLong()
 
+    private val dailyDifficulties = Difficulty.entries.filter { it != Difficulty.ULTRA }
+
     fun difficultyForDate(dateKey: String): Difficulty {
         val dayOfYear = LocalDate.parse(dateKey).dayOfYear
-        return Difficulty.entries[dayOfYear % Difficulty.entries.size]
+        return dailyDifficulties[dayOfYear % dailyDifficulties.size]
     }
 
     suspend fun getTodayChallenge(): DailyChallengeEntity {

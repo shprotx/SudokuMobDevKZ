@@ -3,6 +3,8 @@
     <string name="difficulty_easy">Facile</string>
     <string name="difficulty_middle">Moyenne</string>
     <string name="difficulty_expert">Expert</string>
+    <string name="difficulty_ultra">Ultra</string>
+    <string name="for_hardcore">Pour les courageux</string>
     <string name="hint">Indice</string>
     <string name="new_game">Nouveau jeu</string>
     <string name="settings">Paramètres</string>

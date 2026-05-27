@@ -43,6 +43,8 @@
     <string name="for_beginners">Для новичков</string>
     <string name="for_experienced">Для опытных</string>
     <string name="for_experts">Для экспертов</string>
+    <string name="difficulty_ultra">Ультра</string>
+    <string name="for_hardcore">Для отчаянных</string>
     <string name="achievements">Достижения</string>
     <string name="achievements_desc">Полученные бейджи</string>
     <string name="statistic_desc">Смотри свои достижения</string>

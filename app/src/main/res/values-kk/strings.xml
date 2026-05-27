@@ -39,6 +39,8 @@
     <string name="for_beginners">Жаңадан бастаушыларға</string>
     <string name="for_experienced">Тәжірибелілерге</string>
     <string name="for_experts">Сарапшыларға</string>
+    <string name="difficulty_ultra">Ультра</string>
+    <string name="for_hardcore">Жанкештілер үшін</string>
     <string name="achievements">Жетістіктер</string>
     <string name="achievements_desc">Алынған белгілерді көру</string>
     <string name="achievements_section_unlocked">Алынды</string>

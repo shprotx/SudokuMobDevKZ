@@ -49,7 +49,8 @@ object SudokuGenerator {
 
         val solution = Array(SIZE) { row -> grid[row].copyOf() }
 
-        val emptyCells = dig(grid, difficulty, random)
+        val targetVisible = random.nextInt(difficulty.visibleCells.first, difficulty.visibleCells.last + 1)
+        val emptyCells = dig(grid, solution, difficulty, targetVisible, random)
 
         val visibleCount = CELLS - emptyCells
 
@@ -106,15 +107,56 @@ object SudokuGenerator {
         return false
     }
 
-    private fun dig(grid: Array<IntArray>, difficulty: Difficulty, random: Random): Int {
-        val zeros = mutableListOf<Int>()
-        var emptyCells = digForExpert(grid, difficulty, zeros, random)
-
-        if (difficulty != Difficulty.HARD) {
-            emptyCells = openSomeCells(grid, difficulty, emptyCells, zeros, random)
+    private fun dig(
+        grid: Array<IntArray>,
+        solution: Array<IntArray>,
+        difficulty: Difficulty,
+        targetVisible: Int,
+        random: Random,
+    ): Int =
+        when (difficulty) {
+            Difficulty.EASY, Difficulty.MEDIUM -> {
+                val zeros = mutableListOf<Int>()
+                var emptyCells = digForExpert(grid, difficulty, zeros, random)
+                emptyCells = openSomeCells(grid, targetVisible, emptyCells, zeros, random)
+                emptyCells
+            }
+            Difficulty.HARD, Difficulty.ULTRA ->
+                digAggressive(grid, solution, difficulty, targetVisible, random)
         }
 
-        return emptyCells
+    private fun digAggressive(
+        grid: Array<IntArray>,
+        solution: Array<IntArray>,
+        difficulty: Difficulty,
+        targetVisible: Int,
+        random: Random,
+    ): Int {
+        val maxAttempts = if (difficulty == Difficulty.ULTRA) 100 else 30
+        var bestEmptyCells = digForExpert(grid, difficulty, mutableListOf(), random)
+        var bestPuzzle = Array(SIZE) { row -> grid[row].copyOf() }
+        var attempts = 1
+
+        while (attempts < maxAttempts && (CELLS - bestEmptyCells) > targetVisible) {
+            for (r in 0 until SIZE) {
+                for (c in 0 until SIZE) {
+                    grid[r][c] = solution[r][c]
+                }
+            }
+            val attemptEmpty = digForExpert(grid, difficulty, mutableListOf(), random)
+            if (attemptEmpty > bestEmptyCells) {
+                bestEmptyCells = attemptEmpty
+                bestPuzzle = Array(SIZE) { row -> grid[row].copyOf() }
+            }
+            attempts++
+        }
+
+        for (r in 0 until SIZE) {
+            for (c in 0 until SIZE) {
+                grid[r][c] = bestPuzzle[r][c]
+            }
+        }
+        return bestEmptyCells
     }
 
     private fun digForExpert(
@@ -147,13 +189,12 @@ object SudokuGenerator {
 
     private fun openSomeCells(
         grid: Array<IntArray>,
-        difficulty: Difficulty,
+        targetVisible: Int,
         emptyCells: Int,
         zeros: MutableList<Int>,
         random: Random,
     ): Int {
         zeros.shuffle(random)
-        val targetVisible = difficulty.visibleCells
         var haveToOpen = targetVisible - (CELLS - emptyCells)
         var currentEmpty = emptyCells
         var idx = zeros.size - 1

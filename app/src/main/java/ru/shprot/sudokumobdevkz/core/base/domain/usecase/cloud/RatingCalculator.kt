@@ -27,12 +27,14 @@ object RatingCalculator {
         Difficulty.EASY -> 100
         Difficulty.MEDIUM -> 250
         Difficulty.HARD -> 500
+        Difficulty.ULTRA -> 1000
     }
 
     fun targetTimeSeconds(difficulty: Difficulty): Int = when (difficulty) {
         Difficulty.EASY -> 300
         Difficulty.MEDIUM -> 600
         Difficulty.HARD -> 1200
+        Difficulty.ULTRA -> 2400
     }
 
     private const val MIN_SPEED = 0.5

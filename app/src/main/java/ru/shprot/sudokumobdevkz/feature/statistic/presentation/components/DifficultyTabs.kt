@@ -12,8 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.base.domain.model.Difficulty
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
@@ -41,19 +41,12 @@ fun DifficultyTabs(
         divider = {},
     ) {
         Difficulty.entries.forEachIndexed { index, diff ->
-            val label = stringResource(
-                when (diff) {
-                    Difficulty.EASY -> R.string.difficulty_easy
-                    Difficulty.MEDIUM -> R.string.difficulty_middle
-                    Difficulty.HARD -> R.string.difficulty_expert
-                }
-            )
             Tab(
                 selected = selectedTab == index,
                 onClick = { onTabSelected(index) },
                 text = {
                     Text(
-                        text = label,
+                        text = stringResource(diff.titleRes),
                         style = AppTheme.typography.body2,
                         fontWeight = when (selectedTab == index) {
                             true -> FontWeight.SemiBold
@@ -63,7 +56,8 @@ fun DifficultyTabs(
                             true -> AppTheme.colors.primary
                             false -> AppTheme.colors.textSecondary
                         },
-                        maxLines = 1,
+                        maxLines = 2,
+                        textAlign = TextAlign.Center,
                     )
                 },
             )

@@ -20,6 +20,9 @@ fun DifficultySelector(
     selectedDifficulty: Int,
     onDifficultySelected: (Int) -> Unit,
 ) {
+    val entries = Difficulty.entries
+    val rows = listOf(entries.take(2), entries.drop(2))
+
     Column(modifier = modifier) {
         Text(
             text = stringResource(R.string.select_difficulty),
@@ -27,22 +30,31 @@ fun DifficultySelector(
             color = AppTheme.colors.text,
         )
 
-        Row(
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = AppTheme.paddings.large),
-            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalArrangement = Arrangement.spacedBy(AppTheme.paddings.medium),
         ) {
-            Difficulty.entries.forEachIndexed { index, diff ->
-                DifficultyCard(
-                    title = stringResource(diff.titleRes),
-                    subtitle = stringResource(diff.subtitleRes),
-                    icon = diff.emoji,
-                    dotCount = diff.dotCount,
-                    dotColor = diff.dotColor(),
-                    isSelected = selectedDifficulty == index,
-                    onClick = { onDifficultySelected(index) },
-                )
+            rows.forEach { row ->
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(AppTheme.paddings.medium),
+                ) {
+                    row.forEach { diff ->
+                        val index = entries.indexOf(diff)
+                        DifficultyCard(
+                            modifier = Modifier.weight(1f),
+                            title = stringResource(diff.titleRes),
+                            subtitle = stringResource(diff.subtitleRes),
+                            icon = diff.emoji,
+                            dotCount = diff.dotCount,
+                            dotColor = diff.dotColor(),
+                            isSelected = selectedDifficulty == index,
+                            onClick = { onDifficultySelected(index) },
+                        )
+                    }
+                }
             }
         }
     }

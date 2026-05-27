@@ -45,6 +45,8 @@
     <string name="for_beginners">For beginners</string>
     <string name="for_experienced">For experienced</string>
     <string name="for_experts">For experts</string>
+    <string name="difficulty_ultra">Ultra</string>
+    <string name="for_hardcore">For the fearless</string>
     <string name="achievements">Achievements</string>
     <string name="achievements_desc">View your unlocked badges</string>
     <string name="achievements_section_unlocked">Unlocked</string>

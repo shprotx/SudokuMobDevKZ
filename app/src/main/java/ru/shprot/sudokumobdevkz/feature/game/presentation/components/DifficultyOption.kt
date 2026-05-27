@@ -63,7 +63,7 @@ fun DifficultyOption(
             modifier = Modifier.padding(top = AppTheme.paddings.small),
             horizontalArrangement = Arrangement.spacedBy(3.dp),
         ) {
-            repeat(3) { index ->
+            repeat(4) { index ->
                 Box(
                     modifier = Modifier
                         .size(AppTheme.sizes.difficultyDot)
