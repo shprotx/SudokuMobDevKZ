@@ -514,6 +514,7 @@ class GameViewModel @Inject constructor(
             isWin = isWin,
             hintsUsed = calculateHintsUsed(),
             isDaily = false,
+            isStandardMode = currentState.isStandardMode,
         )
 
         if (isWin && currentState.timeSeconds > 0 && currentState.isStandardMode) {
@@ -537,6 +538,7 @@ class GameViewModel @Inject constructor(
             isWin = true,
             hintsUsed = calculateHintsUsed(),
             isDaily = true,
+            isStandardMode = currentState.isStandardMode,
         )
 
         if (currentState.timeSeconds > 0) {
@@ -548,8 +550,8 @@ class GameViewModel @Inject constructor(
 
     private fun calculateHintsUsed(): Int {
         val settings = settingsRepository.currentSettings
-        if (settings.unlimitedHints) return 0
-        return (HINTS_INITIAL - currentState.hintsRemaining).coerceAtLeast(0)
+        val initial = if (settings.unlimitedHints) Int.MAX_VALUE else HINTS_INITIAL
+        return (initial - currentState.hintsRemaining).coerceAtLeast(0)
     }
 
     private fun clearNotesForNumber(cells: MutableList<MutableList<CellData>>, row: Int, col: Int, number: Int) {
