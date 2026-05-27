@@ -16,4 +16,6 @@ data class GameHistoryEntity(
     val hintsUsed: Int = 0,
     @ColumnInfo(defaultValue = "0")
     val isDaily: Boolean = false,
+    @ColumnInfo(defaultValue = "1")
+    val isStandardMode: Boolean = true,
 )

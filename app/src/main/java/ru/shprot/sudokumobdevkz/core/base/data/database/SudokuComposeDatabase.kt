@@ -21,7 +21,7 @@ import ru.shprot.sudokumobdevkz.core.base.data.database.entity.StatisticEntity
         DailyChallengeEntity::class,
         AchievementUnlockedEntity::class,
     ],
-    version = 6,
+    version = 7,
     exportSchema = false,
 )
 abstract class SudokuComposeDatabase : RoomDatabase() {

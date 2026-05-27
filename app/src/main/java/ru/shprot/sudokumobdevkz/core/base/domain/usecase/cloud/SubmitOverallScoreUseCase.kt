@@ -22,7 +22,7 @@ class SubmitOverallScoreUseCase @Inject constructor(
     }
 
     suspend fun calculateTotal(): Long {
-        val wins = gameHistoryDao.getAllWins()
+        val wins = gameHistoryDao.getAllStandardWins()
         return wins.sumOf { entry ->
             val difficulty = Difficulty.fromFirebaseKey(entry.difficulty) ?: return@sumOf 0L
             RatingCalculator.scoreForWin(
