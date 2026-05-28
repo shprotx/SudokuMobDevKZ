@@ -230,4 +230,13 @@
     <string name="hint_mode_toggle_subtitle">Кнопка остаётся активной, тапы по клеткам открывают их по одной</string>
     <string name="hint_mode_active_description">Режим подсказок активен, нажмите на клетку</string>
     <string name="hints_exhausted">Подсказки закончились</string>
+    <string name="feedback">Обратная связь</string>
+    <string name="feedback_description">Расскажите, что нравится, что нет, что хотите видеть. Сообщение придёт лично разработчику.</string>
+    <string name="feedback_text_hint">Напишите сообщение…</string>
+    <string name="feedback_send">Отправить</string>
+    <string name="feedback_sent_success">Спасибо! Сообщение отправлено.</string>
+    <string name="feedback_send_failed">Не удалось отправить. Попробуйте позже.</string>
+    <string name="feedback_unavailable">Функция временно недоступна.</string>
+    <string name="privacy_feedback_title">Обратная связь</string>
+    <string name="privacy_feedback_body">При отправке фидбека текст сообщения вместе с контекстной информацией (версия приложения, модель устройства, версия Android, язык, статус входа в Google Play Games) передаётся разработчику в Telegram через Firebase Cloud Function. Личные данные не собираются. Данные используются исключительно для ответа на ваш отзыв и улучшения приложения.</string>
 </resources>

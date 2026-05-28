@@ -15,6 +15,7 @@ import androidx.compose.material.icons.filled.BarChart
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Feedback
 import androidx.compose.material.icons.filled.GridView
 import androidx.compose.material.icons.filled.Lightbulb
 import androidx.compose.material.icons.filled.Palette
@@ -284,6 +285,15 @@ internal fun OtherSettingsCard(
             icon = Icons.Filled.Security,
             title = stringResource(R.string.privacy_policy),
             onClick = { onEvent(SettingsUIEvent.NavigateToPrivacyPolicy) },
+        )
+
+        SettingsDivider(modifier = Modifier)
+
+        SettingsNavItem(
+            modifier = Modifier,
+            icon = Icons.Filled.Feedback,
+            title = stringResource(R.string.feedback),
+            onClick = { onEvent(SettingsUIEvent.NavigateToFeedback) },
         )
     }
 }

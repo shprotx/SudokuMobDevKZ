@@ -225,4 +225,13 @@
     <string name="hint_mode_toggle_subtitle">Батырма белсенді күйде қалады, ұяшықтарға тию оларды бір-бірлеп ашады</string>
     <string name="hint_mode_active_description">Кеңес режимі белсенді, ұяшыққа басыңыз</string>
     <string name="hints_exhausted">Кеңестер таусылды</string>
+    <string name="feedback">Кері байланыс</string>
+    <string name="feedback_description">Не ұнайтынын, не ұнамайтынын немесе не көргіңіз келетінін айтыңыз. Хабарлама тікелей әзірлеушіге жетеді.</string>
+    <string name="feedback_text_hint">Хабарлама жазыңыз…</string>
+    <string name="feedback_send">Жіберу</string>
+    <string name="feedback_sent_success">Рахмет! Хабарлама жіберілді.</string>
+    <string name="feedback_send_failed">Жіберілмеді. Кейінірек қайталаңыз.</string>
+    <string name="feedback_unavailable">Функция уақытша қолжетімсіз.</string>
+    <string name="privacy_feedback_title">Кері байланыс</string>
+    <string name="privacy_feedback_body">Кері байланыс жібергенде хабарлама мәтіні контекстік ақпаратпен (қолданба нұсқасы, құрылғы үлгісі, Android нұсқасы, тіл, Google Play Games кіру мәртебесі) бірге Firebase Cloud Function арқылы әзірлеушінің Telegram-ына жіберіледі. Жеке деректер жиналмайды. Деректер тек пікіріңізге жауап беру және қолданбаны жақсарту үшін қолданылады.</string>
 </resources>

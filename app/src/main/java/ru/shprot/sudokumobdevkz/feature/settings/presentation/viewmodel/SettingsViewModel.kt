@@ -63,6 +63,9 @@ class SettingsViewModel @Inject constructor(
             SettingsUIEvent.NavigateToPrivacyPolicy ->
                 setEffect(SettingsUIEffect.NavigateToPrivacyPolicy)
 
+            SettingsUIEvent.NavigateToFeedback ->
+                setEffect(SettingsUIEffect.NavigateToFeedback)
+
             SettingsUIEvent.ShowResetDialog ->
                 updateState { copy(showResetDialog = true) }
 

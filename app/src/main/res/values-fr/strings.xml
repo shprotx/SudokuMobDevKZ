@@ -117,4 +117,13 @@
     <string name="hint_mode_toggle_subtitle">Le bouton reste actif, les touches sur les cases les ouvrent une par une</string>
     <string name="hint_mode_active_description">Mode indice actif, touchez une case</string>
     <string name="hints_exhausted">Plus d\'indices disponibles</string>
+    <string name="feedback">Commentaires</string>
+    <string name="feedback_description">Dites-nous ce que vous aimez, ce que vous n\'aimez pas ou ce que vous aimeriez voir. Votre message parvient directement au développeur.</string>
+    <string name="feedback_text_hint">Écrivez votre message…</string>
+    <string name="feedback_send">Envoyer</string>
+    <string name="feedback_sent_success">Merci ! Votre message a été envoyé.</string>
+    <string name="feedback_send_failed">Échec de l\'envoi. Veuillez réessayer plus tard.</string>
+    <string name="feedback_unavailable">Cette fonctionnalité est temporairement indisponible.</string>
+    <string name="privacy_feedback_title">Commentaires</string>
+    <string name="privacy_feedback_body">Lorsque vous envoyez des commentaires, le texte du message ainsi que des informations contextuelles (version de l\'application, modèle d\'appareil, version Android, langue, statut de connexion Google Play Games) sont transmis au développeur via Telegram par une Firebase Cloud Function. Aucune donnée personnelle n\'est collectée. Les données sont utilisées uniquement pour répondre à vos commentaires et améliorer l\'application.</string>
 </resources>
