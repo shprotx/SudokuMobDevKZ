@@ -6,6 +6,7 @@ import ru.shprot.sudokumobdevkz.core.base.data.cloud.CloudGameServices
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.SignInState
 import ru.shprot.sudokumobdevkz.core.base.data.remote.FeedbackApiHolder
 import ru.shprot.sudokumobdevkz.core.base.data.remote.FeedbackRequestDto
+import ru.shprot.sudokumobdevkz.core.base.data.util.safeRunCatching
 import java.util.Locale
 import javax.inject.Inject
 
@@ -26,7 +27,7 @@ class SendFeedbackUseCase @Inject constructor(
             locale = Locale.getDefault().toLanguageTag(),
             isPgsSignedIn = cloud.signInState.value is SignInState.SignedIn,
         )
-        return runCatching {
+        return safeRunCatching {
             val response = api.submit(body)
             if (!response.isSuccessful) {
                 throw Exception("HTTP ${response.code()}")
