@@ -24,13 +24,15 @@ android {
         applicationId "ru.shprot.sudokumobdevkz"
         minSdk 29
         targetSdk 36
-        versionCode 57
-        versionName "2.6.6"
+        versionCode 58
+        versionName "2.6.7"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "FIREBASE_DB_URL",
                 "\"${localProperties.getProperty('FIREBASE_DB_URL', System.getenv('FIREBASE_DB_URL') ?: '')}\""
+        buildConfigField "String", "FEEDBACK_API_URL",
+                "\"${localProperties.getProperty('FEEDBACK_API_URL', '')}\""
         buildConfigField "boolean", "IS_PRE_RELEASE", "${versionName.contains('-')}"
     }
 

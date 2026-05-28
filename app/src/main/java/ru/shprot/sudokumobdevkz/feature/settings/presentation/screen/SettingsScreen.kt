@@ -13,6 +13,7 @@ import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.base.presentation.snackbar.SnackbarManager
 import ru.shprot.sudokumobdevkz.core.base.presentation.util.PlayStoreLauncher
 import ru.shprot.sudokumobdevkz.core.base.presentation.util.ShareLauncher
+import ru.shprot.sudokumobdevkz.feature.feedback.presentation.navigation.FeedbackRoutes
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.screencontent.SettingsScreenContent
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.contract.SettingsUIEffect
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.navigation.SettingsRoutes
@@ -37,6 +38,9 @@ fun SettingsScreen(
 
                 SettingsUIEffect.NavigateToPrivacyPolicy ->
                     navController.navigate(SettingsRoutes.PrivacyPolicyScreen)
+
+                SettingsUIEffect.NavigateToFeedback ->
+                    navController.navigate(FeedbackRoutes.FeedbackScreen)
 
                 SettingsUIEffect.ShareApp ->
                     ShareLauncher.launch(

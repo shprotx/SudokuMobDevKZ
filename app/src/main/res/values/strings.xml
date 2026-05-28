@@ -236,4 +236,13 @@
     <string name="hint_mode_toggle_subtitle">Button stays on, taps on cells open them one by one</string>
     <string name="hint_mode_active_description">Hint mode active, tap a cell</string>
     <string name="hints_exhausted">No hints remaining</string>
+    <string name="feedback">Feedback</string>
+    <string name="feedback_description">Tell us what you like, what you don\'t, or what you\'d like to see. Your message goes directly to the developer.</string>
+    <string name="feedback_text_hint">Write your message…</string>
+    <string name="feedback_send">Send</string>
+    <string name="feedback_sent_success">Thanks! Your message was sent.</string>
+    <string name="feedback_send_failed">Failed to send. Please try again later.</string>
+    <string name="feedback_unavailable">This feature is temporarily unavailable.</string>
+    <string name="privacy_feedback_title">Feedback</string>
+    <string name="privacy_feedback_body">When you submit feedback, the message text along with context information (app version, device model, Android version, locale, and Google Play Games sign-in status) is sent to the developer\'s Telegram via a Firebase Cloud Function. No personal data is collected. The data is used solely to respond to your feedback and improve the app.</string>
 </resources>

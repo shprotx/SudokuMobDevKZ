@@ -115,4 +115,13 @@
     <string name="hint_mode_toggle_subtitle">El botón permanece activo, los toques en las celdas las abren una por una</string>
     <string name="hint_mode_active_description">Modo pista activo, toca una celda</string>
     <string name="hints_exhausted">No quedan pistas</string>
+    <string name="feedback">Comentarios</string>
+    <string name="feedback_description">Cuéntanos qué te gusta, qué no y qué te gustaría ver. Tu mensaje llega directamente al desarrollador.</string>
+    <string name="feedback_text_hint">Escribe tu mensaje…</string>
+    <string name="feedback_send">Enviar</string>
+    <string name="feedback_sent_success">¡Gracias! Tu mensaje fue enviado.</string>
+    <string name="feedback_send_failed">No se pudo enviar. Por favor, inténtalo más tarde.</string>
+    <string name="feedback_unavailable">Esta función no está disponible temporalmente.</string>
+    <string name="privacy_feedback_title">Comentarios</string>
+    <string name="privacy_feedback_body">Al enviar comentarios, el texto del mensaje junto con información contextual (versión de la aplicación, modelo de dispositivo, versión de Android, idioma, estado de inicio de sesión en Google Play Games) se envía al desarrollador por Telegram a través de una Firebase Cloud Function. No se recopilan datos personales. Los datos se utilizan exclusivamente para responder a tus comentarios y mejorar la aplicación.</string>
 </resources>
