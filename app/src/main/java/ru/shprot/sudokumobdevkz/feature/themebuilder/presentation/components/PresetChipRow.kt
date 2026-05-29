@@ -10,38 +10,26 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
-import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.base.domain.model.ThemeColors
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
-import ru.shprot.sudokumobdevkz.core.theme.BuiltInTheme
 
 @Composable
 internal fun PresetChipRow(
     modifier: Modifier = Modifier,
     onPresetSelected: (ThemeColors) -> Unit,
 ) {
-    val presets = remember {
-        listOf(
-            BuiltInTheme.LIGHT.colors to R.string.theme_builder_preset_light,
-            BuiltInTheme.DARK.colors to R.string.theme_builder_preset_dark,
-            BuiltInTheme.SOLARIZED.colors to R.string.theme_builder_preset_solarized,
-            BuiltInTheme.FOREST.colors to R.string.theme_builder_preset_forest,
-        )
-    }
-
     LazyRow(
         modifier = modifier,
         contentPadding = PaddingValues(horizontal = AppTheme.paddings.large),
         horizontalArrangement = Arrangement.spacedBy(AppTheme.paddings.small),
     ) {
-        items(presets) { (colors, labelRes) ->
+        items(ThemePalettes.all) { preset ->
             PresetChip(
-                label = stringResource(labelRes),
-                onClick = { onPresetSelected(colors) },
+                label = stringResource(preset.labelRes),
+                onClick = { onPresetSelected(preset.colors) },
             )
         }
     }

@@ -29,6 +29,7 @@ import ru.shprot.sudokumobdevkz.core.uicommon.toolbar.ToolbarDefault
 import ru.shprot.sudokumobdevkz.feature.themebuilder.presentation.components.ColorCategoryList
 import ru.shprot.sudokumobdevkz.feature.themebuilder.presentation.components.ColorPickerSheet
 import ru.shprot.sudokumobdevkz.feature.themebuilder.presentation.components.PresetChipRow
+import ru.shprot.sudokumobdevkz.feature.themebuilder.presentation.components.quickColorSwatches
 import ru.shprot.sudokumobdevkz.feature.themebuilder.presentation.components.SaveThemeDialog
 import ru.shprot.sudokumobdevkz.feature.themebuilder.presentation.components.ThemePreviewBlock
 import ru.shprot.sudokumobdevkz.feature.themebuilder.presentation.contract.ThemeBuilderUIEvent
@@ -115,7 +116,10 @@ fun ThemeBuilderScreenContent(
     val selectedKey = uiState.selectedColorKey
     if (uiState.showColorPicker && selectedKey != null) {
         ColorPickerSheet(
-            initialColor = selectedKey.get(uiState.colors),
+            title = stringResource(selectedKey.labelRes),
+            colors = uiState.colors,
+            color = selectedKey.get(uiState.colors),
+            swatches = quickColorSwatches,
             onColorChanged = { argb -> onEvent(ThemeBuilderUIEvent.ColorChanged(selectedKey, argb)) },
             onDismiss = { onEvent(ThemeBuilderUIEvent.DismissColorPicker) },
         )
