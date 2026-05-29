@@ -29,6 +29,7 @@ fun <T : DropdownItem> AppDropdown(
     selected: T?,
     onSelect: (T) -> Unit,
     leadingPreview: (@Composable (T) -> Unit)? = null,
+    trailingContent: (@Composable (T) -> Unit)? = null,
     placeholder: String = String.empty,
     enabled: Boolean = true,
 ) {
@@ -69,6 +70,7 @@ fun <T : DropdownItem> AppDropdown(
                 AppDropdownItemsList(
                     modifier = Modifier,
                     items = items,
+                    trailingContent = trailingContent,
                     selected = selected,
                     enabled = enabled,
                     leadingPreview = leadingPreview,

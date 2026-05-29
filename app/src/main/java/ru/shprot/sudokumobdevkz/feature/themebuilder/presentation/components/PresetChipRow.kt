@@ -1,15 +1,18 @@
 package ru.shprot.sudokumobdevkz.feature.themebuilder.presentation.components
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.FilterChip
-import androidx.compose.material3.FilterChipDefaults
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.base.domain.model.ThemeColors
@@ -36,15 +39,30 @@ internal fun PresetChipRow(
         horizontalArrangement = Arrangement.spacedBy(AppTheme.paddings.small),
     ) {
         items(presets) { (colors, labelRes) ->
-            FilterChip(
-                selected = false,
+            PresetChip(
+                label = stringResource(labelRes),
                 onClick = { onPresetSelected(colors) },
-                label = { Text(text = stringResource(labelRes), style = AppTheme.typography.body3) },
-                colors = FilterChipDefaults.filterChipColors(
-                    containerColor = AppTheme.colors.chipUnselected,
-                    labelColor = AppTheme.colors.chipTextUnselected,
-                ),
             )
         }
     }
+}
+
+@Composable
+internal fun PresetChip(
+    label: String,
+    onClick: () -> Unit,
+) {
+    Text(
+        modifier = Modifier
+            .clip(RoundedCornerShape(AppTheme.sizes.cornerRadiusFull))
+            .background(AppTheme.colors.chipUnselected)
+            .clickable(onClick = onClick)
+            .padding(
+                horizontal = AppTheme.paddings.large,
+                vertical = AppTheme.paddings.medium,
+            ),
+        text = label,
+        style = AppTheme.typography.body3,
+        color = AppTheme.colors.chipTextUnselected,
+    )
 }

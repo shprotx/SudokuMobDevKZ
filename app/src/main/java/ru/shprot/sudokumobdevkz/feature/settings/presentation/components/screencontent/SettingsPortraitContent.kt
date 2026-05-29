@@ -34,6 +34,7 @@ import androidx.compose.ui.res.stringResource
 import kotlinx.collections.immutable.toImmutableList
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.base.domain.model.ThemeMode
+import ru.shprot.sudokumobdevkz.core.base.domain.model.isDark
 import ru.shprot.sudokumobdevkz.core.base.presentation.util.deviceFitsTwoRowInPortrait
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonDefault
@@ -48,7 +49,7 @@ import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.setting
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsSectionHeader
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsToggleItem
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsVersionFooter
-import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.theme.ThemeListSection
+import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.theme.ThemeItemActions
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.theme.ThemeModeDropdownItem
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.contract.SettingsUIEvent
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.contract.SettingsUIState
@@ -219,65 +220,65 @@ internal fun AppearanceSettingsCard(
     uiState: SettingsUIState,
     onEvent: (SettingsUIEvent) -> Unit,
 ) {
-    val hasCustomThemes = uiState.customThemes.any { !it.isBuiltIn }
+    val customThemes = remember(uiState.customThemes) {
+        uiState.customThemes.filter { !it.isBuiltIn }
+    }
+    val themeItems = remember(customThemes) {
+        (ThemeMode.builtIn().map(::ThemeModeDropdownItem) +
+            customThemes.map { ThemeModeDropdownItem(ThemeMode.Custom(it.id, it.name, it.isDark)) })
+            .toImmutableList()
+    }
+    val selectedItem = remember(uiState.settings.themeModeId, themeItems) {
+        themeItems.firstOrNull { it.id == uiState.settings.themeModeId } ?: themeItems.first()
+    }
 
-    if (hasCustomThemes) {
-        ThemeListSection(
-            modifier = Modifier,
-            themes = uiState.customThemes,
-            selectedThemeId = uiState.settings.themeModeId,
-            onThemeSelected = { id -> onEvent(SettingsUIEvent.SelectThemeMode(ThemeMode.fromId(id))) },
-            onEditTheme = { id -> onEvent(SettingsUIEvent.NavigateToEditTheme(id)) },
-            onDeleteTheme = { id -> onEvent(SettingsUIEvent.RequestDeleteTheme(id)) },
-            onAddTheme = { onEvent(SettingsUIEvent.NavigateToThemeBuilder) },
-        )
-    } else {
-        val themeItems = remember {
-            ThemeMode.builtIn().map(::ThemeModeDropdownItem).toImmutableList()
-        }
-        val selectedItem = remember(uiState.settings.themeModeId) {
-            ThemeModeDropdownItem(ThemeMode.fromId(uiState.settings.themeModeId))
-        }
+    SettingsCard(modifier = Modifier) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = AppTheme.paddings.default),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Icon(
+                modifier = Modifier.size(AppTheme.sizes.iconMedium),
+                imageVector = Icons.Filled.Palette,
+                contentDescription = null,
+                tint = AppTheme.colors.primary,
+            )
 
-        SettingsCard(modifier = Modifier) {
-            Row(
+            Text(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = AppTheme.paddings.default),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Icon(
-                    modifier = Modifier.size(AppTheme.sizes.iconMedium),
-                    imageVector = Icons.Filled.Palette,
-                    contentDescription = null,
-                    tint = AppTheme.colors.primary,
-                )
-
-                Text(
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(start = AppTheme.paddings.default),
-                    text = stringResource(R.string.theme_label),
-                    style = AppTheme.typography.body1,
-                    color = AppTheme.colors.text,
-                )
-            }
-
-            AppDropdown(
-                modifier = Modifier.padding(bottom = AppTheme.paddings.medium),
-                items = themeItems,
-                selected = selectedItem,
-                onSelect = { item -> onEvent(SettingsUIEvent.SelectThemeMode(item.mode)) },
-            )
-
-            SettingsDivider(modifier = Modifier)
-
-            ButtonText(
-                modifier = Modifier.fillMaxWidth(),
-                text = stringResource(R.string.theme_list_add_theme),
-                onClick = { onEvent(SettingsUIEvent.NavigateToThemeBuilder) },
+                    .weight(1f)
+                    .padding(start = AppTheme.paddings.default),
+                text = stringResource(R.string.theme_label),
+                style = AppTheme.typography.body1,
+                color = AppTheme.colors.text,
             )
         }
+
+        AppDropdown(
+            modifier = Modifier.padding(bottom = AppTheme.paddings.medium),
+            items = themeItems,
+            selected = selectedItem,
+            onSelect = { item -> onEvent(SettingsUIEvent.SelectThemeMode(item.mode)) },
+            trailingContent = { item ->
+                val mode = item.mode
+                if (mode is ThemeMode.Custom) {
+                    ThemeItemActions(
+                        onEdit = { onEvent(SettingsUIEvent.NavigateToEditTheme(mode.id)) },
+                        onDelete = { onEvent(SettingsUIEvent.RequestDeleteTheme(mode.id)) },
+                    )
+                }
+            },
+        )
+
+        SettingsDivider(modifier = Modifier)
+
+        ButtonText(
+            modifier = Modifier.fillMaxWidth(),
+            text = stringResource(R.string.theme_list_add_theme),
+            onClick = { onEvent(SettingsUIEvent.NavigateToThemeBuilder) },
+        )
     }
 }
 

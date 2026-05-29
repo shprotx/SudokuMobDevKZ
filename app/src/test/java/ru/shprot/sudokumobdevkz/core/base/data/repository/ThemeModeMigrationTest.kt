@@ -15,10 +15,11 @@ class ThemeModeMigrationTest {
     }
 
     @Test
-    fun `resolve maps unknown stored id to System`() {
+    fun `resolve preserves custom theme id`() {
+        val customId = "f5c9d2b3-2927-469b-af53-40189e3d1b69"
         assertEquals(
-            ThemeMode.System.id,
-            ThemeModeMigration.resolve(storedId = "UNKNOWN", legacyDarkTheme = true),
+            customId,
+            ThemeModeMigration.resolve(storedId = customId, legacyDarkTheme = true),
         )
     }
 
