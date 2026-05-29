@@ -283,7 +283,11 @@
     <string name="theme_palette_crimson">Багровая</string>
     <string name="theme_palette_midnight">Полночь</string>
     <string name="theme_palette_sand">Песок</string>
-    <string name="theme_palette_coral">Коралл</string>
+    <string name="theme_palette_latte">Латте</string>
+    <string name="theme_palette_gruvbox">Gruvbox</string>
+    <string name="theme_palette_tokyo_night">Tokyo Night</string>
+    <string name="theme_palette_everforest">Everforest</string>
+    <string name="theme_palette_rose_pine">Rosé Pine</string>
     <string name="theme_palette_emerald">Изумруд</string>
     <string name="theme_palette_grape">Виноград</string>
     <string name="theme_palette_slate">Сланец</string>
