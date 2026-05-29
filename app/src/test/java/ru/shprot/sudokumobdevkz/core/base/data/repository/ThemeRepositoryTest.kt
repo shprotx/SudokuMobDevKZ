@@ -14,7 +14,7 @@ import ru.shprot.sudokumobdevkz.core.base.data.database.dao.CustomThemeDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.CustomThemeEntity
 import ru.shprot.sudokumobdevkz.core.base.domain.model.CustomTheme
 import ru.shprot.sudokumobdevkz.core.theme.AppColors
-import ru.shprot.sudokumobdevkz.core.theme.BuiltInThemes
+import ru.shprot.sudokumobdevkz.core.theme.BuiltInTheme
 
 class ThemeRepositoryTest {
 
@@ -31,7 +31,7 @@ class ThemeRepositoryTest {
     fun `getAll returns seeded themes`() = runTest {
         repository.seedBuiltIns()
         val themes = repository.getAll()
-        assertEquals(BuiltInThemes.all.size, themes.size)
+        assertEquals(BuiltInTheme.entries.size, themes.size)
     }
 
     @Test
@@ -40,7 +40,7 @@ class ThemeRepositoryTest {
             id = "test-id",
             name = "My Theme",
             isBuiltIn = false,
-            colors = BuiltInThemes.Light.colors,
+            colors = BuiltInTheme.LIGHT.colors,
             createdAt = 1000L,
         )
         repository.save(theme)
@@ -55,7 +55,7 @@ class ThemeRepositoryTest {
             id = "delete-me",
             name = "Old Theme",
             isBuiltIn = false,
-            colors = BuiltInThemes.Dark.colors,
+            colors = BuiltInTheme.DARK.colors,
             createdAt = 2000L,
         )
         repository.save(theme)
@@ -66,19 +66,19 @@ class ThemeRepositoryTest {
     @Test
     fun `delete does not remove built-in theme`() = runTest {
         repository.seedBuiltIns()
-        repository.delete(BuiltInThemes.ID_LIGHT)
-        assertNotNull(dao.storage[BuiltInThemes.ID_LIGHT])
+        repository.delete(BuiltInTheme.LIGHT.id)
+        assertNotNull(dao.storage[BuiltInTheme.LIGHT.id])
     }
 
     @Test
     fun `resolveColors returns LightColors for LIGHT id`() = runTest {
-        val colors = repository.resolveColors(BuiltInThemes.ID_LIGHT, isSystemDark = false).first()
+        val colors = repository.resolveColors(BuiltInTheme.LIGHT.id, isSystemDark = false).first()
         assertEquals(AppColors.LightColors, colors)
     }
 
     @Test
     fun `resolveColors returns DarkColors for DARK id`() = runTest {
-        val colors = repository.resolveColors(BuiltInThemes.ID_DARK, isSystemDark = false).first()
+        val colors = repository.resolveColors(BuiltInTheme.DARK.id, isSystemDark = false).first()
         assertEquals(AppColors.DarkColors, colors)
     }
 

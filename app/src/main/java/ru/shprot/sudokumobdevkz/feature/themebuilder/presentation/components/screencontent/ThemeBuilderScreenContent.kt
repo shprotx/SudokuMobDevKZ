@@ -31,10 +31,8 @@ import ru.shprot.sudokumobdevkz.feature.themebuilder.presentation.components.Col
 import ru.shprot.sudokumobdevkz.feature.themebuilder.presentation.components.PresetChipRow
 import ru.shprot.sudokumobdevkz.feature.themebuilder.presentation.components.SaveThemeDialog
 import ru.shprot.sudokumobdevkz.feature.themebuilder.presentation.components.ThemePreviewBlock
-import ru.shprot.sudokumobdevkz.feature.themebuilder.presentation.components.getColorByKeyInternal
 import ru.shprot.sudokumobdevkz.feature.themebuilder.presentation.contract.ThemeBuilderUIEvent
 import ru.shprot.sudokumobdevkz.feature.themebuilder.presentation.contract.ThemeBuilderUIState
-import ru.shprot.sudokumobdevkz.feature.themebuilder.presentation.viewmodel.ThemeBuilderViewModel
 
 @Composable
 fun ThemeBuilderScreenContent(
@@ -116,19 +114,13 @@ fun ThemeBuilderScreenContent(
 
     val selectedKey = uiState.selectedColorKey
     if (uiState.showColorPicker && selectedKey != null) {
-        val initialColor = getColorByKey(uiState.colors, selectedKey)
         ColorPickerSheet(
-            initialColor = initialColor,
+            initialColor = selectedKey.get(uiState.colors),
             onColorChanged = { argb -> onEvent(ThemeBuilderUIEvent.ColorChanged(selectedKey, argb)) },
             onDismiss = { onEvent(ThemeBuilderUIEvent.DismissColorPicker) },
         )
     }
 }
-
-private fun getColorByKey(
-    colors: ThemeColors,
-    key: String,
-): Long = getColorByKeyInternal(colors, key)
 
 private fun hasLowContrast(colors: ThemeColors): Boolean {
     val bg = Color(colors.background)

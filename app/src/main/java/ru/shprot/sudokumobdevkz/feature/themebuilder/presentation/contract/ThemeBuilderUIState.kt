@@ -2,12 +2,14 @@ package ru.shprot.sudokumobdevkz.feature.themebuilder.presentation.contract
 
 import ru.shprot.sudokumobdevkz.core.base.domain.model.ThemeColors
 import ru.shprot.sudokumobdevkz.core.base.presentation.contract.UIState
-import ru.shprot.sudokumobdevkz.core.theme.BuiltInThemes
+import ru.shprot.sudokumobdevkz.core.base.util.empty
+import ru.shprot.sudokumobdevkz.core.theme.BuiltInTheme
+import ru.shprot.sudokumobdevkz.feature.themebuilder.presentation.model.ThemeColorKey
 
 data class ThemeBuilderUIState(
-    val colors: ThemeColors = BuiltInThemes.Light.colors,
-    val themeName: String = "",
-    val selectedColorKey: String? = null,
+    val colors: ThemeColors = BuiltInTheme.LIGHT.colors,
+    val themeName: String = String.empty,
+    val selectedColorKey: ThemeColorKey? = null,
     val showColorPicker: Boolean = false,
     val showSaveDialog: Boolean = false,
     val showNameError: Boolean = false,

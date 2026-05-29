@@ -14,7 +14,7 @@ import androidx.compose.ui.res.stringResource
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.base.domain.model.ThemeColors
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
-import ru.shprot.sudokumobdevkz.core.theme.BuiltInThemes
+import ru.shprot.sudokumobdevkz.core.theme.BuiltInTheme
 
 @Composable
 internal fun PresetChipRow(
@@ -23,10 +23,10 @@ internal fun PresetChipRow(
 ) {
     val presets = remember {
         listOf(
-            BuiltInThemes.Light.colors to R.string.theme_builder_preset_light,
-            BuiltInThemes.Dark.colors to R.string.theme_builder_preset_dark,
-            BuiltInThemes.Solarized.colors to R.string.theme_builder_preset_solarized,
-            BuiltInThemes.Forest.colors to R.string.theme_builder_preset_forest,
+            BuiltInTheme.LIGHT.colors to R.string.theme_builder_preset_light,
+            BuiltInTheme.DARK.colors to R.string.theme_builder_preset_dark,
+            BuiltInTheme.SOLARIZED.colors to R.string.theme_builder_preset_solarized,
+            BuiltInTheme.FOREST.colors to R.string.theme_builder_preset_forest,
         )
     }
 

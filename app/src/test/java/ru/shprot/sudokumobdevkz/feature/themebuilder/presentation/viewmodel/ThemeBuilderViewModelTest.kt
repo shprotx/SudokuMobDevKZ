@@ -23,9 +23,10 @@ import ru.shprot.sudokumobdevkz.core.base.data.repository.IThemeRepository
 import ru.shprot.sudokumobdevkz.core.base.domain.model.AppSettings
 import ru.shprot.sudokumobdevkz.core.base.domain.model.CustomTheme
 import ru.shprot.sudokumobdevkz.core.theme.AppColors
-import ru.shprot.sudokumobdevkz.core.theme.BuiltInThemes
+import ru.shprot.sudokumobdevkz.core.theme.BuiltInTheme
 import ru.shprot.sudokumobdevkz.feature.themebuilder.presentation.contract.ThemeBuilderUIEffect
 import ru.shprot.sudokumobdevkz.feature.themebuilder.presentation.contract.ThemeBuilderUIEvent
+import ru.shprot.sudokumobdevkz.feature.themebuilder.presentation.model.ThemeColorKey
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class ThemeBuilderViewModelTest {
@@ -60,21 +61,21 @@ class ThemeBuilderViewModelTest {
 
     @Test
     fun `initial state uses Light preset colors`() {
-        assertEquals(BuiltInThemes.Light.colors, viewModel.uiState.value.colors)
+        assertEquals(BuiltInTheme.LIGHT.colors, viewModel.uiState.value.colors)
     }
 
     @Test
     fun `SelectPreset Dark updates all colors to Dark palette`() = runTest {
-        viewModel.setEvent(ThemeBuilderUIEvent.SelectPreset(BuiltInThemes.Dark.colors))
+        viewModel.setEvent(ThemeBuilderUIEvent.SelectPreset(BuiltInTheme.DARK.colors))
         advanceUntilIdle()
-        assertEquals(BuiltInThemes.Dark.colors, viewModel.uiState.value.colors)
+        assertEquals(BuiltInTheme.DARK.colors, viewModel.uiState.value.colors)
     }
 
     @Test
     fun `ColorChanged updates only the specified key`() = runTest {
         val originalColors = viewModel.uiState.value.colors
         val newBg = 0xFF000000L
-        viewModel.setEvent(ThemeBuilderUIEvent.ColorChanged("background", newBg))
+        viewModel.setEvent(ThemeBuilderUIEvent.ColorChanged(ThemeColorKey.BACKGROUND, newBg))
         advanceUntilIdle()
         assertEquals(newBg, viewModel.uiState.value.colors.background)
         assertEquals(originalColors.primary, viewModel.uiState.value.colors.primary)
@@ -126,22 +127,22 @@ class ThemeBuilderViewModelTest {
 
     @Test
     fun `SelectPreset Solarized updates colors to Solarized palette`() = runTest {
-        viewModel.setEvent(ThemeBuilderUIEvent.SelectPreset(BuiltInThemes.Solarized.colors))
+        viewModel.setEvent(ThemeBuilderUIEvent.SelectPreset(BuiltInTheme.SOLARIZED.colors))
         advanceUntilIdle()
-        assertEquals(BuiltInThemes.Solarized.colors, viewModel.uiState.value.colors)
+        assertEquals(BuiltInTheme.SOLARIZED.colors, viewModel.uiState.value.colors)
     }
 
     @Test
     fun `OpenColorPicker sets showColorPicker true`() = runTest {
-        viewModel.setEvent(ThemeBuilderUIEvent.OpenColorPicker("primary"))
+        viewModel.setEvent(ThemeBuilderUIEvent.OpenColorPicker(ThemeColorKey.PRIMARY))
         advanceUntilIdle()
         assertTrue(viewModel.uiState.value.showColorPicker)
-        assertEquals("primary", viewModel.uiState.value.selectedColorKey)
+        assertEquals(ThemeColorKey.PRIMARY, viewModel.uiState.value.selectedColorKey)
     }
 
     @Test
     fun `DismissColorPicker clears color picker state`() = runTest {
-        viewModel.setEvent(ThemeBuilderUIEvent.OpenColorPicker("text"))
+        viewModel.setEvent(ThemeBuilderUIEvent.OpenColorPicker(ThemeColorKey.TEXT))
         advanceUntilIdle()
         viewModel.setEvent(ThemeBuilderUIEvent.DismissColorPicker)
         advanceUntilIdle()
@@ -154,7 +155,7 @@ class ThemeBuilderViewModelTest {
             id = "theme-42",
             name = "Existing",
             isBuiltIn = false,
-            colors = BuiltInThemes.Dark.colors,
+            colors = BuiltInTheme.DARK.colors,
             createdAt = 100L,
         )
         themeRepository.savedThemes.add(existingTheme)
@@ -162,7 +163,7 @@ class ThemeBuilderViewModelTest {
         val editVm = buildViewModel(themeId = "theme-42")
         advanceUntilIdle()
 
-        assertEquals(BuiltInThemes.Dark.colors, editVm.uiState.value.colors)
+        assertEquals(BuiltInTheme.DARK.colors, editVm.uiState.value.colors)
         assertEquals("Existing", editVm.uiState.value.themeName)
         assertTrue(editVm.uiState.value.isEditMode)
     }

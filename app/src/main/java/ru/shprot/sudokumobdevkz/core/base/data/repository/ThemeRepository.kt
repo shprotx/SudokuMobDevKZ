@@ -8,9 +8,10 @@ import ru.shprot.sudokumobdevkz.core.base.data.database.dao.CustomThemeDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.CustomThemeEntity
 import ru.shprot.sudokumobdevkz.core.base.domain.model.CustomTheme
 import ru.shprot.sudokumobdevkz.core.base.domain.model.ThemeColors
+import ru.shprot.sudokumobdevkz.core.base.domain.model.ThemeMode
 import ru.shprot.sudokumobdevkz.core.base.domain.model.toAppColors
 import ru.shprot.sudokumobdevkz.core.theme.AppColors
-import ru.shprot.sudokumobdevkz.core.theme.BuiltInThemes
+import ru.shprot.sudokumobdevkz.core.theme.BuiltInTheme
 import ru.shprot.sudokumobdevkz.core.theme.toThemeColors
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -45,7 +46,7 @@ class ThemeRepository @Inject constructor(
     }
 
     override suspend fun seedBuiltIns() {
-        BuiltInThemes.all.forEach { theme ->
+        BuiltInTheme.customThemes().forEach { theme ->
             if (customThemeDao.exists(theme.id) == 0) {
                 customThemeDao.upsert(theme.toEntity())
             }
@@ -54,14 +55,12 @@ class ThemeRepository @Inject constructor(
 
     override fun resolveColors(themeId: String, isSystemDark: Boolean): Flow<AppColors> =
         observeAll().map { themes ->
+            val systemColors = if (isSystemDark) AppColors.DarkColors else AppColors.LightColors
             when (themeId) {
-                BuiltInThemes.ID_LIGHT -> AppColors.LightColors
-                BuiltInThemes.ID_DARK -> AppColors.DarkColors
-                "LIGHT" -> AppColors.LightColors
-                "DARK" -> AppColors.DarkColors
-                "SYSTEM" -> if (isSystemDark) AppColors.DarkColors else AppColors.LightColors
-                else -> themes.firstOrNull { it.id == themeId }?.colors?.toAppColors()
-                    ?: (if (isSystemDark) AppColors.DarkColors else AppColors.LightColors)
+                BuiltInTheme.LIGHT.id, ThemeMode.Light.id -> AppColors.LightColors
+                BuiltInTheme.DARK.id, ThemeMode.Dark.id -> AppColors.DarkColors
+                ThemeMode.System.id -> systemColors
+                else -> themes.firstOrNull { it.id == themeId }?.colors?.toAppColors() ?: systemColors
             }
         }
 
