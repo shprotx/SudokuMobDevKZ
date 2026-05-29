@@ -27,18 +27,18 @@ private val Context.settingsDataStore by preferencesDataStore(name = "sudoku_set
 @Singleton
 class SettingsRepository @Inject constructor(
     @ApplicationContext private val context: Context,
-) {
+) : ISettingsRepository {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
     private val _settings: StateFlow<AppSettings> = context.settingsDataStore.data
         .map { prefs -> prefs.toAppSettings() }
         .stateIn(scope, SharingStarted.Eagerly, AppSettings())
 
-    val settings: Flow<AppSettings> = _settings
+    override val settings: Flow<AppSettings> = _settings
 
-    val currentSettings: AppSettings get() = _settings.value
+    override val currentSettings: AppSettings get() = _settings.value
 
-    fun update(transform: AppSettings.() -> AppSettings) {
+    override fun update(transform: AppSettings.() -> AppSettings) {
         val newSettings = currentSettings.transform()
         scope.launch {
             context.settingsDataStore.edit { prefs ->

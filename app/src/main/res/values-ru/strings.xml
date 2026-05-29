@@ -239,4 +239,36 @@
     <string name="feedback_unavailable">Функция временно недоступна.</string>
     <string name="privacy_feedback_title">Обратная связь</string>
     <string name="privacy_feedback_body">При отправке фидбека текст сообщения вместе с контекстной информацией (версия приложения, модель устройства, версия Android, язык, статус входа в Google Play Games) передаётся разработчику в Telegram через Firebase Cloud Function. Личные данные не собираются. Данные используются исключительно для ответа на ваш отзыв и улучшения приложения.</string>
+
+    <string name="theme_builder_title">Конструктор тем</string>
+    <string name="theme_builder_save">Сохранить</string>
+    <string name="theme_builder_name_hint">Название темы</string>
+    <string name="theme_builder_name_empty_error">Название не может быть пустым</string>
+    <string name="theme_builder_save_dialog_title">Название темы</string>
+    <string name="theme_builder_color_background">Фон</string>
+    <string name="theme_builder_color_surface">Поверхность</string>
+    <string name="theme_builder_color_primary">Основной</string>
+    <string name="theme_builder_color_text">Текст</string>
+    <string name="theme_builder_color_text_secondary">Вторичный текст</string>
+    <string name="theme_builder_color_error">Ошибка</string>
+    <string name="theme_builder_color_cell_selected">Выбранная клетка</string>
+    <string name="theme_builder_color_cell_highlight">Подсветка клеток</string>
+    <string name="theme_builder_color_cell_fixed">Заданная клетка</string>
+    <string name="theme_builder_color_cell_editable">Редактируемая клетка</string>
+    <string name="theme_builder_color_cell_error">Клетка с ошибкой</string>
+    <string name="theme_builder_color_grid_line">Линии сетки</string>
+    <string name="theme_builder_color_divider">Разделитель</string>
+    <string name="theme_builder_color_accent">Акцент</string>
+    <string name="theme_builder_preset_light">Светлая</string>
+    <string name="theme_builder_preset_dark">Тёмная</string>
+    <string name="theme_builder_preset_solarized">Solarized</string>
+    <string name="theme_builder_preset_forest">Лес</string>
+    <string name="theme_builder_low_contrast_warning">Низкий контраст — текст может быть плохо виден</string>
+    <string name="theme_list_add_theme">+ Создать тему</string>
+    <string name="theme_list_edit">Изменить</string>
+    <string name="theme_list_delete">Удалить</string>
+    <string name="theme_delete_confirm_title">Удалить тему?</string>
+    <string name="theme_delete_confirm_message">Это действие нельзя отменить.</string>
+    <string name="theme_deleted_fallback">Тема удалена. Применена светлая тема.</string>
+    <string name="theme_saved">Тема сохранена</string>
 </resources>
