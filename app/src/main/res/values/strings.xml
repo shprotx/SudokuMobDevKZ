@@ -273,8 +273,6 @@
     <string name="color_channel_green">G</string>
     <string name="color_channel_blue">B</string>
     <string name="done">Done</string>
-    <string name="theme_palette_classic_light">Classic Light</string>
-    <string name="theme_palette_classic_dark">Classic Dark</string>
     <string name="theme_palette_solarized_light">Solarized Light</string>
     <string name="theme_palette_solarized_dark">Solarized Dark</string>
     <string name="theme_palette_sakura">Sakura</string>
