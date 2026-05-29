@@ -17,6 +17,13 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.layout.boundsInWindow
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Pause
@@ -47,6 +54,8 @@ internal fun GameLandscapeContent(
     uiState: GameUIState,
     onEvent: (GameUIEvent) -> Unit,
 ) {
+    var gridBounds by remember { mutableStateOf(Rect.Zero) }
+
     Row(
         modifier = Modifier
             .fillMaxSize()
@@ -137,7 +146,10 @@ internal fun GameLandscapeContent(
         SudokuGrid(
             modifier = Modifier
                 .fillMaxHeight()
-                .aspectRatio(1f),
+                .aspectRatio(1f)
+                .onGloballyPositioned { coords ->
+                    gridBounds = coords.boundsInWindow()
+                },
             cells = uiState.cells,
             selectedRow = uiState.selectedRow,
             selectedCol = uiState.selectedCol,
@@ -146,7 +158,21 @@ internal fun GameLandscapeContent(
             onCellClick = { row, col ->
                 onEvent(GameUIEvent.CellClicked(row, col))
             },
+            onCellLongClick = { row, col ->
+                onEvent(GameUIEvent.CellLongPressed(row, col))
+            },
         )
+
+        if (uiState.draftPopupVisible && uiState.draftPopupRow in 0..8 && uiState.draftPopupCol in 0..8) {
+            DraftNotesPopup(
+                row = uiState.draftPopupRow,
+                col = uiState.draftPopupCol,
+                notes = uiState.cells[uiState.draftPopupRow][uiState.draftPopupCol].notes,
+                gridBounds = gridBounds,
+                onNumberClick = { onEvent(GameUIEvent.DraftNoteToggled(it)) },
+                onDismiss = { onEvent(GameUIEvent.DismissDraftPopup) },
+            )
+        }
 
         NumberColumnVertical(
             modifier = Modifier
