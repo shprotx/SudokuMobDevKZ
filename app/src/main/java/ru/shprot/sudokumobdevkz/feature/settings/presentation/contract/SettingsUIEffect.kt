@@ -12,4 +12,6 @@ sealed interface SettingsUIEffect : UIEffect {
     data object OpenPlayStore : SettingsUIEffect
     data object OpenPlayGamesApp : SettingsUIEffect
     data class ShowMessage(@StringRes val messageRes: Int) : SettingsUIEffect
+    data object NavigateToThemeBuilder : SettingsUIEffect
+    data class NavigateToEditTheme(val themeId: String) : SettingsUIEffect
 }

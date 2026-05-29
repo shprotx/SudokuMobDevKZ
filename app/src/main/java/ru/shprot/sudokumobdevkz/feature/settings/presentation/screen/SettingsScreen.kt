@@ -18,6 +18,7 @@ import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.screenc
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.contract.SettingsUIEffect
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.navigation.SettingsRoutes
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.viewmodel.SettingsViewModel
+import ru.shprot.sudokumobdevkz.feature.themebuilder.presentation.navigation.ThemeBuilderRoutes
 
 @Composable
 fun SettingsScreen(
@@ -71,6 +72,12 @@ fun SettingsScreen(
 
                 is SettingsUIEffect.ShowMessage ->
                     SnackbarManager.show(effect.messageRes)
+
+                SettingsUIEffect.NavigateToThemeBuilder ->
+                    navController.navigate(ThemeBuilderRoutes.ThemeBuilderScreen())
+
+                is SettingsUIEffect.NavigateToEditTheme ->
+                    navController.navigate(ThemeBuilderRoutes.ThemeBuilderScreen(themeId = effect.themeId))
             }
         }
     }

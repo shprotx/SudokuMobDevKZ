@@ -8,6 +8,7 @@ import ru.shprot.sudokumobdevkz.core.base.data.cloud.CloudProgressSerializer
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.CloudProgress
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.SignInState
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.AchievementUnlockedDao
+import ru.shprot.sudokumobdevkz.core.base.data.database.dao.CustomThemeDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.DailyChallengeDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.SavedGameDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.StatisticDao
@@ -50,6 +51,7 @@ class SyncToCloudUseCaseImpl @Inject constructor(
     private val achievementUnlockedDao: AchievementUnlockedDao,
     private val dailyChallengeDao: DailyChallengeDao,
     private val savedGameDao: SavedGameDao,
+    private val customThemeDao: CustomThemeDao,
 ) : SyncToCloudUseCase {
 
     private val triggers = MutableSharedFlow<Unit>(extraBufferCapacity = 1)
@@ -93,6 +95,7 @@ class SyncToCloudUseCaseImpl @Inject constructor(
         unlockedAchievements = achievementUnlockedDao.getAll().map { it.toDto() },
         dailyChallenges = dailyChallengeDao.getAllCompleted().map { it.toDto() },
         savedGame = savedGameDao.get()?.toDto(),
+        customThemes = customThemeDao.getAll().filter { !it.isBuiltIn }.map { it.toDto() },
         lastSyncTimestamp = System.currentTimeMillis(),
     )
 }

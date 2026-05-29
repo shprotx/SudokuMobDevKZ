@@ -37,6 +37,7 @@ import ru.shprot.sudokumobdevkz.core.base.domain.model.ThemeMode
 import ru.shprot.sudokumobdevkz.core.base.presentation.util.deviceFitsTwoRowInPortrait
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonDefault
+import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonText
 import ru.shprot.sudokumobdevkz.core.uicommon.dropdown.AppDropdown
 import ru.shprot.sudokumobdevkz.core.uicommon.toolbar.ToolbarDefault
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.HintModeSection
@@ -47,6 +48,7 @@ import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.setting
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsSectionHeader
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsToggleItem
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsVersionFooter
+import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.theme.ThemeListSection
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.theme.ThemeModeDropdownItem
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.contract.SettingsUIEvent
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.contract.SettingsUIState
@@ -217,43 +219,65 @@ internal fun AppearanceSettingsCard(
     uiState: SettingsUIState,
     onEvent: (SettingsUIEvent) -> Unit,
 ) {
-    val themeItems = remember {
-        ThemeMode.builtIn().map(::ThemeModeDropdownItem).toImmutableList()
-    }
-    val selectedItem = remember(uiState.settings.themeModeId) {
-        ThemeModeDropdownItem(ThemeMode.fromId(uiState.settings.themeModeId))
-    }
+    val hasCustomThemes = uiState.customThemes.any { !it.isBuiltIn }
 
-    SettingsCard(modifier = Modifier) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = AppTheme.paddings.default),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Icon(
-                modifier = Modifier.size(AppTheme.sizes.iconMedium),
-                imageVector = Icons.Filled.Palette,
-                contentDescription = null,
-                tint = AppTheme.colors.primary,
-            )
-
-            Text(
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(start = AppTheme.paddings.default),
-                text = stringResource(R.string.theme_label),
-                style = AppTheme.typography.body1,
-                color = AppTheme.colors.text,
-            )
+    if (hasCustomThemes) {
+        ThemeListSection(
+            modifier = Modifier,
+            themes = uiState.customThemes,
+            selectedThemeId = uiState.settings.themeModeId,
+            onThemeSelected = { id -> onEvent(SettingsUIEvent.SelectThemeMode(ThemeMode.fromId(id))) },
+            onEditTheme = { id -> onEvent(SettingsUIEvent.NavigateToEditTheme(id)) },
+            onDeleteTheme = { id -> onEvent(SettingsUIEvent.RequestDeleteTheme(id)) },
+            onAddTheme = { onEvent(SettingsUIEvent.NavigateToThemeBuilder) },
+        )
+    } else {
+        val themeItems = remember {
+            ThemeMode.builtIn().map(::ThemeModeDropdownItem).toImmutableList()
+        }
+        val selectedItem = remember(uiState.settings.themeModeId) {
+            ThemeModeDropdownItem(ThemeMode.fromId(uiState.settings.themeModeId))
         }
 
-        AppDropdown(
-            modifier = Modifier.padding(bottom = AppTheme.paddings.medium),
-            items = themeItems,
-            selected = selectedItem,
-            onSelect = { item -> onEvent(SettingsUIEvent.SelectThemeMode(item.mode)) },
-        )
+        SettingsCard(modifier = Modifier) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = AppTheme.paddings.default),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Icon(
+                    modifier = Modifier.size(AppTheme.sizes.iconMedium),
+                    imageVector = Icons.Filled.Palette,
+                    contentDescription = null,
+                    tint = AppTheme.colors.primary,
+                )
+
+                Text(
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(start = AppTheme.paddings.default),
+                    text = stringResource(R.string.theme_label),
+                    style = AppTheme.typography.body1,
+                    color = AppTheme.colors.text,
+                )
+            }
+
+            AppDropdown(
+                modifier = Modifier.padding(bottom = AppTheme.paddings.medium),
+                items = themeItems,
+                selected = selectedItem,
+                onSelect = { item -> onEvent(SettingsUIEvent.SelectThemeMode(item.mode)) },
+            )
+
+            SettingsDivider(modifier = Modifier)
+
+            ButtonText(
+                modifier = Modifier.fillMaxWidth(),
+                text = stringResource(R.string.theme_list_add_theme),
+                onClick = { onEvent(SettingsUIEvent.NavigateToThemeBuilder) },
+            )
+        }
     }
 }
 

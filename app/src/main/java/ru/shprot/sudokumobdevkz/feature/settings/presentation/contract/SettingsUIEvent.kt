@@ -36,4 +36,10 @@ sealed interface SettingsUIEvent : UIEvent {
 
     data class SelectThemeMode(val mode: ThemeMode) : SettingsUIEvent
     data class SelectHintMode(val mode: HintMode) : SettingsUIEvent
+
+    data object NavigateToThemeBuilder : SettingsUIEvent
+    data class NavigateToEditTheme(val themeId: String) : SettingsUIEvent
+    data class RequestDeleteTheme(val themeId: String) : SettingsUIEvent
+    data object ConfirmDeleteTheme : SettingsUIEvent
+    data object DismissDeleteThemeDialog : SettingsUIEvent
 }

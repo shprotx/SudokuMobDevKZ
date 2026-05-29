@@ -1,0 +1,141 @@
+package ru.shprot.sudokumobdevkz.feature.themebuilder.presentation.components.screencontent
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import ru.shprot.sudokumobdevkz.R
+import ru.shprot.sudokumobdevkz.core.base.domain.model.ThemeColors
+import ru.shprot.sudokumobdevkz.core.theme.AppTheme
+import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonDefault
+import ru.shprot.sudokumobdevkz.core.uicommon.toolbar.ToolbarDefault
+import ru.shprot.sudokumobdevkz.feature.themebuilder.presentation.components.ColorCategoryList
+import ru.shprot.sudokumobdevkz.feature.themebuilder.presentation.components.ColorPickerSheet
+import ru.shprot.sudokumobdevkz.feature.themebuilder.presentation.components.PresetChipRow
+import ru.shprot.sudokumobdevkz.feature.themebuilder.presentation.components.SaveThemeDialog
+import ru.shprot.sudokumobdevkz.feature.themebuilder.presentation.components.ThemePreviewBlock
+import ru.shprot.sudokumobdevkz.feature.themebuilder.presentation.components.getColorByKeyInternal
+import ru.shprot.sudokumobdevkz.feature.themebuilder.presentation.contract.ThemeBuilderUIEvent
+import ru.shprot.sudokumobdevkz.feature.themebuilder.presentation.contract.ThemeBuilderUIState
+import ru.shprot.sudokumobdevkz.feature.themebuilder.presentation.viewmodel.ThemeBuilderViewModel
+
+@Composable
+fun ThemeBuilderScreenContent(
+    uiState: ThemeBuilderUIState,
+    onEvent: (ThemeBuilderUIEvent) -> Unit,
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(AppTheme.colors.background)
+            .verticalScroll(rememberScrollState()),
+    ) {
+        ToolbarDefault(
+            modifier = Modifier,
+            title = stringResource(R.string.theme_builder_title),
+            onLeadIconClick = { onEvent(ThemeBuilderUIEvent.BackClicked) },
+        )
+
+        ThemePreviewBlock(
+            colors = uiState.colors,
+            modifier = Modifier.padding(horizontal = AppTheme.paddings.large),
+        )
+
+        Spacer(modifier = Modifier.height(AppTheme.paddings.medium))
+
+        PresetChipRow(
+            onPresetSelected = { onEvent(ThemeBuilderUIEvent.SelectPreset(it)) },
+        )
+
+        Spacer(modifier = Modifier.height(AppTheme.paddings.medium))
+
+        if (hasLowContrast(uiState.colors)) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = AppTheme.paddings.large, vertical = AppTheme.paddings.small),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Icon(
+                    modifier = Modifier.size(AppTheme.sizes.iconSmall),
+                    imageVector = Icons.Filled.Warning,
+                    contentDescription = null,
+                    tint = AppTheme.colors.warning,
+                )
+                Text(
+                    modifier = Modifier.padding(start = AppTheme.paddings.small),
+                    text = stringResource(R.string.theme_builder_low_contrast_warning),
+                    style = AppTheme.typography.body3,
+                    color = AppTheme.colors.warning,
+                )
+            }
+        }
+
+        ColorCategoryList(
+            colors = uiState.colors,
+            onColorKeyClick = { key -> onEvent(ThemeBuilderUIEvent.OpenColorPicker(key)) },
+            modifier = Modifier.padding(horizontal = AppTheme.paddings.large),
+        )
+
+        ButtonDefault(
+            modifier = Modifier
+                .padding(horizontal = AppTheme.paddings.large)
+                .padding(top = AppTheme.paddings.xxl),
+            text = stringResource(R.string.theme_builder_save),
+            onClick = { onEvent(ThemeBuilderUIEvent.SaveClicked) },
+        )
+
+        Spacer(modifier = Modifier.height(AppTheme.paddings.xxl).navigationBarsPadding())
+    }
+
+    if (uiState.showSaveDialog) {
+        SaveThemeDialog(
+            initialName = uiState.themeName,
+            showNameError = uiState.showNameError,
+            onConfirm = { name -> onEvent(ThemeBuilderUIEvent.ConfirmSave(name)) },
+            onDismiss = { onEvent(ThemeBuilderUIEvent.DismissSaveDialog) },
+        )
+    }
+
+    val selectedKey = uiState.selectedColorKey
+    if (uiState.showColorPicker && selectedKey != null) {
+        val initialColor = getColorByKey(uiState.colors, selectedKey)
+        ColorPickerSheet(
+            initialColor = initialColor,
+            onColorChanged = { argb -> onEvent(ThemeBuilderUIEvent.ColorChanged(selectedKey, argb)) },
+            onDismiss = { onEvent(ThemeBuilderUIEvent.DismissColorPicker) },
+        )
+    }
+}
+
+private fun getColorByKey(
+    colors: ThemeColors,
+    key: String,
+): Long = getColorByKeyInternal(colors, key)
+
+private fun hasLowContrast(colors: ThemeColors): Boolean {
+    val bg = Color(colors.background)
+    val text = Color(colors.text)
+    val bgLum = 0.2126f * bg.red + 0.7152f * bg.green + 0.0722f * bg.blue
+    val textLum = 0.2126f * text.red + 0.7152f * text.green + 0.0722f * text.blue
+    val lighter = maxOf(bgLum, textLum) + 0.05f
+    val darker = minOf(bgLum, textLum) + 0.05f
+    return (lighter / darker) < 3.0f
+}

@@ -9,6 +9,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import ru.shprot.sudokumobdevkz.core.base.data.database.SudokuComposeDatabase
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.AchievementUnlockedDao
+import ru.shprot.sudokumobdevkz.core.base.data.database.dao.CustomThemeDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.DailyChallengeDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.GameHistoryDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.SavedGameDao
@@ -17,6 +18,7 @@ import ru.shprot.sudokumobdevkz.core.base.data.database.migration.MIGRATION_3_4
 import ru.shprot.sudokumobdevkz.core.base.data.database.migration.MIGRATION_4_5
 import ru.shprot.sudokumobdevkz.core.base.data.database.migration.MIGRATION_5_6
 import ru.shprot.sudokumobdevkz.core.base.data.database.migration.MIGRATION_6_7
+import ru.shprot.sudokumobdevkz.core.base.data.database.migration.MIGRATION_7_8
 import javax.inject.Singleton
 
 @Module
@@ -27,7 +29,7 @@ object DatabaseModule {
     @Singleton
     fun provideDatabase(@ApplicationContext context: Context): SudokuComposeDatabase =
         Room.databaseBuilder(context, SudokuComposeDatabase::class.java, "sudoku_compose_db")
-            .addMigrations(MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7)
+            .addMigrations(MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7, MIGRATION_7_8)
             .fallbackToDestructiveMigration()
             .build()
 
@@ -46,4 +48,7 @@ object DatabaseModule {
     @Provides
     fun provideAchievementUnlockedDao(db: SudokuComposeDatabase): AchievementUnlockedDao =
         db.achievementUnlockedDao()
+
+    @Provides
+    fun provideCustomThemeDao(db: SudokuComposeDatabase): CustomThemeDao = db.customThemeDao()
 }

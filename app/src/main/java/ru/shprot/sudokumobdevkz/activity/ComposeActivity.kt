@@ -12,9 +12,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalView
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
@@ -28,9 +28,9 @@ import ru.shprot.sudokumobdevkz.activity.achievement.AchievementUnlockedHost
 import ru.shprot.sudokumobdevkz.activity.navigation.SudokuNavHost
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.CloudGameServices
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SettingsRepository
-import ru.shprot.sudokumobdevkz.core.base.domain.model.ThemeMode
-import ru.shprot.sudokumobdevkz.core.base.domain.model.resolveDark
+import ru.shprot.sudokumobdevkz.core.base.data.repository.IThemeRepository
 import ru.shprot.sudokumobdevkz.core.base.presentation.navigation.NavRoute
+import ru.shprot.sudokumobdevkz.core.theme.AppColors
 import ru.shprot.sudokumobdevkz.core.theme.SudokuTheme
 import ru.shprot.sudokumobdevkz.core.uicommon.snackbar.AppSnackbarHost
 import ru.shprot.sudokumobdevkz.feature.menu.presentation.navigation.MenuRoutes
@@ -45,6 +45,9 @@ class ComposeActivity : ComponentActivity() {
 
     @Inject
     lateinit var cloudGameServices: CloudGameServices
+
+    @Inject
+    lateinit var themeRepository: IThemeRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val isAndroid12Plus = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
@@ -62,6 +65,9 @@ class ComposeActivity : ComponentActivity() {
         lifecycleScope.launch {
             cloudGameServices.trySilentSignIn()
         }
+        lifecycleScope.launch {
+            themeRepository.seedBuiltIns()
+        }
         WindowCompat.setDecorFitsSystemWindows(window, false)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.attributes.layoutInDisplayCutoutMode =
@@ -73,8 +79,10 @@ class ComposeActivity : ComponentActivity() {
             )
 
             val isSystemDark = isSystemInDarkTheme()
-            val themeMode = remember(settings.themeModeId) { ThemeMode.fromId(settings.themeModeId) }
-            val isDark = themeMode.resolveDark(isSystemDark)
+            val resolvedColors by themeRepository.resolveColors(settings.themeModeId, isSystemDark)
+                .collectAsStateWithLifecycle(initialValue = AppColors.LightColors)
+            val isDark = resolvedColors == AppColors.DarkColors ||
+                (resolvedColors != AppColors.LightColors && isBackgroundDark(resolvedColors.background))
 
             val view = LocalView.current
             if (!view.isInEditMode) {
@@ -86,7 +94,7 @@ class ComposeActivity : ComponentActivity() {
                 }
             }
 
-            SudokuTheme(darkTheme = isDark) {
+            SudokuTheme(colors = resolvedColors) {
                 val navController = rememberNavController()
                 val startDestination: NavRoute = if (isAndroid12Plus) {
                     MenuRoutes.MenuScreen
@@ -121,5 +129,12 @@ class ComposeActivity : ComponentActivity() {
 
     private companion object {
         const val SPLASH_MIN_DURATION_MS = 1300L
+
+        fun isBackgroundDark(color: Color): Boolean {
+            val r = color.red * 0.2126f
+            val g = color.green * 0.7152f
+            val b = color.blue * 0.0722f
+            return (r + g + b) < 0.35f
+        }
     }
 }

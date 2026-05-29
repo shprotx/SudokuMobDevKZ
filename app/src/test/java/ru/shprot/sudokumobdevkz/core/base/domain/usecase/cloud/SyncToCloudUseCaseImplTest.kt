@@ -18,10 +18,12 @@ import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.PlayerScore
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.SignInResult
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.SignInState
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.AchievementUnlockedDao
+import ru.shprot.sudokumobdevkz.core.base.data.database.dao.CustomThemeDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.DailyChallengeDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.SavedGameDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.StatisticDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.AchievementUnlockedEntity
+import ru.shprot.sudokumobdevkz.core.base.data.database.entity.CustomThemeEntity
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.DailyChallengeEntity
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.SavedGameEntity
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.StatisticEntity
@@ -41,6 +43,7 @@ class SyncToCloudUseCaseImplTest {
             achievementUnlockedDao = EmptyAchievementUnlockedDao(),
             dailyChallengeDao = EmptyDailyChallengeDao(),
             savedGameDao = EmptySavedGameDao(),
+            customThemeDao = EmptyCustomThemeDao(),
         )
     }
 
@@ -141,4 +144,13 @@ internal class EmptySavedGameDao : SavedGameDao {
     override suspend fun save(game: SavedGameEntity) = Unit
     override suspend fun get(): SavedGameEntity? = null
     override suspend fun delete() = Unit
+}
+
+internal class EmptyCustomThemeDao : CustomThemeDao {
+    override fun observeAll(): Flow<List<CustomThemeEntity>> = MutableStateFlow(emptyList())
+    override suspend fun getAll(): List<CustomThemeEntity> = emptyList()
+    override suspend fun getById(id: String): CustomThemeEntity? = null
+    override suspend fun upsert(entity: CustomThemeEntity) = Unit
+    override suspend fun deleteById(id: String) = Unit
+    override suspend fun exists(id: String): Int = 0
 }

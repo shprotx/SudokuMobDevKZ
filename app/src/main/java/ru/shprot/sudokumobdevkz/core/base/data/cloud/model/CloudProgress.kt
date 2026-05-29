@@ -9,9 +9,10 @@ data class CloudProgress(
     val unlockedAchievements: List<UnlockedAchievementDto> = emptyList(),
     val dailyChallenges: List<DailyChallengeDto> = emptyList(),
     val savedGame: SavedGameDto? = null,
+    val customThemes: List<CustomThemeDto> = emptyList(),
     val lastSyncTimestamp: Long = 0L,
 ) {
     companion object {
-        const val SCHEMA_VERSION = 1
+        const val SCHEMA_VERSION = 2
     }
 }
