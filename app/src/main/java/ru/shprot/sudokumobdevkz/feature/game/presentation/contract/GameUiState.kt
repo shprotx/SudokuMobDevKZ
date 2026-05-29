@@ -31,4 +31,7 @@ data class GameUIState(
     val isHintModeActive: Boolean = false,
     val themePopupExpanded: Boolean = false,
     val selectedThemeId: String = ThemeMode.System.id,
+    val draftPopupVisible: Boolean = false,
+    val draftPopupRow: Int = -1,
+    val draftPopupCol: Int = -1,
 ) : UIState

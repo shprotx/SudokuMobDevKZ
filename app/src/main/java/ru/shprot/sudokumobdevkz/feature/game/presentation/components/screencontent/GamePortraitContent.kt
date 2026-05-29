@@ -11,8 +11,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.layout.boundsInWindow
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.res.stringResource
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.base.presentation.util.deviceFitsTwoRowInPortrait
@@ -27,6 +33,7 @@ internal fun GamePortraitContent(
 ) {
     val deviceFitsTwoRow = deviceFitsTwoRowInPortrait()
     val useCompactPad = uiState.compactNumberPadPreference && deviceFitsTwoRow
+    var gridBounds by remember { mutableStateOf(Rect.Zero) }
 
     Column(
         modifier = Modifier
@@ -64,11 +71,15 @@ internal fun GamePortraitContent(
         )
 
         SudokuGrid(
-            modifier = Modifier.padding(
-                top = AppTheme.paddings.default,
-                start = AppTheme.paddings.medium,
-                end = AppTheme.paddings.medium,
-            ),
+            modifier = Modifier
+                .padding(
+                    top = AppTheme.paddings.default,
+                    start = AppTheme.paddings.medium,
+                    end = AppTheme.paddings.medium,
+                )
+                .onGloballyPositioned { coords ->
+                    gridBounds = coords.boundsInWindow()
+                },
             cells = uiState.cells,
             selectedRow = uiState.selectedRow,
             selectedCol = uiState.selectedCol,
@@ -77,7 +88,21 @@ internal fun GamePortraitContent(
             onCellClick = { row, col ->
                 onEvent(GameUIEvent.CellClicked(row, col))
             },
+            onCellLongClick = { row, col ->
+                onEvent(GameUIEvent.CellLongPressed(row, col))
+            },
         )
+
+        if (uiState.draftPopupVisible && uiState.draftPopupRow in 0..8 && uiState.draftPopupCol in 0..8) {
+            DraftNotesPopup(
+                row = uiState.draftPopupRow,
+                col = uiState.draftPopupCol,
+                notes = uiState.cells[uiState.draftPopupRow][uiState.draftPopupCol].notes,
+                gridBounds = gridBounds,
+                onNumberClick = { onEvent(GameUIEvent.DraftNoteToggled(it)) },
+                onDismiss = { onEvent(GameUIEvent.DismissDraftPopup) },
+            )
+        }
 
         WeightSpacer()
 

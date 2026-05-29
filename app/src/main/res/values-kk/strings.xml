@@ -266,5 +266,5 @@
     <string name="theme_delete_confirm_message">This cannot be undone.</string>
     <string name="theme_deleted_fallback">Theme deleted. Switched to Light.</string>
     <string name="theme_saved">Theme saved</string>
-
+    <string name="draft_notes_popup_number_description">Жазба %1$d</string>
 </resources>

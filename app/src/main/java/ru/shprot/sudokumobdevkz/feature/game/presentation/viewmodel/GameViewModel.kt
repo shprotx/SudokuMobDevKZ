@@ -126,6 +126,9 @@ class GameViewModel @Inject constructor(
             GameUIEvent.DismissThemePopup ->
                 updateState { copy(themePopupExpanded = false) }
 
+            GameUIEvent.DismissDraftPopup ->
+                updateState { copy(draftPopupVisible = false) }
+
             is GameUIEvent.CellClicked ->
                 onCellClicked(event.row, event.col)
 
@@ -137,6 +140,12 @@ class GameViewModel @Inject constructor(
 
             is GameUIEvent.ThemeSelected ->
                 handleThemeSelected(event.themeId)
+
+            is GameUIEvent.CellLongPressed ->
+                onCellLongPressed(event.row, event.col)
+
+            is GameUIEvent.DraftNoteToggled ->
+                onDraftNoteToggled(event.number)
         }
 
     private fun handleThemeSelected(themeId: String) {
@@ -672,6 +681,36 @@ class GameViewModel @Inject constructor(
             }
         }
         gameOver(isWin = isCorrect)
+    }
+
+    private fun onCellLongPressed(row: Int, col: Int) {
+        val state = currentState
+        if (state.isGenerating || state.isGameOver || state.isPaused) return
+        val cell = state.cells[row][col]
+        if (cell.isGiven || cell.value != 0) return
+        updateState {
+            copy(
+                draftPopupVisible = true,
+                draftPopupRow = row,
+                draftPopupCol = col,
+                selectedRow = row,
+                selectedCol = col,
+            )
+        }
+    }
+
+    private fun onDraftNoteToggled(number: Int) {
+        val state = currentState
+        if (!state.draftPopupVisible) return
+        val row = state.draftPopupRow
+        val col = state.draftPopupCol
+        val cell = state.cells[row][col]
+        if (cell.isGiven || cell.value != 0) return
+        val newNotes = if (number in cell.notes) cell.notes - number else cell.notes + number
+        undoStack.add(UndoEntry(row, col, cell))
+        val newCells = state.cells.toMutableGrid()
+        newCells[row][col] = cell.copy(notes = newNotes)
+        setState(state.copy(cells = newCells.toImmutableGrid()))
     }
 
     private fun List<List<CellData>>.toMutableGrid(): MutableList<MutableList<CellData>> =
