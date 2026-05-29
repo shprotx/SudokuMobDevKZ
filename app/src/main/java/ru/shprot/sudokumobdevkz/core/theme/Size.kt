@@ -36,6 +36,7 @@ data class Size(
     val colorSliderKnob: Dp = 3.dp,
     val colorSwatch: Dp = 36.dp,
     val colorPickerPreview: Dp = 150.dp,
+    val themePickerWidth: Dp = 260.dp,
 )
 
 internal val LocalAppSizes = staticCompositionLocalOf { Size() }

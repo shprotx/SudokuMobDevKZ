@@ -1,15 +1,18 @@
 package ru.shprot.sudokumobdevkz.feature.game.presentation.components
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Palette
 import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,9 +25,14 @@ import ru.shprot.sudokumobdevkz.core.uicommon.button.ToolbarCircleButton
 @Composable
 fun GameToolbar(
     modifier: Modifier,
+    themePopupExpanded: Boolean,
+    selectedThemeId: String,
     onBackClick: () -> Unit,
     onRestartClick: () -> Unit,
     onPauseClick: () -> Unit,
+    onPaletteClick: () -> Unit,
+    onThemeSelected: (String) -> Unit,
+    onDismissThemePopup: () -> Unit,
     onSettingsClick: () -> Unit,
 ) {
 
@@ -68,6 +76,25 @@ fun GameToolbar(
             contentDescription = stringResource(R.string.pause),
             onClick = onPauseClick,
         )
+
+        Box {
+            ToolbarCircleButton(
+                modifier = Modifier,
+                icon = Icons.Filled.Palette,
+                contentDescription = stringResource(R.string.theme_label),
+                onClick = onPaletteClick,
+            )
+
+            DropdownMenu(
+                expanded = themePopupExpanded,
+                onDismissRequest = onDismissThemePopup,
+            ) {
+                ThemeQuickPicker(
+                    selectedThemeId = selectedThemeId,
+                    onSelect = onThemeSelected,
+                )
+            }
+        }
 
         ToolbarCircleButton(
             modifier = Modifier,

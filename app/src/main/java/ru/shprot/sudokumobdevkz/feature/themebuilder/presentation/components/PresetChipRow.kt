@@ -15,6 +15,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import ru.shprot.sudokumobdevkz.core.base.domain.model.ThemeColors
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
+import ru.shprot.sudokumobdevkz.core.theme.ThemePalettes
 
 @Composable
 internal fun PresetChipRow(

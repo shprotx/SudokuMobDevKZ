@@ -12,6 +12,7 @@ import ru.shprot.sudokumobdevkz.core.base.domain.model.ThemeMode
 import ru.shprot.sudokumobdevkz.core.base.domain.model.toAppColors
 import ru.shprot.sudokumobdevkz.core.theme.AppColors
 import ru.shprot.sudokumobdevkz.core.theme.BuiltInTheme
+import ru.shprot.sudokumobdevkz.core.theme.ThemePalettes
 import ru.shprot.sudokumobdevkz.core.theme.toThemeColors
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -60,7 +61,9 @@ class ThemeRepository @Inject constructor(
                 BuiltInTheme.LIGHT.id, ThemeMode.Light.id -> AppColors.LightColors
                 BuiltInTheme.DARK.id, ThemeMode.Dark.id -> AppColors.DarkColors
                 ThemeMode.System.id -> systemColors
-                else -> themes.firstOrNull { it.id == themeId }?.colors?.toAppColors() ?: systemColors
+                else -> ThemePalettes.byId(themeId)?.colors?.toAppColors()
+                    ?: themes.firstOrNull { it.id == themeId }?.colors?.toAppColors()
+                    ?: systemColors
             }
         }
 

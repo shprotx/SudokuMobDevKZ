@@ -19,8 +19,11 @@ sealed interface GameUIEvent : UIEvent {
     data object ExitGame : GameUIEvent
     data object SaveState : GameUIEvent
     data object SettingsClicked : GameUIEvent
+    data object PaletteClicked : GameUIEvent
+    data object DismissThemePopup : GameUIEvent
 
     class CellClicked(val row: Int, val col: Int) : GameUIEvent
     class NumberClicked(val number: Int) : GameUIEvent
     class StartNewGame(val difficultyOrdinal: Int) : GameUIEvent
+    class ThemeSelected(val themeId: String) : GameUIEvent
 }

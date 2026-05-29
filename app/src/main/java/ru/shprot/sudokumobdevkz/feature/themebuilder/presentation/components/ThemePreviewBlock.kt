@@ -47,9 +47,14 @@ internal fun ThemePreviewBlock(
             ) {
                 GameToolbar(
                     modifier = Modifier,
+                    themePopupExpanded = false,
+                    selectedThemeId = "",
                     onBackClick = {},
                     onRestartClick = {},
                     onPauseClick = {},
+                    onPaletteClick = {},
+                    onThemeSelected = {},
+                    onDismissThemePopup = {},
                     onSettingsClick = {},
                 )
 
