@@ -83,7 +83,7 @@ play {
     }
     defaultToAppBundles.set(true)
     track.set('internal')
-    releaseStatus.set(ReleaseStatus.DRAFT)
+    releaseStatus.set(ReleaseStatus.COMPLETED)
     resolutionStrategy.set(ResolutionStrategy.IGNORE)
     releaseName.set(android.defaultConfig.versionName)
 }
