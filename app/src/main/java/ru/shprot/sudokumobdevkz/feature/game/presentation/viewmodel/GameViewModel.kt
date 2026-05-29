@@ -60,7 +60,12 @@ class GameViewModel @Inject constructor(
         }
         viewModelScope.launch {
             settingsRepository.settings.collectLatest { settings ->
-                updateState { copy(compactNumberPadPreference = settings.compactNumberPad) }
+                updateState {
+                    copy(
+                        compactNumberPadPreference = settings.compactNumberPad,
+                        selectedThemeId = settings.themeModeId,
+                    )
+                }
             }
         }
     }
@@ -115,6 +120,12 @@ class GameViewModel @Inject constructor(
             GameUIEvent.SettingsClicked ->
                 setEffect(GameUIEffect.NavigateToSettings)
 
+            GameUIEvent.PaletteClicked ->
+                updateState { copy(themePopupExpanded = true) }
+
+            GameUIEvent.DismissThemePopup ->
+                updateState { copy(themePopupExpanded = false) }
+
             is GameUIEvent.CellClicked ->
                 onCellClicked(event.row, event.col)
 
@@ -123,7 +134,14 @@ class GameViewModel @Inject constructor(
 
             is GameUIEvent.StartNewGame ->
                 handleStartNewGame(event.difficultyOrdinal)
+
+            is GameUIEvent.ThemeSelected ->
+                handleThemeSelected(event.themeId)
         }
+
+    private fun handleThemeSelected(themeId: String) {
+        settingsRepository.update { copy(themeModeId = themeId) }
+    }
 
     private fun handleShowPauseDialog() {
         onPause()

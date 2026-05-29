@@ -34,11 +34,10 @@ import androidx.compose.ui.res.stringResource
 import kotlinx.collections.immutable.toImmutableList
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.base.domain.model.ThemeMode
-import ru.shprot.sudokumobdevkz.core.base.domain.model.isDark
 import ru.shprot.sudokumobdevkz.core.base.presentation.util.deviceFitsTwoRowInPortrait
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
+import ru.shprot.sudokumobdevkz.core.theme.ThemePalettes
 import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonDefault
-import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonText
 import ru.shprot.sudokumobdevkz.core.uicommon.dropdown.AppDropdown
 import ru.shprot.sudokumobdevkz.core.uicommon.toolbar.ToolbarDefault
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.HintModeSection
@@ -49,7 +48,6 @@ import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.setting
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsSectionHeader
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsToggleItem
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsVersionFooter
-import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.theme.ThemeItemActions
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.theme.ThemeModeDropdownItem
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.contract.SettingsUIEvent
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.contract.SettingsUIState
@@ -220,17 +218,11 @@ internal fun AppearanceSettingsCard(
     uiState: SettingsUIState,
     onEvent: (SettingsUIEvent) -> Unit,
 ) {
-    val customThemes = remember(uiState.customThemes) {
-        uiState.customThemes.filter { !it.isBuiltIn }
+    val presetItems = ThemePalettes.all.map { palette ->
+        ThemeModeDropdownItem(ThemeMode.Custom(palette.id, stringResource(palette.labelRes), palette.isDark))
     }
-    val themeItems = remember(customThemes) {
-        (ThemeMode.builtIn().map(::ThemeModeDropdownItem) +
-            customThemes.map { ThemeModeDropdownItem(ThemeMode.Custom(it.id, it.name, it.isDark)) })
-            .toImmutableList()
-    }
-    val selectedItem = remember(uiState.settings.themeModeId, themeItems) {
-        themeItems.firstOrNull { it.id == uiState.settings.themeModeId } ?: themeItems.first()
-    }
+    val themeItems = (ThemeMode.builtIn().map(::ThemeModeDropdownItem) + presetItems).toImmutableList()
+    val selectedItem = themeItems.firstOrNull { it.id == uiState.settings.themeModeId } ?: themeItems.first()
 
     SettingsCard(modifier = Modifier) {
         Row(
@@ -261,23 +253,6 @@ internal fun AppearanceSettingsCard(
             items = themeItems,
             selected = selectedItem,
             onSelect = { item -> onEvent(SettingsUIEvent.SelectThemeMode(item.mode)) },
-            trailingContent = { item ->
-                val mode = item.mode
-                if (mode is ThemeMode.Custom) {
-                    ThemeItemActions(
-                        onEdit = { onEvent(SettingsUIEvent.NavigateToEditTheme(mode.id)) },
-                        onDelete = { onEvent(SettingsUIEvent.RequestDeleteTheme(mode.id)) },
-                    )
-                }
-            },
-        )
-
-        SettingsDivider(modifier = Modifier)
-
-        ButtonText(
-            modifier = Modifier.fillMaxWidth(),
-            text = stringResource(R.string.theme_list_add_theme),
-            onClick = { onEvent(SettingsUIEvent.NavigateToThemeBuilder) },
         )
     }
 }

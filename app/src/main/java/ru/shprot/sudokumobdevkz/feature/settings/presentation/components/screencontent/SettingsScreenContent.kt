@@ -7,7 +7,6 @@ import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.Setting
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.SettingsResetDialog
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.cloud.CloudImportDialog
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.cloud.SignOutHintDialog
-import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.theme.ThemeDeleteDialog
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.contract.CloudImportState
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.contract.SettingsUIEvent
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.contract.SettingsUIState
@@ -54,13 +53,6 @@ fun SettingsScreenContent(
             onKeepLocal = { onEvent(SettingsUIEvent.ImportChoiceKeepLocal) },
             onUseCloud = { onEvent(SettingsUIEvent.ImportChoiceUseCloud) },
             onDismiss = { onEvent(SettingsUIEvent.DismissImportDialog) },
-        )
-    }
-
-    if (uiState.showDeleteThemeDialog) {
-        ThemeDeleteDialog(
-            onConfirm = { onEvent(SettingsUIEvent.ConfirmDeleteTheme) },
-            onDismiss = { onEvent(SettingsUIEvent.DismissDeleteThemeDialog) },
         )
     }
 }

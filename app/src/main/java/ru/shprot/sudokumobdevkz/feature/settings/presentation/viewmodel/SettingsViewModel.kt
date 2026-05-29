@@ -2,7 +2,6 @@ package ru.shprot.sudokumobdevkz.feature.settings.presentation.viewmodel
 
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import ru.shprot.sudokumobdevkz.R
@@ -10,12 +9,9 @@ import ru.shprot.sudokumobdevkz.core.base.data.cloud.CloudGameServices
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.CloudProgressMerger
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.SignInResult
 import ru.shprot.sudokumobdevkz.core.base.domain.model.AppSettings
-import ru.shprot.sudokumobdevkz.core.base.data.repository.IThemeRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SettingsRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SudokuRepository
-import ru.shprot.sudokumobdevkz.core.base.data.repository.ThemeRepository
 import ru.shprot.sudokumobdevkz.core.base.domain.model.Difficulty
-import ru.shprot.sudokumobdevkz.core.base.domain.model.ThemeMode
 import ru.shprot.sudokumobdevkz.core.base.domain.usecase.cloud.ImportFromCloudUseCase
 import ru.shprot.sudokumobdevkz.core.base.domain.usecase.cloud.SyncToCloudUseCase
 import ru.shprot.sudokumobdevkz.core.base.presentation.viewmodel.BaseViewModel
@@ -32,7 +28,6 @@ class SettingsViewModel @Inject constructor(
     private val cloud: CloudGameServices,
     private val importFromCloud: ImportFromCloudUseCase,
     private val syncToCloud: SyncToCloudUseCase,
-    private val themeRepository: IThemeRepository,
 ) : BaseViewModel<SettingsUIEvent, SettingsUIState, SettingsUIEffect>(
     SettingsUIState()
 ) {
@@ -56,11 +51,6 @@ class SettingsViewModel @Inject constructor(
                 cloud.signInState.collect { state ->
                     updateState { copy(signInState = state) }
                 }
-            }
-        }
-        viewModelScope.launch {
-            themeRepository.observeAll().collectLatest { themes ->
-                updateState { copy(customThemes = themes.toImmutableList()) }
             }
         }
     }
@@ -153,26 +143,11 @@ class SettingsViewModel @Inject constructor(
             SettingsUIEvent.DismissImportDialog ->
                 updateState { copy(cloudImport = CloudImportState.Idle) }
 
-            SettingsUIEvent.NavigateToThemeBuilder ->
-                setEffect(SettingsUIEffect.NavigateToThemeBuilder)
-
-            SettingsUIEvent.ConfirmDeleteTheme ->
-                handleConfirmDeleteTheme()
-
-            SettingsUIEvent.DismissDeleteThemeDialog ->
-                updateState { copy(showDeleteThemeDialog = false, themeToDeleteId = null) }
-
             is SettingsUIEvent.SelectThemeMode ->
                 settingsRepository.update { copy(themeModeId = event.mode.id) }
 
             is SettingsUIEvent.SelectHintMode ->
                 settingsRepository.update { copy(hintMode = event.mode) }
-
-            is SettingsUIEvent.NavigateToEditTheme ->
-                setEffect(SettingsUIEffect.NavigateToEditTheme(event.themeId))
-
-            is SettingsUIEvent.RequestDeleteTheme ->
-                updateState { copy(showDeleteThemeDialog = true, themeToDeleteId = event.themeId) }
         }
 
     private fun handleSignIn() {
@@ -229,18 +204,6 @@ class SettingsViewModel @Inject constructor(
             updateState { copy(showLockedSettingDialog = true) }
         } else {
             settingsRepository.update(transform)
-        }
-    }
-
-    private fun handleConfirmDeleteTheme() {
-        val id = currentState.themeToDeleteId ?: return
-        updateState { copy(showDeleteThemeDialog = false, themeToDeleteId = null) }
-        viewModelScope.launch(exceptionHandler) {
-            themeRepository.delete(id)
-            if (currentState.settings.themeModeId == id) {
-                settingsRepository.update { copy(themeModeId = ThemeMode.Light.id) }
-                setEffect(SettingsUIEffect.ShowMessage(R.string.theme_deleted_fallback))
-            }
         }
     }
 

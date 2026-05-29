@@ -33,12 +33,7 @@ sealed interface SettingsUIEvent : UIEvent {
     data object ImportChoiceKeepLocal : SettingsUIEvent
     data object ImportChoiceUseCloud : SettingsUIEvent
     data object DismissImportDialog : SettingsUIEvent
-    data object NavigateToThemeBuilder : SettingsUIEvent
-    data object ConfirmDeleteTheme : SettingsUIEvent
-    data object DismissDeleteThemeDialog : SettingsUIEvent
 
     data class SelectThemeMode(val mode: ThemeMode) : SettingsUIEvent
     data class SelectHintMode(val mode: HintMode) : SettingsUIEvent
-    data class NavigateToEditTheme(val themeId: String) : SettingsUIEvent
-    data class RequestDeleteTheme(val themeId: String) : SettingsUIEvent
 }

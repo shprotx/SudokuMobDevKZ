@@ -41,9 +41,14 @@ internal fun GamePortraitContent(
     ) {
         GameToolbar(
             modifier = Modifier,
+            themePopupExpanded = uiState.themePopupExpanded,
+            selectedThemeId = uiState.selectedThemeId,
             onBackClick = { onEvent(GameUIEvent.BackClicked) },
             onRestartClick = { onEvent(GameUIEvent.NewGameClicked) },
             onPauseClick = { onEvent(GameUIEvent.ShowPauseDialog) },
+            onPaletteClick = { onEvent(GameUIEvent.PaletteClicked) },
+            onThemeSelected = { onEvent(GameUIEvent.ThemeSelected(it)) },
+            onDismissThemePopup = { onEvent(GameUIEvent.DismissThemePopup) },
             onSettingsClick = { onEvent(GameUIEvent.SettingsClicked) },
         )
 
