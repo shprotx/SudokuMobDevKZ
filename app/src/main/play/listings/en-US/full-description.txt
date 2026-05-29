@@ -1,0 +1,17 @@
+Classic Sudoku — clean, offline, and free of ads.
+
+Sudoku is the timeless number puzzle: fill the 9×9 grid so every row, column, and 3×3 box contains the digits 1 to 9. Simple rules, endless logic.
+
+WHAT'S INSIDE
+• Three difficulty levels — from easy to expert. Every sudoku puzzle is generated with a guaranteed unique solution.
+• 20+ color themes — switch instantly right from the game screen. Light, dark, Solarized, Nord, Dracula, Mocha and many more.
+• Notes, hints and undo. Long-press an empty cell for a quick draft-notes popup — mark candidates without leaving the board.
+• Auto-save — step away anytime and continue exactly where you left off.
+• Daily challenge — a fresh puzzle every day.
+• Statistics per difficulty: best time, average time, win streaks and win rate. Compare your results with other players.
+• Achievements to unlock as you play.
+• Fully offline. No ads. No clutter.
+
+Casual mode (unlimited hints or errors) is available in settings and is counted separately, so it never affects your main statistics.
+
+Train your brain with a daily sudoku puzzle. Relax, focus, enjoy.
