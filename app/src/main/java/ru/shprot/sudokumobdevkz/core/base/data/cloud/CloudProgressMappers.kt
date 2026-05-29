@@ -1,10 +1,12 @@
 package ru.shprot.sudokumobdevkz.core.base.data.cloud
 
+import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.CustomThemeDto
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.DailyChallengeDto
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.SavedGameDto
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.StatisticDto
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.UnlockedAchievementDto
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.AchievementUnlockedEntity
+import ru.shprot.sudokumobdevkz.core.base.data.database.entity.CustomThemeEntity
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.DailyChallengeEntity
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.SavedGameEntity
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.StatisticEntity
@@ -90,5 +92,20 @@ object CloudProgressMappers {
         solutionJson = solutionJson,
         isStandardMode = isStandardMode,
         timestamp = timestamp,
+    )
+
+    fun CustomThemeEntity.toDto(): CustomThemeDto = CustomThemeDto(
+        id = id,
+        name = name,
+        colorsJson = colorsJson,
+        createdAt = createdAt,
+    )
+
+    fun CustomThemeDto.toEntity(): CustomThemeEntity = CustomThemeEntity(
+        id = id,
+        name = name,
+        isBuiltIn = false,
+        colorsJson = colorsJson,
+        createdAt = createdAt,
     )
 }

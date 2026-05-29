@@ -2,6 +2,7 @@ package ru.shprot.sudokumobdevkz.core.base.data.repository
 
 import android.content.Context
 import ru.shprot.sudokumobdevkz.core.base.domain.model.AppSettings
+import ru.shprot.sudokumobdevkz.core.base.domain.model.HintMode
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey
@@ -26,18 +27,18 @@ private val Context.settingsDataStore by preferencesDataStore(name = "sudoku_set
 @Singleton
 class SettingsRepository @Inject constructor(
     @ApplicationContext private val context: Context,
-) {
+) : ISettingsRepository {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
     private val _settings: StateFlow<AppSettings> = context.settingsDataStore.data
         .map { prefs -> prefs.toAppSettings() }
         .stateIn(scope, SharingStarted.Eagerly, AppSettings())
 
-    val settings: Flow<AppSettings> = _settings
+    override val settings: Flow<AppSettings> = _settings
 
-    val currentSettings: AppSettings get() = _settings.value
+    override val currentSettings: AppSettings get() = _settings.value
 
-    fun update(transform: AppSettings.() -> AppSettings) {
+    override fun update(transform: AppSettings.() -> AppSettings) {
         val newSettings = currentSettings.transform()
         scope.launch {
             context.settingsDataStore.edit { prefs ->
@@ -53,6 +54,7 @@ class SettingsRepository @Inject constructor(
                 prefs[Keys.SOUNDS] = newSettings.soundsEnabled
                 prefs[Keys.COMPACT_NUMBER_PAD] = newSettings.compactNumberPad
                 prefs[Keys.SELECTED_DIFFICULTY] = newSettings.selectedDifficultyOrdinal
+                prefs[Keys.HINT_MODE] = newSettings.hintMode.name
             }
         }
     }
@@ -70,6 +72,7 @@ class SettingsRepository @Inject constructor(
         soundsEnabled = this[Keys.SOUNDS] ?: true,
         compactNumberPad = this[Keys.COMPACT_NUMBER_PAD] ?: false,
         selectedDifficultyOrdinal = this[Keys.SELECTED_DIFFICULTY] ?: 0,
+        hintMode = HintMode.from(this[Keys.HINT_MODE]),
     )
 
     private fun Preferences.resolveThemeModeId(): String =
@@ -92,5 +95,6 @@ class SettingsRepository @Inject constructor(
         val SOUNDS = booleanPreferencesKey("sounds")
         val COMPACT_NUMBER_PAD = booleanPreferencesKey("compact_number_pad")
         val SELECTED_DIFFICULTY = intPreferencesKey("selected_difficulty")
+        val HINT_MODE = stringPreferencesKey("hint_mode")
     }
 }

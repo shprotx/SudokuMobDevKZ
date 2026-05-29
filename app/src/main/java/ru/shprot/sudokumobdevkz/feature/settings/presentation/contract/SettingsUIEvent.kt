@@ -1,5 +1,6 @@
 package ru.shprot.sudokumobdevkz.feature.settings.presentation.contract
 
+import ru.shprot.sudokumobdevkz.core.base.domain.model.HintMode
 import ru.shprot.sudokumobdevkz.core.base.domain.model.ThemeMode
 import ru.shprot.sudokumobdevkz.core.base.presentation.contract.UIEvent
 
@@ -18,9 +19,9 @@ sealed interface SettingsUIEvent : UIEvent {
     data object ToggleShowTimer : SettingsUIEvent
     data object ToggleShowErrors : SettingsUIEvent
     data object ToggleTrackStatistics : SettingsUIEvent
-    data class SelectThemeMode(val mode: ThemeMode) : SettingsUIEvent
     data object ToggleSounds : SettingsUIEvent
     data object ToggleCompactNumberPad : SettingsUIEvent
+    data object NavigateToFeedback : SettingsUIEvent
     data object ShareAppClicked : SettingsUIEvent
     data object RateAppClicked : SettingsUIEvent
     data object SignInClicked : SettingsUIEvent
@@ -32,4 +33,7 @@ sealed interface SettingsUIEvent : UIEvent {
     data object ImportChoiceKeepLocal : SettingsUIEvent
     data object ImportChoiceUseCloud : SettingsUIEvent
     data object DismissImportDialog : SettingsUIEvent
+
+    data class SelectThemeMode(val mode: ThemeMode) : SettingsUIEvent
+    data class SelectHintMode(val mode: HintMode) : SettingsUIEvent
 }

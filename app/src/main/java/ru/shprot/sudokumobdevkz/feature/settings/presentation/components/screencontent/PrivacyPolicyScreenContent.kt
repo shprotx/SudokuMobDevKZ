@@ -69,6 +69,12 @@ fun PrivacyPolicyScreenContent(
             body = stringResource(R.string.privacy_changes),
         )
 
+        PrivacySection(
+            modifier = Modifier.padding(horizontal = AppTheme.paddings.large),
+            title = stringResource(R.string.privacy_feedback_title),
+            body = stringResource(R.string.privacy_feedback_body),
+        )
+
         Text(
             modifier = Modifier
                 .navigationBarsPadding()

@@ -17,6 +17,7 @@ internal fun <T : DropdownItem> AppDropdownItemsList(
     selected: T?,
     enabled: Boolean,
     leadingPreview: (@Composable (T) -> Unit)?,
+    trailingContent: (@Composable (T) -> Unit)?,
     onSelect: (T) -> Unit,
 ) {
     if (items.size > DROPDOWN_LAZY_THRESHOLD) {
@@ -35,6 +36,7 @@ internal fun <T : DropdownItem> AppDropdownItemsList(
                     isSelected = item.id == selected?.id,
                     enabled = enabled,
                     leadingPreview = leadingPreview,
+                    trailingContent = trailingContent,
                     onClick = { onSelect(item) },
                 )
             }
@@ -48,6 +50,7 @@ internal fun <T : DropdownItem> AppDropdownItemsList(
                     isSelected = item.id == selected?.id,
                     enabled = enabled,
                     leadingPreview = leadingPreview,
+                    trailingContent = trailingContent,
                     onClick = { onSelect(item) },
                 )
             }

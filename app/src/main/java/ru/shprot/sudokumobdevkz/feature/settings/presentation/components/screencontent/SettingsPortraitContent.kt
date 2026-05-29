@@ -15,6 +15,7 @@ import androidx.compose.material.icons.filled.BarChart
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Feedback
 import androidx.compose.material.icons.filled.GridView
 import androidx.compose.material.icons.filled.Lightbulb
 import androidx.compose.material.icons.filled.Palette
@@ -35,9 +36,11 @@ import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.base.domain.model.ThemeMode
 import ru.shprot.sudokumobdevkz.core.base.presentation.util.deviceFitsTwoRowInPortrait
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
+import ru.shprot.sudokumobdevkz.core.theme.ThemePalettes
 import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonDefault
 import ru.shprot.sudokumobdevkz.core.uicommon.dropdown.AppDropdown
 import ru.shprot.sudokumobdevkz.core.uicommon.toolbar.ToolbarDefault
+import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.HintModeSection
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.cloud.CloudSection
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsCard
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsDivider
@@ -70,6 +73,14 @@ internal fun SettingsPortraitContent(
             SettingsSectionHeader(modifier = Modifier, title = stringResource(R.string.game_label))
 
             GameSettingsCard(uiState = uiState, onEvent = onEvent)
+
+            SettingsSectionHeader(modifier = Modifier, title = stringResource(R.string.hint_mode_section_title))
+
+            HintModeSection(
+                modifier = Modifier,
+                selectedMode = uiState.settings.hintMode,
+                onModeSelected = { onEvent(SettingsUIEvent.SelectHintMode(it)) },
+            )
 
             SettingsSectionHeader(modifier = Modifier, title = stringResource(R.string.appearance))
 
@@ -207,12 +218,11 @@ internal fun AppearanceSettingsCard(
     uiState: SettingsUIState,
     onEvent: (SettingsUIEvent) -> Unit,
 ) {
-    val themeItems = remember {
-        ThemeMode.builtIn().map(::ThemeModeDropdownItem).toImmutableList()
+    val presetItems = ThemePalettes.all.map { palette ->
+        ThemeModeDropdownItem(ThemeMode.Custom(palette.id, stringResource(palette.labelRes), palette.isDark))
     }
-    val selectedItem = remember(uiState.settings.themeModeId) {
-        ThemeModeDropdownItem(ThemeMode.fromId(uiState.settings.themeModeId))
-    }
+    val themeItems = (ThemeMode.builtIn().map(::ThemeModeDropdownItem) + presetItems).toImmutableList()
+    val selectedItem = themeItems.firstOrNull { it.id == uiState.settings.themeModeId } ?: themeItems.first()
 
     SettingsCard(modifier = Modifier) {
         Row(
@@ -275,6 +285,15 @@ internal fun OtherSettingsCard(
             icon = Icons.Filled.Security,
             title = stringResource(R.string.privacy_policy),
             onClick = { onEvent(SettingsUIEvent.NavigateToPrivacyPolicy) },
+        )
+
+        SettingsDivider(modifier = Modifier)
+
+        SettingsNavItem(
+            modifier = Modifier,
+            icon = Icons.Filled.Feedback,
+            title = stringResource(R.string.feedback),
+            onClick = { onEvent(SettingsUIEvent.NavigateToFeedback) },
         )
     }
 }

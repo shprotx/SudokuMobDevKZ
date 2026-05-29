@@ -1,6 +1,7 @@
 package ru.shprot.sudokumobdevkz.feature.game.presentation.contract
 
 import ru.shprot.sudokumobdevkz.core.base.domain.model.Difficulty
+import ru.shprot.sudokumobdevkz.core.base.domain.model.ThemeMode
 import ru.shprot.sudokumobdevkz.core.base.presentation.contract.UIState
 import ru.shprot.sudokumobdevkz.feature.game.domain.model.CellData
 
@@ -27,4 +28,10 @@ data class GameUIState(
     val isStandardMode: Boolean = true,
     val isDailyChallenge: Boolean = false,
     val compactNumberPadPreference: Boolean = false,
+    val isHintModeActive: Boolean = false,
+    val themePopupExpanded: Boolean = false,
+    val selectedThemeId: String = ThemeMode.System.id,
+    val draftPopupVisible: Boolean = false,
+    val draftPopupRow: Int = -1,
+    val draftPopupCol: Int = -1,
 ) : UIState

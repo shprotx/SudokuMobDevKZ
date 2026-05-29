@@ -63,6 +63,9 @@ class SettingsViewModel @Inject constructor(
             SettingsUIEvent.NavigateToPrivacyPolicy ->
                 setEffect(SettingsUIEffect.NavigateToPrivacyPolicy)
 
+            SettingsUIEvent.NavigateToFeedback ->
+                setEffect(SettingsUIEffect.NavigateToFeedback)
+
             SettingsUIEvent.ShowResetDialog ->
                 updateState { copy(showResetDialog = true) }
 
@@ -142,6 +145,9 @@ class SettingsViewModel @Inject constructor(
 
             is SettingsUIEvent.SelectThemeMode ->
                 settingsRepository.update { copy(themeModeId = event.mode.id) }
+
+            is SettingsUIEvent.SelectHintMode ->
+                settingsRepository.update { copy(hintMode = event.mode) }
         }
 
     private fun handleSignIn() {

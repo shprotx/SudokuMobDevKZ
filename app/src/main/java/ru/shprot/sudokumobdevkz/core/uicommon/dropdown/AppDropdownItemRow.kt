@@ -27,6 +27,7 @@ internal fun <T : DropdownItem> AppDropdownItemRow(
     isSelected: Boolean,
     enabled: Boolean,
     leadingPreview: (@Composable (T) -> Unit)?,
+    trailingContent: (@Composable (T) -> Unit)?,
     onClick: () -> Unit,
 ) {
     Row(
@@ -74,5 +75,7 @@ internal fun <T : DropdownItem> AppDropdownItemRow(
                 tint = AppTheme.colors.primary,
             )
         }
+
+        trailingContent?.invoke(item)
     }
 }

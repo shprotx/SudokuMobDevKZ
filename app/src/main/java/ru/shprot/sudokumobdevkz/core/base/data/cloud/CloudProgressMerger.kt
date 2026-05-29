@@ -1,6 +1,7 @@
 package ru.shprot.sudokumobdevkz.core.base.data.cloud
 
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.CloudProgress
+import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.CustomThemeDto
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.DailyChallengeDto
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.SavedGameDto
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.StatisticDto
@@ -14,6 +15,7 @@ object CloudProgressMerger {
         unlockedAchievements = mergeAchievements(local.unlockedAchievements, cloud.unlockedAchievements),
         dailyChallenges = mergeDailies(local.dailyChallenges, cloud.dailyChallenges),
         savedGame = mergeSavedGame(local.savedGame, cloud.savedGame),
+        customThemes = mergeCustomThemes(local.customThemes, cloud.customThemes),
         lastSyncTimestamp = System.currentTimeMillis(),
     )
 
@@ -80,6 +82,18 @@ object CloudProgressMerger {
         cloud == null -> local
         local.timestamp >= cloud.timestamp -> local
         else -> cloud
+    }
+
+    private fun mergeCustomThemes(
+        local: List<CustomThemeDto>,
+        cloud: List<CustomThemeDto>,
+    ): List<CustomThemeDto> {
+        val merged = mutableMapOf<String, CustomThemeDto>()
+        (local + cloud).forEach { theme ->
+            val existing = merged[theme.id]
+            merged[theme.id] = if (existing == null || theme.createdAt >= existing.createdAt) theme else existing
+        }
+        return merged.values.toList()
     }
 
     private fun minOfNonZero(a: Int, b: Int): Int = when {

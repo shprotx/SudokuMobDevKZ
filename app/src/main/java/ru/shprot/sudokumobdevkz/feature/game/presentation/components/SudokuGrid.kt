@@ -10,8 +10,10 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
@@ -33,6 +35,7 @@ fun SudokuGrid(
     isPaused: Boolean = false,
     highlightedNumber: Int = 0,
     onCellClick: (row: Int, col: Int) -> Unit,
+    onCellLongClick: ((row: Int, col: Int) -> Unit)? = null,
 ) {
     val gridLine = AppTheme.colors.gridLine
     val gridLineBold = AppTheme.colors.gridLineBold
@@ -47,18 +50,30 @@ fun SudokuGrid(
     val draftColor = AppTheme.colors.draftText
     val textMeasurer = rememberTextMeasurer()
     val density = LocalDensity.current
+    val hapticFeedback = LocalHapticFeedback.current
 
     Canvas(
         modifier = modifier
             .fillMaxWidth()
             .aspectRatio(1f)
-            .pointerInput(Unit) {
-                detectTapGestures { offset ->
-                    val cellSize = size.width / 9f
-                    val col = (offset.x / cellSize).toInt().coerceIn(0, 8)
-                    val row = (offset.y / cellSize).toInt().coerceIn(0, 8)
-                    onCellClick(row, col)
-                }
+            .pointerInput(onCellLongClick) {
+                detectTapGestures(
+                    onTap = { offset ->
+                        val cellSize = size.width / 9f
+                        val col = (offset.x / cellSize).toInt().coerceIn(0, 8)
+                        val row = (offset.y / cellSize).toInt().coerceIn(0, 8)
+                        onCellClick(row, col)
+                    },
+                    onLongPress = { offset ->
+                        if (onCellLongClick != null) {
+                            hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)
+                            val cellSize = size.width / 9f
+                            val col = (offset.x / cellSize).toInt().coerceIn(0, 8)
+                            val row = (offset.y / cellSize).toInt().coerceIn(0, 8)
+                            onCellLongClick(row, col)
+                        }
+                    },
+                )
             },
     ) {
         val cellSize = size.width / 9f

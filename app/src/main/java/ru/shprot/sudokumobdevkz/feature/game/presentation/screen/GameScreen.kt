@@ -10,6 +10,7 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import ru.shprot.sudokumobdevkz.core.base.presentation.snackbar.SnackbarManager
 import ru.shprot.sudokumobdevkz.feature.game.presentation.components.screencontent.GameScreenContent
 import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameUIEffect
 import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameUIEvent
@@ -63,6 +64,9 @@ fun GameScreen(
                     navController.navigate(GameRoutes.GameScreen(difficultyOrdinal = effect.difficultyOrdinal)) {
                         popUpTo<GameRoutes.GameScreen> { inclusive = true }
                     }
+
+                is GameUIEffect.ShowMessage ->
+                    SnackbarManager.show(effect.messageRes)
             }
         }
     }

@@ -22,10 +22,12 @@ import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.SignInState
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.StatisticDto
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.UnlockedAchievementDto
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.AchievementUnlockedDao
+import ru.shprot.sudokumobdevkz.core.base.data.database.dao.CustomThemeDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.DailyChallengeDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.SavedGameDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.StatisticDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.AchievementUnlockedEntity
+import ru.shprot.sudokumobdevkz.core.base.data.database.entity.CustomThemeEntity
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.DailyChallengeEntity
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.SavedGameEntity
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.StatisticEntity
@@ -56,6 +58,7 @@ class AutoImportSnapshotUseCaseTest {
             achievementUnlockedDao = achievementsDao,
             dailyChallengeDao = dailyDao,
             savedGameDao = savedGameDao,
+            customThemeDao = NoOpCustomThemeDao(),
             syncToCloud = syncToCloud,
         )
         useCase = AutoImportSnapshotUseCase(importUseCase)
@@ -239,4 +242,13 @@ internal class SnapshotSavedGameDao : SavedGameDao {
     override suspend fun save(game: SavedGameEntity) { current = game }
     override suspend fun get(): SavedGameEntity? = current
     override suspend fun delete() { current = null }
+}
+
+internal class NoOpCustomThemeDao : CustomThemeDao {
+    override fun observeAll(): Flow<List<CustomThemeEntity>> = MutableStateFlow(emptyList())
+    override suspend fun getAll(): List<CustomThemeEntity> = emptyList()
+    override suspend fun getById(id: String): CustomThemeEntity? = null
+    override suspend fun upsert(entity: CustomThemeEntity) = Unit
+    override suspend fun deleteById(id: String) = Unit
+    override suspend fun exists(id: String): Int = 0
 }

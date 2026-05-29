@@ -106,4 +106,37 @@
     <string name="achievement_secret_early_bird_title">Madrugador</string>
     <string name="achievement_secret_early_bird_desc">Vença uma partida entre 05:00 e 08:00</string>
     <string name="settings_rate_app">Avaliar o app</string>
+
+    <string name="theme_builder_title">Theme Builder</string>
+    <string name="theme_builder_save">Save</string>
+    <string name="theme_builder_name_hint">Theme name</string>
+    <string name="theme_builder_name_empty_error">Name cannot be empty</string>
+    <string name="theme_builder_save_dialog_title">Name your theme</string>
+    <string name="theme_builder_color_background">Background</string>
+    <string name="theme_builder_color_surface">Surface</string>
+    <string name="theme_builder_color_primary">Primary</string>
+    <string name="theme_builder_color_text">Text</string>
+    <string name="theme_builder_color_text_secondary">Secondary Text</string>
+    <string name="theme_builder_color_error">Error</string>
+    <string name="theme_builder_color_cell_selected">Cell Selected</string>
+    <string name="theme_builder_color_cell_highlight">Cell Highlight</string>
+    <string name="theme_builder_color_cell_fixed">Cell Fixed</string>
+    <string name="theme_builder_color_cell_editable">Cell Editable</string>
+    <string name="theme_builder_color_cell_error">Cell Error</string>
+    <string name="theme_builder_color_grid_line">Grid Line</string>
+    <string name="theme_builder_color_divider">Divider</string>
+    <string name="theme_builder_color_accent">Accent</string>
+    <string name="theme_builder_preset_light">Light</string>
+    <string name="theme_builder_preset_dark">Dark</string>
+    <string name="theme_builder_preset_solarized">Solarized</string>
+    <string name="theme_builder_preset_forest">Forest</string>
+    <string name="theme_builder_low_contrast_warning">Low contrast — text may be hard to read</string>
+    <string name="theme_list_add_theme">+ Create theme</string>
+    <string name="theme_list_edit">Edit</string>
+    <string name="theme_list_delete">Delete</string>
+    <string name="theme_delete_confirm_title">Delete theme?</string>
+    <string name="theme_delete_confirm_message">This cannot be undone.</string>
+    <string name="theme_deleted_fallback">Theme deleted. Switched to Light.</string>
+    <string name="theme_saved">Theme saved</string>
+    <string name="draft_notes_popup_number_description">Rascunho %1$d</string>
 </resources>
