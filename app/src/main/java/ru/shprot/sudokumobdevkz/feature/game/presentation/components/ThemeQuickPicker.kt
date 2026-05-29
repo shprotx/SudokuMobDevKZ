@@ -12,19 +12,24 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.base.domain.model.ThemeMode
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
+import ru.shprot.sudokumobdevkz.core.theme.ThemePalette
 import ru.shprot.sudokumobdevkz.core.theme.ThemePalettes
 
 private const val SWATCHES_PER_ROW = 5
@@ -33,51 +38,69 @@ private const val SWATCHES_PER_ROW = 5
 internal fun ThemeQuickPicker(
     selectedThemeId: String,
     onSelect: (String) -> Unit,
+    onClose: () -> Unit,
 ) {
-    Column(
-        modifier = Modifier
-            .background(AppTheme.colors.backgroundCard)
-            .width(AppTheme.sizes.themePickerWidth)
-            .padding(vertical = AppTheme.paddings.small),
+    Surface(
+        modifier = Modifier.width(AppTheme.sizes.themePickerWidth),
+        shape = RoundedCornerShape(AppTheme.sizes.cornerRadiusLarge),
+        color = AppTheme.colors.backgroundCard,
+        shadowElevation = AppTheme.sizes.elevationMedium,
     ) {
-        ThemeMode.builtIn().forEach { mode ->
-            BuiltInThemeRow(
-                label = builtInLabel(mode),
-                isSelected = selectedThemeId == mode.id,
-                onClick = { onSelect(mode.id) },
-            )
-        }
+        Column(modifier = Modifier.padding(bottom = AppTheme.paddings.medium)) {
 
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = AppTheme.paddings.large, vertical = AppTheme.paddings.small)
-                .height(AppTheme.sizes.dividerThickness)
-                .background(AppTheme.colors.divider),
-        )
-
-        ThemePalettes.all.chunked(SWATCHES_PER_ROW).forEach { rowPalettes ->
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = AppTheme.paddings.large, vertical = AppTheme.paddings.small),
-                horizontalArrangement = Arrangement.spacedBy(AppTheme.paddings.medium),
-            ) {
-                rowPalettes.forEach { palette ->
-                    ThemeSwatch(
-                        background = Color(palette.colors.background),
-                        primary = Color(palette.colors.primary),
-                        isSelected = selectedThemeId == palette.id,
-                        onClick = { onSelect(palette.id) },
+            Box(modifier = Modifier.fillMaxWidth()) {
+                IconButton(
+                    modifier = Modifier.align(Alignment.CenterEnd),
+                    onClick = onClose,
+                ) {
+                    Icon(
+                        modifier = Modifier.size(AppTheme.sizes.iconMedium),
+                        imageVector = Icons.Filled.Close,
+                        contentDescription = stringResource(R.string.go_back),
+                        tint = AppTheme.colors.iconTint,
                     )
                 }
             }
+
+            ThemeRow(
+                label = stringResource(R.string.theme_mode_system),
+                isSelected = selectedThemeId == ThemeMode.System.id,
+                onClick = { onSelect(ThemeMode.System.id) },
+            )
+
+            PickerDivider()
+
+            ThemeRow(
+                label = stringResource(R.string.theme_mode_light),
+                isSelected = selectedThemeId == ThemeMode.Light.id,
+                onClick = { onSelect(ThemeMode.Light.id) },
+            )
+
+            SwatchGrid(
+                palettes = ThemePalettes.all.filterNot { it.isDark },
+                selectedThemeId = selectedThemeId,
+                onSelect = onSelect,
+            )
+
+            PickerDivider()
+
+            ThemeRow(
+                label = stringResource(R.string.theme_mode_dark),
+                isSelected = selectedThemeId == ThemeMode.Dark.id,
+                onClick = { onSelect(ThemeMode.Dark.id) },
+            )
+
+            SwatchGrid(
+                palettes = ThemePalettes.all.filter { it.isDark },
+                selectedThemeId = selectedThemeId,
+                onSelect = onSelect,
+            )
         }
     }
 }
 
 @Composable
-internal fun BuiltInThemeRow(
+internal fun ThemeRow(
     label: String,
     isSelected: Boolean,
     onClick: () -> Unit,
@@ -108,36 +131,60 @@ internal fun BuiltInThemeRow(
 }
 
 @Composable
-internal fun ThemeSwatch(
-    background: Color,
-    primary: Color,
-    isSelected: Boolean,
-    onClick: () -> Unit,
+internal fun SwatchGrid(
+    palettes: List<ThemePalette>,
+    selectedThemeId: String,
+    onSelect: (String) -> Unit,
 ) {
-    Box(
-        modifier = Modifier
-            .size(AppTheme.sizes.colorSwatch)
-            .background(background, CircleShape)
-            .border(
-                width = if (isSelected) AppTheme.sizes.elevationSmall else AppTheme.sizes.dividerThickness,
-                color = if (isSelected) AppTheme.colors.primary else AppTheme.colors.divider,
-                shape = CircleShape,
-            )
-            .clickable(onClick = onClick),
-        contentAlignment = Alignment.Center,
+    Column(
+        modifier = Modifier.padding(
+            horizontal = AppTheme.paddings.large,
+            vertical = AppTheme.paddings.small,
+        ),
+        verticalArrangement = Arrangement.spacedBy(AppTheme.paddings.medium),
     ) {
-        Box(
-            modifier = Modifier
-                .size(AppTheme.sizes.colorSwatch / 2)
-                .background(primary, CircleShape),
-        )
+        palettes.chunked(SWATCHES_PER_ROW).forEach { rowPalettes ->
+            Row(horizontalArrangement = Arrangement.spacedBy(AppTheme.paddings.medium)) {
+                rowPalettes.forEach { palette ->
+                    ThemeSwatch(
+                        color = Color(palette.colors.primary),
+                        isSelected = selectedThemeId == palette.id,
+                        onClick = { onSelect(palette.id) },
+                    )
+                }
+            }
+        }
     }
 }
 
 @Composable
-internal fun builtInLabel(mode: ThemeMode): String = when (mode) {
-    ThemeMode.System -> stringResource(R.string.theme_mode_system)
-    ThemeMode.Light -> stringResource(R.string.theme_mode_light)
-    ThemeMode.Dark -> stringResource(R.string.theme_mode_dark)
-    is ThemeMode.Custom -> mode.title
+internal fun ThemeSwatch(
+    color: Color,
+    isSelected: Boolean,
+    onClick: () -> Unit,
+) {
+    val shape = RoundedCornerShape(AppTheme.sizes.cornerRadiusSmall)
+    Box(
+        modifier = Modifier
+            .size(AppTheme.sizes.colorSwatch)
+            .clip(shape)
+            .background(color, shape)
+            .border(
+                width = if (isSelected) AppTheme.sizes.elevationSmall else AppTheme.sizes.dividerThickness,
+                color = if (isSelected) AppTheme.colors.primary else AppTheme.colors.divider,
+                shape = shape,
+            )
+            .clickable(onClick = onClick),
+    )
+}
+
+@Composable
+internal fun PickerDivider() {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = AppTheme.paddings.large, vertical = AppTheme.paddings.small)
+            .height(AppTheme.sizes.dividerThickness)
+            .background(AppTheme.colors.divider),
+    )
 }

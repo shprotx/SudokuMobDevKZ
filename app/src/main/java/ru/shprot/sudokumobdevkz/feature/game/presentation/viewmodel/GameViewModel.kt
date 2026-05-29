@@ -141,7 +141,6 @@ class GameViewModel @Inject constructor(
 
     private fun handleThemeSelected(themeId: String) {
         settingsRepository.update { copy(themeModeId = themeId) }
-        updateState { copy(themePopupExpanded = false) }
     }
 
     private fun handleShowPauseDialog() {

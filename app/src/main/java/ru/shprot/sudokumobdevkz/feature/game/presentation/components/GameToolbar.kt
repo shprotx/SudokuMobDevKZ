@@ -12,12 +12,14 @@ import androidx.compose.material.icons.filled.Palette
 import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.window.Popup
+import androidx.compose.ui.window.PopupProperties
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 import ru.shprot.sudokumobdevkz.core.uicommon.button.ToolbarCircleButton
@@ -85,14 +87,19 @@ fun GameToolbar(
                 onClick = onPaletteClick,
             )
 
-            DropdownMenu(
-                expanded = themePopupExpanded,
-                onDismissRequest = onDismissThemePopup,
-            ) {
-                ThemeQuickPicker(
-                    selectedThemeId = selectedThemeId,
-                    onSelect = onThemeSelected,
-                )
+            if (themePopupExpanded) {
+                Popup(
+                    alignment = Alignment.TopEnd,
+                    offset = IntOffset(x = 0, y = 0),
+                    onDismissRequest = onDismissThemePopup,
+                    properties = PopupProperties(focusable = true),
+                ) {
+                    ThemeQuickPicker(
+                        selectedThemeId = selectedThemeId,
+                        onSelect = onThemeSelected,
+                        onClose = onDismissThemePopup,
+                    )
+                }
             }
         }
 
