@@ -5,7 +5,7 @@ import ru.shprot.sudokumobdevkz.core.base.domain.model.ThemeMode
 internal object ThemeModeMigration {
     fun resolve(storedId: String?, legacyDarkTheme: Boolean?): String {
         if (storedId != null) {
-            return ThemeMode.fromId(storedId).id
+            return storedId
         }
         return if (legacyDarkTheme == true) ThemeMode.Dark.id else ThemeMode.System.id
     }
