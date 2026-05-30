@@ -144,6 +144,9 @@
     <string name="daily_streak_label">Current streak</string>
     <string name="daily_difficulty_format" translatable="false">%1$s  %2$s</string>
     <string name="daily_best_streak_label">Best streak</string>
+    <string name="daily_calendar_prev_month">Previous month</string>
+    <string name="daily_calendar_next_month">Next month</string>
+    <string name="daily_calendar_completed">Completed</string>
 
     <string name="achievement_wins_first_title">First win</string>
     <string name="achievement_wins_first_desc">Win your first sudoku</string>

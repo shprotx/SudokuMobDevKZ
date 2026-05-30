@@ -5,5 +5,8 @@ import ru.shprot.sudokumobdevkz.core.base.presentation.contract.UIEffect
 sealed interface DailyChallengeUIEffect : UIEffect {
     data object NavigateBack : DailyChallengeUIEffect
 
-    class NavigateToGame(val difficultyOrdinal: Int) : DailyChallengeUIEffect
+    class NavigateToGame(
+        val difficultyOrdinal: Int,
+        val dailyDateKey: String,
+    ) : DailyChallengeUIEffect
 }

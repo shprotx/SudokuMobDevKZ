@@ -189,7 +189,7 @@ class GameViewModel @Inject constructor(
         }
 
         val puzzle = if (isDailyChallenge) {
-            val dateKey = dailyChallengeRepository.todayDateKey()
+            val dateKey = route.dailyDateKey.ifEmpty { dailyChallengeRepository.todayDateKey() }
             val seed = dailyChallengeRepository.dailySeed(dateKey)
             SudokuGenerator.generate(difficulty, seed)
         } else {
@@ -617,8 +617,9 @@ class GameViewModel @Inject constructor(
     }
 
     private suspend fun persistDailyChallengeWin(): Int {
+        val dateKey = route.dailyDateKey.ifEmpty { dailyChallengeRepository.todayDateKey() }
         val streak = dailyChallengeRepository.markCompleted(
-            dateKey = dailyChallengeRepository.todayDateKey(),
+            dateKey = dateKey,
             timeSeconds = currentState.timeSeconds,
             errors = currentState.errors,
         )

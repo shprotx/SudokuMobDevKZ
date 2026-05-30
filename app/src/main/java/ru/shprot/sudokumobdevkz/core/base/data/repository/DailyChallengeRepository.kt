@@ -1,5 +1,6 @@
 package ru.shprot.sudokumobdevkz.core.base.data.repository
 
+import kotlinx.coroutines.flow.Flow
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.DailyChallengeDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.DailyChallengeEntity
 import ru.shprot.sudokumobdevkz.core.base.domain.model.Difficulty
@@ -86,4 +87,6 @@ class DailyChallengeRepository @Inject constructor(
     }
 
     suspend fun completedCount(): Int = dao.getAllCompleted().size
+
+    fun observeAllCompleted(): Flow<List<DailyChallengeEntity>> = dao.observeAllCompleted()
 }
