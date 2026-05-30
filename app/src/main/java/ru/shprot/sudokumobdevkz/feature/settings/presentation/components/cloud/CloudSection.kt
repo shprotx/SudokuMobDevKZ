@@ -1,5 +1,7 @@
 package ru.shprot.sudokumobdevkz.feature.settings.presentation.components.cloud
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.EmojiEvents
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -8,6 +10,7 @@ import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.SignInState
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsCard
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsDivider
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsSectionHeader
+import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsToggleItem
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.contract.CloudImportState
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.contract.SettingsUIEvent
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.contract.SettingsUIState
@@ -49,6 +52,16 @@ fun CloudSection(
                     isLoading = uiState.cloudImport == CloudImportState.Loading ||
                         uiState.cloudImport == CloudImportState.Applying,
                     onClick = { onEvent(SettingsUIEvent.ImportFromCloudClicked) },
+                )
+
+                SettingsDivider(modifier = Modifier)
+
+                SettingsToggleItem(
+                    modifier = Modifier,
+                    icon = Icons.Filled.EmojiEvents,
+                    title = stringResource(R.string.settings_show_name_on_leaderboard),
+                    checked = uiState.settings.showNameOnLeaderboard,
+                    onCheckedChange = { onEvent(SettingsUIEvent.ToggleShowNameOnLeaderboard) },
                 )
             }
         }

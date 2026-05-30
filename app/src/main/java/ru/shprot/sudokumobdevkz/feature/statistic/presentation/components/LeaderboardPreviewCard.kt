@@ -29,11 +29,9 @@ import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonText
 @Composable
 internal fun LeaderboardPreviewCard(
     modifier: Modifier,
-    isSignedIn: Boolean,
     isLoading: Boolean,
     data: LeaderboardData?,
     onOpenFull: () -> Unit,
-    onSignInCta: () -> Unit,
 ) {
     Card(
         modifier = modifier.fillMaxWidth(),
@@ -69,9 +67,6 @@ internal fun LeaderboardPreviewCard(
             }
 
             when {
-                !isSignedIn ->
-                    SignInCtaBlock(onSignInCta = onSignInCta)
-
                 isLoading && data == null ->
                     LoadingBlock()
 
@@ -82,26 +77,6 @@ internal fun LeaderboardPreviewCard(
                     LeaderboardBlock(data = data, onOpenFull = onOpenFull)
             }
         }
-    }
-}
-
-@Composable
-private fun SignInCtaBlock(onSignInCta: () -> Unit) {
-
-    Column(modifier = Modifier.padding(top = AppTheme.paddings.default)) {
-
-        Text(
-            text = stringResource(R.string.leaderboard_sign_in_cta),
-            style = AppTheme.typography.body3,
-            color = AppTheme.colors.textSecondary,
-        )
-
-        ButtonText(
-            modifier = Modifier.padding(top = AppTheme.paddings.small),
-            text = stringResource(R.string.leaderboard_open_settings),
-            textColor = AppTheme.colors.primary,
-            onClick = onSignInCta,
-        )
     }
 }
 

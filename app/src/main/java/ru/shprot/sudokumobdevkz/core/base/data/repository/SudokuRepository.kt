@@ -1,9 +1,5 @@
 package ru.shprot.sudokumobdevkz.core.base.data.repository
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.provider.Settings
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -13,11 +9,11 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import ru.shprot.sudokumobdevkz.core.base.data.cloud.CloudGameServices
-import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.SignInState
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.GameHistoryDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.SavedGameDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.StatisticDao
+import ru.shprot.sudokumobdevkz.core.base.domain.usecase.cloud.RatingCalculator
+import ru.shprot.sudokumobdevkz.core.base.domain.usecase.cloud.SubmitFirebaseLeaderboardUseCase
 import ru.shprot.sudokumobdevkz.core.base.domain.usecase.cloud.SubmitOverallScoreUseCase
 import ru.shprot.sudokumobdevkz.core.base.domain.usecase.cloud.SyncToCloudUseCase
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.GameHistoryEntity
@@ -39,7 +35,6 @@ import javax.inject.Singleton
 
 @Singleton
 class SudokuRepository @Inject constructor(
-    @ApplicationContext private val context: Context,
     private val statisticDao: StatisticDao,
     private val gameHistoryDao: GameHistoryDao,
     private val savedGameDao: SavedGameDao,
@@ -48,8 +43,9 @@ class SudokuRepository @Inject constructor(
     private val dailyChallengeRepository: DailyChallengeRepository,
     private val syncToCloud: SyncToCloudUseCase,
     private val submitOverallScore: SubmitOverallScoreUseCase,
+    private val submitFirebaseLeaderboard: SubmitFirebaseLeaderboardUseCase,
     private val leaderboardRepository: LeaderboardRepository,
-    private val cloud: CloudGameServices,
+    private val stableIdProvider: StableIdProvider,
 ) {
 
     private val syncScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
@@ -57,7 +53,7 @@ class SudokuRepository @Inject constructor(
 
     suspend fun syncStatisticsFromFirebase() = withContext(Dispatchers.IO) {
         safeRunCatching {
-            val stats = firebaseApi.getOwnStats(getDeviceId()) ?: return@withContext
+            val stats = firebaseApi.getOwnStats(stableIdProvider.current()) ?: return@withContext
             for ((diffKey, dto) in stats) {
                 val diffKeyInt = diffKey.toIntOrNull() ?: continue
                 val difficulty = Difficulty.fromFirebaseKey(diffKeyInt) ?: continue
@@ -108,9 +104,30 @@ class SudokuRepository @Inject constructor(
         syncToCloud.trigger()
     }
 
-    fun submitLeaderboardForWin() {
+    fun submitLeaderboardForWin(
+        difficulty: Difficulty,
+        timeSeconds: Int,
+        errors: Int,
+        hintsUsed: Int,
+        isDaily: Boolean,
+    ) {
         syncScope.launch {
             submitOverallScore()
+            val scoreDelta = RatingCalculator.scoreForWin(
+                difficulty = difficulty,
+                timeSeconds = timeSeconds,
+                errors = errors,
+                hintsUsed = hintsUsed,
+                isDaily = isDaily,
+            )
+            submitFirebaseLeaderboard(
+                scoreDelta = scoreDelta,
+                difficulty = difficulty,
+                timeSeconds = timeSeconds,
+                errors = errors,
+                hintsUsed = hintsUsed,
+                isDaily = isDaily,
+            )
             leaderboardRepository.refresh()
         }
     }
@@ -233,7 +250,7 @@ class SudokuRepository @Inject constructor(
     private suspend fun syncToFirebase(stat: StatisticEntity) = withContext(Dispatchers.IO) {
         try {
             firebaseApi.uploadStatistic(
-                deviceId = currentFirebaseKey(),
+                deviceId = stableIdProvider.current(),
                 difficulty = stat.difficulty,
                 stat = FirebaseStatDto(
                     averageTime = stat.averageTime,
@@ -250,7 +267,7 @@ class SudokuRepository @Inject constructor(
     private suspend fun clearFirebaseStatistic(difficulty: Difficulty) = withContext(Dispatchers.IO) {
         try {
             firebaseApi.uploadStatistic(
-                deviceId = currentFirebaseKey(),
+                deviceId = stableIdProvider.current(),
                 difficulty = difficulty.firebaseKey,
                 stat = FirebaseStatDto(),
             )
@@ -261,7 +278,7 @@ class SudokuRepository @Inject constructor(
         withContext(Dispatchers.IO) {
             try {
                 val allStats = firebaseApi.getAllStats() ?: return@withContext PercentileResult(-1, 0)
-                val selfKey = currentFirebaseKey()
+                val selfKey = stableIdProvider.current()
                 val diffKey = difficulty.firebaseKey.toString()
                 var totalPlayers = 0
                 var slowerCount = 0
@@ -286,8 +303,8 @@ class SudokuRepository @Inject constructor(
 
     suspend fun migrateFirebaseKeyToPgs(playerId: String) = withContext(Dispatchers.IO) {
         try {
-            val deviceKey = deviceFirebaseKey()
-            val playerKey = pgsFirebaseKey(playerId)
+            val deviceKey = stableIdProvider.deviceKey()
+            val playerKey = stableIdProvider.pgsKey(playerId)
             if (deviceKey == playerKey) return@withContext
             val oldStats = firebaseApi.getOwnStats(deviceKey) ?: return@withContext
             if (oldStats.isEmpty()) return@withContext
@@ -299,21 +316,4 @@ class SudokuRepository @Inject constructor(
             }
         } catch (_: Exception) { }
     }
-
-    private fun currentFirebaseKey(): String {
-        val signed = cloud.signInState.value
-        return if (signed is SignInState.SignedIn) {
-            pgsFirebaseKey(signed.playerId)
-        } else {
-            deviceFirebaseKey()
-        }
-    }
-
-    private fun pgsFirebaseKey(playerId: String): String = "pgs_$playerId"
-
-    private fun deviceFirebaseKey(): String = "dev_${getDeviceId()}"
-
-    @SuppressLint("HardwareIds")
-    private fun getDeviceId(): String =
-        Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
 }

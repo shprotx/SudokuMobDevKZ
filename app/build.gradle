@@ -33,6 +33,8 @@ android {
                 "\"${localProperties.getProperty('FIREBASE_DB_URL', System.getenv('FIREBASE_DB_URL') ?: '')}\""
         buildConfigField "String", "FEEDBACK_API_URL",
                 "\"${localProperties.getProperty('FEEDBACK_API_URL', '')}\""
+        buildConfigField "String", "LEADERBOARD_CF_URL",
+                "\"${localProperties.getProperty('LEADERBOARD_CF_URL', System.getenv('LEADERBOARD_CF_URL') ?: '')}\""
         buildConfigField "boolean", "IS_PRE_RELEASE", "${versionName.contains('-')}"
     }
 

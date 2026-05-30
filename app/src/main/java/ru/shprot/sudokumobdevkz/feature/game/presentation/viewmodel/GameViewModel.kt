@@ -610,7 +610,13 @@ class GameViewModel @Inject constructor(
         )
 
         if (isWin && currentState.timeSeconds > 0 && currentState.isStandardMode) {
-            repository.submitLeaderboardForWin()
+            repository.submitLeaderboardForWin(
+                difficulty = difficulty,
+                timeSeconds = currentState.timeSeconds,
+                errors = currentState.errors,
+                hintsUsed = calculateHintsUsed(),
+                isDaily = false,
+            )
         }
 
         return 0
@@ -634,7 +640,13 @@ class GameViewModel @Inject constructor(
         )
 
         if (currentState.timeSeconds > 0) {
-            repository.submitLeaderboardForWin()
+            repository.submitLeaderboardForWin(
+                difficulty = difficulty,
+                timeSeconds = currentState.timeSeconds,
+                errors = currentState.errors,
+                hintsUsed = calculateHintsUsed(),
+                isDaily = true,
+            )
         }
 
         return streak

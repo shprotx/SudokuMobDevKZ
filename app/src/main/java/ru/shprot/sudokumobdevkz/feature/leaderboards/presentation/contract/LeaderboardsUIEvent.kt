@@ -9,4 +9,8 @@ sealed interface LeaderboardsUIEvent : UIEvent {
     data object Refresh : LeaderboardsUIEvent
 
     data object SignInCtaClicked : LeaderboardsUIEvent
+
+    data object DismissNameConsentPrompt : LeaderboardsUIEvent
+
+    data object AcceptNameConsent : LeaderboardsUIEvent
 }

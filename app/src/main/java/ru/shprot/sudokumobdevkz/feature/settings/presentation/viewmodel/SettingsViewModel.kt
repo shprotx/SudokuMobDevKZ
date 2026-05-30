@@ -143,6 +143,9 @@ class SettingsViewModel @Inject constructor(
             SettingsUIEvent.DismissImportDialog ->
                 updateState { copy(cloudImport = CloudImportState.Idle) }
 
+            SettingsUIEvent.ToggleShowNameOnLeaderboard ->
+                settingsRepository.update { copy(showNameOnLeaderboard = !showNameOnLeaderboard) }
+
             is SettingsUIEvent.SelectThemeMode ->
                 settingsRepository.update { copy(themeModeId = event.mode.id) }
 

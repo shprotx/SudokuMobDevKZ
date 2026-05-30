@@ -34,6 +34,8 @@ sealed interface SettingsUIEvent : UIEvent {
     data object ImportChoiceUseCloud : SettingsUIEvent
     data object DismissImportDialog : SettingsUIEvent
 
+    data object ToggleShowNameOnLeaderboard : SettingsUIEvent
+
     data class SelectThemeMode(val mode: ThemeMode) : SettingsUIEvent
     data class SelectHintMode(val mode: HintMode) : SettingsUIEvent
 }

@@ -87,16 +87,12 @@ fun StatisticScreenContent(
                 )
             }
 
-            if (uiState.isCloudAvailable) {
-                LeaderboardPreviewCard(
-                    modifier = Modifier.padding(top = AppTheme.paddings.large),
-                    isSignedIn = uiState.isSignedIn,
-                    isLoading = uiState.isLeaderboardLoading,
-                    data = uiState.leaderboardPreview,
-                    onOpenFull = { onEvent(StatisticUIEvent.OpenLeaderboardClicked) },
-                    onSignInCta = { onEvent(StatisticUIEvent.SignInCtaClicked) },
-                )
-            }
+            LeaderboardPreviewCard(
+                modifier = Modifier.padding(top = AppTheme.paddings.large),
+                isLoading = uiState.isLeaderboardLoading,
+                data = uiState.leaderboardPreview,
+                onOpenFull = { onEvent(StatisticUIEvent.OpenLeaderboardClicked) },
+            )
 
             GameStatisticsSection(
                 modifier = Modifier.padding(top = AppTheme.paddings.xxl),
