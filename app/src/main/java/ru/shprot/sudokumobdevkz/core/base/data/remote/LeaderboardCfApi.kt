@@ -10,4 +10,9 @@ interface LeaderboardCfApi {
     suspend fun submit(
         @Body body: LeaderboardSubmitDto,
     ): Response<Unit>
+
+    @POST("backfillLeaderboard")
+    suspend fun backfill(
+        @Body body: LeaderboardBackfillDto,
+    ): Response<Unit>
 }

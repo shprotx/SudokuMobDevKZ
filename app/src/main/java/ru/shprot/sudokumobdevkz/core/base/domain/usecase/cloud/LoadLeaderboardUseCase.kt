@@ -1,5 +1,6 @@
 package ru.shprot.sudokumobdevkz.core.base.domain.usecase.cloud
 
+import ru.shprot.sudokumobdevkz.core.base.data.cloud.LeaderboardKey
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.LeaderboardData
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.LeaderboardRow
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.PlayerScore
@@ -16,7 +17,7 @@ class LoadLeaderboardUseCase @Inject constructor(
         val raw = runCatching { firebaseApi.getLeaderboard() }.getOrNull()
             ?: return LeaderboardData(emptyList(), null)
 
-        val selfId = stableIdProvider.current()
+        val selfHash = LeaderboardKey.hash(stableIdProvider.current())
 
         val sorted = raw.entries
             .sortedByDescending { it.value.score }
@@ -29,12 +30,12 @@ class LoadLeaderboardUseCase @Inject constructor(
                 avatarUrl = entry.avatarUrl,
                 rawScore = entry.score,
                 displayScore = entry.score.toString(),
-                isCurrentPlayer = id == selfId,
+                isCurrentPlayer = id == selfHash,
             )
         }
 
         val allSorted = raw.entries.sortedByDescending { it.value.score }
-        val playerIndex = allSorted.indexOfFirst { it.key == selfId }
+        val playerIndex = allSorted.indexOfFirst { it.key == selfHash }
         val playerScore = if (playerIndex >= 0) {
             val entry = allSorted[playerIndex].value
             PlayerScore(

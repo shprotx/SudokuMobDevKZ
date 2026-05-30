@@ -2,11 +2,13 @@ import { onRequest } from "firebase-functions/v2/https";
 import { defineSecret } from "firebase-functions/params";
 import { logger } from "firebase-functions/v2";
 import * as admin from "firebase-admin";
+import { createHash, timingSafeEqual } from "node:crypto";
 
 admin.initializeApp();
 
 const TELEGRAM_BOT_TOKEN = defineSecret("TELEGRAM_BOT_TOKEN");
 const TELEGRAM_CHAT_ID = defineSecret("TELEGRAM_CHAT_ID");
+const MIGRATE_SECRET = defineSecret("MIGRATE_SECRET");
 
 const MAX_TEXT_LENGTH = 4000;
 const RATE_LIMIT_WINDOW_MS = 60_000;
@@ -146,6 +148,19 @@ const PLATFORMS = new Set(["android", "ios"]);
 
 const leaderboardRateMap = new Map<string, number>();
 
+function sha256hex(input: string): string {
+    return createHash("sha256").update(input, "utf8").digest("hex");
+}
+
+function secretMatches(provided: string | string[] | undefined, expected: string): boolean {
+    const value = Array.isArray(provided) ? provided[0] : provided;
+    if (typeof value !== "string" || value.length === 0 || expected.length === 0) return false;
+    const a = Buffer.from(value);
+    const b = Buffer.from(expected);
+    if (a.length !== b.length) return false;
+    return timingSafeEqual(a, b);
+}
+
 function sanitizeName(raw: unknown): string {
     if (typeof raw !== "string" || raw.trim().length === 0) return "Anonymous";
     return raw
@@ -191,6 +206,14 @@ function maxScoreForContext(ctx: GameContext): number {
     const speed = Math.min(targetTime / time, 2.0);
     return Math.ceil(base * speed * 1.3 * 1.5);
 }
+
+type LeaderboardEntry = {
+    score?: number;
+    platform?: string;
+    displayName?: string;
+    avatarUrl?: string | null;
+    updatedAt?: number;
+} | null;
 
 export const submitLeaderboard = onRequest(
     {
@@ -250,10 +273,11 @@ export const submitLeaderboard = onRequest(
             ? body.avatarUrl
             : null;
 
-        const ref = admin.database().ref(`/leaderboard/${stableId}`);
+        const nodeKey = sha256hex(stableId);
+        const ref = admin.database().ref(`/leaderboard/${nodeKey}`);
 
         try {
-            await ref.transaction((current: { score?: number; platform?: string; displayName?: string; avatarUrl?: string | null; updatedAt?: number } | null) => {
+            await ref.transaction((current: LeaderboardEntry) => {
                 const prev = current ?? { score: 0 };
                 return {
                     platform,
@@ -266,6 +290,185 @@ export const submitLeaderboard = onRequest(
             res.status(200).send("OK");
         } catch (err) {
             logger.error("submitLeaderboard failed", err);
+            res.status(502).send("Upstream Error");
+        }
+    }
+);
+
+interface FirebaseStatEntry {
+    gamesWon?: number;
+    bestTime?: number;
+    averageTime?: number;
+    winsWithoutErrors?: number;
+}
+
+// Scoring formula for /stats migration:
+// Each difficulty d: base={easy:100,medium:250,hard:500}, target={easy:300,medium:600,hard:1200}s
+// speedFactor = clamp(target / timeProxy, 0.5, 2.0) where timeProxy = averageTime ?? bestTime
+// cleanFraction = winsWithoutErrors / gamesWon  (0..1)
+// cleanMultiplier = cleanFraction * 1.3 + (1 - cleanFraction) * 1.0  (weighted average of clean/dirty)
+// scorePerWin = base * speedFactor * cleanMultiplier
+// totalForDifficulty = scorePerWin * gamesWon
+// Mirrors the spirit of RatingCalculator.scoreForWin on the Android client.
+function computeMigratedScore(perDifficulty: Record<string, FirebaseStatEntry>): number {
+    const difficulties = [
+        { key: "0", base: 100, target: 300 },
+        { key: "1", base: 250, target: 600 },
+        { key: "2", base: 500, target: 1200 },
+    ];
+    let total = 0;
+    for (const { key, base, target } of difficulties) {
+        const stat = perDifficulty[key];
+        if (!stat || (stat.gamesWon ?? 0) <= 0) continue;
+        const gamesWon = stat.gamesWon ?? 0;
+        const timeProxy = (stat.averageTime ?? 0) > 0 ? stat.averageTime! : (stat.bestTime ?? 0);
+        if (timeProxy <= 0) continue;
+        const speed = Math.min(Math.max(target / timeProxy, 0.5), 2.0);
+        const cleanFraction = Math.min((stat.winsWithoutErrors ?? 0) / gamesWon, 1.0);
+        const cleanMultiplier = cleanFraction * 1.3 + (1 - cleanFraction) * 1.0;
+        total += base * speed * cleanMultiplier * gamesWon;
+    }
+    return Math.round(total);
+}
+
+export const migrateLeaderboard = onRequest(
+    {
+        region: "europe-west1",
+        secrets: [MIGRATE_SECRET],
+        memory: "512MiB",
+        cpu: 1,
+        timeoutSeconds: 540,
+        maxInstances: 1,
+        invoker: "public",
+    },
+    async (req, res) => {
+        if (req.method !== "POST") {
+            res.status(405).send("Method Not Allowed");
+            return;
+        }
+
+        if (!secretMatches(req.headers["x-migrate-secret"], MIGRATE_SECRET.value())) {
+            res.status(403).send("Forbidden");
+            return;
+        }
+
+        const allStats = (await admin.database().ref("/stats").get()).val() as
+            Record<string, Record<string, FirebaseStatEntry>> | null;
+
+        if (!allStats) {
+            res.status(200).json({ migrated: 0, skipped: 0 });
+            return;
+        }
+
+        let migrated = 0;
+        let skipped = 0;
+        const now = Date.now();
+
+        for (const [stableId, perDifficulty] of Object.entries(allStats)) {
+            if (!STABLE_ID_PATTERN.test(stableId)) {
+                skipped++;
+                continue;
+            }
+            const score = computeMigratedScore(perDifficulty);
+            if (score <= 0) {
+                skipped++;
+                continue;
+            }
+            const nodeKey = sha256hex(stableId);
+            const ref = admin.database().ref(`/leaderboard/${nodeKey}`);
+            await ref.transaction((current: LeaderboardEntry) => {
+                const existing = current?.score ?? 0;
+                if (existing >= score) return current;
+                return {
+                    platform: "android",
+                    displayName: "Anonymous",
+                    avatarUrl: null,
+                    score: Math.max(existing, score),
+                    updatedAt: now,
+                };
+            });
+            migrated++;
+        }
+
+        logger.info("migrateLeaderboard complete", { migrated, skipped });
+        res.status(200).json({ migrated, skipped });
+    }
+);
+
+interface BackfillBody {
+    stableId?: unknown;
+    platform?: unknown;
+    displayName?: unknown;
+    avatarUrl?: unknown;
+}
+
+export const backfillLeaderboard = onRequest(
+    {
+        region: "europe-west1",
+        memory: "256MiB",
+        cpu: 1,
+        timeoutSeconds: 30,
+        maxInstances: 10,
+        invoker: "public",
+    },
+    async (req, res) => {
+        if (req.method !== "POST") {
+            res.status(405).send("Method Not Allowed");
+            return;
+        }
+
+        const body = (req.body ?? {}) as BackfillBody;
+
+        const stableId = typeof body.stableId === "string" ? body.stableId.trim() : "";
+        if (!STABLE_ID_PATTERN.test(stableId)) {
+            res.status(400).send("Invalid stableId");
+            return;
+        }
+
+        const platform = typeof body.platform === "string" ? body.platform : "";
+        if (!PLATFORMS.has(platform)) {
+            res.status(400).send("Invalid platform");
+            return;
+        }
+
+        const ip = req.ip ?? "unknown";
+        if (isLeaderboardRateLimited(`backfill:${stableId}:${ip}`)) {
+            res.status(429).send("Too Many Requests");
+            return;
+        }
+
+        // Score computed SERVER-SIDE from /stats — client cannot inflate it.
+        const perDifficulty = (await admin.database().ref(`/stats/${stableId}`).get()).val() as
+            Record<string, FirebaseStatEntry> | null;
+        const score = perDifficulty ? computeMigratedScore(perDifficulty) : 0;
+        if (score <= 0) {
+            res.status(200).send("OK");
+            return;
+        }
+
+        const displayName = sanitizeName(body.displayName);
+        const avatarUrl = typeof body.avatarUrl === "string" && body.avatarUrl.startsWith("http")
+            ? body.avatarUrl
+            : null;
+
+        const nodeKey = sha256hex(stableId);
+        const ref = admin.database().ref(`/leaderboard/${nodeKey}`);
+
+        try {
+            // First-write seed only: never lowers or overwrites an already accumulated score.
+            await ref.transaction((current: LeaderboardEntry) => {
+                if (current && (current.score ?? 0) > 0) return current;
+                return {
+                    platform,
+                    displayName,
+                    avatarUrl,
+                    score,
+                    updatedAt: Date.now(),
+                };
+            });
+            res.status(200).send("OK");
+        } catch (err) {
+            logger.error("backfillLeaderboard failed", err);
             res.status(502).send("Upstream Error");
         }
     }
