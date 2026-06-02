@@ -201,9 +201,9 @@ interface GameContext {
 function maxScoreForContext(ctx: GameContext): number {
     const difficulty = typeof ctx.difficulty === "number" ? ctx.difficulty : -1;
     const time = typeof ctx.timeSeconds === "number" ? ctx.timeSeconds : 0;
-    if (time <= 0) return 0;
-    const targetTime = difficulty === 0 ? 300 : difficulty === 1 ? 600 : 1200;
-    const base = difficulty === 0 ? 100 : difficulty === 1 ? 250 : 500;
+    if (time <= 0 || difficulty < 1 || difficulty > 3) return 0;
+    const targetTime = difficulty === 1 ? 300 : difficulty === 2 ? 600 : 1200;
+    const base = difficulty === 1 ? 100 : difficulty === 2 ? 250 : 500;
     const speed = Math.min(targetTime / time, 2.0);
     return Math.ceil(base * speed * 1.3 * 1.5);
 }
@@ -313,9 +313,9 @@ interface FirebaseStatEntry {
 // Mirrors the spirit of RatingCalculator.scoreForWin on the Android client.
 function computeMigratedScore(perDifficulty: Record<string, FirebaseStatEntry>): number {
     const difficulties = [
-        { key: "0", base: 100, target: 300 },
-        { key: "1", base: 250, target: 600 },
-        { key: "2", base: 500, target: 1200 },
+        { key: "1", base: 100, target: 300 },
+        { key: "2", base: 250, target: 600 },
+        { key: "3", base: 500, target: 1200 },
     ];
     let total = 0;
     for (const { key, base, target } of difficulties) {
