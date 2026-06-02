@@ -144,6 +144,9 @@
     <string name="daily_streak_label">Current streak</string>
     <string name="daily_difficulty_format" translatable="false">%1$s  %2$s</string>
     <string name="daily_best_streak_label">Best streak</string>
+    <string name="daily_calendar_prev_month">Previous month</string>
+    <string name="daily_calendar_next_month">Next month</string>
+    <string name="daily_calendar_completed">Completed</string>
 
     <string name="achievement_wins_first_title">First win</string>
     <string name="achievement_wins_first_desc">Win your first sudoku</string>
@@ -228,6 +231,11 @@
     <string name="leaderboard_empty">No scores yet — finish a game to claim a spot.</string>
     <string name="leaderboards_title">Leaderboards</string>
     <string name="leaderboard_load_error">Could not load the leaderboard. Pull to refresh.</string>
+    <string name="leaderboard_consent_title">Show your name?</string>
+    <string name="leaderboard_consent_desc">Would you like to display your Play Games name and avatar in the global leaderboard? You can change this in Settings at any time.</string>
+    <string name="leaderboard_consent_confirm">Yes, show my name</string>
+    <string name="leaderboard_consent_dismiss">Stay anonymous</string>
+    <string name="settings_show_name_on_leaderboard">Show my name in global ranking</string>
     <string name="reset_statistics_cloud_warning">Note: your best scores will stay in the Google Play Games leaderboard.</string>
     <string name="hint_mode_section_title">Hint mode</string>
     <string name="hint_mode_single_shot_title">Single tap</string>

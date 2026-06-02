@@ -22,6 +22,9 @@ interface FirebaseApi {
     @GET("stats.json")
     suspend fun getAllStats(): Map<String, Map<String, FirebaseStatDto>>?
 
+    @GET("leaderboard.json")
+    suspend fun getLeaderboard(): Map<String, LeaderboardEntryDto>?
+
     @PUT("crashes/{deviceId}/{timestamp}.json")
     suspend fun uploadCrash(
         @Path("deviceId") deviceId: String,
