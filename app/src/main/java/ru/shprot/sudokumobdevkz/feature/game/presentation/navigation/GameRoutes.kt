@@ -11,5 +11,6 @@ sealed class GameRoutes : NavRoute() {
         val difficultyOrdinal: Int = 0,
         val continueGame: Boolean = false,
         val isDailyChallenge: Boolean = false,
+        val dailyDateKey: String = "",
     ) : GameRoutes()
 }

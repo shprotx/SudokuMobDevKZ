@@ -267,4 +267,40 @@
     <string name="theme_deleted_fallback">Theme deleted. Switched to Light.</string>
     <string name="theme_saved">Theme saved</string>
     <string name="draft_notes_popup_number_description">Жазба %1$d</string>
+
+    <string name="daily_calendar_prev_month">Алдыңғы ай</string>
+    <string name="daily_calendar_next_month">Келесі ай</string>
+    <string name="daily_calendar_completed">Орындалды</string>
+    <string name="done">Дайын</string>
+
+    <string name="color_channel_red">R</string>
+    <string name="color_channel_green">G</string>
+    <string name="color_channel_blue">B</string>
+
+    <string name="how_desc_one">Әр ұяшықты 1-ден 9-ға дейінгі санмен толтырыңыз.\n\nБір сан кез келген жолда, бағанда немесе 3×3 блокта екі рет қайталанбауы тиіс.</string>
+    <string name="how_desc_two">Әр басқатырғыштың тек бір шешімі бар. Бос ұяшықты басып, тор астынан сан таңдаңыз.\n\nТек бір сан сәйкес келетін ұяшықтарды іздеңіз.</string>
+    <string name="how_desc_three">Ұяшықтағы ықтимал нұсқаларды белгілеу үшін жазбаларды қолданыңыз. Тор астындағы батырмамен жазба режимін қосыңыз.\n\nСоңғы санды қойғанда жазбалар автоматты түрде жоғалады.</string>
+
+    <string name="theme_palette_ocean">Мұхит</string>
+    <string name="theme_palette_forest">Орман</string>
+    <string name="theme_palette_sunset">Күн батуы</string>
+    <string name="theme_palette_sakura">Сакура</string>
+    <string name="theme_palette_mint">Жалбыз</string>
+    <string name="theme_palette_sand">Құм</string>
+    <string name="theme_palette_lavender">Лаванда</string>
+    <string name="theme_palette_grape">Жүзім</string>
+    <string name="theme_palette_crimson">Қою қызыл</string>
+    <string name="theme_palette_emerald">Зүмірет</string>
+    <string name="theme_palette_slate">Тақтатас</string>
+    <string name="theme_palette_midnight">Түн ортасы</string>
+    <string name="theme_palette_dracula">Дракула</string>
+    <string name="theme_palette_nord">Солтүстік</string>
+    <string name="theme_palette_gruvbox">Ретро</string>
+    <string name="theme_palette_latte">Латте</string>
+    <string name="theme_palette_mocha">Мокко</string>
+    <string name="theme_palette_everforest">Мәңгі орман</string>
+    <string name="theme_palette_rose_pine">Қызғылт қарағай</string>
+    <string name="theme_palette_solarized_dark">Күнді қараңғы</string>
+    <string name="theme_palette_solarized_light">Күнді ашық</string>
+    <string name="theme_palette_tokyo_night">Токио түні</string>
 </resources>

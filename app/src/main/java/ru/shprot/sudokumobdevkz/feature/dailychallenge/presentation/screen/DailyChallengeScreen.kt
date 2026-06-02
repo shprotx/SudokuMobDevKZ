@@ -29,6 +29,7 @@ fun DailyChallengeScreen(
                         GameRoutes.GameScreen(
                             difficultyOrdinal = effect.difficultyOrdinal,
                             isDailyChallenge = true,
+                            dailyDateKey = effect.dailyDateKey,
                         )
                     )
             }

@@ -130,6 +130,9 @@
     <string name="daily_try_again">Попробуй ещё</string>
     <string name="daily_streak_label">Текущая серия</string>
     <string name="daily_best_streak_label">Лучшая серия</string>
+    <string name="daily_calendar_prev_month">Предыдущий месяц</string>
+    <string name="daily_calendar_next_month">Следующий месяц</string>
+    <string name="daily_calendar_completed">Выполнено</string>
 
     <string name="achievements_section_unlocked">Получено</string>
     <string name="achievements_section_in_progress">В процессе</string>
