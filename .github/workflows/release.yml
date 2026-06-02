@@ -42,6 +42,7 @@ jobs:
           KEYSTORE_ALIAS: ${{ secrets.KEYSTORE_ALIAS }}
           KEYSTORE_ALIAS_PASS: ${{ secrets.KEYSTORE_ALIAS_PASS }}
           FIREBASE_DB_URL: ${{ secrets.FIREBASE_DB_URL }}
+          LEADERBOARD_CF_URL: ${{ secrets.LEADERBOARD_CF_URL }}
 
       - name: Rename APK
         run: mv app/build/outputs/apk/release/app-release.apk app/build/outputs/apk/release/sudoku-v${{ steps.version.outputs.name }}.apk
