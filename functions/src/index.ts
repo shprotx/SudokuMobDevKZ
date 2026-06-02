@@ -1,10 +1,11 @@
 import { onRequest } from "firebase-functions/v2/https";
 import { defineSecret } from "firebase-functions/params";
 import { logger } from "firebase-functions/v2";
-import * as admin from "firebase-admin";
+import { initializeApp } from "firebase-admin/app";
+import { getDatabase } from "firebase-admin/database";
 import { createHash, timingSafeEqual } from "node:crypto";
 
-admin.initializeApp();
+initializeApp();
 
 const TELEGRAM_BOT_TOKEN = defineSecret("TELEGRAM_BOT_TOKEN");
 const TELEGRAM_CHAT_ID = defineSecret("TELEGRAM_CHAT_ID");
@@ -274,7 +275,7 @@ export const submitLeaderboard = onRequest(
             : null;
 
         const nodeKey = sha256hex(stableId);
-        const ref = admin.database().ref(`/leaderboard/${nodeKey}`);
+        const ref = getDatabase().ref(`/leaderboard/${nodeKey}`);
 
         try {
             await ref.transaction((current: LeaderboardEntry) => {
@@ -352,7 +353,7 @@ export const migrateLeaderboard = onRequest(
             return;
         }
 
-        const allStats = (await admin.database().ref("/stats").get()).val() as
+        const allStats = (await getDatabase().ref("/stats").get()).val() as
             Record<string, Record<string, FirebaseStatEntry>> | null;
 
         if (!allStats) {
@@ -375,7 +376,7 @@ export const migrateLeaderboard = onRequest(
                 continue;
             }
             const nodeKey = sha256hex(stableId);
-            const ref = admin.database().ref(`/leaderboard/${nodeKey}`);
+            const ref = getDatabase().ref(`/leaderboard/${nodeKey}`);
             await ref.transaction((current: LeaderboardEntry) => {
                 const existing = current?.score ?? 0;
                 if (existing >= score) return current;
@@ -438,7 +439,7 @@ export const backfillLeaderboard = onRequest(
         }
 
         // Score computed SERVER-SIDE from /stats — client cannot inflate it.
-        const perDifficulty = (await admin.database().ref(`/stats/${stableId}`).get()).val() as
+        const perDifficulty = (await getDatabase().ref(`/stats/${stableId}`).get()).val() as
             Record<string, FirebaseStatEntry> | null;
         const score = perDifficulty ? computeMigratedScore(perDifficulty) : 0;
         if (score <= 0) {
@@ -452,7 +453,7 @@ export const backfillLeaderboard = onRequest(
             : null;
 
         const nodeKey = sha256hex(stableId);
-        const ref = admin.database().ref(`/leaderboard/${nodeKey}`);
+        const ref = getDatabase().ref(`/leaderboard/${nodeKey}`);
 
         try {
             // First-write seed only: never lowers or overwrites an already accumulated score.
