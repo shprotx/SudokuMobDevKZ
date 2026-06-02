@@ -130,6 +130,9 @@
     <string name="daily_try_again">Попробуй ещё</string>
     <string name="daily_streak_label">Текущая серия</string>
     <string name="daily_best_streak_label">Лучшая серия</string>
+    <string name="daily_calendar_prev_month">Предыдущий месяц</string>
+    <string name="daily_calendar_next_month">Следующий месяц</string>
+    <string name="daily_calendar_completed">Выполнено</string>
 
     <string name="achievements_section_unlocked">Получено</string>
     <string name="achievements_section_in_progress">В процессе</string>
@@ -222,6 +225,11 @@
     <string name="leaderboard_empty">Пока никто не сыграл — будьте первым.</string>
     <string name="leaderboards_title">Рейтинги</string>
     <string name="leaderboard_load_error">Не удалось загрузить рейтинг. Потяните вниз для обновления.</string>
+    <string name="leaderboard_consent_title">Показывать ваше имя?</string>
+    <string name="leaderboard_consent_desc">Хотите отображать имя и аватар из Play Games в глобальном рейтинге? Это можно изменить в Настройках в любое время.</string>
+    <string name="leaderboard_consent_confirm">Да, показывать</string>
+    <string name="leaderboard_consent_dismiss">Остаться анонимным</string>
+    <string name="settings_show_name_on_leaderboard">Показывать моё имя в глобальном рейтинге</string>
     <string name="reset_statistics_cloud_warning">Учтите: ваши лучшие результаты останутся в облачном лидерборде Google Play Games.</string>
     <string name="hint_mode_section_title">Режим подсказок</string>
     <string name="hint_mode_single_shot_title">Одиночный</string>

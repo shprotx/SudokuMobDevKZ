@@ -23,6 +23,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 private val Context.settingsDataStore by preferencesDataStore(name = "sudoku_settings")
+private val Context.leaderboardDataStore by preferencesDataStore(name = "sudoku_leaderboard")
 
 @Singleton
 class SettingsRepository @Inject constructor(
@@ -55,7 +56,17 @@ class SettingsRepository @Inject constructor(
                 prefs[Keys.COMPACT_NUMBER_PAD] = newSettings.compactNumberPad
                 prefs[Keys.SELECTED_DIFFICULTY] = newSettings.selectedDifficultyOrdinal
                 prefs[Keys.HINT_MODE] = newSettings.hintMode.name
+                prefs[Keys.SHOW_NAME_ON_LEADERBOARD] = newSettings.showNameOnLeaderboard
             }
+        }
+    }
+
+    fun isLeaderboardNamePromptShown(): Flow<Boolean> =
+        context.leaderboardDataStore.data.map { it[LeaderboardKeys.NAME_PROMPT_SHOWN] ?: false }
+
+    fun markLeaderboardNamePromptShown() {
+        scope.launch {
+            context.leaderboardDataStore.edit { it[LeaderboardKeys.NAME_PROMPT_SHOWN] = true }
         }
     }
 
@@ -73,6 +84,7 @@ class SettingsRepository @Inject constructor(
         compactNumberPad = this[Keys.COMPACT_NUMBER_PAD] ?: false,
         selectedDifficultyOrdinal = this[Keys.SELECTED_DIFFICULTY] ?: 0,
         hintMode = HintMode.from(this[Keys.HINT_MODE]),
+        showNameOnLeaderboard = this[Keys.SHOW_NAME_ON_LEADERBOARD] ?: false,
     )
 
     private fun Preferences.resolveThemeModeId(): String =
@@ -96,5 +108,10 @@ class SettingsRepository @Inject constructor(
         val COMPACT_NUMBER_PAD = booleanPreferencesKey("compact_number_pad")
         val SELECTED_DIFFICULTY = intPreferencesKey("selected_difficulty")
         val HINT_MODE = stringPreferencesKey("hint_mode")
+        val SHOW_NAME_ON_LEADERBOARD = booleanPreferencesKey("show_name_on_leaderboard")
+    }
+
+    private object LeaderboardKeys {
+        val NAME_PROMPT_SHOWN = booleanPreferencesKey("name_prompt_shown")
     }
 }

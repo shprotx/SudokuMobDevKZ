@@ -24,8 +24,8 @@ android {
         applicationId "ru.shprot.sudokumobdevkz"
         minSdk 29
         targetSdk 36
-        versionCode 62
-        versionName "2.8.1"
+        versionCode 65
+        versionName "2.9.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -33,6 +33,8 @@ android {
                 "\"${localProperties.getProperty('FIREBASE_DB_URL', System.getenv('FIREBASE_DB_URL') ?: '')}\""
         buildConfigField "String", "FEEDBACK_API_URL",
                 "\"${localProperties.getProperty('FEEDBACK_API_URL', '')}\""
+        buildConfigField "String", "LEADERBOARD_CF_URL",
+                "\"${localProperties.getProperty('LEADERBOARD_CF_URL', System.getenv('LEADERBOARD_CF_URL') ?: '')}\""
         buildConfigField "boolean", "IS_PRE_RELEASE", "${versionName.contains('-')}"
     }
 

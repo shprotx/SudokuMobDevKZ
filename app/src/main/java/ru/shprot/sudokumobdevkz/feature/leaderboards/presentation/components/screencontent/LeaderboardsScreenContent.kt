@@ -12,9 +12,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,7 +25,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
-import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonText
 import ru.shprot.sudokumobdevkz.core.uicommon.toolbar.ToolbarDefault
 import ru.shprot.sudokumobdevkz.feature.leaderboards.presentation.components.LeaderboardRowItem
 import ru.shprot.sudokumobdevkz.feature.leaderboards.presentation.contract.LeaderboardsUIEvent
@@ -57,9 +58,6 @@ fun LeaderboardsScreenContent(
         ) {
 
             when {
-                !uiState.isSignedIn ->
-                    SignInCtaContent(onSignInCta = { onEvent(LeaderboardsUIEvent.SignInCtaClicked) })
-
                 uiState.isLoading ->
                     LoadingContent()
 
@@ -74,33 +72,56 @@ fun LeaderboardsScreenContent(
             }
         }
     }
+
+    if (uiState.showNameConsentPrompt) {
+        NameConsentDialog(
+            onAccept = { onEvent(LeaderboardsUIEvent.AcceptNameConsent) },
+            onDismiss = { onEvent(LeaderboardsUIEvent.DismissNameConsentPrompt) },
+        )
+    }
 }
 
 @Composable
-private fun SignInCtaContent(onSignInCta: () -> Unit) {
+private fun NameConsentDialog(
+    onAccept: () -> Unit,
+    onDismiss: () -> Unit,
+) {
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(AppTheme.paddings.xxl),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-    ) {
-
-        Text(
-            text = stringResource(R.string.leaderboard_sign_in_cta),
-            style = AppTheme.typography.body2,
-            color = AppTheme.colors.textSecondary,
-            textAlign = TextAlign.Center,
-        )
-
-        ButtonText(
-            modifier = Modifier.padding(top = AppTheme.paddings.medium),
-            text = stringResource(R.string.leaderboard_open_settings),
-            textColor = AppTheme.colors.primary,
-            onClick = onSignInCta,
-        )
-    }
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = {
+            Text(
+                text = stringResource(R.string.leaderboard_consent_title),
+                style = AppTheme.typography.h3,
+                color = AppTheme.colors.text,
+            )
+        },
+        text = {
+            Text(
+                text = stringResource(R.string.leaderboard_consent_desc),
+                style = AppTheme.typography.body3,
+                color = AppTheme.colors.textSecondary,
+            )
+        },
+        confirmButton = {
+            TextButton(onClick = onAccept) {
+                Text(
+                    text = stringResource(R.string.leaderboard_consent_confirm),
+                    color = AppTheme.colors.primary,
+                )
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text(
+                    text = stringResource(R.string.leaderboard_consent_dismiss),
+                    color = AppTheme.colors.textSecondary,
+                )
+            }
+        },
+        containerColor = AppTheme.colors.backgroundCard,
+        titleContentColor = AppTheme.colors.text,
+    )
 }
 
 @Composable
@@ -201,6 +222,5 @@ private fun LeaderboardList(uiState: LeaderboardsUIState) {
                 )
             }
         }
-
     }
 }

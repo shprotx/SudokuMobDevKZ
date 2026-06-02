@@ -22,6 +22,7 @@ import ru.shprot.sudokumobdevkz.core.base.data.util.DateTimeUtils
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonDefault
 import ru.shprot.sudokumobdevkz.core.uicommon.toolbar.ToolbarDefault
+import ru.shprot.sudokumobdevkz.feature.dailychallenge.presentation.components.DailyCalendar
 import ru.shprot.sudokumobdevkz.feature.dailychallenge.presentation.components.DailyHeroCard
 import ru.shprot.sudokumobdevkz.feature.dailychallenge.presentation.components.DailyResultCard
 import ru.shprot.sudokumobdevkz.feature.dailychallenge.presentation.components.StreakBadge
@@ -48,6 +49,7 @@ fun DailyChallengeScreenContent(
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
+                .navigationBarsPadding()
                 .padding(horizontal = AppTheme.paddings.large),
         ) {
             DailyHeroCard(
@@ -94,10 +96,9 @@ fun DailyChallengeScreenContent(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .navigationBarsPadding()
                     .padding(
                         top = AppTheme.paddings.xxxl,
-                        bottom = AppTheme.paddings.xxxl,
+                        bottom = AppTheme.paddings.default,
                     ),
                 verticalArrangement = Arrangement.spacedBy(AppTheme.paddings.default),
             ) {
@@ -108,6 +109,23 @@ fun DailyChallengeScreenContent(
                         onClick = { onEvent(DailyChallengeUIEvent.PlayClicked) },
                     )
                 }
+            }
+
+            if (uiState.calendarDays.isNotEmpty()) {
+                DailyCalendar(
+                    modifier = Modifier.padding(bottom = AppTheme.paddings.xxxl),
+                    visibleMonthLabel = uiState.visibleMonthLabel,
+                    weekDayLabels = uiState.weekDayLabels,
+                    firstDayOffset = uiState.firstDayOffset,
+                    calendarDays = uiState.calendarDays,
+                    monthCompletedCount = uiState.monthCompletedCount,
+                    monthTotalDays = uiState.monthTotalDays,
+                    canGoPrev = uiState.canGoPrev,
+                    canGoNext = uiState.canGoNext,
+                    onPrevMonth = { onEvent(DailyChallengeUIEvent.PrevMonth) },
+                    onNextMonth = { onEvent(DailyChallengeUIEvent.NextMonth) },
+                    onDayClicked = { dateKey -> onEvent(DailyChallengeUIEvent.DayClicked(dateKey)) },
+                )
             }
         }
     }

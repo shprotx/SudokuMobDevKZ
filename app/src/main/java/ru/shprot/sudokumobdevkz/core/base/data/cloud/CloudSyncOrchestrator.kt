@@ -10,6 +10,7 @@ import ru.shprot.sudokumobdevkz.core.base.data.repository.LeaderboardRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SudokuRepository
 import ru.shprot.sudokumobdevkz.core.base.domain.usecase.cloud.AutoImportSnapshotUseCase
 import ru.shprot.sudokumobdevkz.core.base.domain.usecase.cloud.BackfillAchievementsUseCase
+import ru.shprot.sudokumobdevkz.core.base.domain.usecase.cloud.BackfillLeaderboardUseCase
 import ru.shprot.sudokumobdevkz.core.base.domain.usecase.cloud.SubmitOverallScoreUseCase
 import ru.shprot.sudokumobdevkz.core.base.domain.usecase.cloud.SyncToCloudUseCase
 import java.util.concurrent.atomic.AtomicBoolean
@@ -23,6 +24,7 @@ class CloudSyncOrchestrator @Inject constructor(
     private val backfillTracker: CloudBackfillTracker,
     private val syncToCloud: SyncToCloudUseCase,
     private val submitOverallScore: SubmitOverallScoreUseCase,
+    private val backfillLeaderboard: BackfillLeaderboardUseCase,
     private val leaderboardRepository: LeaderboardRepository,
     private val sudokuRepository: SudokuRepository,
     private val autoImportSnapshot: AutoImportSnapshotUseCase,
@@ -44,6 +46,9 @@ class CloudSyncOrchestrator @Inject constructor(
         }
         scope.launch {
             syncToCloud.observeAndSync()
+        }
+        scope.launch {
+            backfillLeaderboard()
         }
     }
 

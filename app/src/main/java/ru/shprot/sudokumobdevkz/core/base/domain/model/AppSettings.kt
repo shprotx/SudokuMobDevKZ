@@ -14,6 +14,7 @@ data class AppSettings(
     val compactNumberPad: Boolean = false,
     val selectedDifficultyOrdinal: Int = 0,
     val hintMode: HintMode = HintMode.SINGLE_SHOT,
+    val showNameOnLeaderboard: Boolean = false,
 ) {
     val isStandardMode: Boolean get() = checkErrors && !unlimitedErrors && !unlimitedHints
 }

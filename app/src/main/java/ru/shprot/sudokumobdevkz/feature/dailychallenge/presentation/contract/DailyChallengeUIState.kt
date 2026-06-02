@@ -12,4 +12,12 @@ data class DailyChallengeUIState(
     val completionTimeSeconds: Int = 0,
     val errors: Int = 0,
     val isLoading: Boolean = true,
+    val visibleMonthLabel: String = "",
+    val weekDayLabels: List<String> = emptyList(),
+    val firstDayOffset: Int = 0,
+    val calendarDays: List<DayCellUiModel> = emptyList(),
+    val monthCompletedCount: Int = 0,
+    val monthTotalDays: Int = 0,
+    val canGoPrev: Boolean = false,
+    val canGoNext: Boolean = false,
 ) : UIState

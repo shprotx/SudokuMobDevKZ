@@ -7,6 +7,8 @@ import kotlinx.coroutines.launch
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.CloudGameServices
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.SignInState
 import ru.shprot.sudokumobdevkz.core.base.data.repository.LeaderboardRepository
+import ru.shprot.sudokumobdevkz.core.base.data.repository.SettingsRepository
+import ru.shprot.sudokumobdevkz.core.base.domain.usecase.cloud.UpdateLeaderboardIdentityUseCase
 import ru.shprot.sudokumobdevkz.core.base.presentation.viewmodel.BaseViewModel
 import ru.shprot.sudokumobdevkz.feature.leaderboards.presentation.contract.LeaderboardsUIEffect
 import ru.shprot.sudokumobdevkz.feature.leaderboards.presentation.contract.LeaderboardsUIEvent
@@ -17,14 +19,15 @@ import javax.inject.Inject
 class LeaderboardsViewModel @Inject constructor(
     private val cloud: CloudGameServices,
     private val leaderboardRepository: LeaderboardRepository,
+    private val settingsRepository: SettingsRepository,
+    private val updateLeaderboardIdentity: UpdateLeaderboardIdentityUseCase,
 ) : BaseViewModel<LeaderboardsUIEvent, LeaderboardsUIState, LeaderboardsUIEffect>(LeaderboardsUIState()) {
 
     init {
         observeSignInState()
         observeRepository()
-        if (cloud.isAvailable && cloud.signInState.value is SignInState.SignedIn) {
-            leaderboardRepository.refresh()
-        }
+        observeNameConsent()
+        leaderboardRepository.refresh()
     }
 
     override fun handleUIEvent(event: LeaderboardsUIEvent) =
@@ -37,6 +40,12 @@ class LeaderboardsViewModel @Inject constructor(
 
             LeaderboardsUIEvent.SignInCtaClicked ->
                 setEffect(LeaderboardsUIEffect.NavigateToSettings)
+
+            LeaderboardsUIEvent.DismissNameConsentPrompt ->
+                dismissNameConsentPrompt()
+
+            LeaderboardsUIEvent.AcceptNameConsent ->
+                acceptNameConsent()
         }
 
     private fun observeSignInState() {
@@ -45,6 +54,31 @@ class LeaderboardsViewModel @Inject constructor(
             cloud.signInState.collect { state ->
                 updateState { copy(isSignedIn = state is SignInState.SignedIn) }
             }
+        }
+    }
+
+    private fun observeNameConsent() {
+        viewModelScope.launch {
+            settingsRepository.isLeaderboardNamePromptShown().collect { shown ->
+                if (!shown) {
+                    updateState { copy(showNameConsentPrompt = true) }
+                }
+            }
+        }
+    }
+
+    private fun dismissNameConsentPrompt() {
+        settingsRepository.markLeaderboardNamePromptShown()
+        updateState { copy(showNameConsentPrompt = false) }
+    }
+
+    private fun acceptNameConsent() {
+        settingsRepository.markLeaderboardNamePromptShown()
+        settingsRepository.update { copy(showNameOnLeaderboard = true) }
+        updateState { copy(showNameConsentPrompt = false) }
+        viewModelScope.launch {
+            updateLeaderboardIdentity(showName = true)
+            leaderboardRepository.refresh()
         }
     }
 
