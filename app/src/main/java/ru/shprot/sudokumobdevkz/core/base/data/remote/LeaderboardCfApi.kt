@@ -15,4 +15,9 @@ interface LeaderboardCfApi {
     suspend fun backfill(
         @Body body: LeaderboardBackfillDto,
     ): Response<Unit>
+
+    @POST("updateLeaderboardIdentity")
+    suspend fun updateIdentity(
+        @Body body: LeaderboardIdentityDto,
+    ): Response<Unit>
 }

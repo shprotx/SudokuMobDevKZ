@@ -8,6 +8,7 @@ import ru.shprot.sudokumobdevkz.core.base.data.cloud.CloudGameServices
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.SignInState
 import ru.shprot.sudokumobdevkz.core.base.data.repository.LeaderboardRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SettingsRepository
+import ru.shprot.sudokumobdevkz.core.base.domain.usecase.cloud.UpdateLeaderboardIdentityUseCase
 import ru.shprot.sudokumobdevkz.core.base.presentation.viewmodel.BaseViewModel
 import ru.shprot.sudokumobdevkz.feature.leaderboards.presentation.contract.LeaderboardsUIEffect
 import ru.shprot.sudokumobdevkz.feature.leaderboards.presentation.contract.LeaderboardsUIEvent
@@ -19,6 +20,7 @@ class LeaderboardsViewModel @Inject constructor(
     private val cloud: CloudGameServices,
     private val leaderboardRepository: LeaderboardRepository,
     private val settingsRepository: SettingsRepository,
+    private val updateLeaderboardIdentity: UpdateLeaderboardIdentityUseCase,
 ) : BaseViewModel<LeaderboardsUIEvent, LeaderboardsUIState, LeaderboardsUIEffect>(LeaderboardsUIState()) {
 
     init {
@@ -74,7 +76,10 @@ class LeaderboardsViewModel @Inject constructor(
         settingsRepository.markLeaderboardNamePromptShown()
         settingsRepository.update { copy(showNameOnLeaderboard = true) }
         updateState { copy(showNameConsentPrompt = false) }
-        leaderboardRepository.refresh()
+        viewModelScope.launch {
+            updateLeaderboardIdentity(showName = true)
+            leaderboardRepository.refresh()
+        }
     }
 
     private fun observeRepository() {

@@ -396,6 +396,81 @@ export const migrateLeaderboard = onRequest(
     }
 );
 
+interface IdentityBody {
+    stableId?: unknown;
+    platform?: unknown;
+    displayName?: unknown;
+    avatarUrl?: unknown;
+}
+
+export const updateLeaderboardIdentity = onRequest(
+    {
+        region: "europe-west1",
+        memory: "256MiB",
+        cpu: 1,
+        timeoutSeconds: 30,
+        maxInstances: 10,
+        invoker: "public",
+    },
+    async (req, res) => {
+        if (req.method !== "POST") {
+            res.status(405).send("Method Not Allowed");
+            return;
+        }
+
+        const body = (req.body ?? {}) as IdentityBody;
+
+        const stableId = typeof body.stableId === "string" ? body.stableId.trim() : "";
+        if (!STABLE_ID_PATTERN.test(stableId)) {
+            res.status(400).send("Invalid stableId");
+            return;
+        }
+
+        const platform = typeof body.platform === "string" ? body.platform : "";
+        if (!PLATFORMS.has(platform)) {
+            res.status(400).send("Invalid platform");
+            return;
+        }
+
+        const displayName = sanitizeName(body.displayName);
+        const avatarUrl = typeof body.avatarUrl === "string" && body.avatarUrl.startsWith("http")
+            ? body.avatarUrl
+            : null;
+
+        const nodeKey = sha256hex(stableId);
+        const ref = getDatabase().ref(`/leaderboard/${nodeKey}`);
+
+        const perDifficulty = (await getDatabase().ref(`/stats/${stableId}`).get()).val() as
+            Record<string, FirebaseStatEntry> | null;
+        const migratedScore = perDifficulty ? computeMigratedScore(perDifficulty) : 0;
+
+        try {
+            await ref.transaction((current: LeaderboardEntry) => {
+                if (current !== null) {
+                    return {
+                        ...current,
+                        displayName,
+                        avatarUrl,
+                        updatedAt: Date.now(),
+                    };
+                }
+                if (migratedScore <= 0) return current;
+                return {
+                    platform,
+                    displayName,
+                    avatarUrl,
+                    score: migratedScore,
+                    updatedAt: Date.now(),
+                };
+            });
+            res.status(200).send("OK");
+        } catch (err) {
+            logger.error("updateLeaderboardIdentity failed", err);
+            res.status(502).send("Upstream Error");
+        }
+    }
+);
+
 interface BackfillBody {
     stableId?: unknown;
     platform?: unknown;
