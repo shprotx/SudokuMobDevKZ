@@ -14,7 +14,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
@@ -41,7 +40,7 @@ fun StreakBanner(
             modifier = Modifier.size(AppTheme.sizes.iconLarge),
             imageVector = Icons.Filled.LocalFireDepartment,
             contentDescription = null,
-            tint = Color(0xFFFF9500),
+            tint = AppTheme.colors.warning,
         )
 
         Column(

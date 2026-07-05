@@ -42,5 +42,8 @@ fun SettingsResetDialog(
                 onClick = onDismiss,
             )
         },
+        containerColor = AppTheme.colors.backgroundCard,
+        titleContentColor = AppTheme.colors.text,
+        textContentColor = AppTheme.colors.textSecondary,
     )
 }

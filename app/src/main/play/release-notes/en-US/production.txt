@@ -1,3 +1,3 @@
-• Fixed overall rating calculation — casual games (unlimited hints/errors) no longer affect the leaderboard score
-• New theme switcher: System / Light / Dark options instead of a single toggle
-• Minor technical improvements
+• New global leaderboard — see how you rank against other players, complete with names and avatars (or stay anonymous if you prefer)
+• Daily Challenge calendar — track completed days, replay missed or past puzzles, and follow your monthly progress
+• Localization and theme readability improvements

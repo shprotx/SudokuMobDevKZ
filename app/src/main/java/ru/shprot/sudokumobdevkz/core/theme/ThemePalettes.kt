@@ -65,6 +65,7 @@ object ThemePalettes {
         val textC = Color(text)
         val isDark = bgC.luminance() < DARK_THRESHOLD
         val onPrimary = contrastText(primaryC)
+        val primaryLight = if (isDark) lerp(primaryC, bgC, 0.70f).toArgbLong() else lighten(primaryC, 0.7f)
         return ThemePalette(
             id = id,
             labelRes = labelRes,
@@ -72,11 +73,11 @@ object ThemePalettes {
             colors = ThemeColors(
                 primary = primary,
                 primaryDark = darken(primaryC, 0.15f),
-                primaryLight = if (isDark) lerp(primaryC, bgC, 0.70f).toArgbLong() else lighten(primaryC, 0.7f),
+                primaryLight = primaryLight,
                 secondary = surface,
                 background = bg,
                 backgroundCard = surface,
-                backgroundCardAccent = if (isDark) lighten(surfaceC, 0.06f) else darken(surfaceC, 0.03f),
+                backgroundCardAccent = primaryLight,
                 surface = surface,
                 text = text,
                 textSecondary = textSecondary,

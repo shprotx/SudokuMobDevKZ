@@ -11,7 +11,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import ru.shprot.sudokumobdevkz.core.base.presentation.snackbar.SnackbarManager
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
@@ -39,8 +38,8 @@ fun AppSnackbarHost(modifier: Modifier) {
             Snackbar(
                 snackbarData = data,
                 containerColor = if (isError) AppTheme.colors.error else AppTheme.colors.primary,
-                contentColor = Color.White,
-                actionColor = Color.White,
+                contentColor = AppTheme.colors.textOnPrimary,
+                actionColor = AppTheme.colors.textOnPrimary,
             )
         },
     )
