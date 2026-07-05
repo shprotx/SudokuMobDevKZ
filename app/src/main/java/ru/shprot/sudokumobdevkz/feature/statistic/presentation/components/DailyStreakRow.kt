@@ -8,7 +8,6 @@ import androidx.compose.material.icons.filled.LocalFireDepartment
 import androidx.compose.material.icons.filled.MilitaryTech
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
@@ -26,7 +25,7 @@ fun DailyStreakRow(
         OverviewCard(
             modifier = Modifier.weight(1f),
             icon = Icons.Filled.LocalFireDepartment,
-            iconTint = Color(0xFFFF9500),
+            iconTint = AppTheme.colors.warning,
             label = stringResource(R.string.daily_streak_label),
             value = currentStreak.toString(),
         )

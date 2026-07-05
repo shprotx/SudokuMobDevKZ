@@ -39,20 +39,20 @@ fun DailyResultCard(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(AppTheme.paddings.large),
+                .padding(AppTheme.paddings.default),
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Icon(
-                    modifier = Modifier.size(AppTheme.sizes.iconMedium),
+                    modifier = Modifier.size(AppTheme.sizes.iconSmall),
                     imageVector = Icons.Filled.CheckCircle,
                     contentDescription = null,
                     tint = AppTheme.colors.primary,
                 )
 
                 Text(
-                    modifier = Modifier.padding(start = AppTheme.paddings.medium),
+                    modifier = Modifier.padding(start = AppTheme.paddings.small),
                     text = title,
                     style = AppTheme.typography.body1,
                     fontWeight = FontWeight.SemiBold,
@@ -63,7 +63,7 @@ fun DailyResultCard(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = AppTheme.paddings.large),
+                    .padding(top = AppTheme.paddings.medium),
                 horizontalArrangement = Arrangement.spacedBy(AppTheme.paddings.large),
             ) {
                 ResultStat(

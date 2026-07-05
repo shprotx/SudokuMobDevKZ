@@ -15,7 +15,6 @@ import androidx.compose.material.icons.filled.LocalFireDepartment
 import androidx.compose.material.icons.filled.MilitaryTech
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.base.data.util.DateTimeUtils
@@ -53,7 +52,7 @@ fun DailyChallengeScreenContent(
                 .padding(horizontal = AppTheme.paddings.large),
         ) {
             DailyHeroCard(
-                modifier = Modifier.padding(top = AppTheme.paddings.large),
+                modifier = Modifier.padding(top = AppTheme.paddings.default),
                 dateLabel = uiState.dateLabel,
                 difficultyTitle = stringResource(uiState.difficulty.titleRes),
                 difficultyEmoji = uiState.difficulty.emoji,
@@ -62,7 +61,7 @@ fun DailyChallengeScreenContent(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = AppTheme.paddings.large),
+                    .padding(top = AppTheme.paddings.default),
                 horizontalArrangement = Arrangement.spacedBy(AppTheme.paddings.default),
             ) {
                 StreakBadge(
@@ -70,7 +69,7 @@ fun DailyChallengeScreenContent(
                     streak = uiState.currentStreak,
                     label = stringResource(R.string.daily_streak_label),
                     icon = Icons.Filled.LocalFireDepartment,
-                    iconTint = Color(0xFFFF9500),
+                    iconTint = AppTheme.colors.warning,
                 )
 
                 StreakBadge(
@@ -84,7 +83,7 @@ fun DailyChallengeScreenContent(
 
             if (uiState.isCompletedToday) {
                 DailyResultCard(
-                    modifier = Modifier.padding(top = AppTheme.paddings.large),
+                    modifier = Modifier.padding(top = AppTheme.paddings.default),
                     title = stringResource(R.string.daily_completed),
                     timeLabel = stringResource(R.string.time_label),
                     timeValue = DateTimeUtils.formatTimer(uiState.completionTimeSeconds),
@@ -97,7 +96,7 @@ fun DailyChallengeScreenContent(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(
-                        top = AppTheme.paddings.xxxl,
+                        top = AppTheme.paddings.default,
                         bottom = AppTheme.paddings.default,
                     ),
                 verticalArrangement = Arrangement.spacedBy(AppTheme.paddings.default),
@@ -113,7 +112,7 @@ fun DailyChallengeScreenContent(
 
             if (uiState.calendarDays.isNotEmpty()) {
                 DailyCalendar(
-                    modifier = Modifier.padding(bottom = AppTheme.paddings.xxxl),
+                    modifier = Modifier.padding(bottom = AppTheme.paddings.large),
                     visibleMonthLabel = uiState.visibleMonthLabel,
                     weekDayLabels = uiState.weekDayLabels,
                     firstDayOffset = uiState.firstDayOffset,
