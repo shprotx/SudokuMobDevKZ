@@ -50,7 +50,7 @@ internal fun DailyCalendar(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(AppTheme.paddings.large),
+                .padding(AppTheme.paddings.default),
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -105,7 +105,7 @@ internal fun DailyCalendar(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = AppTheme.paddings.medium),
+                        .padding(top = AppTheme.paddings.small),
                 ) {
                     weekDayLabels.forEach { label ->
                         Text(
@@ -125,7 +125,7 @@ internal fun DailyCalendar(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = AppTheme.paddings.small),
+                    .padding(top = AppTheme.paddings.extraSmall),
             ) {
                 repeat(rowCount) { row ->
                     Row(modifier = Modifier.fillMaxWidth()) {

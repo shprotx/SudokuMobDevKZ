@@ -3,6 +3,7 @@ package ru.shprot.sudokumobdevkz.feature.dailychallenge.presentation.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -20,7 +21,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
@@ -39,11 +39,11 @@ fun DailyHeroCard(
         ),
         elevation = CardDefaults.cardElevation(defaultElevation = AppTheme.sizes.elevationSmall),
     ) {
-        Column(
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(AppTheme.paddings.xxl),
-            horizontalAlignment = Alignment.CenterHorizontally,
+                .padding(AppTheme.paddings.large),
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Box(
                 modifier = Modifier
@@ -60,22 +60,23 @@ fun DailyHeroCard(
                 )
             }
 
-            Text(
-                modifier = Modifier.padding(top = AppTheme.paddings.large),
-                text = dateLabel,
-                style = AppTheme.typography.h3,
-                fontWeight = FontWeight.Bold,
-                color = AppTheme.colors.text,
-                textAlign = TextAlign.Center,
-            )
+            Column(
+                modifier = Modifier.padding(start = AppTheme.paddings.large),
+            ) {
+                Text(
+                    text = dateLabel,
+                    style = AppTheme.typography.h3,
+                    fontWeight = FontWeight.Bold,
+                    color = AppTheme.colors.text,
+                )
 
-            Text(
-                modifier = Modifier.padding(top = AppTheme.paddings.small),
-                text = stringResource(R.string.daily_difficulty_format, difficultyEmoji, difficultyTitle),
-                style = AppTheme.typography.body1,
-                color = AppTheme.colors.textSecondary,
-                textAlign = TextAlign.Center,
-            )
+                Text(
+                    modifier = Modifier.padding(top = AppTheme.paddings.extraSmall),
+                    text = stringResource(R.string.daily_difficulty_format, difficultyEmoji, difficultyTitle),
+                    style = AppTheme.typography.body1,
+                    color = AppTheme.colors.textSecondary,
+                )
+            }
         }
     }
 }
