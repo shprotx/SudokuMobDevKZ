@@ -18,7 +18,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -50,14 +49,14 @@ fun DailyHeroCard(
                 modifier = Modifier
                     .size(AppTheme.sizes.iconXL)
                     .clip(CircleShape)
-                    .background(Color(0xFFFF9500).copy(alpha = 0.15f)),
+                    .background(AppTheme.colors.warning.copy(alpha = 0.15f)),
                 contentAlignment = Alignment.Center,
             ) {
                 Icon(
                     modifier = Modifier.size(AppTheme.sizes.iconLarge),
                     imageVector = Icons.Filled.LocalFireDepartment,
                     contentDescription = null,
-                    tint = Color(0xFFFF9500),
+                    tint = AppTheme.colors.warning,
                 )
             }
 

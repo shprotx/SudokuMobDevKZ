@@ -52,7 +52,18 @@ fun SettingsToggleItem(
             onCheckedChange = onCheckedChange,
             enabled = enabled,
             colors = SwitchDefaults.colors(
+                checkedThumbColor = AppTheme.colors.textOnPrimary,
                 checkedTrackColor = AppTheme.colors.primary,
+                checkedBorderColor = AppTheme.colors.primary,
+                uncheckedThumbColor = AppTheme.colors.backgroundCard,
+                uncheckedTrackColor = AppTheme.colors.divider,
+                uncheckedBorderColor = AppTheme.colors.divider,
+                disabledCheckedThumbColor = AppTheme.colors.textOnPrimary.copy(alpha = 0.38f),
+                disabledCheckedTrackColor = AppTheme.colors.primary.copy(alpha = 0.12f),
+                disabledCheckedBorderColor = AppTheme.colors.primary.copy(alpha = 0.12f),
+                disabledUncheckedThumbColor = AppTheme.colors.textSecondary.copy(alpha = 0.38f),
+                disabledUncheckedTrackColor = AppTheme.colors.divider.copy(alpha = 0.12f),
+                disabledUncheckedBorderColor = AppTheme.colors.divider.copy(alpha = 0.12f),
             ),
         )
     }

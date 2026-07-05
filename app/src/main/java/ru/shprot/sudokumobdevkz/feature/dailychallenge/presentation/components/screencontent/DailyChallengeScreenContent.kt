@@ -15,7 +15,6 @@ import androidx.compose.material.icons.filled.LocalFireDepartment
 import androidx.compose.material.icons.filled.MilitaryTech
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.base.data.util.DateTimeUtils
@@ -70,7 +69,7 @@ fun DailyChallengeScreenContent(
                     streak = uiState.currentStreak,
                     label = stringResource(R.string.daily_streak_label),
                     icon = Icons.Filled.LocalFireDepartment,
-                    iconTint = Color(0xFFFF9500),
+                    iconTint = AppTheme.colors.warning,
                 )
 
                 StreakBadge(

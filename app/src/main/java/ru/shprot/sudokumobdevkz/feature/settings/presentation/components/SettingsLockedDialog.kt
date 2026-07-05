@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import ru.shprot.sudokumobdevkz.R
+import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonText
 
 @Composable
@@ -32,5 +33,8 @@ fun SettingsLockedDialog(
                 onClick = onDismiss,
             )
         },
+        containerColor = AppTheme.colors.backgroundCard,
+        titleContentColor = AppTheme.colors.text,
+        textContentColor = AppTheme.colors.textSecondary,
     )
 }

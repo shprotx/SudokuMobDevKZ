@@ -56,7 +56,7 @@ fun OverviewCards(
             OverviewCard(
                 modifier = Modifier.weight(1f),
                 icon = Icons.Filled.EmojiEvents,
-                iconTint = Color(0xFFFF9500),
+                iconTint = AppTheme.colors.warning,
                 label = stringResource(R.string.win_percent_label),
                 value = percentOfWins,
             )

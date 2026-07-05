@@ -60,13 +60,13 @@ fun NewGameButton(
                 modifier = Modifier
                     .size(AppTheme.sizes.iconXL)
                     .clip(CircleShape)
-                    .background(Color.White.copy(alpha = 0.2f)),
+                    .background(AppTheme.colors.textOnPrimary.copy(alpha = 0.2f)),
                 contentAlignment = Alignment.Center,
             ) {
                 Icon(
                     imageVector = Icons.Filled.Add,
                     contentDescription = null,
-                    tint = Color.White,
+                    tint = AppTheme.colors.textOnPrimary,
                     modifier = Modifier.size(AppTheme.sizes.iconMedium),
                 )
             }
