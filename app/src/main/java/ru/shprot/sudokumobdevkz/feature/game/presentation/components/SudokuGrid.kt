@@ -48,8 +48,7 @@ fun SudokuGrid(
     val editableColor = AppTheme.colors.cellEditable
     val errorColor = AppTheme.colors.error
     val draftColor = AppTheme.colors.draftText
-    val draftHighlightColor = AppTheme.colors.primary
-    val draftHighlightBackdrop = AppTheme.colors.primary.copy(alpha = 0.22f)
+    val draftHighlightColor = AppTheme.colors.text
     val textMeasurer = rememberTextMeasurer()
     val density = LocalDensity.current
     val hapticFeedback = LocalHapticFeedback.current
@@ -85,7 +84,7 @@ fun SudokuGrid(
         if (!isPaused) {
             drawHighlights(cells, selectedRow, selectedCol, cellSize, cellSelected, cellHighlight, cellSameNumber, cellErrorColor, highlightedNumber)
 
-            drawNumbers(cells, cellSize, fixedColor, editableColor, errorColor, draftColor, draftHighlightColor, draftHighlightBackdrop, highlightedNumber, textMeasurer, density)
+            drawNumbers(cells, cellSize, fixedColor, editableColor, errorColor, draftColor, draftHighlightColor, highlightedNumber, textMeasurer, density)
         }
 
         drawGridLines(cellSize, gridLine, gridLineBold)
@@ -168,7 +167,6 @@ private fun DrawScope.drawNumbers(
     errorColor: Color,
     draftColor: Color,
     draftHighlightColor: Color,
-    draftHighlightBackdrop: Color,
     highlightedNumber: Int,
     textMeasurer: TextMeasurer,
     density: Density,
@@ -207,7 +205,7 @@ private fun DrawScope.drawNumbers(
                     val isHighlighted = note == highlightedNumber
                     val noteStyle = TextStyle(
                         fontSize = if (isHighlighted) draftHighlightFontSizeSp else draftFontSizeSp,
-                        fontWeight = if (isHighlighted) FontWeight.ExtraBold else FontWeight.Medium,
+                        fontWeight = if (isHighlighted) FontWeight.Black else FontWeight.Medium,
                         color = if (isHighlighted) draftHighlightColor else draftColor,
                     )
                     val noteRow = (note - 1) / 3
@@ -216,13 +214,6 @@ private fun DrawScope.drawNumbers(
                     val measured = textMeasurer.measure(text, noteStyle)
                     val slotCenterX = col * cellSize + inset + noteCol * noteSize + noteSize / 2f
                     val slotCenterY = row * cellSize + inset + noteRow * noteSize + noteSize / 2f
-                    if (isHighlighted) {
-                        drawCircle(
-                            color = draftHighlightBackdrop,
-                            radius = noteSize * 0.42f,
-                            center = Offset(slotCenterX, slotCenterY),
-                        )
-                    }
                     val x = slotCenterX - measured.size.width / 2f
                     val y = slotCenterY - measured.size.height / 2f
                     drawText(measured, topLeft = Offset(x, y))
