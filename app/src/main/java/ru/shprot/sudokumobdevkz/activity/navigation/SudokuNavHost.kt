@@ -44,6 +44,9 @@ import ru.shprot.sudokumobdevkz.feature.splash.presentation.viewmodel.SplashView
 import ru.shprot.sudokumobdevkz.feature.statistic.presentation.navigation.StatisticRoutes
 import ru.shprot.sudokumobdevkz.feature.statistic.presentation.screen.StatisticScreen
 import ru.shprot.sudokumobdevkz.feature.statistic.presentation.viewmodel.StatisticViewModel
+import ru.shprot.sudokumobdevkz.feature.themebuilder.presentation.navigation.ThemeBuilderRoutes
+import ru.shprot.sudokumobdevkz.feature.themebuilder.presentation.screen.ThemeBuilderScreen
+import ru.shprot.sudokumobdevkz.feature.themebuilder.presentation.viewmodel.ThemeBuilderViewModel
 
 @Composable
 fun SudokuNavHost(
@@ -118,5 +121,9 @@ fun SudokuNavHost(
             FeedbackScreen(navController = navController, viewModel = viewModel)
         }
 
+        composable<ThemeBuilderRoutes.ThemeBuilderScreen> {
+            val viewModel: ThemeBuilderViewModel = hiltViewModel()
+            ThemeBuilderScreen(navController = navController, viewModel = viewModel)
+        }
     }
 }

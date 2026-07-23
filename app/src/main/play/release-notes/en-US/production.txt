@@ -1,3 +1,1 @@
-• New global leaderboard — see how you rank against other players, complete with names and avatars (or stay anonymous if you prefer)
-• Daily Challenge calendar — track completed days, replay missed or past puzzles, and follow your monthly progress
-• Localization and theme readability improvements
+New: Theme editor. Create your own color themes — pick any interface color, tweak it with a live game preview, and save your custom themes.
