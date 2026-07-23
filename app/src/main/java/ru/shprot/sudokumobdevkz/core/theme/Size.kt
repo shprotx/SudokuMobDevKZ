@@ -33,7 +33,7 @@ data class Size(
     val dropdownIndicatorSize: Dp = 8.dp,
     val themePreviewDot: Dp = 14.dp,
     val colorSliderHeight: Dp = 28.dp,
-    val colorSliderKnob: Dp = 3.dp,
+    val colorSliderKnob: Dp = 2.dp,
     val colorSwatch: Dp = 36.dp,
     val colorPickerPreview: Dp = 150.dp,
     val themePickerWidth: Dp = 260.dp,
