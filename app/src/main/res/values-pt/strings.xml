@@ -139,5 +139,6 @@
     <string name="theme_deleted_fallback">Tema excluído. Tema claro aplicado.</string>
     <string name="theme_saved">Tema salvo</string>
     <string name="draft_notes_popup_number_description">Rascunho %1$d</string>
+    <string name="settings_show_name_on_leaderboard">Mostrar meu nome no ranking global</string>
     <string name="leaderboard_show_name_sign_in_required">Faça login para mostrar seu nome no ranking</string>
 </resources>

@@ -1,13 +1,12 @@
 package ru.shprot.sudokumobdevkz.core.base.data.repository
 
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
 import ru.shprot.sudokumobdevkz.core.base.domain.model.AppSettings
 
 interface ISettingsRepository {
     val settings: Flow<AppSettings>
     val currentSettings: AppSettings
     fun update(transform: AppSettings.() -> AppSettings)
-    fun isLeaderboardNamePromptShown(): Flow<Boolean> = flowOf(true)
-    fun markLeaderboardNamePromptShown() = Unit
+    fun isLeaderboardNamePromptShown(): Flow<Boolean>
+    fun markLeaderboardNamePromptShown()
 }

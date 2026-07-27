@@ -62,7 +62,10 @@ class LeaderboardsViewModel @Inject constructor(
             SnackbarManager.show(R.string.leaderboard_show_name_sign_in_required)
             return
         }
-        viewModelScope.launch { toggleShowNameOnLeaderboard() }
+        viewModelScope.launch {
+            toggleShowNameOnLeaderboard()
+            leaderboardRepository.refresh()
+        }
     }
 
     private fun observeSettings() {
