@@ -10,7 +10,8 @@ Android Sudoku game (100% Kotlin, Jetpack Compose) distributed via APK (GitHub R
 ./gradlew assembleDebug          # Build debug APK
 ./gradlew assembleRelease        # Build release APK (needs keystore in local.properties)
 ./gradlew bundleRelease          # Build release AAB
-./gradlew publishReleaseBundle   # Upload AAB to Play Console (internal track, DRAFT). Plugin: com.github.triplet.play. Credentials: PLAY_SERVICE_ACCOUNT_FILE in local.properties.
+./gradlew publishReleaseBundle   # Upload AAB to Play Console (internal track, COMPLETED — сразу виден тестерам). Plugin: com.github.triplet.play. Credentials: PLAY_SERVICE_ACCOUNT_FILE in local.properties.
+./gradlew promoteReleaseArtifact --from-track internal --promote-track production  # Промоут internal → production. Release notes: app/src/main/play/release-notes/{en-US,ru-RU,kk}/
 ./gradlew testDebugUnitTest      # Run unit tests
 ./gradlew connectedDebugAndroidTest  # Run instrumented tests
 ./gradlew clean                  # Clean build artifacts
@@ -164,6 +165,18 @@ Tables: `StatisticEntity`, `GameHistoryEntity`, `SavedGameEntity`. DB version 2 
 ## CI/CD
 
 GitHub Actions workflow (`.github/workflows/release.yml`): on PR merge to master → build release APK → create GitHub Release with tag `vX.Y.Z`.
+
+## Автономный прогон задач (волны issues)
+
+Когда пользователь просит выполнить задачи из GitHub Issues автономно (ключевые фразы: "волна", "прогон задач", "бери issues и выполняй", "execution loop"), используй **workflow `sudoku-wave`** (`.claude/workflows/sudoku-wave.js`):
+
+- args: `{issues:[111,112], base:"develop", maxParallel:3, includeDiscussion:false}`
+- Схема: волна независимых issues параллельно — exec-агент (sonnet) в изолированном git worktree → adversarial review (fable) → security review (fable) → draft PR на issue.
+- Issues с label `needs-discussion` пропускаются (discussion gate), если `includeDiscussion` не выставлен.
+- В одну волну брать только независимые issues (не трогающие одни файлы); зависимые — следующей волной.
+- PR создаются draft с базой `develop`, issue закрываются после мержа (в PR — `Refs #N`, не `Closes`).
+
+⚠️ **Deprecated**: `./scripts/execution-loop.sh` (последовательный Ralph Loop с прямыми коммитами) — устаревшая методика, заменена волновым workflow. Использовать только если пользователь явно попросит именно скрипт.
 
 ## Code Patterns to Follow
 
