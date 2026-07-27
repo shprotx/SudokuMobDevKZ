@@ -596,19 +596,20 @@ class GameViewModel @Inject constructor(
     }
 
     private suspend fun persistRegularGameResult(isWin: Boolean): Int {
+        val resultDifficulty = currentState.difficulty
         if (currentState.isStandardMode) {
             repository.updateStatistic(
-                difficulty = difficulty,
+                difficulty = resultDifficulty,
                 isWin = isWin,
                 timeSeconds = currentState.timeSeconds,
                 errorCount = currentState.errors,
             )
         } else {
-            repository.incrementCasualGames(difficulty)
+            repository.incrementCasualGames(resultDifficulty)
         }
 
         repository.saveGameResult(
-            difficulty = difficulty,
+            difficulty = resultDifficulty,
             timeSeconds = currentState.timeSeconds,
             errors = currentState.errors,
             isWin = isWin,
@@ -619,7 +620,7 @@ class GameViewModel @Inject constructor(
 
         if (isWin && currentState.timeSeconds > 0 && currentState.isStandardMode) {
             repository.submitLeaderboardForWin(
-                difficulty = difficulty,
+                difficulty = resultDifficulty,
                 timeSeconds = currentState.timeSeconds,
                 errors = currentState.errors,
                 hintsUsed = calculateHintsUsed(),
@@ -631,6 +632,7 @@ class GameViewModel @Inject constructor(
     }
 
     private suspend fun persistDailyChallengeWin(): Int {
+        val resultDifficulty = currentState.difficulty
         val dateKey = resolvedDailyDateKey()
         val streak = dailyChallengeRepository.markCompleted(
             dateKey = dateKey,
@@ -639,7 +641,7 @@ class GameViewModel @Inject constructor(
         )
 
         repository.saveGameResult(
-            difficulty = difficulty,
+            difficulty = resultDifficulty,
             timeSeconds = currentState.timeSeconds,
             errors = currentState.errors,
             isWin = true,
@@ -650,7 +652,7 @@ class GameViewModel @Inject constructor(
 
         if (currentState.timeSeconds > 0) {
             repository.submitLeaderboardForWin(
-                difficulty = difficulty,
+                difficulty = resultDifficulty,
                 timeSeconds = currentState.timeSeconds,
                 errors = currentState.errors,
                 hintsUsed = calculateHintsUsed(),
