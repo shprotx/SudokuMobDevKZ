@@ -13,6 +13,8 @@ data class GameSaveData(
     val cells: List<List<CellSave>>,
     val solution: List<List<Int>>,
     val isStandardMode: Boolean = true,
+    val isDailyChallenge: Boolean = false,
+    val dailyDateKey: String = "",
 ) {
     @Serializable
     data class CellSave(

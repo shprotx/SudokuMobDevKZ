@@ -213,6 +213,8 @@ class SudokuRepository @Inject constructor(
                 cellsJson = json.encodeToString(data.cells),
                 solutionJson = json.encodeToString(data.solution),
                 isStandardMode = data.isStandardMode,
+                isDailyChallenge = data.isDailyChallenge,
+                dailyDateKey = data.dailyDateKey,
             )
         )
         syncToCloud.trigger()
@@ -231,6 +233,8 @@ class SudokuRepository @Inject constructor(
                 cells = json.decodeFromString(entity.cellsJson),
                 solution = json.decodeFromString(entity.solutionJson),
                 isStandardMode = entity.isStandardMode,
+                isDailyChallenge = entity.isDailyChallenge,
+                dailyDateKey = entity.dailyDateKey,
             )
         } catch (_: Exception) {
             savedGameDao.delete()
