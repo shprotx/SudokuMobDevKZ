@@ -4,11 +4,14 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
+import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.CloudGameServices
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.SignInState
-import ru.shprot.sudokumobdevkz.core.base.data.repository.LeaderboardRepository
-import ru.shprot.sudokumobdevkz.core.base.data.repository.SettingsRepository
+import ru.shprot.sudokumobdevkz.core.base.data.repository.ILeaderboardRepository
+import ru.shprot.sudokumobdevkz.core.base.data.repository.ISettingsRepository
+import ru.shprot.sudokumobdevkz.core.base.domain.usecase.cloud.ToggleShowNameOnLeaderboardUseCase
 import ru.shprot.sudokumobdevkz.core.base.domain.usecase.cloud.UpdateLeaderboardIdentityUseCase
+import ru.shprot.sudokumobdevkz.core.base.presentation.snackbar.SnackbarManager
 import ru.shprot.sudokumobdevkz.core.base.presentation.viewmodel.BaseViewModel
 import ru.shprot.sudokumobdevkz.feature.leaderboards.presentation.contract.LeaderboardsUIEffect
 import ru.shprot.sudokumobdevkz.feature.leaderboards.presentation.contract.LeaderboardsUIEvent
@@ -18,15 +21,17 @@ import javax.inject.Inject
 @HiltViewModel
 class LeaderboardsViewModel @Inject constructor(
     private val cloud: CloudGameServices,
-    private val leaderboardRepository: LeaderboardRepository,
-    private val settingsRepository: SettingsRepository,
+    private val leaderboardRepository: ILeaderboardRepository,
+    private val settingsRepository: ISettingsRepository,
     private val updateLeaderboardIdentity: UpdateLeaderboardIdentityUseCase,
+    private val toggleShowNameOnLeaderboard: ToggleShowNameOnLeaderboardUseCase,
 ) : BaseViewModel<LeaderboardsUIEvent, LeaderboardsUIState, LeaderboardsUIEffect>(LeaderboardsUIState()) {
 
     init {
         observeSignInState()
         observeRepository()
         observeNameConsent()
+        observeSettings()
         leaderboardRepository.refresh()
     }
 
@@ -46,7 +51,30 @@ class LeaderboardsViewModel @Inject constructor(
 
             LeaderboardsUIEvent.AcceptNameConsent ->
                 acceptNameConsent()
+
+            LeaderboardsUIEvent.ToggleShowName ->
+                handleToggleShowName()
         }
+
+    private fun handleToggleShowName() {
+        if (!currentState.isSignedIn) {
+            setEffect(LeaderboardsUIEffect.NavigateToSettings)
+            SnackbarManager.show(R.string.leaderboard_show_name_sign_in_required)
+            return
+        }
+        viewModelScope.launch {
+            toggleShowNameOnLeaderboard()
+            leaderboardRepository.refresh()
+        }
+    }
+
+    private fun observeSettings() {
+        viewModelScope.launch {
+            settingsRepository.settings.collect { settings ->
+                updateState { copy(showNameOnLeaderboard = settings.showNameOnLeaderboard) }
+            }
+        }
+    }
 
     private fun observeSignInState() {
         if (!cloud.isAvailable) return

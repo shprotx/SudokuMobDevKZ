@@ -7,13 +7,17 @@ import ru.shprot.sudokumobdevkz.core.base.data.remote.LeaderboardIdentityDto
 import ru.shprot.sudokumobdevkz.core.base.data.repository.StableIdProvider
 import javax.inject.Inject
 
-class UpdateLeaderboardIdentityUseCase @Inject constructor(
+interface UpdateLeaderboardIdentityUseCase {
+    suspend operator fun invoke(showName: Boolean)
+}
+
+class UpdateLeaderboardIdentityUseCaseImpl @Inject constructor(
     private val cfApiHolder: LeaderboardCfApiHolder,
     private val stableIdProvider: StableIdProvider,
     private val cloud: CloudGameServices,
-) {
+) : UpdateLeaderboardIdentityUseCase {
 
-    suspend operator fun invoke(showName: Boolean) {
+    override suspend fun invoke(showName: Boolean) {
         val api = cfApiHolder.value ?: return
         val signedIn = cloud.signInState.value
         val displayName = if (showName && signedIn is SignInState.SignedIn) {

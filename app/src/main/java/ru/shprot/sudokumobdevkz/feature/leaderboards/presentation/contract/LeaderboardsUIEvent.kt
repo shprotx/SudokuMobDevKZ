@@ -13,4 +13,6 @@ sealed interface LeaderboardsUIEvent : UIEvent {
     data object DismissNameConsentPrompt : LeaderboardsUIEvent
 
     data object AcceptNameConsent : LeaderboardsUIEvent
+
+    data object ToggleShowName : LeaderboardsUIEvent
 }

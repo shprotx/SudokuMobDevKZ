@@ -7,4 +7,6 @@ interface ISettingsRepository {
     val settings: Flow<AppSettings>
     val currentSettings: AppSettings
     fun update(transform: AppSettings.() -> AppSettings)
+    fun isLeaderboardNamePromptShown(): Flow<Boolean>
+    fun markLeaderboardNamePromptShown()
 }

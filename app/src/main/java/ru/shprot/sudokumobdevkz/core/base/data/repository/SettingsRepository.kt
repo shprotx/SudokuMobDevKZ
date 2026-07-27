@@ -61,10 +61,10 @@ class SettingsRepository @Inject constructor(
         }
     }
 
-    fun isLeaderboardNamePromptShown(): Flow<Boolean> =
+    override fun isLeaderboardNamePromptShown(): Flow<Boolean> =
         context.leaderboardDataStore.data.map { it[LeaderboardKeys.NAME_PROMPT_SHOWN] ?: false }
 
-    fun markLeaderboardNamePromptShown() {
+    override fun markLeaderboardNamePromptShown() {
         scope.launch {
             context.leaderboardDataStore.edit { it[LeaderboardKeys.NAME_PROMPT_SHOWN] = true }
         }

@@ -139,4 +139,6 @@
     <string name="theme_deleted_fallback">Theme gelöscht. Helles Theme angewendet.</string>
     <string name="theme_saved">Theme gespeichert</string>
     <string name="draft_notes_popup_number_description">Entwurf %1$d</string>
+    <string name="settings_show_name_on_leaderboard">Meinen Namen in der globalen Bestenliste anzeigen</string>
+    <string name="leaderboard_show_name_sign_in_required">Melde dich an, um deinen Namen in der Bestenliste anzuzeigen</string>
 </resources>

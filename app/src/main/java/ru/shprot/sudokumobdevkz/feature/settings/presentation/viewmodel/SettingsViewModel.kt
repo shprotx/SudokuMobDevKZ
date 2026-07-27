@@ -17,7 +17,7 @@ import ru.shprot.sudokumobdevkz.core.base.domain.model.Difficulty
 import ru.shprot.sudokumobdevkz.core.base.domain.model.ThemeMode
 import ru.shprot.sudokumobdevkz.core.base.domain.usecase.cloud.ImportFromCloudUseCase
 import ru.shprot.sudokumobdevkz.core.base.domain.usecase.cloud.SyncToCloudUseCase
-import ru.shprot.sudokumobdevkz.core.base.domain.usecase.cloud.UpdateLeaderboardIdentityUseCase
+import ru.shprot.sudokumobdevkz.core.base.domain.usecase.cloud.ToggleShowNameOnLeaderboardUseCase
 import ru.shprot.sudokumobdevkz.core.base.presentation.viewmodel.BaseViewModel
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.contract.CloudImportState
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.contract.SettingsUIEffect
@@ -32,7 +32,7 @@ class SettingsViewModel @Inject constructor(
     private val cloud: CloudGameServices,
     private val importFromCloud: ImportFromCloudUseCase,
     private val syncToCloud: SyncToCloudUseCase,
-    private val updateLeaderboardIdentity: UpdateLeaderboardIdentityUseCase,
+    private val toggleShowNameOnLeaderboard: ToggleShowNameOnLeaderboardUseCase,
     private val themeRepository: IThemeRepository,
 ) : BaseViewModel<SettingsUIEvent, SettingsUIState, SettingsUIEffect>(
     SettingsUIState()
@@ -281,9 +281,7 @@ class SettingsViewModel @Inject constructor(
     }
 
     private fun handleToggleShowNameOnLeaderboard() {
-        val newValue = !settingsRepository.currentSettings.showNameOnLeaderboard
-        settingsRepository.update { copy(showNameOnLeaderboard = newValue) }
-        viewModelScope.launch { updateLeaderboardIdentity(showName = newValue) }
+        viewModelScope.launch { toggleShowNameOnLeaderboard() }
     }
 
     private enum class ImportChoice { MERGE, KEEP_LOCAL, USE_CLOUD }

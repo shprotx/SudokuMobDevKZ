@@ -137,4 +137,6 @@
     <string name="theme_deleted_fallback">Тему видалено. Застосовано світлу тему.</string>
     <string name="theme_saved">Тему збережено</string>
     <string name="draft_notes_popup_number_description">Чернетка %1$d</string>
+    <string name="settings_show_name_on_leaderboard">Показувати моє ім\'я в глобальному рейтингу</string>
+    <string name="leaderboard_show_name_sign_in_required">Увійдіть в акаунт, щоб показувати своє ім\'я в рейтингу</string>
 </resources>
