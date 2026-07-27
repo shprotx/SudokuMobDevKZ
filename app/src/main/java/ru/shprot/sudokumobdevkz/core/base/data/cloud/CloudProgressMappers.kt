@@ -79,6 +79,8 @@ object CloudProgressMappers {
         solutionJson = solutionJson,
         isStandardMode = isStandardMode,
         timestamp = timestamp,
+        isDailyChallenge = isDailyChallenge,
+        dailyDateKey = dailyDateKey,
     )
 
     fun SavedGameDto.toEntity(): SavedGameEntity = SavedGameEntity(
@@ -92,6 +94,8 @@ object CloudProgressMappers {
         solutionJson = solutionJson,
         isStandardMode = isStandardMode,
         timestamp = timestamp,
+        isDailyChallenge = isDailyChallenge,
+        dailyDateKey = dailyDateKey,
     )
 
     fun CustomThemeEntity.toDto(): CustomThemeDto = CustomThemeDto(

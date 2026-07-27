@@ -43,13 +43,14 @@ class GameViewModel @Inject constructor(
     private val route = savedStateHandle.toRoute<GameRoutes.GameScreen>()
     private val difficulty: Difficulty = Difficulty.fromOrdinal(route.difficultyOrdinal)
     private val continueGame: Boolean = route.continueGame
-    private val isDailyChallenge: Boolean = route.isDailyChallenge
+    private var isDailyChallenge: Boolean = route.isDailyChallenge
+    private var dailyDateKey: String = route.dailyDateKey
     private val undoStack = mutableListOf<UndoEntry>()
     private var timerJob: Job? = null
 
     init {
         viewModelScope.launch(exceptionHandler) {
-            if (continueGame && !isDailyChallenge) {
+            if (continueGame) {
                 val saved = repository.loadSavedGame()
                 if (saved != null) {
                     restoreGame(saved)
@@ -183,13 +184,12 @@ class GameViewModel @Inject constructor(
                 isDailyChallenge = isDailyChallenge,
             )
         )
-        if (!isDailyChallenge) {
-            countAbandonedGame()
-            repository.deleteSavedGame()
-        }
+        countAbandonedGame()
+        repository.deleteSavedGame()
 
         val puzzle = if (isDailyChallenge) {
-            val dateKey = route.dailyDateKey.ifEmpty { dailyChallengeRepository.todayDateKey() }
+            val dateKey = resolvedDailyDateKey()
+            dailyDateKey = dateKey
             val seed = dailyChallengeRepository.dailySeed(dateKey)
             SudokuGenerator.generate(difficulty, seed)
         } else {
@@ -218,6 +218,7 @@ class GameViewModel @Inject constructor(
 
     private suspend fun countAbandonedGame() {
         val saved = repository.loadSavedGame() ?: return
+        if (saved.isDailyChallenge) return
         val savedDifficulty = Difficulty.fromFirebaseKey(saved.difficulty) ?: return
         if (saved.isStandardMode) {
             repository.updateStatistic(
@@ -236,6 +237,8 @@ class GameViewModel @Inject constructor(
             row.map { s -> CellData(s.value, s.isGiven, s.isError, s.notes) }
         }
         val restoredDifficulty = Difficulty.fromFirebaseKey(data.difficulty) ?: difficulty
+        isDailyChallenge = data.isDailyChallenge
+        dailyDateKey = data.dailyDateKey
 
         setState(
             currentState.copy(
@@ -249,6 +252,7 @@ class GameViewModel @Inject constructor(
                 hintsRemaining = data.hintsRemaining,
                 isNotesEnabled = data.isNotesEnabled,
                 isStandardMode = data.isStandardMode,
+                isDailyChallenge = data.isDailyChallenge,
                 isGenerating = false,
                 availableNumbers = calcAvailableNumbers(cells),
             )
@@ -259,7 +263,7 @@ class GameViewModel @Inject constructor(
 
     private suspend fun saveGameStateSync() {
         val state = currentState
-        if (state.isGenerating || state.isGameOver || state.isDailyChallenge) return
+        if (state.isGenerating || state.isGameOver) return
 
         repository.saveGame(
             GameSaveData(
@@ -274,9 +278,14 @@ class GameViewModel @Inject constructor(
                 },
                 solution = state.solution,
                 isStandardMode = state.isStandardMode,
+                isDailyChallenge = state.isDailyChallenge,
+                dailyDateKey = if (state.isDailyChallenge) resolvedDailyDateKey() else "",
             )
         )
     }
+
+    private fun resolvedDailyDateKey(): String =
+        dailyDateKey.ifEmpty { dailyChallengeRepository.todayDateKey() }
 
     override fun onCleared() {
         super.onCleared()
@@ -554,6 +563,7 @@ class GameViewModel @Inject constructor(
 
         viewModelScope.launch(exceptionHandler) {
             if (isWin) reviewRepository.markSessionWon()
+            repository.deleteSavedGame()
 
             val newStreak = when {
                 isDailyChallenge && isWin ->
@@ -586,21 +596,20 @@ class GameViewModel @Inject constructor(
     }
 
     private suspend fun persistRegularGameResult(isWin: Boolean): Int {
-        repository.deleteSavedGame()
-
+        val resultDifficulty = currentState.difficulty
         if (currentState.isStandardMode) {
             repository.updateStatistic(
-                difficulty = difficulty,
+                difficulty = resultDifficulty,
                 isWin = isWin,
                 timeSeconds = currentState.timeSeconds,
                 errorCount = currentState.errors,
             )
         } else {
-            repository.incrementCasualGames(difficulty)
+            repository.incrementCasualGames(resultDifficulty)
         }
 
         repository.saveGameResult(
-            difficulty = difficulty,
+            difficulty = resultDifficulty,
             timeSeconds = currentState.timeSeconds,
             errors = currentState.errors,
             isWin = isWin,
@@ -611,7 +620,7 @@ class GameViewModel @Inject constructor(
 
         if (isWin && currentState.timeSeconds > 0 && currentState.isStandardMode) {
             repository.submitLeaderboardForWin(
-                difficulty = difficulty,
+                difficulty = resultDifficulty,
                 timeSeconds = currentState.timeSeconds,
                 errors = currentState.errors,
                 hintsUsed = calculateHintsUsed(),
@@ -623,7 +632,8 @@ class GameViewModel @Inject constructor(
     }
 
     private suspend fun persistDailyChallengeWin(): Int {
-        val dateKey = route.dailyDateKey.ifEmpty { dailyChallengeRepository.todayDateKey() }
+        val resultDifficulty = currentState.difficulty
+        val dateKey = resolvedDailyDateKey()
         val streak = dailyChallengeRepository.markCompleted(
             dateKey = dateKey,
             timeSeconds = currentState.timeSeconds,
@@ -631,7 +641,7 @@ class GameViewModel @Inject constructor(
         )
 
         repository.saveGameResult(
-            difficulty = difficulty,
+            difficulty = resultDifficulty,
             timeSeconds = currentState.timeSeconds,
             errors = currentState.errors,
             isWin = true,
@@ -642,7 +652,7 @@ class GameViewModel @Inject constructor(
 
         if (currentState.timeSeconds > 0) {
             repository.submitLeaderboardForWin(
-                difficulty = difficulty,
+                difficulty = resultDifficulty,
                 timeSeconds = currentState.timeSeconds,
                 errors = currentState.errors,
                 hintsUsed = calculateHintsUsed(),
