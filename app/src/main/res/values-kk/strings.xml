@@ -303,4 +303,5 @@
     <string name="theme_palette_solarized_dark">Күнді қараңғы</string>
     <string name="theme_palette_solarized_light">Күнді ашық</string>
     <string name="theme_palette_tokyo_night">Токио түні</string>
+    <string name="leaderboard_show_name_sign_in_required">Рейтингте атыңызды көрсету үшін аккаунтқа кіріңіз</string>
 </resources>

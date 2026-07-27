@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.EmojiEvents
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -29,6 +31,7 @@ import ru.shprot.sudokumobdevkz.core.uicommon.toolbar.ToolbarDefault
 import ru.shprot.sudokumobdevkz.feature.leaderboards.presentation.components.LeaderboardRowItem
 import ru.shprot.sudokumobdevkz.feature.leaderboards.presentation.contract.LeaderboardsUIEvent
 import ru.shprot.sudokumobdevkz.feature.leaderboards.presentation.contract.LeaderboardsUIState
+import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsToggleItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -47,6 +50,14 @@ fun LeaderboardsScreenContent(
             modifier = Modifier,
             title = stringResource(R.string.leaderboards_title),
             onLeadIconClick = { onEvent(LeaderboardsUIEvent.BackClicked) },
+        )
+
+        SettingsToggleItem(
+            modifier = Modifier.padding(horizontal = AppTheme.paddings.large),
+            icon = Icons.Filled.EmojiEvents,
+            title = stringResource(R.string.settings_show_name_on_leaderboard),
+            checked = uiState.showNameOnLeaderboard,
+            onCheckedChange = { onEvent(LeaderboardsUIEvent.ToggleShowName) },
         )
 
         PullToRefreshBox(

@@ -157,4 +157,5 @@
     <string name="theme_deleted_fallback">Tema eliminado. Se aplicó el tema claro.</string>
     <string name="theme_saved">Tema guardado</string>
     <string name="draft_notes_popup_number_description">Borrador %1$d</string>
+    <string name="leaderboard_show_name_sign_in_required">Inicia sesión para mostrar tu nombre en la clasificación</string>
 </resources>

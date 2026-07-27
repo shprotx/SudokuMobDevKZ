@@ -159,4 +159,5 @@
     <string name="theme_deleted_fallback">Thème supprimé. Thème clair appliqué.</string>
     <string name="theme_saved">Thème enregistré</string>
     <string name="draft_notes_popup_number_description">Brouillon %1$d</string>
+    <string name="leaderboard_show_name_sign_in_required">Connectez-vous pour afficher votre nom dans le classement</string>
 </resources>

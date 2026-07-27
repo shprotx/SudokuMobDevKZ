@@ -236,6 +236,7 @@
     <string name="leaderboard_consent_confirm">Yes, show my name</string>
     <string name="leaderboard_consent_dismiss">Stay anonymous</string>
     <string name="settings_show_name_on_leaderboard">Show my name in global ranking</string>
+    <string name="leaderboard_show_name_sign_in_required">Sign in to show your name on the leaderboard</string>
     <string name="reset_statistics_cloud_warning">Note: your best scores will stay in the Google Play Games leaderboard.</string>
     <string name="hint_mode_section_title">Hint mode</string>
     <string name="hint_mode_single_shot_title">Single tap</string>

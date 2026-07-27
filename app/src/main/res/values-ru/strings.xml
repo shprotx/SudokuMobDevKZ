@@ -230,6 +230,7 @@
     <string name="leaderboard_consent_confirm">Да, показывать</string>
     <string name="leaderboard_consent_dismiss">Остаться анонимным</string>
     <string name="settings_show_name_on_leaderboard">Показывать моё имя в глобальном рейтинге</string>
+    <string name="leaderboard_show_name_sign_in_required">Войдите в аккаунт, чтобы показывать своё имя в рейтинге</string>
     <string name="reset_statistics_cloud_warning">Учтите: ваши лучшие результаты останутся в облачном лидерборде Google Play Games.</string>
     <string name="hint_mode_section_title">Режим подсказок</string>
     <string name="hint_mode_single_shot_title">Одиночный</string>

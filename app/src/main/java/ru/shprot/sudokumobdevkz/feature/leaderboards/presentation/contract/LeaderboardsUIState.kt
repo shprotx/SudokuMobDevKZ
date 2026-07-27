@@ -10,4 +10,5 @@ data class LeaderboardsUIState(
     val data: LeaderboardData? = null,
     val errorMessageRes: Int? = null,
     val showNameConsentPrompt: Boolean = false,
+    val showNameOnLeaderboard: Boolean = false,
 ) : UIState
