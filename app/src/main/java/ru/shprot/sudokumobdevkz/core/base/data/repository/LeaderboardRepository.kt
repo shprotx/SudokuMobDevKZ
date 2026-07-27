@@ -16,19 +16,19 @@ import javax.inject.Singleton
 @Singleton
 class LeaderboardRepository @Inject constructor(
     private val loadLeaderboard: LoadLeaderboardUseCase,
-) {
+) : ILeaderboardRepository {
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
     private val _data = MutableStateFlow<LeaderboardData?>(null)
-    val data: StateFlow<LeaderboardData?> = _data.asStateFlow()
+    override val data: StateFlow<LeaderboardData?> = _data.asStateFlow()
 
     private val _isLoading = MutableStateFlow(false)
-    val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
+    override val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
 
     private var refreshJob: Job? = null
 
-    fun refresh() {
+    override fun refresh() {
         refreshJob?.cancel()
         refreshJob = scope.launch {
             _isLoading.value = true
@@ -38,7 +38,7 @@ class LeaderboardRepository @Inject constructor(
         }
     }
 
-    fun clear() {
+    override fun clear() {
         refreshJob?.cancel()
         _data.value = null
         _isLoading.value = false
