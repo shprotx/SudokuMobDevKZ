@@ -222,6 +222,7 @@
     <string name="leaderboard_open_settings">В настройки</string>
     <string name="leaderboard_open_full">Открыть полный рейтинг</string>
     <string name="leaderboard_your_place">… ваше место: #%1$d · %2$s</string>
+    <string name="leaderboard_rank_divider">⋯</string>
     <string name="leaderboard_empty">Пока никто не сыграл — будьте первым.</string>
     <string name="leaderboards_title">Рейтинги</string>
     <string name="leaderboard_load_error">Не удалось загрузить рейтинг. Потяните вниз для обновления.</string>

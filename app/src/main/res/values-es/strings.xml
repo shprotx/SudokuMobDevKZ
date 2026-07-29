@@ -160,4 +160,5 @@
     <string name="draft_notes_popup_number_description">Borrador %1$d</string>
     <string name="settings_show_name_on_leaderboard">Mostrar mi nombre en la clasificación global</string>
     <string name="leaderboard_show_name_sign_in_required">Inicia sesión para mostrar tu nombre en la clasificación</string>
+    <string name="leaderboard_rank_divider">⋯</string>
 </resources>
