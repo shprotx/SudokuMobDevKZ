@@ -5,10 +5,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,6 +17,7 @@ import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
+import ru.shprot.sudokumobdevkz.core.uicommon.badge.SquareIconBadge
 
 @Composable
 internal fun <T : DropdownItem> AppDropdownItemRow(
@@ -68,11 +67,12 @@ internal fun <T : DropdownItem> AppDropdownItemRow(
         )
 
         if (isSelected) {
-            Icon(
-                modifier = Modifier.size(AppTheme.sizes.iconMedium),
-                imageVector = Icons.Filled.Check,
+            SquareIconBadge(
+                modifier = Modifier,
+                icon = Icons.Filled.Check,
+                backgroundColor = AppTheme.colors.primary,
+                iconTint = AppTheme.colors.textOnPrimary,
                 contentDescription = null,
-                tint = AppTheme.colors.primary,
             )
         }
 
