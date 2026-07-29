@@ -149,10 +149,13 @@ class PlayGamesCloudServices @Inject constructor() : CloudGameServices {
                 .await()
                 .get()
             score?.let {
+                val signedIn = _signInState.value as? SignInState.SignedIn
                 PlayerScore(
                     rank = it.rank,
                     rawScore = it.rawScore,
                     displayScore = it.displayScore.orEmpty(),
+                    displayName = signedIn?.displayName.orEmpty(),
+                    avatarUrl = signedIn?.avatarUrl,
                 )
             }
         }.getOrNull()
