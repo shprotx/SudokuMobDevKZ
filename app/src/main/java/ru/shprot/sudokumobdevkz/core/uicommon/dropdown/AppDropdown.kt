@@ -12,9 +12,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
@@ -33,7 +34,11 @@ fun <T : DropdownItem> AppDropdown(
     placeholder: String = String.empty,
     enabled: Boolean = true,
 ) {
-    var expanded by rememberSaveable { mutableStateOf(false) }
+    var expanded by remember { mutableStateOf(false) }
+
+    LaunchedEffect(selected?.id) {
+        expanded = false
+    }
 
     val arrowRotation by animateFloatAsState(
         targetValue = if (expanded) 180f else 0f,
