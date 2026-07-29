@@ -24,6 +24,9 @@ sealed interface GameUIEvent : UIEvent {
 
     data object DismissDraftPopup : GameUIEvent
 
+    data object TimerSuspend : GameUIEvent
+    data object TimerResume : GameUIEvent
+
     class CellClicked(val row: Int, val col: Int) : GameUIEvent
     class NumberClicked(val number: Int) : GameUIEvent
     class StartNewGame(val difficultyOrdinal: Int) : GameUIEvent

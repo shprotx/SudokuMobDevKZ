@@ -130,6 +130,12 @@ class GameViewModel @Inject constructor(
             GameUIEvent.DismissDraftPopup ->
                 updateState { copy(draftPopupVisible = false) }
 
+            GameUIEvent.TimerSuspend ->
+                onTimerSuspend()
+
+            GameUIEvent.TimerResume ->
+                onTimerResume()
+
             is GameUIEvent.CellClicked ->
                 onCellClicked(event.row, event.col)
 
@@ -537,6 +543,16 @@ class GameViewModel @Inject constructor(
     private fun onResume() {
         setState(currentState.copy(isPaused = false))
         startTimer()
+    }
+
+    private fun onTimerSuspend() {
+        timerJob?.cancel()
+    }
+
+    private fun onTimerResume() {
+        if (!currentState.isPaused && !currentState.isGameOver) {
+            startTimer()
+        }
     }
 
     private fun startTimer() {
