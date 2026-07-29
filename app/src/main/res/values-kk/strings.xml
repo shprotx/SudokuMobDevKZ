@@ -251,6 +251,7 @@
     <string name="theme_builder_color_cell_fixed">Берілген ұяшық</string>
     <string name="theme_builder_color_cell_editable">Өзгертілетін ұяшық</string>
     <string name="theme_builder_color_cell_error">Қателі ұяшық</string>
+    <string name="theme_builder_color_draft_highlight">Жазбаны белгілеу</string>
     <string name="theme_builder_color_grid_line">Тор сызықтары</string>
     <string name="theme_builder_color_divider">Бөлгіш</string>
     <string name="theme_builder_color_accent">Акцент</string>

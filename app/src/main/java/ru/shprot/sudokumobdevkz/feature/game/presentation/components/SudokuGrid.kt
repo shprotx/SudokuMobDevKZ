@@ -48,7 +48,7 @@ fun SudokuGrid(
     val editableColor = AppTheme.colors.cellEditable
     val errorColor = AppTheme.colors.error
     val draftColor = AppTheme.colors.draftText
-    val draftHighlightColor = AppTheme.colors.text
+    val draftHighlightColor = AppTheme.colors.draftHighlight
     val textMeasurer = rememberTextMeasurer()
     val density = LocalDensity.current
     val hapticFeedback = LocalHapticFeedback.current

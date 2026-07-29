@@ -143,6 +143,7 @@
     <string name="theme_builder_color_cell_fixed">Cellule donnée</string>
     <string name="theme_builder_color_cell_editable">Cellule modifiable</string>
     <string name="theme_builder_color_cell_error">Cellule erronée</string>
+    <string name="theme_builder_color_draft_highlight">Surbrillance du brouillon</string>
     <string name="theme_builder_color_grid_line">Lignes de la grille</string>
     <string name="theme_builder_color_divider">Séparateur</string>
     <string name="theme_builder_color_accent">Accent</string>
