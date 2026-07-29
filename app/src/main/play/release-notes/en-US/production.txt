@@ -1,1 +1,1 @@
-New: Theme editor. Create your own color themes — pick any interface color, tweak it with a live game preview, and save your custom themes.
+Fixed: Daily Challenge progress is now saved — the Continue button returns you to your daily puzzle. New: show/hide your name right on the leaderboard screen.
