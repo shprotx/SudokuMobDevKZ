@@ -550,7 +550,7 @@ class GameViewModel @Inject constructor(
     }
 
     private fun onTimerResume() {
-        if (!currentState.isPaused && !currentState.isGameOver) {
+        if (!currentState.isPaused && !currentState.isGameOver && !currentState.isGenerating) {
             startTimer()
         }
     }
