@@ -140,4 +140,5 @@
     <string name="draft_notes_popup_number_description">Чернетка %1$d</string>
     <string name="settings_show_name_on_leaderboard">Показувати моє ім\'я в глобальному рейтингу</string>
     <string name="leaderboard_show_name_sign_in_required">Увійдіть в акаунт, щоб показувати своє ім\'я в рейтингу</string>
+    <string name="leaderboard_rank_divider">⋯</string>
 </resources>

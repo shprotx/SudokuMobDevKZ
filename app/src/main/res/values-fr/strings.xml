@@ -162,4 +162,5 @@
     <string name="draft_notes_popup_number_description">Brouillon %1$d</string>
     <string name="settings_show_name_on_leaderboard">Afficher mon nom dans le classement mondial</string>
     <string name="leaderboard_show_name_sign_in_required">Connectez-vous pour afficher votre nom dans le classement</string>
+    <string name="leaderboard_rank_divider">⋯</string>
 </resources>

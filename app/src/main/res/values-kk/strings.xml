@@ -214,6 +214,7 @@
     <string name="leaderboard_open_settings">Параметрлерге</string>
     <string name="leaderboard_open_full">Толық рейтингті ашу</string>
     <string name="leaderboard_your_place">… сіздің орныңыз: #%1$d · %2$s</string>
+    <string name="leaderboard_rank_divider">⋯</string>
     <string name="leaderboard_empty">Әзірге ешкім ойнаған жоқ — алғашқы болыңыз.</string>
     <string name="leaderboards_title">Рейтингтер</string>
     <string name="leaderboard_load_error">Рейтингті жүктеу мүмкін болмады. Жаңарту үшін төмен тартыңыз.</string>

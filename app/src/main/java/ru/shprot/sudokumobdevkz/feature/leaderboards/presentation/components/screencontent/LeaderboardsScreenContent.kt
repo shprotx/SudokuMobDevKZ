@@ -26,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import ru.shprot.sudokumobdevkz.R
+import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.LeaderboardMappers.ownRowOutsideTop
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 import ru.shprot.sudokumobdevkz.core.uicommon.toolbar.ToolbarDefault
 import ru.shprot.sudokumobdevkz.feature.leaderboards.presentation.components.LeaderboardRowItem
@@ -189,11 +190,10 @@ private fun EmptyContent() {
 }
 
 @Composable
-private fun LeaderboardList(uiState: LeaderboardsUIState) {
+internal fun LeaderboardList(uiState: LeaderboardsUIState) {
 
     val data = uiState.data ?: return
-    val playerScore = data.playerScore
-    val playerInTop = data.topRows.any { it.isCurrentPlayer }
+    val ownRow = data.ownRowOutsideTop()
 
     LazyColumn(
         modifier = Modifier
@@ -216,20 +216,23 @@ private fun LeaderboardList(uiState: LeaderboardsUIState) {
             )
         }
 
-        if (playerScore != null && !playerInTop && playerScore.rank != null) {
-            item(key = "footer-player") {
+        if (ownRow != null) {
+            item(key = "own-row-divider") {
                 Text(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = AppTheme.paddings.large),
-                    text = stringResource(
-                        R.string.leaderboard_your_place,
-                        playerScore.rank,
-                        playerScore.displayScore,
-                    ),
+                        .padding(top = AppTheme.paddings.small),
+                    text = stringResource(R.string.leaderboard_rank_divider),
                     style = AppTheme.typography.body2,
-                    color = AppTheme.colors.primary,
+                    color = AppTheme.colors.textSecondary,
                     textAlign = TextAlign.Center,
+                )
+            }
+
+            item(key = "own-row-card") {
+                LeaderboardRowItem(
+                    modifier = Modifier,
+                    row = ownRow,
                 )
             }
         }

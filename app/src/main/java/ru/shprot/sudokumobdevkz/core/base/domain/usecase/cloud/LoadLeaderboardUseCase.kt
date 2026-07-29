@@ -42,6 +42,8 @@ class LoadLeaderboardUseCase @Inject constructor(
                 rank = (playerIndex + 1).toLong(),
                 rawScore = entry.score,
                 displayScore = entry.score.toString(),
+                displayName = entry.displayName.ifBlank { ANONYMOUS },
+                avatarUrl = entry.avatarUrl,
             )
         } else {
             null
