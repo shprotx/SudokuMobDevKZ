@@ -1,1 +1,1 @@
-Fixed: Daily Challenge progress is now saved — the Continue button returns you to your daily puzzle. New: show/hide your name right on the leaderboard screen.
+Fixed: the game timer no longer runs while the app is in the background. New: a separate theme color for highlighted pencil marks — recolor them without touching the rest of the text.
