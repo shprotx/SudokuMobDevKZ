@@ -26,5 +26,9 @@
     "eslint": "^8.57.0",
     "typescript": "^5.4.5"
   },
+  "overrides": {
+    "brace-expansion": "^5.0.8",
+    "uuid": "^11.1.1"
+  },
   "private": true
 }
