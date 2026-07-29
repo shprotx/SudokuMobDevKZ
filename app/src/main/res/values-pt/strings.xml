@@ -123,6 +123,7 @@
     <string name="theme_builder_color_cell_fixed">Célula fixa</string>
     <string name="theme_builder_color_cell_editable">Célula editável</string>
     <string name="theme_builder_color_cell_error">Célula com erro</string>
+    <string name="theme_builder_color_draft_highlight">Realce do rascunho</string>
     <string name="theme_builder_color_grid_line">Linhas da grade</string>
     <string name="theme_builder_color_divider">Divisor</string>
     <string name="theme_builder_color_accent">Cor de destaque</string>

@@ -121,6 +121,7 @@
     <string name="theme_builder_color_cell_fixed">Задана клітинка</string>
     <string name="theme_builder_color_cell_editable">Редагована клітинка</string>
     <string name="theme_builder_color_cell_error">Клітинка з помилкою</string>
+    <string name="theme_builder_color_draft_highlight">Підсвічування чернетки</string>
     <string name="theme_builder_color_grid_line">Лінії сітки</string>
     <string name="theme_builder_color_divider">Розділювач</string>
     <string name="theme_builder_color_accent">Акцент</string>

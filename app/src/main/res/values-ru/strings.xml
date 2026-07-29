@@ -265,6 +265,7 @@
     <string name="theme_builder_color_cell_fixed">Заданная клетка</string>
     <string name="theme_builder_color_cell_editable">Редактируемая клетка</string>
     <string name="theme_builder_color_cell_error">Клетка с ошибкой</string>
+    <string name="theme_builder_color_draft_highlight">Подсветка черновика</string>
     <string name="theme_builder_color_grid_line">Линии сетки</string>
     <string name="theme_builder_color_divider">Разделитель</string>
     <string name="theme_builder_color_accent">Акцент</string>

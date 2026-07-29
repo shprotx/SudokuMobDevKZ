@@ -141,6 +141,7 @@
     <string name="theme_builder_color_cell_fixed">Celda fija</string>
     <string name="theme_builder_color_cell_editable">Celda editable</string>
     <string name="theme_builder_color_cell_error">Celda con error</string>
+    <string name="theme_builder_color_draft_highlight">Resaltado de borrador</string>
     <string name="theme_builder_color_grid_line">Líneas de la cuadrícula</string>
     <string name="theme_builder_color_divider">Separador</string>
     <string name="theme_builder_color_accent">Acento</string>

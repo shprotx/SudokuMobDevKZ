@@ -123,6 +123,7 @@
     <string name="theme_builder_color_cell_fixed">Vorgegebene Zelle</string>
     <string name="theme_builder_color_cell_editable">Bearbeitbare Zelle</string>
     <string name="theme_builder_color_cell_error">Fehlerzelle</string>
+    <string name="theme_builder_color_draft_highlight">Entwurf-Hervorhebung</string>
     <string name="theme_builder_color_grid_line">Gitterlinien</string>
     <string name="theme_builder_color_divider">Trennlinie</string>
     <string name="theme_builder_color_accent">Akzent</string>

@@ -22,5 +22,6 @@ enum class ThemeColorKey(
     CELL_FIXED(R.string.theme_builder_color_cell_fixed, { it.cellFixed }, { c, v -> c.copy(cellFixed = v) }),
     CELL_EDITABLE(R.string.theme_builder_color_cell_editable, { it.cellEditable }, { c, v -> c.copy(cellEditable = v) }),
     CELL_ERROR(R.string.theme_builder_color_cell_error, { it.cellError }, { c, v -> c.copy(cellError = v) }),
+    DRAFT_HIGHLIGHT(R.string.theme_builder_color_draft_highlight, { it.draftHighlight }, { c, v -> c.copy(draftHighlight = v) }),
     DIVIDER(R.string.theme_builder_color_divider, { it.divider }, { c, v -> c.copy(divider = v) }),
 }
