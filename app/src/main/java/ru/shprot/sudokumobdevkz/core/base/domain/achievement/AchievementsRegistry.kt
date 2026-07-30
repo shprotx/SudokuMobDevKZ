@@ -97,7 +97,10 @@ object AchievementsRegistry {
             category = AchievementCategory.WINS,
             hidden = false,
             evaluate = { ctx ->
-                AchievementProgress(current = totalPlaySeconds(ctx), target = MARATHON_TARGET_SECONDS)
+                AchievementProgress(
+                    current = (totalPlaySeconds(ctx) / SECONDS_PER_HOUR).coerceAtMost(MARATHON_TARGET_HOURS),
+                    target = MARATHON_TARGET_HOURS,
+                )
             },
         ),
     )
@@ -511,5 +514,6 @@ object AchievementsRegistry {
         }
     }
 
-    private const val MARATHON_TARGET_SECONDS = 36000
+    private const val MARATHON_TARGET_HOURS = 10
+    private const val SECONDS_PER_HOUR = 3600
 }
