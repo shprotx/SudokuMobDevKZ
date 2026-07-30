@@ -165,6 +165,140 @@ private fun DrawScope.drawFlameTongue(center: Offset, r: Float, color: Color, ti
     drawPath(path = path, color = color)
 }
 
+internal fun DrawScope.drawFireBlue(center: Offset, r: Float) {
+    drawCircle(
+        brush = Brush.radialGradient(
+            colors = listOf(Color(0x664AB8FF), Color.Transparent),
+            center = center,
+            radius = r * 1.65f,
+        ),
+        radius = r * 1.65f,
+        center = center,
+    )
+    drawFlameTongue(center, r * 1.32f, Color(0xFF1E5ED8), tiltFactor = 0.20f)
+    drawFlameTongue(
+        center = Offset(center.x, center.y + r * 0.15f),
+        r = r * 0.96f,
+        color = Color(0xFF3FA9F5),
+        tiltFactor = -0.18f,
+    )
+    drawFlameTongue(
+        center = Offset(center.x, center.y + r * 0.34f),
+        r = r * 0.58f,
+        color = Color(0xFFA8E8FF),
+        tiltFactor = 0.12f,
+    )
+    drawCircle(
+        brush = Brush.radialGradient(
+            colors = listOf(Color.White, Color(0x00A8E8FF)),
+            center = Offset(center.x, center.y + r * 0.45f),
+            radius = r * 0.4f,
+        ),
+        radius = r * 0.4f,
+        center = Offset(center.x, center.y + r * 0.45f),
+    )
+    val sparks = listOf(
+        Offset(-0.7f, -0.9f) to 0.06f,
+        Offset(0.72f, -0.75f) to 0.05f,
+        Offset(0.95f, -0.2f) to 0.04f,
+    )
+    sparks.forEach { (rel, sizeFactor) ->
+        drawCircle(
+            color = Color(0xFFA8E8FF),
+            radius = r * sizeFactor,
+            center = Offset(center.x + rel.x * r, center.y + rel.y * r),
+        )
+    }
+}
+
+internal data class CometPalette(
+    val core: Color,
+    val tailLight: Color,
+    val tailDark: Color,
+)
+
+internal val cometGreen = CometPalette(
+    core = Color(0xFFEFFFF2),
+    tailLight = Color(0xFF7BE89A),
+    tailDark = Color(0xFF1F9E4C),
+)
+
+internal val cometOrange = CometPalette(
+    core = Color(0xFFFFF8E8),
+    tailLight = Color(0xFFFFC93C),
+    tailDark = Color(0xFFE2481B),
+)
+
+internal val cometPurple = CometPalette(
+    core = Color(0xFFF8F0FF),
+    tailLight = Color(0xFFC89AFF),
+    tailDark = Color(0xFF6A1FB8),
+)
+
+internal fun DrawScope.drawComet(center: Offset, r: Float, palette: CometPalette) {
+    val head = Offset(center.x - r * 0.42f, center.y + r * 0.42f)
+    val tailTip = Offset(center.x + r * 1.0f, center.y - r * 1.0f)
+
+    drawPath(
+        path = Path().apply {
+            moveTo(head.x - r * 0.05f, head.y - r * 0.4f)
+            lineTo(tailTip.x, tailTip.y)
+            lineTo(head.x + r * 0.4f, head.y + r * 0.05f)
+            close()
+        },
+        brush = Brush.linearGradient(
+            colors = listOf(palette.tailLight, palette.tailDark.copy(alpha = 0.15f)),
+            start = head,
+            end = tailTip,
+        ),
+    )
+    drawPath(
+        path = Path().apply {
+            moveTo(head.x + r * 0.05f, head.y - r * 0.28f)
+            lineTo(center.x + r * 0.75f, center.y - r * 0.68f)
+            lineTo(head.x + r * 0.28f, head.y - r * 0.02f)
+            close()
+        },
+        color = palette.tailLight.copy(alpha = 0.55f),
+    )
+
+    drawCircle(
+        brush = Brush.radialGradient(
+            colors = listOf(palette.tailLight.copy(alpha = 0.6f), Color.Transparent),
+            center = head,
+            radius = r * 0.65f,
+        ),
+        radius = r * 0.65f,
+        center = head,
+    )
+    drawCircle(
+        brush = Brush.radialGradient(
+            colors = listOf(palette.core, palette.tailLight),
+            center = Offset(head.x - r * 0.10f, head.y - r * 0.10f),
+            radius = r * 0.52f,
+        ),
+        radius = r * 0.44f,
+        center = head,
+    )
+    drawCircle(
+        color = palette.tailDark,
+        radius = r * 0.44f,
+        center = head,
+        style = Stroke(width = r * 0.05f),
+    )
+
+    drawFourPointSparkle(
+        center = Offset(center.x + r * 0.55f, center.y + r * 0.35f),
+        size = r * 0.12f,
+        color = palette.tailLight,
+    )
+    drawFourPointSparkle(
+        center = Offset(center.x - r * 0.15f, center.y - r * 0.72f),
+        size = r * 0.09f,
+        color = palette.core,
+    )
+}
+
 private object BoltPalette {
     val light = Color(0xFFFFF6B0)
     val mid = Color(0xFFFFD93C)

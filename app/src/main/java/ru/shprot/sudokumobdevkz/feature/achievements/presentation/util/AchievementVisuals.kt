@@ -149,5 +149,101 @@ object AchievementVisuals {
             gradientEnd = Color(0xFFE0306B),
             accentColor = Color(0xFFFFE7B0),
         )
+
+        AchievementIconKey.TROPHY_SILVER -> AchievementVisual(
+            gradientStart = Color(0xFFC9D6E6),
+            gradientEnd = Color(0xFF54627A),
+            accentColor = Color(0xFFFFFFFF),
+        )
+
+        AchievementIconKey.TROPHY_GOLD -> AchievementVisual(
+            gradientStart = Color(0xFFFFE25B),
+            gradientEnd = Color(0xFFB4560A),
+            accentColor = Color(0xFFFFFCDC),
+        )
+
+        AchievementIconKey.TROPHY_PLATINUM -> AchievementVisual(
+            gradientStart = Color(0xFF9FE8FF),
+            gradientEnd = Color(0xFF2B3D8F),
+            accentColor = Color(0xFFFFFFFF),
+        )
+
+        AchievementIconKey.DIAMOND_PINK -> AchievementVisual(
+            gradientStart = Color(0xFFFFB8E0),
+            gradientEnd = Color(0xFF8F1666),
+            accentColor = Color(0xFFFFFFFF),
+        )
+
+        AchievementIconKey.TIARA -> AchievementVisual(
+            gradientStart = Color(0xFFE8D8FF),
+            gradientEnd = Color(0xFF5A2B9E),
+            accentColor = Color(0xFFFFF0FF),
+        )
+
+        AchievementIconKey.FIRE_BLUE -> AchievementVisual(
+            gradientStart = Color(0xFF6BD5FF),
+            gradientEnd = Color(0xFF0B1E66),
+            accentColor = Color(0xFFB0F0FF),
+        )
+
+        AchievementIconKey.CALENDAR_FORTNIGHT -> AchievementVisual(
+            gradientStart = Color(0xFF8FD8B0),
+            gradientEnd = Color(0xFF0E5E52),
+            accentColor = Color(0xFFDFFFEE),
+        )
+
+        AchievementIconKey.CALENDAR_STACK -> AchievementVisual(
+            gradientStart = Color(0xFF9CC8FF),
+            gradientEnd = Color(0xFF1E3E8F),
+            accentColor = Color(0xFFE0EEFF),
+        )
+
+        AchievementIconKey.HOURGLASS_GOLD -> AchievementVisual(
+            gradientStart = Color(0xFFFFD98A),
+            gradientEnd = Color(0xFF7A3A9E),
+            accentColor = Color(0xFFFFF3C8),
+        )
+
+        AchievementIconKey.GLOBE -> AchievementVisual(
+            gradientStart = Color(0xFF8FE0DC),
+            gradientEnd = Color(0xFF0E4C7C),
+            accentColor = Color(0xFFE0FAFF),
+        )
+
+        AchievementIconKey.STOPWATCH -> AchievementVisual(
+            gradientStart = Color(0xFFFFC76B),
+            gradientEnd = Color(0xFF8F3A0E),
+            accentColor = Color(0xFFFFF1A8),
+        )
+
+        AchievementIconKey.COMET_GREEN -> AchievementVisual(
+            gradientStart = Color(0xFFA8F0B8),
+            gradientEnd = Color(0xFF0E6E3C),
+            accentColor = Color(0xFFE0FFE8),
+        )
+
+        AchievementIconKey.COMET_ORANGE -> AchievementVisual(
+            gradientStart = Color(0xFFFFC98A),
+            gradientEnd = Color(0xFFA33A0E),
+            accentColor = Color(0xFFFFEAD0),
+        )
+
+        AchievementIconKey.COMET_PURPLE -> AchievementVisual(
+            gradientStart = Color(0xFFD0A8FF),
+            gradientEnd = Color(0xFF3E0E7C),
+            accentColor = Color(0xFFF0E0FF),
+        )
+
+        AchievementIconKey.OWL -> AchievementVisual(
+            gradientStart = Color(0xFFC8B89A),
+            gradientEnd = Color(0xFF4A3520),
+            accentColor = Color(0xFFFFE9B8),
+        )
+
+        AchievementIconKey.SHIELD_CRACKED -> AchievementVisual(
+            gradientStart = Color(0xFFFF9A6B),
+            gradientEnd = Color(0xFF7C0E2E),
+            accentColor = Color(0xFFFFD9C0),
+        )
     }
 }
