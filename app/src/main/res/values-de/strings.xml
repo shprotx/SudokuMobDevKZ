@@ -105,6 +105,45 @@
     <string name="achievement_secret_night_owl_desc">Gewinne ein Spiel zwischen 00:00 und 05:00</string>
     <string name="achievement_secret_early_bird_title">Frühaufsteher</string>
     <string name="achievement_secret_early_bird_desc">Gewinne ein Spiel zwischen 05:00 und 08:00</string>
+
+    <string name="achievement_wins_100_title">Adept</string>
+    <string name="achievement_wins_100_desc">Gewinne 100 Spiele</string>
+    <string name="achievement_wins_300_title">Champion</string>
+    <string name="achievement_wins_300_desc">Gewinne 300 Spiele</string>
+    <string name="achievement_wins_750_title">Mythisch</string>
+    <string name="achievement_wins_750_desc">Gewinne 750 Spiele</string>
+    <string name="achievement_marathon_10h_title">Marathonläufer</string>
+    <string name="achievement_marathon_10h_desc">Spiele insgesamt 10 Stunden</string>
+
+    <string name="achievement_diff_universal_50_title">Allroundmeister</string>
+    <string name="achievement_diff_universal_50_desc">Gewinne 50 Spiele in jeder Schwierigkeit</string>
+
+    <string name="achievement_perfect_25_title">Präzise</string>
+    <string name="achievement_perfect_25_desc">Gewinne 25 Spiele ohne Fehler</string>
+    <string name="achievement_perfect_100_title">Unantastbar</string>
+    <string name="achievement_perfect_100_desc">Gewinne 100 Spiele ohne Fehler</string>
+    <string name="achievement_no_hints_25_title">Eigenständig</string>
+    <string name="achievement_no_hints_25_desc">Gewinne 25 Spiele ohne Tipps</string>
+
+    <string name="achievement_speed_elite_easy_title">Turbo</string>
+    <string name="achievement_speed_elite_easy_desc">Schließe ein leichtes Spiel in 1:30 oder weniger ab</string>
+    <string name="achievement_speed_elite_medium_title">Rakete</string>
+    <string name="achievement_speed_elite_medium_desc">Schließe ein mittleres Spiel in 3:00 oder weniger ab</string>
+    <string name="achievement_speed_elite_hard_title">Überschall</string>
+    <string name="achievement_speed_elite_hard_desc">Schließe ein schweres Spiel in 5:00 oder weniger ab</string>
+
+    <string name="achievement_streak_50_title">Unbezwingbar</string>
+    <string name="achievement_streak_50_desc">Gewinne 50 Spiele in Folge</string>
+
+    <string name="achievement_daily_streak_14_title">Zwei Wochen</string>
+    <string name="achievement_daily_streak_14_desc">14 Tage Tages-Serie</string>
+    <string name="achievement_daily_25_title">Stammgast</string>
+    <string name="achievement_daily_25_desc">Schließe 25 Tagesaufgaben ab</string>
+    <string name="achievement_daily_100_title">Jahrhundert</string>
+    <string name="achievement_daily_100_desc">Schließe 100 Tagesaufgaben ab</string>
+
+    <string name="achievement_secret_on_the_edge_title">Am Limit</string>
+    <string name="achievement_secret_on_the_edge_desc">Gewinne mit genau 2 Fehlern</string>
     <string name="settings_rate_app">App bewerten</string>
 
     <string name="theme_builder_title">Theme-Editor</string>

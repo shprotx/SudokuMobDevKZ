@@ -190,6 +190,45 @@
     <string name="achievement_secret_early_bird_title">Ерте торғай</string>
     <string name="achievement_secret_early_bird_desc">05:00 мен 08:00 аралығында жеңіңіз</string>
 
+    <string name="achievement_wins_100_title">Адепт</string>
+    <string name="achievement_wins_100_desc">100 ойынды жеңіңіз</string>
+    <string name="achievement_wins_300_title">Чемпион</string>
+    <string name="achievement_wins_300_desc">300 ойынды жеңіңіз</string>
+    <string name="achievement_wins_750_title">Мифтік</string>
+    <string name="achievement_wins_750_desc">750 ойынды жеңіңіз</string>
+    <string name="achievement_marathon_10h_title">Марафоншы</string>
+    <string name="achievement_marathon_10h_desc">Жалпы 10 сағат ойнаңыз</string>
+
+    <string name="achievement_diff_universal_50_title">Барлық салада шебер</string>
+    <string name="achievement_diff_universal_50_desc">Әр деңгейде 50 жеңіс</string>
+
+    <string name="achievement_perfect_25_title">Дәл</string>
+    <string name="achievement_perfect_25_desc">Қатесіз 25 жеңіс</string>
+    <string name="achievement_perfect_100_title">Қолсұғылмас</string>
+    <string name="achievement_perfect_100_desc">Қатесіз 100 жеңіс</string>
+    <string name="achievement_no_hints_25_title">Дербес</string>
+    <string name="achievement_no_hints_25_desc">Кеңессіз 25 жеңіс</string>
+
+    <string name="achievement_speed_elite_easy_title">Турбо</string>
+    <string name="achievement_speed_elite_easy_desc">Жеңіл ойынды 1:30 ішінде немесе одан жылдам аяқтаңыз</string>
+    <string name="achievement_speed_elite_medium_title">Ракета</string>
+    <string name="achievement_speed_elite_medium_desc">Орташа ойынды 3:00 ішінде немесе одан жылдам аяқтаңыз</string>
+    <string name="achievement_speed_elite_hard_title">Дыбыстан жылдам</string>
+    <string name="achievement_speed_elite_hard_desc">Сарапшы ойынды 5:00 ішінде немесе одан жылдам аяқтаңыз</string>
+
+    <string name="achievement_streak_50_title">Күйретпес</string>
+    <string name="achievement_streak_50_desc">Қатарынан 50 жеңіс</string>
+
+    <string name="achievement_daily_streak_14_title">Екі апта</string>
+    <string name="achievement_daily_streak_14_desc">Күнделікті 14 күн қатарынан</string>
+    <string name="achievement_daily_25_title">Тұрақты клиент</string>
+    <string name="achievement_daily_25_desc">25 күнделікті тапсырманы орындаңыз</string>
+    <string name="achievement_daily_100_title">Ғасыр</string>
+    <string name="achievement_daily_100_desc">100 күнделікті тапсырманы орындаңыз</string>
+
+    <string name="achievement_secret_on_the_edge_title">Шетінде</string>
+    <string name="achievement_secret_on_the_edge_desc">Дәл 2 қатемен жеңіс</string>
+
     <string name="cloud_section_title">Бұлтпен синхрондау</string>
     <string name="cloud_sign_in_with_play_games">Play Games арқылы кіру</string>
     <string name="cloud_sign_in_failed">Кіру мүмкін болмады. Кейінірек қайталап көріңіз.</string>

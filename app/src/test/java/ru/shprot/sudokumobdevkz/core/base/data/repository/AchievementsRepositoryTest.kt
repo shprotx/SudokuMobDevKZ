@@ -193,6 +193,12 @@ internal class FakeGameHistoryDao : GameHistoryDao {
 
     override suspend fun getAllStandardWins(): List<GameHistoryEntity> = flow.value.filter { it.isStandardMode }
 
+    override fun observeWinsWithoutHintsCount(): Flow<Int> =
+        MutableStateFlow(flow.value.count { it.isWin && it.hintsUsed == 0 })
+
+    override suspend fun countWinsWithoutHints(): Int =
+        flow.value.count { it.isWin && it.hintsUsed == 0 }
+
     override suspend fun insert(entry: GameHistoryEntity): Unit =
         error("not used in test: insert")
 

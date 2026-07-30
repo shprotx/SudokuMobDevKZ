@@ -198,6 +198,45 @@
     <string name="achievement_secret_early_bird_title">Ранняя пташка</string>
     <string name="achievement_secret_early_bird_desc">Победа между 05:00 и 08:00</string>
 
+    <string name="achievement_wins_100_title">Адепт</string>
+    <string name="achievement_wins_100_desc">Выиграйте 100 партий</string>
+    <string name="achievement_wins_300_title">Чемпион</string>
+    <string name="achievement_wins_300_desc">Выиграйте 300 партий</string>
+    <string name="achievement_wins_750_title">Мифический</string>
+    <string name="achievement_wins_750_desc">Выиграйте 750 партий</string>
+    <string name="achievement_marathon_10h_title">Марафонец</string>
+    <string name="achievement_marathon_10h_desc">Играйте в сумме 10 часов</string>
+
+    <string name="achievement_diff_universal_50_title">Мастер на все руки</string>
+    <string name="achievement_diff_universal_50_desc">По 50 побед на каждой сложности</string>
+
+    <string name="achievement_perfect_25_title">Точный</string>
+    <string name="achievement_perfect_25_desc">25 побед без ошибок</string>
+    <string name="achievement_perfect_100_title">Неприкасаемый</string>
+    <string name="achievement_perfect_100_desc">100 побед без ошибок</string>
+    <string name="achievement_no_hints_25_title">Самостоятельный</string>
+    <string name="achievement_no_hints_25_desc">25 побед без подсказок</string>
+
+    <string name="achievement_speed_elite_easy_title">Турбо</string>
+    <string name="achievement_speed_elite_easy_desc">Лёгкая за 1:30 или быстрее</string>
+    <string name="achievement_speed_elite_medium_title">Ракета</string>
+    <string name="achievement_speed_elite_medium_desc">Средняя за 3:00 или быстрее</string>
+    <string name="achievement_speed_elite_hard_title">Сверхзвуковой</string>
+    <string name="achievement_speed_elite_hard_desc">Сложная за 5:00 или быстрее</string>
+
+    <string name="achievement_streak_50_title">Несокрушимый</string>
+    <string name="achievement_streak_50_desc">50 побед подряд</string>
+
+    <string name="achievement_daily_streak_14_title">Две недели</string>
+    <string name="achievement_daily_streak_14_desc">14 дней daily подряд</string>
+    <string name="achievement_daily_25_title">Завсегдатай</string>
+    <string name="achievement_daily_25_desc">Выполните 25 daily-вызовов</string>
+    <string name="achievement_daily_100_title">Столетие</string>
+    <string name="achievement_daily_100_desc">Выполните 100 daily-вызовов</string>
+
+    <string name="achievement_secret_on_the_edge_title">На грани</string>
+    <string name="achievement_secret_on_the_edge_desc">Победа ровно с 2 ошибками</string>
+
     <string name="cloud_section_title">Облачная синхронизация</string>
     <string name="cloud_sign_in_with_play_games">Войти через Play Games</string>
     <string name="cloud_sign_in_failed">Не удалось войти. Попробуйте позже.</string>

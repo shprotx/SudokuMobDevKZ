@@ -30,6 +30,12 @@ interface GameHistoryDao {
     @Query("SELECT * FROM game_history_table WHERE isWin = 1 AND isStandardMode = 1")
     suspend fun getAllStandardWins(): List<GameHistoryEntity>
 
+    @Query("SELECT COUNT(*) FROM game_history_table WHERE isWin = 1 AND hintsUsed = 0")
+    fun observeWinsWithoutHintsCount(): Flow<Int>
+
+    @Query("SELECT COUNT(*) FROM game_history_table WHERE isWin = 1 AND hintsUsed = 0")
+    suspend fun countWinsWithoutHints(): Int
+
     @Query("DELETE FROM game_history_table WHERE difficulty = :difficulty")
     suspend fun deleteByDifficulty(difficulty: Int)
 }
