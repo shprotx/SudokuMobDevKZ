@@ -50,11 +50,13 @@ class AchievementsRepositoryImpl @Inject constructor(
             dailyChallengeDao.observeAllCompleted(),
             gameHistoryDao.observeRecentWins(RECENT_WINS_LIMIT),
             achievementUnlockedDao.observeAll(),
-        ) { stats, dailies, recentWins, unlocked ->
+            gameHistoryDao.observeWinsWithoutHintsCount(),
+        ) { stats, dailies, recentWins, unlocked, noHintsWinsCount ->
             val context = buildContext(
                 stats = stats,
                 dailies = dailies,
                 recentWins = recentWins,
+                noHintsWinsCount = noHintsWinsCount,
             )
             val unlockedById = unlocked.associateBy { it.id }
             AchievementsRegistry.all.map { achievement ->
@@ -100,13 +102,20 @@ class AchievementsRepositoryImpl @Inject constructor(
         val stats = statisticDao.getAll()
         val dailies = dailyChallengeDao.getAllCompleted()
         val recentWins = gameHistoryDao.getRecentWins(RECENT_WINS_LIMIT)
-        return buildContext(stats = stats, dailies = dailies, recentWins = recentWins)
+        val noHintsWinsCount = gameHistoryDao.countWinsWithoutHints()
+        return buildContext(
+            stats = stats,
+            dailies = dailies,
+            recentWins = recentWins,
+            noHintsWinsCount = noHintsWinsCount,
+        )
     }
 
     private fun buildContext(
         stats: List<StatisticEntity>,
         dailies: List<DailyChallengeEntity>,
         recentWins: List<GameHistoryEntity>,
+        noHintsWinsCount: Int,
     ): AchievementContext {
         val statsMap = Difficulty.entries.associateWith { diff ->
             stats.firstOrNull { it.difficulty == diff.firebaseKey }
@@ -120,6 +129,7 @@ class AchievementsRepositoryImpl @Inject constructor(
             dailyCurrentStreak = dailyStreaks.current,
             dailyBestStreak = dailyStreaks.best,
             recentWins = recentWins,
+            noHintsWinsCount = noHintsWinsCount,
         )
     }
 
