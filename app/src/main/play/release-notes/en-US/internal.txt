@@ -1,1 +1,1 @@
-Fixed: the game timer no longer runs while the app is in the background. New: a separate theme color for highlighted pencil marks — recolor them without touching the rest of the text.
+New: 16 new achievements with smoother milestones, and all badges redrawn as rich detailed artwork. Leaderboard now shows your own rank below the top 10. Theme dropdown got neat custom action icons.
