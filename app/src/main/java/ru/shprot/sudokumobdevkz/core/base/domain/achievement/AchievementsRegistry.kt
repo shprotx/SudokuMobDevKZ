@@ -60,7 +60,7 @@ object AchievementsRegistry {
         ),
         Achievement(
             id = "wins_100",
-            pgsId = null,
+            pgsId = "CgkIqffM1tUYEAIQaQ",
             titleRes = R.string.achievement_wins_100_title,
             descRes = R.string.achievement_wins_100_desc,
             iconKey = AchievementIconKey.TROPHY_SILVER,
@@ -70,7 +70,7 @@ object AchievementsRegistry {
         ),
         Achievement(
             id = "wins_300",
-            pgsId = null,
+            pgsId = "CgkIqffM1tUYEAIQag",
             titleRes = R.string.achievement_wins_300_title,
             descRes = R.string.achievement_wins_300_desc,
             iconKey = AchievementIconKey.TROPHY_GOLD,
@@ -80,7 +80,7 @@ object AchievementsRegistry {
         ),
         Achievement(
             id = "wins_750",
-            pgsId = null,
+            pgsId = "CgkIqffM1tUYEAIQaw",
             titleRes = R.string.achievement_wins_750_title,
             descRes = R.string.achievement_wins_750_desc,
             iconKey = AchievementIconKey.TROPHY_PLATINUM,
@@ -90,7 +90,7 @@ object AchievementsRegistry {
         ),
         Achievement(
             id = "marathon_10h",
-            pgsId = null,
+            pgsId = "CgkIqffM1tUYEAIQcw",
             titleRes = R.string.achievement_marathon_10h_title,
             descRes = R.string.achievement_marathon_10h_desc,
             iconKey = AchievementIconKey.STOPWATCH,
@@ -161,7 +161,7 @@ object AchievementsRegistry {
         ),
         Achievement(
             id = "diff_universal_50",
-            pgsId = null,
+            pgsId = "CgkIqffM1tUYEAIQcg",
             titleRes = R.string.achievement_diff_universal_50_title,
             descRes = R.string.achievement_diff_universal_50_desc,
             iconKey = AchievementIconKey.GLOBE,
@@ -211,7 +211,7 @@ object AchievementsRegistry {
         ),
         Achievement(
             id = "perfect_25",
-            pgsId = null,
+            pgsId = "CgkIqffM1tUYEAIQbA",
             titleRes = R.string.achievement_perfect_25_title,
             descRes = R.string.achievement_perfect_25_desc,
             iconKey = AchievementIconKey.DIAMOND_PINK,
@@ -221,7 +221,7 @@ object AchievementsRegistry {
         ),
         Achievement(
             id = "perfect_100",
-            pgsId = null,
+            pgsId = "CgkIqffM1tUYEAIQbQ",
             titleRes = R.string.achievement_perfect_100_title,
             descRes = R.string.achievement_perfect_100_desc,
             iconKey = AchievementIconKey.DIAMOND_RING,
@@ -231,7 +231,7 @@ object AchievementsRegistry {
         ),
         Achievement(
             id = "no_hints_25",
-            pgsId = null,
+            pgsId = "CgkIqffM1tUYEAIQdw",
             titleRes = R.string.achievement_no_hints_25_title,
             descRes = R.string.achievement_no_hints_25_desc,
             iconKey = AchievementIconKey.OWL,
@@ -274,7 +274,7 @@ object AchievementsRegistry {
         ),
         Achievement(
             id = "speed_elite_easy",
-            pgsId = null,
+            pgsId = "CgkIqffM1tUYEAIQdA",
             titleRes = R.string.achievement_speed_elite_easy_title,
             descRes = R.string.achievement_speed_elite_easy_desc,
             iconKey = AchievementIconKey.COMET_GREEN,
@@ -284,7 +284,7 @@ object AchievementsRegistry {
         ),
         Achievement(
             id = "speed_elite_medium",
-            pgsId = null,
+            pgsId = "CgkIqffM1tUYEAIQdQ",
             titleRes = R.string.achievement_speed_elite_medium_title,
             descRes = R.string.achievement_speed_elite_medium_desc,
             iconKey = AchievementIconKey.COMET_ORANGE,
@@ -294,7 +294,7 @@ object AchievementsRegistry {
         ),
         Achievement(
             id = "speed_elite_hard",
-            pgsId = null,
+            pgsId = "CgkIqffM1tUYEAIQdg",
             titleRes = R.string.achievement_speed_elite_hard_title,
             descRes = R.string.achievement_speed_elite_hard_desc,
             iconKey = AchievementIconKey.COMET_PURPLE,
@@ -337,7 +337,7 @@ object AchievementsRegistry {
         ),
         Achievement(
             id = "streak_50",
-            pgsId = null,
+            pgsId = "CgkIqffM1tUYEAIQbg",
             titleRes = R.string.achievement_streak_50_title,
             descRes = R.string.achievement_streak_50_desc,
             iconKey = AchievementIconKey.FIRE_BLUE,
@@ -392,7 +392,7 @@ object AchievementsRegistry {
         ),
         Achievement(
             id = "daily_streak_14",
-            pgsId = null,
+            pgsId = "CgkIqffM1tUYEAIQbw",
             titleRes = R.string.achievement_daily_streak_14_title,
             descRes = R.string.achievement_daily_streak_14_desc,
             iconKey = AchievementIconKey.CALENDAR_FORTNIGHT,
@@ -402,7 +402,7 @@ object AchievementsRegistry {
         ),
         Achievement(
             id = "daily_25",
-            pgsId = null,
+            pgsId = "CgkIqffM1tUYEAIQcA",
             titleRes = R.string.achievement_daily_25_title,
             descRes = R.string.achievement_daily_25_desc,
             iconKey = AchievementIconKey.CALENDAR_STACK,
@@ -412,7 +412,7 @@ object AchievementsRegistry {
         ),
         Achievement(
             id = "daily_100",
-            pgsId = null,
+            pgsId = "CgkIqffM1tUYEAIQcQ",
             titleRes = R.string.achievement_daily_100_title,
             descRes = R.string.achievement_daily_100_desc,
             iconKey = AchievementIconKey.HOURGLASS_GOLD,
@@ -453,7 +453,7 @@ object AchievementsRegistry {
         ),
         Achievement(
             id = "secret_on_the_edge",
-            pgsId = null,
+            pgsId = "CgkIqffM1tUYEAIQeA",
             titleRes = R.string.achievement_secret_on_the_edge_title,
             descRes = R.string.achievement_secret_on_the_edge_desc,
             iconKey = AchievementIconKey.SHIELD_CRACKED,
