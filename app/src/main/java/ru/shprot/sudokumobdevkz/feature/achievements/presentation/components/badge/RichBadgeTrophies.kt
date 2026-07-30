@@ -38,7 +38,54 @@ internal val goldMetal = MetalPalette(
     outline = Color(0xFF8A5200),
 )
 
-internal fun DrawScope.drawTrophy(center: Offset, r: Float, metal: MetalPalette) {
+internal val platinumMetal = MetalPalette(
+    light = Color(0xFFF6FDFF),
+    mid = Color(0xFFB8E2F0),
+    dark = Color(0xFF6A93B8),
+    outline = Color(0xFF3C5A78),
+)
+
+internal fun DrawScope.drawTrophy(
+    center: Offset,
+    r: Float,
+    metal: MetalPalette,
+    withStar: Boolean = false,
+    withAura: Boolean = false,
+) {
+    if (withAura) {
+        repeat(12) { i ->
+            val angle = (i * 30f) * (Math.PI / 180f).toFloat()
+            drawLine(
+                color = metal.light.copy(alpha = 0.55f),
+                start = Offset(
+                    center.x + r * 1.05f * Math.cos(angle.toDouble()).toFloat(),
+                    center.y + r * 1.05f * Math.sin(angle.toDouble()).toFloat(),
+                ),
+                end = Offset(
+                    center.x + r * 1.38f * Math.cos(angle.toDouble()).toFloat(),
+                    center.y + r * 1.38f * Math.sin(angle.toDouble()).toFloat(),
+                ),
+                strokeWidth = r * 0.06f,
+                cap = StrokeCap.Round,
+            )
+        }
+    }
+    drawTrophyBody(center, r, metal)
+    if (withStar) {
+        drawStar(
+            center = Offset(center.x, center.y - r * 0.38f),
+            outerRadius = r * 0.26f,
+            color = metal.outline,
+        )
+        drawStar(
+            center = Offset(center.x - r * 0.015f, center.y - r * 0.395f),
+            outerRadius = r * 0.23f,
+            color = Color.White.copy(alpha = 0.9f),
+        )
+    }
+}
+
+private fun DrawScope.drawTrophyBody(center: Offset, r: Float, metal: MetalPalette) {
     val cupTop = center.y - r * 0.95f
     val cupBottom = center.y + r * 0.18f
     val cupHalfWidth = r * 0.62f

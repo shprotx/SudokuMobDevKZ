@@ -73,6 +73,39 @@ internal fun DrawScope.drawRichBadgeObject(
         AchievementIconKey.MOON -> drawMoonBadge(center, r)
 
         AchievementIconKey.SUNRISE -> drawSunriseBadge(center, r)
+
+        AchievementIconKey.TROPHY_SILVER -> drawTrophy(center, r, silverMetal)
+
+        AchievementIconKey.TROPHY_GOLD -> drawTrophy(center, r, goldMetal, withStar = true)
+
+        AchievementIconKey.TROPHY_PLATINUM ->
+            drawTrophy(center, r, platinumMetal, withStar = true, withAura = true)
+
+        AchievementIconKey.DIAMOND_PINK -> drawGemColored(center, r, gemPink)
+
+        AchievementIconKey.DIAMOND_RING -> drawDiamondRing(center, r)
+
+        AchievementIconKey.FIRE_BLUE -> drawFireBlue(center, r)
+
+        AchievementIconKey.CALENDAR_FORTNIGHT -> drawCalendarFortnightBadge(center, r)
+
+        AchievementIconKey.CALENDAR_STACK -> drawCalendarStackBadge(center, r)
+
+        AchievementIconKey.HOURGLASS_GOLD -> drawHourglassBadge(center, r)
+
+        AchievementIconKey.GLOBE -> drawGlobeBadge(center, r)
+
+        AchievementIconKey.STOPWATCH -> drawStopwatchBadge(center, r)
+
+        AchievementIconKey.COMET_GREEN -> drawComet(center, r, cometGreen)
+
+        AchievementIconKey.COMET_ORANGE -> drawComet(center, r, cometOrange)
+
+        AchievementIconKey.COMET_PURPLE -> drawComet(center, r, cometPurple)
+
+        AchievementIconKey.OWL -> drawOwlBadge(center, r)
+
+        AchievementIconKey.SHIELD_CRACKED -> drawCrackedShieldBadge(center, r)
     }
 }
 

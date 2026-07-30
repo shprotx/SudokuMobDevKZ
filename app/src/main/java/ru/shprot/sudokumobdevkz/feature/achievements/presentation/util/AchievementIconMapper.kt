@@ -12,10 +12,16 @@ import androidx.compose.material.icons.filled.Explore
 import androidx.compose.material.icons.filled.GpsFixed
 import androidx.compose.material.icons.filled.Landscape
 import androidx.compose.material.icons.filled.LocalFireDepartment
+import androidx.compose.material.icons.filled.HourglassBottom
 import androidx.compose.material.icons.filled.MilitaryTech
 import androidx.compose.material.icons.filled.NightsStay
 import androidx.compose.material.icons.filled.Park
+import androidx.compose.material.icons.filled.Psychology
+import androidx.compose.material.icons.filled.Public
+import androidx.compose.material.icons.filled.RocketLaunch
+import androidx.compose.material.icons.filled.Shield
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material.icons.filled.WbSunny
 import androidx.compose.material.icons.filled.WbTwilight
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -48,5 +54,21 @@ object AchievementIconMapper {
         AchievementIconKey.CALENDAR_YEAR -> Icons.Filled.CalendarMonth
         AchievementIconKey.MOON -> Icons.Filled.NightsStay
         AchievementIconKey.SUNRISE -> Icons.Filled.WbTwilight
+        AchievementIconKey.TROPHY_SILVER -> Icons.Filled.EmojiEvents
+        AchievementIconKey.TROPHY_GOLD -> Icons.Filled.EmojiEvents
+        AchievementIconKey.TROPHY_PLATINUM -> Icons.Filled.EmojiEvents
+        AchievementIconKey.DIAMOND_PINK -> Icons.Filled.Diamond
+        AchievementIconKey.DIAMOND_RING -> Icons.Filled.Diamond
+        AchievementIconKey.FIRE_BLUE -> Icons.Filled.LocalFireDepartment
+        AchievementIconKey.CALENDAR_FORTNIGHT -> Icons.Filled.CalendarViewWeek
+        AchievementIconKey.CALENDAR_STACK -> Icons.Filled.CalendarMonth
+        AchievementIconKey.HOURGLASS_GOLD -> Icons.Filled.HourglassBottom
+        AchievementIconKey.GLOBE -> Icons.Filled.Public
+        AchievementIconKey.STOPWATCH -> Icons.Filled.Timer
+        AchievementIconKey.COMET_GREEN -> Icons.Filled.RocketLaunch
+        AchievementIconKey.COMET_ORANGE -> Icons.Filled.RocketLaunch
+        AchievementIconKey.COMET_PURPLE -> Icons.Filled.RocketLaunch
+        AchievementIconKey.OWL -> Icons.Filled.Psychology
+        AchievementIconKey.SHIELD_CRACKED -> Icons.Filled.Shield
     }
 }
