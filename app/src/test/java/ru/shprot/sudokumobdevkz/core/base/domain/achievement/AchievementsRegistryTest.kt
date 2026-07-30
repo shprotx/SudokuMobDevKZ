@@ -182,29 +182,11 @@ class AchievementsRegistryTest {
     }
 
     @Test
-    fun allAchievements_havePgsIdExceptPendingPgsIntegration() {
-        val pendingPgsIntegrationIds = setOf(
-            "wins_100",
-            "wins_300",
-            "wins_750",
-            "marathon_10h",
-            "diff_universal_50",
-            "perfect_25",
-            "perfect_100",
-            "no_hints_25",
-            "speed_elite_easy",
-            "speed_elite_medium",
-            "speed_elite_hard",
-            "streak_50",
-            "daily_streak_14",
-            "daily_25",
-            "daily_100",
-            "secret_on_the_edge",
-        )
+    fun allAchievements_havePgsId() {
         val missing = AchievementsRegistry.all.filter { it.pgsId.isNullOrBlank() }.map { it.id }.toSet()
         assertEquals(
-            "Achievements without PGS id must match the ones pending PGS integration",
-            pendingPgsIntegrationIds,
+            "All achievements must have a PGS id",
+            emptySet<String>(),
             missing,
         )
     }
