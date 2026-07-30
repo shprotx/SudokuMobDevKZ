@@ -174,7 +174,7 @@ object AchievementVisuals {
             accentColor = Color(0xFFFFFFFF),
         )
 
-        AchievementIconKey.TIARA -> AchievementVisual(
+        AchievementIconKey.DIAMOND_RING -> AchievementVisual(
             gradientStart = Color(0xFFE8D8FF),
             gradientEnd = Color(0xFF5A2B9E),
             accentColor = Color(0xFFFFF0FF),

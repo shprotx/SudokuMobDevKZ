@@ -58,7 +58,7 @@ object AchievementIconMapper {
         AchievementIconKey.TROPHY_GOLD -> Icons.Filled.EmojiEvents
         AchievementIconKey.TROPHY_PLATINUM -> Icons.Filled.EmojiEvents
         AchievementIconKey.DIAMOND_PINK -> Icons.Filled.Diamond
-        AchievementIconKey.TIARA -> Icons.Filled.Star
+        AchievementIconKey.DIAMOND_RING -> Icons.Filled.Diamond
         AchievementIconKey.FIRE_BLUE -> Icons.Filled.LocalFireDepartment
         AchievementIconKey.CALENDAR_FORTNIGHT -> Icons.Filled.CalendarViewWeek
         AchievementIconKey.CALENDAR_STACK -> Icons.Filled.CalendarMonth

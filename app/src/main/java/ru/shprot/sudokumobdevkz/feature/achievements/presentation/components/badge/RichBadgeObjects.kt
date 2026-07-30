@@ -83,7 +83,7 @@ internal fun DrawScope.drawRichBadgeObject(
 
         AchievementIconKey.DIAMOND_PINK -> drawGemColored(center, r, gemPink)
 
-        AchievementIconKey.TIARA -> drawTiara(center, r, visual.accentColor)
+        AchievementIconKey.DIAMOND_RING -> drawDiamondRing(center, r)
 
         AchievementIconKey.FIRE_BLUE -> drawFireBlue(center, r)
 

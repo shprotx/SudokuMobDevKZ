@@ -29,7 +29,7 @@ enum class AchievementIconKey {
     TROPHY_GOLD,
     TROPHY_PLATINUM,
     DIAMOND_PINK,
-    TIARA,
+    DIAMOND_RING,
     FIRE_BLUE,
     CALENDAR_FORTNIGHT,
     CALENDAR_STACK,

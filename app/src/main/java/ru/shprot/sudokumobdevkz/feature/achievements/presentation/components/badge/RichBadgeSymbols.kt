@@ -281,6 +281,117 @@ internal fun DrawScope.drawGemColored(center: Offset, r: Float, gem: GemPaletteC
     )
 }
 
+internal fun DrawScope.drawDiamondRing(center: Offset, r: Float) {
+    val ringCenter = Offset(center.x, center.y + r * 0.28f)
+    val ringRadius = r * 0.62f
+    val bandWidth = r * 0.20f
+
+    translate(left = r * 0.05f, top = r * 0.08f) {
+        drawCircle(
+            color = Color(0x40000000),
+            radius = ringRadius,
+            center = ringCenter,
+            style = Stroke(width = bandWidth),
+        )
+    }
+
+    drawCircle(
+        brush = Brush.linearGradient(
+            colors = listOf(goldMetal.light, goldMetal.mid, goldMetal.dark),
+            start = Offset(ringCenter.x, ringCenter.y - ringRadius),
+            end = Offset(ringCenter.x, ringCenter.y + ringRadius),
+        ),
+        radius = ringRadius,
+        center = ringCenter,
+        style = Stroke(width = bandWidth),
+    )
+    drawCircle(
+        color = goldMetal.outline,
+        radius = ringRadius + bandWidth / 2f,
+        center = ringCenter,
+        style = Stroke(width = r * 0.035f),
+    )
+    drawCircle(
+        color = goldMetal.outline,
+        radius = ringRadius - bandWidth / 2f,
+        center = ringCenter,
+        style = Stroke(width = r * 0.035f),
+    )
+    drawPath(
+        path = Path().apply {
+            moveTo(ringCenter.x - ringRadius * 0.85f, ringCenter.y + ringRadius * 0.35f)
+            cubicTo(
+                ringCenter.x - ringRadius * 0.6f, ringCenter.y + ringRadius * 0.95f,
+                ringCenter.x - ringRadius * 0.1f, ringCenter.y + ringRadius * 1.02f,
+                ringCenter.x + ringRadius * 0.25f, ringCenter.y + ringRadius * 0.95f,
+            )
+        },
+        color = Color.White.copy(alpha = 0.55f),
+        style = Stroke(width = bandWidth * 0.4f, cap = StrokeCap.Round),
+    )
+
+    val stoneCenter = Offset(center.x, ringCenter.y - ringRadius - r * 0.34f)
+    val stoneHalfW = r * 0.40f
+
+    listOf(-1f, 1f).forEach { sign ->
+        drawLine(
+            color = goldMetal.dark,
+            start = Offset(ringCenter.x + sign * ringRadius * 0.42f, ringCenter.y - ringRadius * 0.85f),
+            end = Offset(stoneCenter.x + sign * stoneHalfW * 0.7f, stoneCenter.y + r * 0.14f),
+            strokeWidth = r * 0.07f,
+            cap = StrokeCap.Round,
+        )
+    }
+
+    val crownY = stoneCenter.y - r * 0.16f
+    val girdleY = stoneCenter.y + r * 0.02f
+    val tipY = stoneCenter.y + r * 0.34f
+    drawPath(
+        path = Path().apply {
+            moveTo(stoneCenter.x - stoneHalfW * 0.5f, crownY)
+            lineTo(stoneCenter.x + stoneHalfW * 0.5f, crownY)
+            lineTo(stoneCenter.x + stoneHalfW, girdleY)
+            lineTo(stoneCenter.x, tipY)
+            lineTo(stoneCenter.x - stoneHalfW, girdleY)
+            close()
+        },
+        brush = Brush.linearGradient(
+            colors = listOf(Color(0xFFF6F0FF), Color(0xFFC8A8FF), Color(0xFF8F5AE8)),
+            start = Offset(stoneCenter.x, crownY),
+            end = Offset(stoneCenter.x, tipY),
+        ),
+    )
+    drawPath(
+        path = Path().apply {
+            moveTo(stoneCenter.x - stoneHalfW * 0.5f, crownY)
+            lineTo(stoneCenter.x + stoneHalfW * 0.5f, crownY)
+            lineTo(stoneCenter.x + stoneHalfW, girdleY)
+            lineTo(stoneCenter.x, tipY)
+            lineTo(stoneCenter.x - stoneHalfW, girdleY)
+            close()
+        },
+        color = Color(0xFF5A2B9E),
+        style = Stroke(width = r * 0.04f),
+    )
+    drawLine(
+        color = Color.White.copy(alpha = 0.65f),
+        start = Offset(stoneCenter.x - stoneHalfW * 0.45f, girdleY),
+        end = Offset(stoneCenter.x + stoneHalfW * 0.45f, girdleY),
+        strokeWidth = r * 0.028f,
+    )
+
+    drawFourPointSparkle(
+        center = Offset(stoneCenter.x + stoneHalfW * 0.75f, crownY - r * 0.08f),
+        size = r * 0.16f,
+        color = Color.White,
+    )
+    drawFourPointSparkle(
+        center = Offset(ringCenter.x - ringRadius * 0.8f, ringCenter.y - ringRadius * 0.5f),
+        size = r * 0.10f,
+        color = Color.White.copy(alpha = 0.8f),
+    )
+}
+
 internal fun DrawScope.drawGlobeBadge(center: Offset, r: Float) {
     drawCircle(
         color = Color(0x40000000),
