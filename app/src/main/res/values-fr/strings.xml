@@ -105,6 +105,45 @@
     <string name="achievement_secret_night_owl_desc">Gagne une partie entre 00:00 et 05:00</string>
     <string name="achievement_secret_early_bird_title">Lève-tôt</string>
     <string name="achievement_secret_early_bird_desc">Gagne une partie entre 05:00 et 08:00</string>
+
+    <string name="achievement_wins_100_title">Adepte</string>
+    <string name="achievement_wins_100_desc">Gagne 100 parties</string>
+    <string name="achievement_wins_300_title">Champion</string>
+    <string name="achievement_wins_300_desc">Gagne 300 parties</string>
+    <string name="achievement_wins_750_title">Mythique</string>
+    <string name="achievement_wins_750_desc">Gagne 750 parties</string>
+    <string name="achievement_marathon_10h_title">Marathonien</string>
+    <string name="achievement_marathon_10h_desc">Joue 10 heures au total</string>
+
+    <string name="achievement_diff_universal_50_title">Maître absolu</string>
+    <string name="achievement_diff_universal_50_desc">Gagne 50 parties dans chaque difficulté</string>
+
+    <string name="achievement_perfect_25_title">Précis</string>
+    <string name="achievement_perfect_25_desc">Gagne 25 parties sans erreur</string>
+    <string name="achievement_perfect_100_title">Intouchable</string>
+    <string name="achievement_perfect_100_desc">Gagne 100 parties sans erreur</string>
+    <string name="achievement_no_hints_25_title">Autonome</string>
+    <string name="achievement_no_hints_25_desc">Gagne 25 parties sans indice</string>
+
+    <string name="achievement_speed_elite_easy_title">Turbo</string>
+    <string name="achievement_speed_elite_easy_desc">Termine une partie facile en 1:30 ou moins</string>
+    <string name="achievement_speed_elite_medium_title">Fusée</string>
+    <string name="achievement_speed_elite_medium_desc">Termine une partie moyenne en 3:00 ou moins</string>
+    <string name="achievement_speed_elite_hard_title">Supersonique</string>
+    <string name="achievement_speed_elite_hard_desc">Termine une partie difficile en 5:00 ou moins</string>
+
+    <string name="achievement_streak_50_title">Invincible</string>
+    <string name="achievement_streak_50_desc">Gagne 50 parties d\'affilée</string>
+
+    <string name="achievement_daily_streak_14_title">Deux semaines</string>
+    <string name="achievement_daily_streak_14_desc">Série quotidienne de 14 jours</string>
+    <string name="achievement_daily_25_title">Habitué</string>
+    <string name="achievement_daily_25_desc">Termine 25 défis quotidiens</string>
+    <string name="achievement_daily_100_title">Centenaire</string>
+    <string name="achievement_daily_100_desc">Termine 100 défis quotidiens</string>
+
+    <string name="achievement_secret_on_the_edge_title">Au bord du gouffre</string>
+    <string name="achievement_secret_on_the_edge_desc">Gagne avec exactement 2 erreurs</string>
     <string name="settings_rate_app">Noter l\'application</string>
     <string name="theme_label">Thème</string>
     <string name="theme_mode_system">Système</string>

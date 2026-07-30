@@ -58,6 +58,48 @@ object AchievementsRegistry {
             hidden = false,
             evaluate = { ctx -> AchievementProgress(current = totalWins(ctx), target = 500) },
         ),
+        Achievement(
+            id = "wins_100",
+            pgsId = null,
+            titleRes = R.string.achievement_wins_100_title,
+            descRes = R.string.achievement_wins_100_desc,
+            iconKey = AchievementIconKey.TROPHY_SILVER,
+            category = AchievementCategory.WINS,
+            hidden = false,
+            evaluate = { ctx -> AchievementProgress(current = totalWins(ctx), target = 100) },
+        ),
+        Achievement(
+            id = "wins_300",
+            pgsId = null,
+            titleRes = R.string.achievement_wins_300_title,
+            descRes = R.string.achievement_wins_300_desc,
+            iconKey = AchievementIconKey.TROPHY_GOLD,
+            category = AchievementCategory.WINS,
+            hidden = false,
+            evaluate = { ctx -> AchievementProgress(current = totalWins(ctx), target = 300) },
+        ),
+        Achievement(
+            id = "wins_750",
+            pgsId = null,
+            titleRes = R.string.achievement_wins_750_title,
+            descRes = R.string.achievement_wins_750_desc,
+            iconKey = AchievementIconKey.TROPHY_PLATINUM,
+            category = AchievementCategory.WINS,
+            hidden = false,
+            evaluate = { ctx -> AchievementProgress(current = totalWins(ctx), target = 750) },
+        ),
+        Achievement(
+            id = "marathon_10h",
+            pgsId = null,
+            titleRes = R.string.achievement_marathon_10h_title,
+            descRes = R.string.achievement_marathon_10h_desc,
+            iconKey = AchievementIconKey.STOPWATCH,
+            category = AchievementCategory.WINS,
+            hidden = false,
+            evaluate = { ctx ->
+                AchievementProgress(current = totalPlaySeconds(ctx), target = MARATHON_TARGET_SECONDS)
+            },
+        ),
     )
 
     private val difficultyAchievements: List<Achievement> = listOf(
@@ -114,6 +156,23 @@ object AchievementsRegistry {
                 AchievementProgress(current = minPerDiff, target = 10)
             },
         ),
+        Achievement(
+            id = "diff_universal_50",
+            pgsId = null,
+            titleRes = R.string.achievement_diff_universal_50_title,
+            descRes = R.string.achievement_diff_universal_50_desc,
+            iconKey = AchievementIconKey.GLOBE,
+            category = AchievementCategory.DIFFICULTY,
+            hidden = false,
+            evaluate = { ctx ->
+                val minPerDiff = minOf(
+                    winsAt(ctx, Difficulty.EASY),
+                    winsAt(ctx, Difficulty.MEDIUM),
+                    winsAt(ctx, Difficulty.HARD),
+                )
+                AchievementProgress(current = minPerDiff, target = 50)
+            },
+        ),
     )
 
     private val perfectAchievements: List<Achievement> = listOf(
@@ -146,6 +205,36 @@ object AchievementsRegistry {
             category = AchievementCategory.PERFECT,
             hidden = false,
             evaluate = { ctx -> AchievementProgress(current = totalPerfect(ctx), target = 50) },
+        ),
+        Achievement(
+            id = "perfect_25",
+            pgsId = null,
+            titleRes = R.string.achievement_perfect_25_title,
+            descRes = R.string.achievement_perfect_25_desc,
+            iconKey = AchievementIconKey.DIAMOND_PINK,
+            category = AchievementCategory.PERFECT,
+            hidden = false,
+            evaluate = { ctx -> AchievementProgress(current = totalPerfect(ctx), target = 25) },
+        ),
+        Achievement(
+            id = "perfect_100",
+            pgsId = null,
+            titleRes = R.string.achievement_perfect_100_title,
+            descRes = R.string.achievement_perfect_100_desc,
+            iconKey = AchievementIconKey.DIAMOND_RING,
+            category = AchievementCategory.PERFECT,
+            hidden = false,
+            evaluate = { ctx -> AchievementProgress(current = totalPerfect(ctx), target = 100) },
+        ),
+        Achievement(
+            id = "no_hints_25",
+            pgsId = null,
+            titleRes = R.string.achievement_no_hints_25_title,
+            descRes = R.string.achievement_no_hints_25_desc,
+            iconKey = AchievementIconKey.OWL,
+            category = AchievementCategory.PERFECT,
+            hidden = false,
+            evaluate = { ctx -> AchievementProgress(current = ctx.noHintsWinsCount, target = 25) },
         ),
     )
 
@@ -180,6 +269,36 @@ object AchievementsRegistry {
             hidden = false,
             evaluate = { ctx -> speedProgress(ctx, Difficulty.HARD, targetSeconds = 420) },
         ),
+        Achievement(
+            id = "speed_elite_easy",
+            pgsId = null,
+            titleRes = R.string.achievement_speed_elite_easy_title,
+            descRes = R.string.achievement_speed_elite_easy_desc,
+            iconKey = AchievementIconKey.COMET_GREEN,
+            category = AchievementCategory.SPEED,
+            hidden = false,
+            evaluate = { ctx -> speedProgress(ctx, Difficulty.EASY, targetSeconds = 90) },
+        ),
+        Achievement(
+            id = "speed_elite_medium",
+            pgsId = null,
+            titleRes = R.string.achievement_speed_elite_medium_title,
+            descRes = R.string.achievement_speed_elite_medium_desc,
+            iconKey = AchievementIconKey.COMET_ORANGE,
+            category = AchievementCategory.SPEED,
+            hidden = false,
+            evaluate = { ctx -> speedProgress(ctx, Difficulty.MEDIUM, targetSeconds = 180) },
+        ),
+        Achievement(
+            id = "speed_elite_hard",
+            pgsId = null,
+            titleRes = R.string.achievement_speed_elite_hard_title,
+            descRes = R.string.achievement_speed_elite_hard_desc,
+            iconKey = AchievementIconKey.COMET_PURPLE,
+            category = AchievementCategory.SPEED,
+            hidden = false,
+            evaluate = { ctx -> speedProgress(ctx, Difficulty.HARD, targetSeconds = 300) },
+        ),
     )
 
     private val streakAchievements: List<Achievement> = listOf(
@@ -212,6 +331,16 @@ object AchievementsRegistry {
             category = AchievementCategory.STREAK,
             hidden = false,
             evaluate = { ctx -> AchievementProgress(current = maxBestLine(ctx), target = 25) },
+        ),
+        Achievement(
+            id = "streak_50",
+            pgsId = null,
+            titleRes = R.string.achievement_streak_50_title,
+            descRes = R.string.achievement_streak_50_desc,
+            iconKey = AchievementIconKey.FIRE_BLUE,
+            category = AchievementCategory.STREAK,
+            hidden = false,
+            evaluate = { ctx -> AchievementProgress(current = maxBestLine(ctx), target = 50) },
         ),
     )
 
@@ -258,6 +387,36 @@ object AchievementsRegistry {
             hidden = false,
             evaluate = { ctx -> AchievementProgress(current = ctx.dailyBestStreak, target = 100) },
         ),
+        Achievement(
+            id = "daily_streak_14",
+            pgsId = null,
+            titleRes = R.string.achievement_daily_streak_14_title,
+            descRes = R.string.achievement_daily_streak_14_desc,
+            iconKey = AchievementIconKey.CALENDAR_FORTNIGHT,
+            category = AchievementCategory.DAILY,
+            hidden = false,
+            evaluate = { ctx -> AchievementProgress(current = ctx.dailyBestStreak, target = 14) },
+        ),
+        Achievement(
+            id = "daily_25",
+            pgsId = null,
+            titleRes = R.string.achievement_daily_25_title,
+            descRes = R.string.achievement_daily_25_desc,
+            iconKey = AchievementIconKey.CALENDAR_STACK,
+            category = AchievementCategory.DAILY,
+            hidden = false,
+            evaluate = { ctx -> AchievementProgress(current = ctx.dailyCompletedCount, target = 25) },
+        ),
+        Achievement(
+            id = "daily_100",
+            pgsId = null,
+            titleRes = R.string.achievement_daily_100_title,
+            descRes = R.string.achievement_daily_100_desc,
+            iconKey = AchievementIconKey.HOURGLASS_GOLD,
+            category = AchievementCategory.DAILY,
+            hidden = false,
+            evaluate = { ctx -> AchievementProgress(current = ctx.dailyCompletedCount, target = 100) },
+        ),
     )
 
     private val secretAchievements: List<Achievement> = listOf(
@@ -289,6 +448,20 @@ object AchievementsRegistry {
                 AchievementProgress(current = current, target = target)
             },
         ),
+        Achievement(
+            id = "secret_on_the_edge",
+            pgsId = null,
+            titleRes = R.string.achievement_secret_on_the_edge_title,
+            descRes = R.string.achievement_secret_on_the_edge_desc,
+            iconKey = AchievementIconKey.SHIELD_CRACKED,
+            category = AchievementCategory.SECRET,
+            hidden = true,
+            evaluate = { ctx ->
+                val target = 1
+                val current = if (ctx.recentWins.any { it.isWin && it.errors == 2 }) target else 0
+                AchievementProgress(current = current, target = target)
+            },
+        ),
     )
 
     val all: List<Achievement> =
@@ -308,6 +481,11 @@ object AchievementsRegistry {
 
     private fun totalPerfect(ctx: AchievementContext): Int =
         ctx.statsByDifficulty.values.sumOf { it.winsWithoutErrors }
+
+    private fun totalPlaySeconds(ctx: AchievementContext): Int =
+        ctx.statsByDifficulty.values.sumOf { it.allTime }
+            .coerceAtMost(Int.MAX_VALUE.toLong())
+            .toInt()
 
     private fun speedProgress(
         ctx: AchievementContext,
@@ -332,4 +510,6 @@ object AchievementsRegistry {
             hour in hours
         }
     }
+
+    private const val MARATHON_TARGET_SECONDS = 36000
 }

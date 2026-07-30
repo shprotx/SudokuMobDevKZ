@@ -103,6 +103,45 @@
     <string name="achievement_secret_night_owl_desc">Перемога між 00:00 і 05:00</string>
     <string name="achievement_secret_early_bird_title">Рання пташка</string>
     <string name="achievement_secret_early_bird_desc">Перемога між 05:00 і 08:00</string>
+
+    <string name="achievement_wins_100_title">Адепт</string>
+    <string name="achievement_wins_100_desc">Виграйте 100 партій</string>
+    <string name="achievement_wins_300_title">Чемпіон</string>
+    <string name="achievement_wins_300_desc">Виграйте 300 партій</string>
+    <string name="achievement_wins_750_title">Міфічний</string>
+    <string name="achievement_wins_750_desc">Виграйте 750 партій</string>
+    <string name="achievement_marathon_10h_title">Марафонець</string>
+    <string name="achievement_marathon_10h_desc">Грайте загалом 10 годин</string>
+
+    <string name="achievement_diff_universal_50_title">Майстер на всі руки</string>
+    <string name="achievement_diff_universal_50_desc">По 50 перемог на кожній складності</string>
+
+    <string name="achievement_perfect_25_title">Точний</string>
+    <string name="achievement_perfect_25_desc">25 перемог без помилок</string>
+    <string name="achievement_perfect_100_title">Недоторканний</string>
+    <string name="achievement_perfect_100_desc">100 перемог без помилок</string>
+    <string name="achievement_no_hints_25_title">Самостійний</string>
+    <string name="achievement_no_hints_25_desc">25 перемог без підказок</string>
+
+    <string name="achievement_speed_elite_easy_title">Турбо</string>
+    <string name="achievement_speed_elite_easy_desc">Легка за 1:30 або швидше</string>
+    <string name="achievement_speed_elite_medium_title">Ракета</string>
+    <string name="achievement_speed_elite_medium_desc">Середня за 3:00 або швидше</string>
+    <string name="achievement_speed_elite_hard_title">Надзвуковий</string>
+    <string name="achievement_speed_elite_hard_desc">Складна за 5:00 або швидше</string>
+
+    <string name="achievement_streak_50_title">Незламний</string>
+    <string name="achievement_streak_50_desc">50 перемог поспіль</string>
+
+    <string name="achievement_daily_streak_14_title">Два тижні</string>
+    <string name="achievement_daily_streak_14_desc">14 днів щоденного поспіль</string>
+    <string name="achievement_daily_25_title">Завсідник</string>
+    <string name="achievement_daily_25_desc">Виконайте 25 щоденних викликів</string>
+    <string name="achievement_daily_100_title">Сторіччя</string>
+    <string name="achievement_daily_100_desc">Виконайте 100 щоденних викликів</string>
+
+    <string name="achievement_secret_on_the_edge_title">На межі</string>
+    <string name="achievement_secret_on_the_edge_desc">Перемога рівно з 2 помилками</string>
     <string name="settings_rate_app">Оцінити застосунок</string>
 
     <string name="theme_builder_title">Конструктор тем</string>
