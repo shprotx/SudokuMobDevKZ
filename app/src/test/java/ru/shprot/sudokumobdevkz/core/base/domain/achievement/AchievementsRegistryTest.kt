@@ -36,6 +36,7 @@ class AchievementsRegistryTest {
         dailyCurrentStreak: Int = 0,
         dailyBestStreak: Int = 0,
         recentWins: List<GameHistoryEntity> = emptyList(),
+        noHintsWinsCount: Int = 0,
     ) = AchievementContext(
         statsByDifficulty = mapOf(
             Difficulty.EASY to easy,
@@ -46,6 +47,7 @@ class AchievementsRegistryTest {
         dailyCurrentStreak = dailyCurrentStreak,
         dailyBestStreak = dailyBestStreak,
         recentWins = recentWins,
+        noHintsWinsCount = noHintsWinsCount,
     )
 
     private fun byId(id: String): Achievement =
@@ -64,6 +66,14 @@ class AchievementsRegistryTest {
         )
     }
 
+    private fun winWithErrors(errors: Int): GameHistoryEntity =
+        GameHistoryEntity(
+            difficulty = 0,
+            timeSeconds = 60,
+            errors = errors,
+            isWin = true,
+        )
+
     @Test
     fun registry_hasNoDuplicateIds() {
         val ids = AchievementsRegistry.all.map { it.id }
@@ -71,8 +81,8 @@ class AchievementsRegistryTest {
     }
 
     @Test
-    fun registry_has24Achievements() {
-        assertEquals(24, AchievementsRegistry.all.size)
+    fun registry_has40Achievements() {
+        assertEquals(40, AchievementsRegistry.all.size)
     }
 
     @Test
@@ -172,19 +182,37 @@ class AchievementsRegistryTest {
     }
 
     @Test
-    fun allAchievements_havePgsId() {
-        val missing = AchievementsRegistry.all.filter { it.pgsId.isNullOrBlank() }
-        assertTrue(
-            "Achievements without PGS id: ${missing.map { it.id }}",
-            missing.isEmpty(),
+    fun allAchievements_havePgsIdExceptPendingPgsIntegration() {
+        val pendingPgsIntegrationIds = setOf(
+            "wins_100",
+            "wins_300",
+            "wins_750",
+            "marathon_10h",
+            "diff_universal_50",
+            "perfect_25",
+            "perfect_100",
+            "no_hints_25",
+            "speed_elite_easy",
+            "speed_elite_medium",
+            "speed_elite_hard",
+            "streak_50",
+            "daily_streak_14",
+            "daily_25",
+            "daily_100",
+            "secret_on_the_edge",
+        )
+        val missing = AchievementsRegistry.all.filter { it.pgsId.isNullOrBlank() }.map { it.id }.toSet()
+        assertEquals(
+            "Achievements without PGS id must match the ones pending PGS integration",
+            pendingPgsIntegrationIds,
+            missing,
         )
     }
 
     @Test
     fun allAchievements_havePgsIdInExpectedFormat() {
-        AchievementsRegistry.all.forEach { ach ->
-            val pgsId = ach.pgsId
-            assertTrue("${ach.id}: pgsId=$pgsId не начинается с CgkI", pgsId!!.startsWith("CgkI"))
+        AchievementsRegistry.all.mapNotNull { it.pgsId }.forEach { pgsId ->
+            assertTrue("pgsId=$pgsId не начинается с CgkI", pgsId.startsWith("CgkI"))
         }
     }
 
@@ -196,5 +224,130 @@ class AchievementsRegistryTest {
             ids.size,
             ids.toSet().size,
         )
+    }
+
+    @Test
+    fun noHints25_usesDedicatedCounter_notRecentWins() {
+        val below = ctx(noHintsWinsCount = 24, recentWins = List(200) { winAt(10) })
+        assertFalse(byId("no_hints_25").evaluate(below).isUnlocked)
+
+        val met = ctx(noHintsWinsCount = 25, recentWins = emptyList())
+        assertTrue(byId("no_hints_25").evaluate(met).isUnlocked)
+    }
+
+    @Test
+    fun onTheEdge_unlocksOnWinWithExactlyTwoErrors() {
+        val context = ctx(recentWins = listOf(winWithErrors(2)))
+        assertTrue(byId("secret_on_the_edge").evaluate(context).isUnlocked)
+    }
+
+    @Test
+    fun onTheEdge_doesNotUnlockOnWinWithDifferentErrorCount() {
+        val oneError = ctx(recentWins = listOf(winWithErrors(1)))
+        assertFalse(byId("secret_on_the_edge").evaluate(oneError).isUnlocked)
+
+        val threeErrors = ctx(recentWins = listOf(winWithErrors(3)))
+        assertFalse(byId("secret_on_the_edge").evaluate(threeErrors).isUnlocked)
+    }
+
+    @Test
+    fun marathon10h_sumsAllTimeAcrossDifficulties() {
+        val below = ctx(
+            easy = StatisticEntity(difficulty = Difficulty.EASY.ordinal, allTime = 10000),
+            medium = StatisticEntity(difficulty = Difficulty.MEDIUM.ordinal, allTime = 10000),
+            hard = StatisticEntity(difficulty = Difficulty.HARD.ordinal, allTime = 10000),
+        )
+        assertFalse(byId("marathon_10h").evaluate(below).isUnlocked)
+
+        val met = ctx(
+            easy = StatisticEntity(difficulty = Difficulty.EASY.ordinal, allTime = 12000),
+            medium = StatisticEntity(difficulty = Difficulty.MEDIUM.ordinal, allTime = 12000),
+            hard = StatisticEntity(difficulty = Difficulty.HARD.ordinal, allTime = 12000),
+        )
+        assertTrue(byId("marathon_10h").evaluate(met).isUnlocked)
+    }
+
+    @Test
+    fun diffUniversal50_requires50OnEachDifficulty() {
+        val belowOnHard = ctx(
+            easy = stat(Difficulty.EASY, gamesWon = 60),
+            medium = stat(Difficulty.MEDIUM, gamesWon = 60),
+            hard = stat(Difficulty.HARD, gamesWon = 49),
+        )
+        assertFalse(byId("diff_universal_50").evaluate(belowOnHard).isUnlocked)
+
+        val allMet = ctx(
+            easy = stat(Difficulty.EASY, gamesWon = 50),
+            medium = stat(Difficulty.MEDIUM, gamesWon = 50),
+            hard = stat(Difficulty.HARD, gamesWon = 50),
+        )
+        assertTrue(byId("diff_universal_50").evaluate(allMet).isUnlocked)
+    }
+
+    @Test
+    fun speedEliteEasy_unlocksOnlyWhenBestTimeAtOrBelowTarget() {
+        val tooSlow = ctx(easy = stat(Difficulty.EASY, bestTime = 91))
+        assertFalse(byId("speed_elite_easy").evaluate(tooSlow).isUnlocked)
+
+        val fast = ctx(easy = stat(Difficulty.EASY, bestTime = 90))
+        assertTrue(byId("speed_elite_easy").evaluate(fast).isUnlocked)
+    }
+
+    @Test
+    fun speedEliteMedium_unlocksOnlyWhenBestTimeAtOrBelowTarget() {
+        val tooSlow = ctx(medium = stat(Difficulty.MEDIUM, bestTime = 181))
+        assertFalse(byId("speed_elite_medium").evaluate(tooSlow).isUnlocked)
+
+        val fast = ctx(medium = stat(Difficulty.MEDIUM, bestTime = 180))
+        assertTrue(byId("speed_elite_medium").evaluate(fast).isUnlocked)
+    }
+
+    @Test
+    fun speedEliteHard_unlocksOnlyWhenBestTimeAtOrBelowTarget() {
+        val tooSlow = ctx(hard = stat(Difficulty.HARD, bestTime = 301))
+        assertFalse(byId("speed_elite_hard").evaluate(tooSlow).isUnlocked)
+
+        val fast = ctx(hard = stat(Difficulty.HARD, bestTime = 300))
+        assertTrue(byId("speed_elite_hard").evaluate(fast).isUnlocked)
+    }
+
+    @Test
+    fun wins750_aggregatesAcrossDifficulties() {
+        val context = ctx(
+            easy = stat(Difficulty.EASY, gamesWon = 300),
+            medium = stat(Difficulty.MEDIUM, gamesWon = 300),
+            hard = stat(Difficulty.HARD, gamesWon = 150),
+        )
+        assertTrue(byId("wins_750").evaluate(context).isUnlocked)
+    }
+
+    @Test
+    fun perfect100_aggregatesAcrossDifficulties() {
+        val context = ctx(
+            easy = stat(Difficulty.EASY, perfect = 50),
+            medium = stat(Difficulty.MEDIUM, perfect = 50),
+        )
+        assertTrue(byId("perfect_100").evaluate(context).isUnlocked)
+    }
+
+    @Test
+    fun streak50_takesMaxAcrossDifficulties() {
+        val context = ctx(
+            easy = stat(Difficulty.EASY, bestLine = 12),
+            medium = stat(Difficulty.MEDIUM, bestLine = 50),
+        )
+        assertTrue(byId("streak_50").evaluate(context).isUnlocked)
+    }
+
+    @Test
+    fun dailyStreak14_usesBestStreak() {
+        val context = ctx(dailyBestStreak = 14)
+        assertTrue(byId("daily_streak_14").evaluate(context).isUnlocked)
+    }
+
+    @Test
+    fun daily100_usesCompletedCount() {
+        val context = ctx(dailyCompletedCount = 100)
+        assertTrue(byId("daily_100").evaluate(context).isUnlocked)
     }
 }
