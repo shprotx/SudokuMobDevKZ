@@ -1,1 +1,1 @@
-New: 16 new achievements with smoother milestones, and all badges redrawn as rich detailed artwork. Leaderboard now shows your own rank below the top 10. Theme dropdown got neat custom action icons.
+New: all 40 achievements are now synced with Google Play Games — the 16 recent ones unlock there too, each with its own detailed badge artwork.
