@@ -1,1 +1,1 @@
-Fixed: the game timer no longer runs while the app is in the background. New: a separate theme color for highlighted pencil marks — recolor them without touching the rest of the text.
+New: all 40 achievements are now synced with Google Play Games — the 16 recent ones unlock there too, each with its own detailed badge artwork.
