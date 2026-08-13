@@ -144,6 +144,27 @@
 
     <string name="achievement_secret_on_the_edge_title">Au bord du gouffre</string>
     <string name="achievement_secret_on_the_edge_desc">Gagne avec exactement 2 erreurs</string>
+
+    <string name="achievement_visit_streak_5_title">Content de te revoir</string>
+    <string name="achievement_visit_streak_5_desc">Ouvre l\'application 5 jours de suite</string>
+    <string name="achievement_visit_streak_15_title">Visiteur régulier</string>
+    <string name="achievement_visit_streak_15_desc">Ouvre l\'application 15 jours de suite</string>
+    <string name="achievement_visit_streak_25_title">Prise d\'habitude</string>
+    <string name="achievement_visit_streak_25_desc">Ouvre l\'application 25 jours de suite</string>
+    <string name="achievement_visit_streak_50_title">Joueur fidèle</string>
+    <string name="achievement_visit_streak_50_desc">Ouvre l\'application 50 jours de suite</string>
+    <string name="achievement_visit_streak_100_title">Centurion</string>
+    <string name="achievement_visit_streak_100_desc">Ouvre l\'application 100 jours de suite</string>
+    <string name="achievement_visit_streak_150_title">Dévotion</string>
+    <string name="achievement_visit_streak_150_desc">Ouvre l\'application 150 jours de suite</string>
+    <string name="achievement_visit_streak_200_title">Assiduité</string>
+    <string name="achievement_visit_streak_200_desc">Ouvre l\'application 200 jours de suite</string>
+    <string name="achievement_visit_streak_300_title">Toute l\'année</string>
+    <string name="achievement_visit_streak_300_desc">Ouvre l\'application 300 jours de suite</string>
+    <string name="achievement_visit_streak_365_title">Boucle complète</string>
+    <string name="achievement_visit_streak_365_desc">Ouvre l\'application 365 jours de suite</string>
+    <string name="achievement_visit_streak_730_title">Vétéran de deux ans</string>
+    <string name="achievement_visit_streak_730_desc">Ouvre l\'application 730 jours de suite</string>
     <string name="settings_rate_app">Noter l\'application</string>
     <string name="theme_label">Thème</string>
     <string name="theme_mode_system">Système</string>

@@ -237,6 +237,27 @@
     <string name="achievement_secret_on_the_edge_title">На грани</string>
     <string name="achievement_secret_on_the_edge_desc">Победа ровно с 2 ошибками</string>
 
+    <string name="achievement_visit_streak_5_title">С возвращением</string>
+    <string name="achievement_visit_streak_5_desc">Открывайте приложение 5 дней подряд</string>
+    <string name="achievement_visit_streak_15_title">Постоянный гость</string>
+    <string name="achievement_visit_streak_15_desc">Открывайте приложение 15 дней подряд</string>
+    <string name="achievement_visit_streak_25_title">Привычка</string>
+    <string name="achievement_visit_streak_25_desc">Открывайте приложение 25 дней подряд</string>
+    <string name="achievement_visit_streak_50_title">Верный игрок</string>
+    <string name="achievement_visit_streak_50_desc">Открывайте приложение 50 дней подряд</string>
+    <string name="achievement_visit_streak_100_title">Центурион</string>
+    <string name="achievement_visit_streak_100_desc">Открывайте приложение 100 дней подряд</string>
+    <string name="achievement_visit_streak_150_title">Преданность</string>
+    <string name="achievement_visit_streak_150_desc">Открывайте приложение 150 дней подряд</string>
+    <string name="achievement_visit_streak_200_title">Целеустремлённость</string>
+    <string name="achievement_visit_streak_200_desc">Открывайте приложение 200 дней подряд</string>
+    <string name="achievement_visit_streak_300_title">Круглый год</string>
+    <string name="achievement_visit_streak_300_desc">Открывайте приложение 300 дней подряд</string>
+    <string name="achievement_visit_streak_365_title">Полный круг</string>
+    <string name="achievement_visit_streak_365_desc">Открывайте приложение 365 дней подряд</string>
+    <string name="achievement_visit_streak_730_title">Ветеран двух лет</string>
+    <string name="achievement_visit_streak_730_desc">Открывайте приложение 730 дней подряд</string>
+
     <string name="cloud_section_title">Облачная синхронизация</string>
     <string name="cloud_sign_in_with_play_games">Войти через Play Games</string>
     <string name="cloud_sign_in_failed">Не удалось войти. Попробуйте позже.</string>

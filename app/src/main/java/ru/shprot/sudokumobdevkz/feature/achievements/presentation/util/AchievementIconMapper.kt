@@ -8,6 +8,9 @@ import androidx.compose.material.icons.filled.CalendarViewWeek
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Diamond
 import androidx.compose.material.icons.filled.EmojiEvents
+import androidx.compose.material.icons.filled.Forest
+import androidx.compose.material.icons.filled.Grass
+import androidx.compose.material.icons.filled.LocalFlorist
 import androidx.compose.material.icons.filled.Explore
 import androidx.compose.material.icons.filled.GpsFixed
 import androidx.compose.material.icons.filled.Landscape
@@ -70,5 +73,15 @@ object AchievementIconMapper {
         AchievementIconKey.COMET_PURPLE -> Icons.Filled.RocketLaunch
         AchievementIconKey.OWL -> Icons.Filled.Psychology
         AchievementIconKey.SHIELD_CRACKED -> Icons.Filled.Shield
+        AchievementIconKey.VISIT_STREAK_5 -> Icons.Filled.LocalFlorist
+        AchievementIconKey.VISIT_STREAK_15 -> Icons.Filled.LocalFlorist
+        AchievementIconKey.VISIT_STREAK_25 -> Icons.Filled.Grass
+        AchievementIconKey.VISIT_STREAK_50 -> Icons.Filled.Park
+        AchievementIconKey.VISIT_STREAK_100 -> Icons.Filled.Park
+        AchievementIconKey.VISIT_STREAK_150 -> Icons.Filled.Park
+        AchievementIconKey.VISIT_STREAK_200 -> Icons.Filled.Park
+        AchievementIconKey.VISIT_STREAK_300 -> Icons.Filled.Forest
+        AchievementIconKey.VISIT_STREAK_365 -> Icons.Filled.Forest
+        AchievementIconKey.VISIT_STREAK_730 -> Icons.Filled.Forest
     }
 }

@@ -8,4 +8,5 @@ enum class AchievementCategory {
     STREAK,
     DAILY,
     SECRET,
+    VISIT,
 }

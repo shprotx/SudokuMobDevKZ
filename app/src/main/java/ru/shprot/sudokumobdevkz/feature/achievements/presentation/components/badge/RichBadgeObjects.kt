@@ -106,6 +106,26 @@ internal fun DrawScope.drawRichBadgeObject(
         AchievementIconKey.OWL -> drawOwlBadge(center, r)
 
         AchievementIconKey.SHIELD_CRACKED -> drawCrackedShieldBadge(center, r)
+
+        AchievementIconKey.VISIT_STREAK_5 -> drawTreeSproutBadge(center, r)
+
+        AchievementIconKey.VISIT_STREAK_15 -> drawTreeSaplingBadge(center, r)
+
+        AchievementIconKey.VISIT_STREAK_25 -> drawTreeBushBadge(center, r)
+
+        AchievementIconKey.VISIT_STREAK_50 -> drawTreeYoungBadge(center, r)
+
+        AchievementIconKey.VISIT_STREAK_100 -> drawTreeClassicBadge(center, r)
+
+        AchievementIconKey.VISIT_STREAK_150 -> drawTreeBlossomBadge(center, r)
+
+        AchievementIconKey.VISIT_STREAK_200 -> drawTreeFruitBadge(center, r)
+
+        AchievementIconKey.VISIT_STREAK_300 -> drawTreeMightyBadge(center, r)
+
+        AchievementIconKey.VISIT_STREAK_365 -> drawTreeGoldenBadge(center, r)
+
+        AchievementIconKey.VISIT_STREAK_730 -> drawTreeWorldBadge(center, r)
     }
 }
 

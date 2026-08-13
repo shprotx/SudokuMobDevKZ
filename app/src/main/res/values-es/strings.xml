@@ -142,6 +142,27 @@
 
     <string name="achievement_secret_on_the_edge_title">Al límite</string>
     <string name="achievement_secret_on_the_edge_desc">Gana con exactamente 2 errores</string>
+
+    <string name="achievement_visit_streak_5_title">Bienvenido de nuevo</string>
+    <string name="achievement_visit_streak_5_desc">Abre la aplicación 5 días seguidos</string>
+    <string name="achievement_visit_streak_15_title">Visitante habitual</string>
+    <string name="achievement_visit_streak_15_desc">Abre la aplicación 15 días seguidos</string>
+    <string name="achievement_visit_streak_25_title">Formando hábito</string>
+    <string name="achievement_visit_streak_25_desc">Abre la aplicación 25 días seguidos</string>
+    <string name="achievement_visit_streak_50_title">Jugador leal</string>
+    <string name="achievement_visit_streak_50_desc">Abre la aplicación 50 días seguidos</string>
+    <string name="achievement_visit_streak_100_title">Centurión</string>
+    <string name="achievement_visit_streak_100_desc">Abre la aplicación 100 días seguidos</string>
+    <string name="achievement_visit_streak_150_title">Devoción</string>
+    <string name="achievement_visit_streak_150_desc">Abre la aplicación 150 días seguidos</string>
+    <string name="achievement_visit_streak_200_title">Dedicación</string>
+    <string name="achievement_visit_streak_200_desc">Abre la aplicación 200 días seguidos</string>
+    <string name="achievement_visit_streak_300_title">Todo el año</string>
+    <string name="achievement_visit_streak_300_desc">Abre la aplicación 300 días seguidos</string>
+    <string name="achievement_visit_streak_365_title">Círculo completo</string>
+    <string name="achievement_visit_streak_365_desc">Abre la aplicación 365 días seguidos</string>
+    <string name="achievement_visit_streak_730_title">Veterano de dos años</string>
+    <string name="achievement_visit_streak_730_desc">Abre la aplicación 730 días seguidos</string>
     <string name="settings_rate_app">Valorar la aplicación</string>
     <string name="theme_label">Tema</string>
     <string name="theme_mode_system">Sistema</string>

@@ -54,6 +54,9 @@ class CloudProgressSerializerTest {
                 isStandardMode = true,
                 timestamp = 1_700_000_500L,
             ),
+            currentVisitStreak = 4,
+            bestVisitStreak = 12,
+            lastVisitDate = "2026-08-13",
             lastSyncTimestamp = 1_700_001_000L,
         )
         val bytes = CloudProgressSerializer.encode(original)

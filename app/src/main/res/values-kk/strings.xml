@@ -229,6 +229,27 @@
     <string name="achievement_secret_on_the_edge_title">Шетінде</string>
     <string name="achievement_secret_on_the_edge_desc">Дәл 2 қатемен жеңіс</string>
 
+    <string name="achievement_visit_streak_5_title">Қайта келдіңіз</string>
+    <string name="achievement_visit_streak_5_desc">Қолданбаны 5 күн қатарынан ашыңыз</string>
+    <string name="achievement_visit_streak_15_title">Тұрақты қонақ</string>
+    <string name="achievement_visit_streak_15_desc">Қолданбаны 15 күн қатарынан ашыңыз</string>
+    <string name="achievement_visit_streak_25_title">Әдет</string>
+    <string name="achievement_visit_streak_25_desc">Қолданбаны 25 күн қатарынан ашыңыз</string>
+    <string name="achievement_visit_streak_50_title">Адал ойыншы</string>
+    <string name="achievement_visit_streak_50_desc">Қолданбаны 50 күн қатарынан ашыңыз</string>
+    <string name="achievement_visit_streak_100_title">Центурион</string>
+    <string name="achievement_visit_streak_100_desc">Қолданбаны 100 күн қатарынан ашыңыз</string>
+    <string name="achievement_visit_streak_150_title">Берілгендік</string>
+    <string name="achievement_visit_streak_150_desc">Қолданбаны 150 күн қатарынан ашыңыз</string>
+    <string name="achievement_visit_streak_200_title">Мақсаттылық</string>
+    <string name="achievement_visit_streak_200_desc">Қолданбаны 200 күн қатарынан ашыңыз</string>
+    <string name="achievement_visit_streak_300_title">Жыл бойы</string>
+    <string name="achievement_visit_streak_300_desc">Қолданбаны 300 күн қатарынан ашыңыз</string>
+    <string name="achievement_visit_streak_365_title">Толық шеңбер</string>
+    <string name="achievement_visit_streak_365_desc">Қолданбаны 365 күн қатарынан ашыңыз</string>
+    <string name="achievement_visit_streak_730_title">Екі жылдық ардагер</string>
+    <string name="achievement_visit_streak_730_desc">Қолданбаны 730 күн қатарынан ашыңыз</string>
+
     <string name="cloud_section_title">Бұлтпен синхрондау</string>
     <string name="cloud_sign_in_with_play_games">Play Games арқылы кіру</string>
     <string name="cloud_sign_in_failed">Кіру мүмкін болмады. Кейінірек қайталап көріңіз.</string>

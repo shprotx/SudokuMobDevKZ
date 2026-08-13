@@ -31,6 +31,8 @@ import ru.shprot.sudokumobdevkz.core.base.data.database.entity.CustomThemeEntity
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.DailyChallengeEntity
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.SavedGameEntity
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.StatisticEntity
+import ru.shprot.sudokumobdevkz.core.base.data.repository.IVisitStreakRepository
+import ru.shprot.sudokumobdevkz.core.base.domain.model.VisitStreak
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class AutoImportSnapshotUseCaseTest {
@@ -41,6 +43,7 @@ class AutoImportSnapshotUseCaseTest {
     private lateinit var dailyDao: SnapshotDailyChallengeDao
     private lateinit var achievementsDao: SnapshotAchievementUnlockedDao
     private lateinit var savedGameDao: SnapshotSavedGameDao
+    private lateinit var visitStreakRepository: FakeVisitStreakRepository
     private lateinit var importUseCase: ImportFromCloudUseCase
     private lateinit var useCase: AutoImportSnapshotUseCase
 
@@ -52,6 +55,7 @@ class AutoImportSnapshotUseCaseTest {
         dailyDao = SnapshotDailyChallengeDao()
         achievementsDao = SnapshotAchievementUnlockedDao()
         savedGameDao = SnapshotSavedGameDao()
+        visitStreakRepository = FakeVisitStreakRepository()
         importUseCase = ImportFromCloudUseCase(
             cloud = cloud,
             statisticDao = statisticDao,
@@ -59,6 +63,7 @@ class AutoImportSnapshotUseCaseTest {
             dailyChallengeDao = dailyDao,
             savedGameDao = savedGameDao,
             customThemeDao = NoOpCustomThemeDao(),
+            visitStreakRepository = visitStreakRepository,
             syncToCloud = syncToCloud,
         )
         useCase = AutoImportSnapshotUseCase(importUseCase)
@@ -113,6 +118,21 @@ class AutoImportSnapshotUseCaseTest {
         val result = useCase()
 
         assertEquals(AutoImportSnapshotUseCase.Result.ERROR, result)
+    }
+
+    @Test
+    fun importsCloud_mergesVisitStreak() = runTest {
+        cloud.storeSnapshot(
+            NON_EMPTY_PROGRESS.copy(
+                currentVisitStreak = 12,
+                bestVisitStreak = 20,
+                lastVisitDate = "2026-08-13",
+            ),
+        )
+
+        useCase()
+
+        assertEquals(Triple(12, 20, "2026-08-13"), visitStreakRepository.lastMerge)
     }
 
     @Test
@@ -251,4 +271,28 @@ internal class NoOpCustomThemeDao : CustomThemeDao {
     override suspend fun upsert(entity: CustomThemeEntity) = Unit
     override suspend fun deleteById(id: String) = Unit
     override suspend fun exists(id: String): Int = 0
+}
+
+internal class FakeVisitStreakRepository(
+    initial: VisitStreak = VisitStreak(),
+) : IVisitStreakRepository {
+
+    private val state = MutableStateFlow(initial)
+
+    var lastMerge: Triple<Int, Int, String?>? = null
+        private set
+
+    override val streak: Flow<VisitStreak> = state
+    override suspend fun currentStreak(): VisitStreak = state.value
+
+    override suspend fun recordVisit(): VisitStreak = state.value
+
+    override suspend fun mergeFromCloud(cloudCurrentStreak: Int, cloudBestStreak: Int, cloudLastVisitDate: String?) {
+        lastMerge = Triple(cloudCurrentStreak, cloudBestStreak, cloudLastVisitDate)
+        state.value = VisitStreak(
+            currentStreak = cloudCurrentStreak,
+            bestStreak = maxOf(state.value.bestStreak, cloudBestStreak),
+            lastVisitDate = cloudLastVisitDate ?: state.value.lastVisitDate,
+        )
+    }
 }

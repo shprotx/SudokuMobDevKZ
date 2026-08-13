@@ -10,6 +10,9 @@ data class CloudProgress(
     val dailyChallenges: List<DailyChallengeDto> = emptyList(),
     val savedGame: SavedGameDto? = null,
     val customThemes: List<CustomThemeDto> = emptyList(),
+    val currentVisitStreak: Int = 0,
+    val bestVisitStreak: Int = 0,
+    val lastVisitDate: String? = null,
     val lastSyncTimestamp: Long = 0L,
 ) {
     companion object {
