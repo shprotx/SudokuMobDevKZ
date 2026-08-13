@@ -183,18 +183,7 @@ class AchievementsRegistryTest {
         assertTrue(byId("secret_early_bird").evaluate(context).isUnlocked)
     }
 
-    private val pgsIdPendingAchievementIds = setOf(
-        "visit_streak_5",
-        "visit_streak_15",
-        "visit_streak_25",
-        "visit_streak_50",
-        "visit_streak_100",
-        "visit_streak_150",
-        "visit_streak_200",
-        "visit_streak_300",
-        "visit_streak_365",
-        "visit_streak_730",
-    )
+    private val pgsIdPendingAchievementIds = emptySet<String>()
 
     @Test
     fun allAchievements_havePgsId() {

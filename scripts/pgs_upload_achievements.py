@@ -17,6 +17,7 @@ from pathlib import Path
 
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
+from googleapiclient.http import MediaFileUpload
 
 ROOT = Path(__file__).resolve().parent.parent
 APP_ID = "847632350121"
@@ -24,22 +25,16 @@ ICONS_DIR = ROOT / "marketing" / "achievement-icons-v2"
 
 # id -> (iconKey, initialState, sortRank)
 NEW_ACHIEVEMENTS = {
-    "wins_100": ("trophy_silver", "REVEALED", 106),
-    "wins_300": ("trophy_gold", "REVEALED", 107),
-    "wins_750": ("trophy_platinum", "REVEALED", 108),
-    "perfect_25": ("diamond_pink", "REVEALED", 109),
-    "perfect_100": ("diamond_ring", "REVEALED", 110),
-    "streak_50": ("fire_blue", "REVEALED", 111),
-    "daily_streak_14": ("calendar_fortnight", "REVEALED", 112),
-    "daily_25": ("calendar_stack", "REVEALED", 113),
-    "daily_100": ("hourglass_gold", "REVEALED", 114),
-    "diff_universal_50": ("globe", "REVEALED", 115),
-    "marathon_10h": ("stopwatch", "REVEALED", 116),
-    "speed_elite_easy": ("comet_green", "REVEALED", 117),
-    "speed_elite_medium": ("comet_orange", "REVEALED", 118),
-    "speed_elite_hard": ("comet_purple", "REVEALED", 119),
-    "no_hints_25": ("owl", "REVEALED", 120),
-    "secret_on_the_edge": ("shield_cracked", "HIDDEN", 121),
+    "visit_streak_5": ("visit_streak_5", "REVEALED", 122),
+    "visit_streak_15": ("visit_streak_15", "REVEALED", 123),
+    "visit_streak_25": ("visit_streak_25", "REVEALED", 124),
+    "visit_streak_50": ("visit_streak_50", "REVEALED", 125),
+    "visit_streak_100": ("visit_streak_100", "REVEALED", 126),
+    "visit_streak_150": ("visit_streak_150", "REVEALED", 127),
+    "visit_streak_200": ("visit_streak_200", "REVEALED", 128),
+    "visit_streak_300": ("visit_streak_300", "REVEALED", 129),
+    "visit_streak_365": ("visit_streak_365", "REVEALED", 130),
+    "visit_streak_730": ("visit_streak_730", "REVEALED", 131),
 }
 
 
@@ -90,6 +85,22 @@ def list_achievements(service):
     return items
 
 
+def upload_icon(service, pgs_id, icon_key):
+    icon_path = ICONS_DIR / f"{icon_key}.png"
+    if not icon_path.exists():
+        return f"файла нет ({icon_path.name}), залить руками"
+    try:
+        media = MediaFileUpload(str(icon_path), mimetype="image/png")
+        service.imageConfigurations().upload(
+            resourceId=pgs_id,
+            imageType="ACHIEVEMENT_ICON",
+            media_body=media,
+        ).execute()
+        return "загружена"
+    except Exception as e:
+        return f"ошибка загрузки, залить руками: {e}"
+
+
 def upload(service):
     en = load_strings("values")
     ru = load_strings("values-ru")
@@ -121,7 +132,8 @@ def upload(service):
         created = service.achievementConfigurations().insert(applicationId=APP_ID, body=body).execute()
         pgs_id = created["id"]
         results[ach_id] = pgs_id
-        print(f"OK   {ach_id}: {pgs_id}  '{t['title_en']}' (иконку загрузить руками в консоли: {icon_key}.png)")
+        icon_status = upload_icon(service, pgs_id, icon_key)
+        print(f"OK   {ach_id}: {pgs_id}  '{t['title_en']}' (иконка: {icon_status})")
 
     print("\npgsId для реестра:")
     for ach_id, pgs_id in results.items():
