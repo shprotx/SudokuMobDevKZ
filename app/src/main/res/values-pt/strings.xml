@@ -182,4 +182,19 @@
     <string name="settings_show_name_on_leaderboard">Mostrar meu nome no ranking global</string>
     <string name="leaderboard_show_name_sign_in_required">Faça login para mostrar seu nome no ranking</string>
     <string name="leaderboard_rank_divider">⋯</string>
+    <string name="notifications_section_title">Notificações</string>
+    <string name="push_notifications">Notificações push</string>
+    <string name="notifications_permission_denied">Permissão de notificações negada. Você pode ativá-la mais tarde nas configurações do sistema.</string>
+    <string name="notification_channel_daily_challenge_name">Desafio diário</string>
+    <string name="notification_channel_daily_challenge_description">Lembretes sobre o desafio diário de hoje</string>
+    <string name="notification_channel_reengagement_name">Volte para jogar</string>
+    <string name="notification_channel_reengagement_description">Lembretes amigáveis após alguns dias de inatividade</string>
+    <string name="notification_channel_game_resume_name">Partida não concluída</string>
+    <string name="notification_channel_game_resume_description">Lembretes sobre uma partida que você ainda não terminou</string>
+    <string name="notification_daily_challenge_title">O desafio diário de hoje está pronto</string>
+    <string name="notification_daily_challenge_text">Resolva o quebra-cabeça de hoje antes que a sequência seja reiniciada</string>
+    <string name="notification_reengagement_title">Sentindo falta do Sudoku?</string>
+    <string name="notification_reengagement_text">Volte para um quebra-cabeça rápido — seu tabuleiro está esperando</string>
+    <string name="notification_game_resume_title">Quebra-cabeça não concluído</string>
+    <string name="notification_game_resume_text">Você ainda tem uma partida em andamento — continue de onde parou</string>
 </resources>

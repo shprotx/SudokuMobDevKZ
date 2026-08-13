@@ -180,4 +180,19 @@
     <string name="settings_show_name_on_leaderboard">Показувати моє ім\'я в глобальному рейтингу</string>
     <string name="leaderboard_show_name_sign_in_required">Увійдіть в акаунт, щоб показувати своє ім\'я в рейтингу</string>
     <string name="leaderboard_rank_divider">⋯</string>
+    <string name="notifications_section_title">Сповіщення</string>
+    <string name="push_notifications">Пуш-сповіщення</string>
+    <string name="notifications_permission_denied">У доступі до сповіщень відмовлено. Ви можете увімкнути його пізніше в налаштуваннях системи.</string>
+    <string name="notification_channel_daily_challenge_name">Щоденний виклик</string>
+    <string name="notification_channel_daily_challenge_description">Нагадування про сьогоднішній щоденний виклик</string>
+    <string name="notification_channel_reengagement_name">Повертайтесь грати</string>
+    <string name="notification_channel_reengagement_description">Дружні нагадування після кількох днів бездіяльності</string>
+    <string name="notification_channel_game_resume_name">Незавершена партія</string>
+    <string name="notification_channel_game_resume_description">Нагадування про незавершену партію</string>
+    <string name="notification_daily_challenge_title">Сьогоднішній щоденний виклик готовий</string>
+    <string name="notification_daily_challenge_text">Розв\'яжіть сьогоднішню головоломку, щоб не втратити серію</string>
+    <string name="notification_reengagement_title">Скучили за судоку?</string>
+    <string name="notification_reengagement_text">Повертайтесь на швидку головоломку — ваше поле чекає</string>
+    <string name="notification_game_resume_title">Незавершена головоломка</string>
+    <string name="notification_game_resume_text">У вас є незавершена партія — продовжте з того місця, де зупинились</string>
 </resources>

@@ -355,4 +355,19 @@
     <string name="theme_deleted_fallback">Theme deleted. Switched to Light.</string>
     <string name="theme_saved">Theme saved</string>
     <string name="draft_notes_popup_number_description">Note %1$d</string>
+    <string name="notifications_section_title">Notifications</string>
+    <string name="push_notifications">Push notifications</string>
+    <string name="notifications_permission_denied">Notifications permission denied. You can enable it later in system settings.</string>
+    <string name="notification_channel_daily_challenge_name">Daily challenge</string>
+    <string name="notification_channel_daily_challenge_description">Reminders about today\'s daily challenge puzzle</string>
+    <string name="notification_channel_reengagement_name">Come back to play</string>
+    <string name="notification_channel_reengagement_description">Friendly nudges after a few days of inactivity</string>
+    <string name="notification_channel_game_resume_name">Unfinished game</string>
+    <string name="notification_channel_game_resume_description">Reminders about a game you haven\'t finished yet</string>
+    <string name="notification_daily_challenge_title">Today\'s daily challenge is ready</string>
+    <string name="notification_daily_challenge_text">Solve today\'s puzzle before the streak resets</string>
+    <string name="notification_reengagement_title">Miss Sudoku?</string>
+    <string name="notification_reengagement_text">Come back for a quick puzzle — your board is waiting</string>
+    <string name="notification_game_resume_title">Unfinished puzzle</string>
+    <string name="notification_game_resume_text">You still have a game in progress — pick up where you left off</string>
 </resources>

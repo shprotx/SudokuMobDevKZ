@@ -202,4 +202,19 @@
     <string name="settings_show_name_on_leaderboard">Afficher mon nom dans le classement mondial</string>
     <string name="leaderboard_show_name_sign_in_required">Connectez-vous pour afficher votre nom dans le classement</string>
     <string name="leaderboard_rank_divider">⋯</string>
+    <string name="notifications_section_title">Notifications</string>
+    <string name="push_notifications">Notifications push</string>
+    <string name="notifications_permission_denied">Autorisation de notifications refusée. Vous pouvez l\'activer plus tard dans les paramètres système.</string>
+    <string name="notification_channel_daily_challenge_name">Défi du jour</string>
+    <string name="notification_channel_daily_challenge_description">Rappels concernant le défi du jour</string>
+    <string name="notification_channel_reengagement_name">Revenez jouer</string>
+    <string name="notification_channel_reengagement_description">Petits rappels amicaux après quelques jours d\'inactivité</string>
+    <string name="notification_channel_game_resume_name">Partie inachevée</string>
+    <string name="notification_channel_game_resume_description">Rappels concernant une partie non terminée</string>
+    <string name="notification_daily_challenge_title">Le défi du jour est prêt</string>
+    <string name="notification_daily_challenge_text">Résolvez la grille du jour avant la fin de votre série</string>
+    <string name="notification_reengagement_title">Le Sudoku vous manque ?</string>
+    <string name="notification_reengagement_text">Revenez pour une grille rapide — votre grille vous attend</string>
+    <string name="notification_game_resume_title">Grille inachevée</string>
+    <string name="notification_game_resume_text">Vous avez une partie en cours — reprenez là où vous vous étiez arrêté</string>
 </resources>
