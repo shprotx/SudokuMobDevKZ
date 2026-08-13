@@ -246,21 +246,64 @@ object AchievementVisuals {
             accentColor = Color(0xFFFFD9C0),
         )
 
-        AchievementIconKey.VISIT_STREAK_5 -> visitStreakVisual(hueDegrees = 150f)
-        AchievementIconKey.VISIT_STREAK_15 -> visitStreakVisual(hueDegrees = 165f)
-        AchievementIconKey.VISIT_STREAK_25 -> visitStreakVisual(hueDegrees = 180f)
-        AchievementIconKey.VISIT_STREAK_50 -> visitStreakVisual(hueDegrees = 195f)
-        AchievementIconKey.VISIT_STREAK_100 -> visitStreakVisual(hueDegrees = 210f)
-        AchievementIconKey.VISIT_STREAK_150 -> visitStreakVisual(hueDegrees = 225f)
-        AchievementIconKey.VISIT_STREAK_200 -> visitStreakVisual(hueDegrees = 240f)
-        AchievementIconKey.VISIT_STREAK_300 -> visitStreakVisual(hueDegrees = 255f)
-        AchievementIconKey.VISIT_STREAK_365 -> visitStreakVisual(hueDegrees = 270f)
-        AchievementIconKey.VISIT_STREAK_730 -> visitStreakVisual(hueDegrees = 285f)
-    }
+        AchievementIconKey.VISIT_STREAK_5 -> AchievementVisual(
+            gradientStart = Color(0xFFCDEFA9),
+            gradientEnd = Color(0xFF4E9C3D),
+            accentColor = Color(0xFFF2FFD9),
+        )
 
-    private fun visitStreakVisual(hueDegrees: Float): AchievementVisual = AchievementVisual(
-        gradientStart = Color.hsv(hueDegrees, 0.35f, 1f),
-        gradientEnd = Color.hsv(hueDegrees, 0.85f, 0.55f),
-        accentColor = Color.hsv(hueDegrees, 0.15f, 1f),
-    )
+        AchievementIconKey.VISIT_STREAK_15 -> AchievementVisual(
+            gradientStart = Color(0xFFB5E68E),
+            gradientEnd = Color(0xFF3E8F33),
+            accentColor = Color(0xFFEBFFCC),
+        )
+
+        AchievementIconKey.VISIT_STREAK_25 -> AchievementVisual(
+            gradientStart = Color(0xFF9CDD79),
+            gradientEnd = Color(0xFF2F7F2E),
+            accentColor = Color(0xFFDFFFC2),
+        )
+
+        AchievementIconKey.VISIT_STREAK_50 -> AchievementVisual(
+            gradientStart = Color(0xFF87D084),
+            gradientEnd = Color(0xFF256E3D),
+            accentColor = Color(0xFFD2F7BF),
+        )
+
+        AchievementIconKey.VISIT_STREAK_100 -> AchievementVisual(
+            gradientStart = Color(0xFF74C68F),
+            gradientEnd = Color(0xFF1C5E44),
+            accentColor = Color(0xFFC6F2C0),
+        )
+
+        AchievementIconKey.VISIT_STREAK_150 -> AchievementVisual(
+            gradientStart = Color(0xFFF9C3D8),
+            gradientEnd = Color(0xFF8A3D68),
+            accentColor = Color(0xFFFFE3F0),
+        )
+
+        AchievementIconKey.VISIT_STREAK_200 -> AchievementVisual(
+            gradientStart = Color(0xFFFFD68F),
+            gradientEnd = Color(0xFFB05A1E),
+            accentColor = Color(0xFFFFEBC2),
+        )
+
+        AchievementIconKey.VISIT_STREAK_300 -> AchievementVisual(
+            gradientStart = Color(0xFF6FB89A),
+            gradientEnd = Color(0xFF14483C),
+            accentColor = Color(0xFFBFEEDB),
+        )
+
+        AchievementIconKey.VISIT_STREAK_365 -> AchievementVisual(
+            gradientStart = Color(0xFF57A05E),
+            gradientEnd = Color(0xFF123A24),
+            accentColor = Color(0xFFFFF3C4),
+        )
+
+        AchievementIconKey.VISIT_STREAK_730 -> AchievementVisual(
+            gradientStart = Color(0xFF8FD8D9),
+            gradientEnd = Color(0xFF0E3A4A),
+            accentColor = Color(0xFFD8FFF6),
+        )
+    }
 }

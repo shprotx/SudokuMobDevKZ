@@ -107,25 +107,25 @@ internal fun DrawScope.drawRichBadgeObject(
 
         AchievementIconKey.SHIELD_CRACKED -> drawCrackedShieldBadge(center, r)
 
-        AchievementIconKey.VISIT_STREAK_5 -> drawCalendarCheckBadge(center, r)
+        AchievementIconKey.VISIT_STREAK_5 -> drawTreeSproutBadge(center, r)
 
-        AchievementIconKey.VISIT_STREAK_15 -> drawCalendarWeekBadge(center, r)
+        AchievementIconKey.VISIT_STREAK_15 -> drawTreeSaplingBadge(center, r)
 
-        AchievementIconKey.VISIT_STREAK_25 -> drawFireSmall(center, r)
+        AchievementIconKey.VISIT_STREAK_25 -> drawTreeBushBadge(center, r)
 
-        AchievementIconKey.VISIT_STREAK_50 -> drawCalendarFortnightBadge(center, r)
+        AchievementIconKey.VISIT_STREAK_50 -> drawTreeYoungBadge(center, r)
 
-        AchievementIconKey.VISIT_STREAK_100 -> drawFireMedium(center, r)
+        AchievementIconKey.VISIT_STREAK_100 -> drawTreeClassicBadge(center, r)
 
-        AchievementIconKey.VISIT_STREAK_150 -> drawCalendarMonthBadge(center, r)
+        AchievementIconKey.VISIT_STREAK_150 -> drawTreeBlossomBadge(center, r)
 
-        AchievementIconKey.VISIT_STREAK_200 -> drawFireBig(center, r)
+        AchievementIconKey.VISIT_STREAK_200 -> drawTreeFruitBadge(center, r)
 
-        AchievementIconKey.VISIT_STREAK_300 -> drawGlobeBadge(center, r)
+        AchievementIconKey.VISIT_STREAK_300 -> drawTreeMightyBadge(center, r)
 
-        AchievementIconKey.VISIT_STREAK_365 -> drawYearMedalBadge(center, r, visual.accentColor)
+        AchievementIconKey.VISIT_STREAK_365 -> drawTreeGoldenBadge(center, r)
 
-        AchievementIconKey.VISIT_STREAK_730 -> drawFireBlue(center, r)
+        AchievementIconKey.VISIT_STREAK_730 -> drawTreeWorldBadge(center, r)
     }
 }
 
