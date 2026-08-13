@@ -7,6 +7,7 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
+import kotlinx.coroutines.flow.first
 import ru.shprot.sudokumobdevkz.core.base.data.repository.ISettingsRepository
 
 @HiltWorker
@@ -18,7 +19,7 @@ class ReminderNotificationWorker @AssistedInject constructor(
 ) : CoroutineWorker(context, params) {
 
     override suspend fun doWork(): Result {
-        if (!settingsRepository.currentSettings.notificationsEnabled) return Result.success()
+        if (!settingsRepository.settings.first().notificationsEnabled) return Result.success()
 
         val type = inputData.getString(KEY_NOTIFICATION_TYPE)
             ?.let { runCatching { NotificationType.valueOf(it) }.getOrNull() }
