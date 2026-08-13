@@ -470,7 +470,7 @@ object AchievementsRegistry {
     private val visitAchievements: List<Achievement> = listOf(
         Achievement(
             id = "visit_streak_5",
-            pgsId = null,
+            pgsId = "CgkIqffM1tUYEAIQeQ",
             titleRes = R.string.achievement_visit_streak_5_title,
             descRes = R.string.achievement_visit_streak_5_desc,
             iconKey = AchievementIconKey.VISIT_STREAK_5,
@@ -480,7 +480,7 @@ object AchievementsRegistry {
         ),
         Achievement(
             id = "visit_streak_15",
-            pgsId = null,
+            pgsId = "CgkIqffM1tUYEAIQeg",
             titleRes = R.string.achievement_visit_streak_15_title,
             descRes = R.string.achievement_visit_streak_15_desc,
             iconKey = AchievementIconKey.VISIT_STREAK_15,
@@ -490,7 +490,7 @@ object AchievementsRegistry {
         ),
         Achievement(
             id = "visit_streak_25",
-            pgsId = null,
+            pgsId = "CgkIqffM1tUYEAIQew",
             titleRes = R.string.achievement_visit_streak_25_title,
             descRes = R.string.achievement_visit_streak_25_desc,
             iconKey = AchievementIconKey.VISIT_STREAK_25,
@@ -500,7 +500,7 @@ object AchievementsRegistry {
         ),
         Achievement(
             id = "visit_streak_50",
-            pgsId = null,
+            pgsId = "CgkIqffM1tUYEAIQfA",
             titleRes = R.string.achievement_visit_streak_50_title,
             descRes = R.string.achievement_visit_streak_50_desc,
             iconKey = AchievementIconKey.VISIT_STREAK_50,
@@ -510,7 +510,7 @@ object AchievementsRegistry {
         ),
         Achievement(
             id = "visit_streak_100",
-            pgsId = null,
+            pgsId = "CgkIqffM1tUYEAIQfQ",
             titleRes = R.string.achievement_visit_streak_100_title,
             descRes = R.string.achievement_visit_streak_100_desc,
             iconKey = AchievementIconKey.VISIT_STREAK_100,
@@ -520,7 +520,7 @@ object AchievementsRegistry {
         ),
         Achievement(
             id = "visit_streak_150",
-            pgsId = null,
+            pgsId = "CgkIqffM1tUYEAIQfg",
             titleRes = R.string.achievement_visit_streak_150_title,
             descRes = R.string.achievement_visit_streak_150_desc,
             iconKey = AchievementIconKey.VISIT_STREAK_150,
@@ -530,7 +530,7 @@ object AchievementsRegistry {
         ),
         Achievement(
             id = "visit_streak_200",
-            pgsId = null,
+            pgsId = "CgkIqffM1tUYEAIQfw",
             titleRes = R.string.achievement_visit_streak_200_title,
             descRes = R.string.achievement_visit_streak_200_desc,
             iconKey = AchievementIconKey.VISIT_STREAK_200,
@@ -540,7 +540,7 @@ object AchievementsRegistry {
         ),
         Achievement(
             id = "visit_streak_300",
-            pgsId = null,
+            pgsId = "CgkIqffM1tUYEAIQgAE",
             titleRes = R.string.achievement_visit_streak_300_title,
             descRes = R.string.achievement_visit_streak_300_desc,
             iconKey = AchievementIconKey.VISIT_STREAK_300,
@@ -550,7 +550,7 @@ object AchievementsRegistry {
         ),
         Achievement(
             id = "visit_streak_365",
-            pgsId = null,
+            pgsId = "CgkIqffM1tUYEAIQgQE",
             titleRes = R.string.achievement_visit_streak_365_title,
             descRes = R.string.achievement_visit_streak_365_desc,
             iconKey = AchievementIconKey.VISIT_STREAK_365,
@@ -560,7 +560,7 @@ object AchievementsRegistry {
         ),
         Achievement(
             id = "visit_streak_730",
-            pgsId = null,
+            pgsId = "CgkIqffM1tUYEAIQggE",
             titleRes = R.string.achievement_visit_streak_730_title,
             descRes = R.string.achievement_visit_streak_730_desc,
             iconKey = AchievementIconKey.VISIT_STREAK_730,
