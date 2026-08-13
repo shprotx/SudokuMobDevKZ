@@ -144,7 +144,7 @@ export const submitFeedback = onRequest(
 const LEADERBOARD_RATE_WINDOW_MS = 60_000;
 const MAX_SCORE_DELTA = 2000;
 const MAX_DISPLAY_NAME_LENGTH = 32;
-const STABLE_ID_PATTERN = /^(pgs_|dev_)[A-Za-z0-9_-]{1,64}$/;
+const STABLE_ID_PATTERN = /^(pgs_|dev_|ios_)[A-Za-z0-9_-]{1,64}$/;
 const PLATFORMS = new Set(["android", "ios"]);
 
 const leaderboardRateMap = new Map<string, number>();
