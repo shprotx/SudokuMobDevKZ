@@ -160,8 +160,8 @@ internal class EmptyCustomThemeDao : CustomThemeDao {
 
 internal class EmptyVisitStreakRepository : IVisitStreakRepository {
     override val streak: Flow<VisitStreak> = MutableStateFlow(VisitStreak())
-    override val currentStreak: VisitStreak = VisitStreak()
-    override suspend fun recordVisit(): VisitStreak = currentStreak
+    override suspend fun currentStreak(): VisitStreak = VisitStreak()
+    override suspend fun recordVisit(): VisitStreak = currentStreak()
 
     override suspend fun mergeFromCloud(
         cloudCurrentStreak: Int,

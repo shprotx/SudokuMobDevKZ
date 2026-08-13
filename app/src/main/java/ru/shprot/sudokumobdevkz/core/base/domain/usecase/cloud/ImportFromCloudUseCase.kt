@@ -36,7 +36,7 @@ class ImportFromCloudUseCase @Inject constructor(
     }
 
     suspend fun currentLocalProgress(): CloudProgress {
-        val visitStreak = visitStreakRepository.currentStreak
+        val visitStreak = visitStreakRepository.currentStreak()
         return CloudProgress(
             schemaVersion = CloudProgress.SCHEMA_VERSION,
             statistics = statisticDao.getAll().associateBy({ it.difficulty }, { it.toDto() }),

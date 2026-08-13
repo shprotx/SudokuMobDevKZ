@@ -5,7 +5,7 @@ import ru.shprot.sudokumobdevkz.core.base.domain.model.VisitStreak
 
 interface IVisitStreakRepository {
     val streak: Flow<VisitStreak>
-    val currentStreak: VisitStreak
+    suspend fun currentStreak(): VisitStreak
     suspend fun recordVisit(): VisitStreak
     suspend fun mergeFromCloud(cloudCurrentStreak: Int, cloudBestStreak: Int, cloudLastVisitDate: String?)
 }

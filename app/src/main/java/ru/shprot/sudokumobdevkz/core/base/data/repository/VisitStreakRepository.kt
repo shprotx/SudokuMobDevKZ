@@ -13,6 +13,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import ru.shprot.sudokumobdevkz.core.base.domain.model.VisitStreak
@@ -35,7 +36,7 @@ class VisitStreakRepository @Inject constructor(
 
     override val streak: Flow<VisitStreak> = _streak
 
-    override val currentStreak: VisitStreak get() = _streak.value
+    override suspend fun currentStreak(): VisitStreak = context.visitStreakDataStore.data.first().toVisitStreak()
 
     override suspend fun recordVisit(): VisitStreak {
         val today = LocalDate.now().toString()

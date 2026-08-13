@@ -112,7 +112,7 @@ class AchievementsRepositoryImpl @Inject constructor(
             dailies = dailies,
             recentWins = recentWins,
             noHintsWinsCount = noHintsWinsCount,
-            bestVisitStreak = visitStreakRepository.currentStreak.bestStreak,
+            bestVisitStreak = visitStreakRepository.currentStreak().bestStreak,
         )
     }
 

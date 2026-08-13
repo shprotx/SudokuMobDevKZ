@@ -112,4 +112,28 @@ class VisitStreakCalculatorTest {
         assertEquals(4, current)
         assertEquals("2026-08-13", lastVisitDate)
     }
+
+    @Test
+    fun `mergedCurrentStreak keeps continuity when both visited today after device switch`() {
+        val (current, lastVisitDate) = VisitStreakCalculator.mergedCurrentStreak(
+            localCurrent = 1,
+            localLastVisitDate = "2026-08-13",
+            cloudCurrent = 300,
+            cloudLastVisitDate = "2026-08-13",
+        )
+        assertEquals(300, current)
+        assertEquals("2026-08-13", lastVisitDate)
+    }
+
+    @Test
+    fun `mergedCurrentStreak extends streak when cloud chain ends the day before local`() {
+        val (current, lastVisitDate) = VisitStreakCalculator.mergedCurrentStreak(
+            localCurrent = 1,
+            localLastVisitDate = "2026-08-13",
+            cloudCurrent = 300,
+            cloudLastVisitDate = "2026-08-12",
+        )
+        assertEquals(301, current)
+        assertEquals("2026-08-13", lastVisitDate)
+    }
 }

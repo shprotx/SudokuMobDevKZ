@@ -259,7 +259,7 @@ internal class FakeVisitStreakRepository : IVisitStreakRepository {
 
     override val streak: Flow<VisitStreak> = state
 
-    override val currentStreak: VisitStreak get() = state.value
+    override suspend fun currentStreak(): VisitStreak = state.value
 
     override suspend fun recordVisit(): VisitStreak = state.value
 
