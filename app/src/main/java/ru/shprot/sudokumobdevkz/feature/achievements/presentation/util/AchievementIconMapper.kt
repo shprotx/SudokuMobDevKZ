@@ -70,5 +70,15 @@ object AchievementIconMapper {
         AchievementIconKey.COMET_PURPLE -> Icons.Filled.RocketLaunch
         AchievementIconKey.OWL -> Icons.Filled.Psychology
         AchievementIconKey.SHIELD_CRACKED -> Icons.Filled.Shield
+        AchievementIconKey.VISIT_STREAK_5 -> Icons.Filled.CalendarToday
+        AchievementIconKey.VISIT_STREAK_15 -> Icons.Filled.CalendarViewWeek
+        AchievementIconKey.VISIT_STREAK_25 -> Icons.Filled.LocalFireDepartment
+        AchievementIconKey.VISIT_STREAK_50 -> Icons.Filled.CalendarViewWeek
+        AchievementIconKey.VISIT_STREAK_100 -> Icons.Filled.LocalFireDepartment
+        AchievementIconKey.VISIT_STREAK_150 -> Icons.Filled.CalendarMonth
+        AchievementIconKey.VISIT_STREAK_200 -> Icons.Filled.LocalFireDepartment
+        AchievementIconKey.VISIT_STREAK_300 -> Icons.Filled.Public
+        AchievementIconKey.VISIT_STREAK_365 -> Icons.Filled.CalendarMonth
+        AchievementIconKey.VISIT_STREAK_730 -> Icons.Filled.LocalFireDepartment
     }
 }

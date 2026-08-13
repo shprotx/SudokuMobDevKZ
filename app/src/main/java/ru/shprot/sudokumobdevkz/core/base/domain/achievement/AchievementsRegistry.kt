@@ -467,6 +467,109 @@ object AchievementsRegistry {
         ),
     )
 
+    private val visitAchievements: List<Achievement> = listOf(
+        Achievement(
+            id = "visit_streak_5",
+            pgsId = null,
+            titleRes = R.string.achievement_visit_streak_5_title,
+            descRes = R.string.achievement_visit_streak_5_desc,
+            iconKey = AchievementIconKey.VISIT_STREAK_5,
+            category = AchievementCategory.VISIT,
+            hidden = false,
+            evaluate = { ctx -> AchievementProgress(current = ctx.bestVisitStreak, target = 5) },
+        ),
+        Achievement(
+            id = "visit_streak_15",
+            pgsId = null,
+            titleRes = R.string.achievement_visit_streak_15_title,
+            descRes = R.string.achievement_visit_streak_15_desc,
+            iconKey = AchievementIconKey.VISIT_STREAK_15,
+            category = AchievementCategory.VISIT,
+            hidden = false,
+            evaluate = { ctx -> AchievementProgress(current = ctx.bestVisitStreak, target = 15) },
+        ),
+        Achievement(
+            id = "visit_streak_25",
+            pgsId = null,
+            titleRes = R.string.achievement_visit_streak_25_title,
+            descRes = R.string.achievement_visit_streak_25_desc,
+            iconKey = AchievementIconKey.VISIT_STREAK_25,
+            category = AchievementCategory.VISIT,
+            hidden = false,
+            evaluate = { ctx -> AchievementProgress(current = ctx.bestVisitStreak, target = 25) },
+        ),
+        Achievement(
+            id = "visit_streak_50",
+            pgsId = null,
+            titleRes = R.string.achievement_visit_streak_50_title,
+            descRes = R.string.achievement_visit_streak_50_desc,
+            iconKey = AchievementIconKey.VISIT_STREAK_50,
+            category = AchievementCategory.VISIT,
+            hidden = false,
+            evaluate = { ctx -> AchievementProgress(current = ctx.bestVisitStreak, target = 50) },
+        ),
+        Achievement(
+            id = "visit_streak_100",
+            pgsId = null,
+            titleRes = R.string.achievement_visit_streak_100_title,
+            descRes = R.string.achievement_visit_streak_100_desc,
+            iconKey = AchievementIconKey.VISIT_STREAK_100,
+            category = AchievementCategory.VISIT,
+            hidden = false,
+            evaluate = { ctx -> AchievementProgress(current = ctx.bestVisitStreak, target = 100) },
+        ),
+        Achievement(
+            id = "visit_streak_150",
+            pgsId = null,
+            titleRes = R.string.achievement_visit_streak_150_title,
+            descRes = R.string.achievement_visit_streak_150_desc,
+            iconKey = AchievementIconKey.VISIT_STREAK_150,
+            category = AchievementCategory.VISIT,
+            hidden = false,
+            evaluate = { ctx -> AchievementProgress(current = ctx.bestVisitStreak, target = 150) },
+        ),
+        Achievement(
+            id = "visit_streak_200",
+            pgsId = null,
+            titleRes = R.string.achievement_visit_streak_200_title,
+            descRes = R.string.achievement_visit_streak_200_desc,
+            iconKey = AchievementIconKey.VISIT_STREAK_200,
+            category = AchievementCategory.VISIT,
+            hidden = false,
+            evaluate = { ctx -> AchievementProgress(current = ctx.bestVisitStreak, target = 200) },
+        ),
+        Achievement(
+            id = "visit_streak_300",
+            pgsId = null,
+            titleRes = R.string.achievement_visit_streak_300_title,
+            descRes = R.string.achievement_visit_streak_300_desc,
+            iconKey = AchievementIconKey.VISIT_STREAK_300,
+            category = AchievementCategory.VISIT,
+            hidden = false,
+            evaluate = { ctx -> AchievementProgress(current = ctx.bestVisitStreak, target = 300) },
+        ),
+        Achievement(
+            id = "visit_streak_365",
+            pgsId = null,
+            titleRes = R.string.achievement_visit_streak_365_title,
+            descRes = R.string.achievement_visit_streak_365_desc,
+            iconKey = AchievementIconKey.VISIT_STREAK_365,
+            category = AchievementCategory.VISIT,
+            hidden = false,
+            evaluate = { ctx -> AchievementProgress(current = ctx.bestVisitStreak, target = 365) },
+        ),
+        Achievement(
+            id = "visit_streak_730",
+            pgsId = null,
+            titleRes = R.string.achievement_visit_streak_730_title,
+            descRes = R.string.achievement_visit_streak_730_desc,
+            iconKey = AchievementIconKey.VISIT_STREAK_730,
+            category = AchievementCategory.VISIT,
+            hidden = false,
+            evaluate = { ctx -> AchievementProgress(current = ctx.bestVisitStreak, target = 730) },
+        ),
+    )
+
     val all: List<Achievement> =
         winsAchievements +
             difficultyAchievements +
@@ -474,7 +577,8 @@ object AchievementsRegistry {
             speedAchievements +
             streakAchievements +
             dailyAchievements +
-            secretAchievements
+            secretAchievements +
+            visitAchievements
 
     private fun totalWins(ctx: AchievementContext): Int =
         ctx.statsByDifficulty.values.sumOf { it.gamesWon }

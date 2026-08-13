@@ -144,6 +144,27 @@
 
     <string name="achievement_secret_on_the_edge_title">Am Limit</string>
     <string name="achievement_secret_on_the_edge_desc">Gewinne mit genau 2 Fehlern</string>
+
+    <string name="achievement_visit_streak_5_title">Willkommen zurück</string>
+    <string name="achievement_visit_streak_5_desc">Öffne die App 5 Tage in Folge</string>
+    <string name="achievement_visit_streak_15_title">Wiederkehrer</string>
+    <string name="achievement_visit_streak_15_desc">Öffne die App 15 Tage in Folge</string>
+    <string name="achievement_visit_streak_25_title">Gewohnheit</string>
+    <string name="achievement_visit_streak_25_desc">Öffne die App 25 Tage in Folge</string>
+    <string name="achievement_visit_streak_50_title">Treuer Spieler</string>
+    <string name="achievement_visit_streak_50_desc">Öffne die App 50 Tage in Folge</string>
+    <string name="achievement_visit_streak_100_title">Centurio</string>
+    <string name="achievement_visit_streak_100_desc">Öffne die App 100 Tage in Folge</string>
+    <string name="achievement_visit_streak_150_title">Hingabe</string>
+    <string name="achievement_visit_streak_150_desc">Öffne die App 150 Tage in Folge</string>
+    <string name="achievement_visit_streak_200_title">Zielstrebigkeit</string>
+    <string name="achievement_visit_streak_200_desc">Öffne die App 200 Tage in Folge</string>
+    <string name="achievement_visit_streak_300_title">Das ganze Jahr</string>
+    <string name="achievement_visit_streak_300_desc">Öffne die App 300 Tage in Folge</string>
+    <string name="achievement_visit_streak_365_title">Voller Kreis</string>
+    <string name="achievement_visit_streak_365_desc">Öffne die App 365 Tage in Folge</string>
+    <string name="achievement_visit_streak_730_title">Veteran seit zwei Jahren</string>
+    <string name="achievement_visit_streak_730_desc">Öffne die App 730 Tage in Folge</string>
     <string name="settings_rate_app">App bewerten</string>
 
     <string name="theme_builder_title">Theme-Editor</string>

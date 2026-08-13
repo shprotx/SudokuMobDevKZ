@@ -37,6 +37,7 @@ class AchievementsRegistryTest {
         dailyBestStreak: Int = 0,
         recentWins: List<GameHistoryEntity> = emptyList(),
         noHintsWinsCount: Int = 0,
+        bestVisitStreak: Int = 0,
     ) = AchievementContext(
         statsByDifficulty = mapOf(
             Difficulty.EASY to easy,
@@ -48,6 +49,7 @@ class AchievementsRegistryTest {
         dailyBestStreak = dailyBestStreak,
         recentWins = recentWins,
         noHintsWinsCount = noHintsWinsCount,
+        bestVisitStreak = bestVisitStreak,
     )
 
     private fun byId(id: String): Achievement =
@@ -81,8 +83,8 @@ class AchievementsRegistryTest {
     }
 
     @Test
-    fun registry_has40Achievements() {
-        assertEquals(40, AchievementsRegistry.all.size)
+    fun registry_has50Achievements() {
+        assertEquals(50, AchievementsRegistry.all.size)
     }
 
     @Test
@@ -181,14 +183,41 @@ class AchievementsRegistryTest {
         assertTrue(byId("secret_early_bird").evaluate(context).isUnlocked)
     }
 
+    private val pgsIdPendingAchievementIds = setOf(
+        "visit_streak_5",
+        "visit_streak_15",
+        "visit_streak_25",
+        "visit_streak_50",
+        "visit_streak_100",
+        "visit_streak_150",
+        "visit_streak_200",
+        "visit_streak_300",
+        "visit_streak_365",
+        "visit_streak_730",
+    )
+
     @Test
     fun allAchievements_havePgsId() {
-        val missing = AchievementsRegistry.all.filter { it.pgsId.isNullOrBlank() }.map { it.id }.toSet()
+        val missing = AchievementsRegistry.all
+            .filterNot { it.id in pgsIdPendingAchievementIds }
+            .filter { it.pgsId.isNullOrBlank() }
+            .map { it.id }
+            .toSet()
         assertEquals(
             "All achievements must have a PGS id",
             emptySet<String>(),
             missing,
         )
+    }
+
+    @Test
+    fun pgsIdPendingAchievements_stillHaveNoPgsId() {
+        val stillPending = AchievementsRegistry.all
+            .filter { it.id in pgsIdPendingAchievementIds }
+            .filter { it.pgsId.isNullOrBlank() }
+            .map { it.id }
+            .toSet()
+        assertEquals(pgsIdPendingAchievementIds, stillPending)
     }
 
     @Test
@@ -331,5 +360,44 @@ class AchievementsRegistryTest {
     fun daily100_usesCompletedCount() {
         val context = ctx(dailyCompletedCount = 100)
         assertTrue(byId("daily_100").evaluate(context).isUnlocked)
+    }
+
+    @Test
+    fun visitStreak5_unlocksAtBestVisitStreak() {
+        assertFalse(byId("visit_streak_5").evaluate(ctx(bestVisitStreak = 4)).isUnlocked)
+        assertTrue(byId("visit_streak_5").evaluate(ctx(bestVisitStreak = 5)).isUnlocked)
+    }
+
+    @Test
+    fun visitStreak730_requiresFullTarget() {
+        assertFalse(byId("visit_streak_730").evaluate(ctx(bestVisitStreak = 729)).isUnlocked)
+        assertTrue(byId("visit_streak_730").evaluate(ctx(bestVisitStreak = 730)).isUnlocked)
+    }
+
+    @Test
+    fun visitStreakAchievements_haveAscendingTargets() {
+        val ids = listOf(
+            "visit_streak_5",
+            "visit_streak_15",
+            "visit_streak_25",
+            "visit_streak_50",
+            "visit_streak_100",
+            "visit_streak_150",
+            "visit_streak_200",
+            "visit_streak_300",
+            "visit_streak_365",
+            "visit_streak_730",
+        )
+        val targets = ids.map { id -> byId(id).evaluate(ctx(bestVisitStreak = Int.MAX_VALUE)).target }
+        assertEquals(targets.sorted(), targets)
+        assertEquals(targets.toSet().size, targets.size)
+    }
+
+    @Test
+    fun visitStreakAchievements_belongToVisitCategory() {
+        val allBelongToVisit = AchievementsRegistry.all
+            .filter { it.id.startsWith("visit_streak_") }
+            .all { it.category == AchievementCategory.VISIT }
+        assertTrue(allBelongToVisit)
     }
 }

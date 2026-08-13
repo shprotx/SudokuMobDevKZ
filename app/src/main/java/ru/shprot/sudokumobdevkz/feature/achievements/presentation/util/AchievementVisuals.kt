@@ -245,5 +245,22 @@ object AchievementVisuals {
             gradientEnd = Color(0xFF7C0E2E),
             accentColor = Color(0xFFFFD9C0),
         )
+
+        AchievementIconKey.VISIT_STREAK_5 -> visitStreakVisual(hueDegrees = 150f)
+        AchievementIconKey.VISIT_STREAK_15 -> visitStreakVisual(hueDegrees = 165f)
+        AchievementIconKey.VISIT_STREAK_25 -> visitStreakVisual(hueDegrees = 180f)
+        AchievementIconKey.VISIT_STREAK_50 -> visitStreakVisual(hueDegrees = 195f)
+        AchievementIconKey.VISIT_STREAK_100 -> visitStreakVisual(hueDegrees = 210f)
+        AchievementIconKey.VISIT_STREAK_150 -> visitStreakVisual(hueDegrees = 225f)
+        AchievementIconKey.VISIT_STREAK_200 -> visitStreakVisual(hueDegrees = 240f)
+        AchievementIconKey.VISIT_STREAK_300 -> visitStreakVisual(hueDegrees = 255f)
+        AchievementIconKey.VISIT_STREAK_365 -> visitStreakVisual(hueDegrees = 270f)
+        AchievementIconKey.VISIT_STREAK_730 -> visitStreakVisual(hueDegrees = 285f)
     }
+
+    private fun visitStreakVisual(hueDegrees: Float): AchievementVisual = AchievementVisual(
+        gradientStart = Color.hsv(hueDegrees, 0.35f, 1f),
+        gradientEnd = Color.hsv(hueDegrees, 0.85f, 0.55f),
+        accentColor = Color.hsv(hueDegrees, 0.15f, 1f),
+    )
 }

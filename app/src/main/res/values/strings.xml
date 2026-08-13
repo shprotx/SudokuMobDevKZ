@@ -242,6 +242,27 @@
     <string name="achievement_secret_on_the_edge_title">On the edge</string>
     <string name="achievement_secret_on_the_edge_desc">Win a game with exactly 2 mistakes</string>
 
+    <string name="achievement_visit_streak_5_title">Welcome back</string>
+    <string name="achievement_visit_streak_5_desc">Open the app 5 days in a row</string>
+    <string name="achievement_visit_streak_15_title">Regular visitor</string>
+    <string name="achievement_visit_streak_15_desc">Open the app 15 days in a row</string>
+    <string name="achievement_visit_streak_25_title">Habit forming</string>
+    <string name="achievement_visit_streak_25_desc">Open the app 25 days in a row</string>
+    <string name="achievement_visit_streak_50_title">Loyal player</string>
+    <string name="achievement_visit_streak_50_desc">Open the app 50 days in a row</string>
+    <string name="achievement_visit_streak_100_title">Centurion</string>
+    <string name="achievement_visit_streak_100_desc">Open the app 100 days in a row</string>
+    <string name="achievement_visit_streak_150_title">Devoted</string>
+    <string name="achievement_visit_streak_150_desc">Open the app 150 days in a row</string>
+    <string name="achievement_visit_streak_200_title">Dedicated</string>
+    <string name="achievement_visit_streak_200_desc">Open the app 200 days in a row</string>
+    <string name="achievement_visit_streak_300_title">Year-rounder</string>
+    <string name="achievement_visit_streak_300_desc">Open the app 300 days in a row</string>
+    <string name="achievement_visit_streak_365_title">Full circle</string>
+    <string name="achievement_visit_streak_365_desc">Open the app 365 days in a row</string>
+    <string name="achievement_visit_streak_730_title">Two-year veteran</string>
+    <string name="achievement_visit_streak_730_desc">Open the app 730 days in a row</string>
+
     <string name="gms_app_id" translatable="false">847632350121</string>
 
     <string name="cloud_section_title">Cloud sync</string>
