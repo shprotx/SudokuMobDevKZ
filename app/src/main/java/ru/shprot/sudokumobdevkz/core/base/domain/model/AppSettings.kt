@@ -15,6 +15,7 @@ data class AppSettings(
     val selectedDifficultyOrdinal: Int = 0,
     val hintMode: HintMode = HintMode.SINGLE_SHOT,
     val showNameOnLeaderboard: Boolean = false,
+    val notificationsEnabled: Boolean = true,
 ) {
     val isStandardMode: Boolean get() = checkErrors && !unlimitedErrors && !unlimitedHints
 }

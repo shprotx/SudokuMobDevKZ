@@ -43,4 +43,6 @@
     <color name="color1">#FFFFFF</color>
 
     <color name="new_game_color_green">#ECFFEA</color>
+
+    <color name="notification_accent">#FF34C759</color>
 </resources>
