@@ -119,4 +119,30 @@ class CloudProgressMergerTest {
         val after = System.currentTimeMillis()
         assertTrue(merged.lastSyncTimestamp in before..after)
     }
+
+    @Test
+    fun `visitStreak — bestVisitStreak takes max`() {
+        val local = CloudProgress(bestVisitStreak = 20)
+        val cloud = CloudProgress(bestVisitStreak = 35)
+        val merged = CloudProgressMerger.merge(local, cloud)
+        assertEquals(35, merged.bestVisitStreak)
+    }
+
+    @Test
+    fun `visitStreak — currentVisitStreak takes side with the later lastVisitDate`() {
+        val local = CloudProgress(currentVisitStreak = 3, lastVisitDate = "2026-08-10")
+        val cloud = CloudProgress(currentVisitStreak = 9, lastVisitDate = "2026-08-13")
+        val merged = CloudProgressMerger.merge(local, cloud)
+        assertEquals(9, merged.currentVisitStreak)
+        assertEquals("2026-08-13", merged.lastVisitDate)
+    }
+
+    @Test
+    fun `visitStreak — local wins when its lastVisitDate is more recent`() {
+        val local = CloudProgress(currentVisitStreak = 9, lastVisitDate = "2026-08-13")
+        val cloud = CloudProgress(currentVisitStreak = 3, lastVisitDate = "2026-08-10")
+        val merged = CloudProgressMerger.merge(local, cloud)
+        assertEquals(9, merged.currentVisitStreak)
+        assertEquals("2026-08-13", merged.lastVisitDate)
+    }
 }

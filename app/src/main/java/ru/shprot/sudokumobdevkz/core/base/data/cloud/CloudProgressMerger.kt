@@ -6,18 +6,33 @@ import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.DailyChallengeDto
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.SavedGameDto
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.StatisticDto
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.UnlockedAchievementDto
+import ru.shprot.sudokumobdevkz.core.base.data.repository.VisitStreakCalculator
 
 object CloudProgressMerger {
 
-    fun merge(local: CloudProgress, cloud: CloudProgress): CloudProgress = CloudProgress(
-        schemaVersion = CloudProgress.SCHEMA_VERSION,
-        statistics = mergeStatistics(local.statistics, cloud.statistics),
-        unlockedAchievements = mergeAchievements(local.unlockedAchievements, cloud.unlockedAchievements),
-        dailyChallenges = mergeDailies(local.dailyChallenges, cloud.dailyChallenges),
-        savedGame = mergeSavedGame(local.savedGame, cloud.savedGame),
-        customThemes = mergeCustomThemes(local.customThemes, cloud.customThemes),
-        lastSyncTimestamp = System.currentTimeMillis(),
-    )
+    fun merge(local: CloudProgress, cloud: CloudProgress): CloudProgress {
+        val (mergedCurrentVisitStreak, mergedLastVisitDate) = mergeVisitStreak(local, cloud)
+        return CloudProgress(
+            schemaVersion = CloudProgress.SCHEMA_VERSION,
+            statistics = mergeStatistics(local.statistics, cloud.statistics),
+            unlockedAchievements = mergeAchievements(local.unlockedAchievements, cloud.unlockedAchievements),
+            dailyChallenges = mergeDailies(local.dailyChallenges, cloud.dailyChallenges),
+            savedGame = mergeSavedGame(local.savedGame, cloud.savedGame),
+            customThemes = mergeCustomThemes(local.customThemes, cloud.customThemes),
+            currentVisitStreak = mergedCurrentVisitStreak,
+            bestVisitStreak = maxOf(local.bestVisitStreak, cloud.bestVisitStreak),
+            lastVisitDate = mergedLastVisitDate,
+            lastSyncTimestamp = System.currentTimeMillis(),
+        )
+    }
+
+    private fun mergeVisitStreak(local: CloudProgress, cloud: CloudProgress): Pair<Int, String?> =
+        VisitStreakCalculator.mergedCurrentStreak(
+            localCurrent = local.currentVisitStreak,
+            localLastVisitDate = local.lastVisitDate,
+            cloudCurrent = cloud.currentVisitStreak,
+            cloudLastVisitDate = cloud.lastVisitDate,
+        )
 
     private fun mergeStatistics(
         local: Map<Int, StatisticDto>,

@@ -12,6 +12,7 @@ import ru.shprot.sudokumobdevkz.core.base.data.database.dao.CustomThemeDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.DailyChallengeDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.SavedGameDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.StatisticDao
+import ru.shprot.sudokumobdevkz.core.base.data.repository.IVisitStreakRepository
 import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -52,6 +53,7 @@ class SyncToCloudUseCaseImpl @Inject constructor(
     private val dailyChallengeDao: DailyChallengeDao,
     private val savedGameDao: SavedGameDao,
     private val customThemeDao: CustomThemeDao,
+    private val visitStreakRepository: IVisitStreakRepository,
 ) : SyncToCloudUseCase {
 
     private val triggers = MutableSharedFlow<Unit>(extraBufferCapacity = 1)
@@ -89,13 +91,19 @@ class SyncToCloudUseCaseImpl @Inject constructor(
         cloud.writeSnapshot(SyncToCloudUseCase.SNAPSHOT_NAME, bytes, SyncToCloudUseCase.SNAPSHOT_DESC)
     }
 
-    private suspend fun collectProgress(): CloudProgress = CloudProgress(
-        schemaVersion = CloudProgress.SCHEMA_VERSION,
-        statistics = statisticDao.getAll().associateBy({ it.difficulty }, { it.toDto() }),
-        unlockedAchievements = achievementUnlockedDao.getAll().map { it.toDto() },
-        dailyChallenges = dailyChallengeDao.getAllCompleted().map { it.toDto() },
-        savedGame = savedGameDao.get()?.toDto(),
-        customThemes = customThemeDao.getAll().filter { !it.isBuiltIn }.map { it.toDto() },
-        lastSyncTimestamp = System.currentTimeMillis(),
-    )
+    private suspend fun collectProgress(): CloudProgress {
+        val visitStreak = visitStreakRepository.currentStreak
+        return CloudProgress(
+            schemaVersion = CloudProgress.SCHEMA_VERSION,
+            statistics = statisticDao.getAll().associateBy({ it.difficulty }, { it.toDto() }),
+            unlockedAchievements = achievementUnlockedDao.getAll().map { it.toDto() },
+            dailyChallenges = dailyChallengeDao.getAllCompleted().map { it.toDto() },
+            savedGame = savedGameDao.get()?.toDto(),
+            customThemes = customThemeDao.getAll().filter { !it.isBuiltIn }.map { it.toDto() },
+            currentVisitStreak = visitStreak.currentStreak,
+            bestVisitStreak = visitStreak.bestStreak,
+            lastVisitDate = visitStreak.lastVisitDate,
+            lastSyncTimestamp = System.currentTimeMillis(),
+        )
+    }
 }
