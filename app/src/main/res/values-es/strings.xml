@@ -221,4 +221,19 @@
     <string name="settings_show_name_on_leaderboard">Mostrar mi nombre en la clasificación global</string>
     <string name="leaderboard_show_name_sign_in_required">Inicia sesión para mostrar tu nombre en la clasificación</string>
     <string name="leaderboard_rank_divider">⋯</string>
+    <string name="notifications_section_title">Notificaciones</string>
+    <string name="push_notifications">Notificaciones push</string>
+    <string name="notifications_permission_denied">Permiso de notificaciones denegado. Puedes activarlo más tarde en los ajustes del sistema.</string>
+    <string name="notification_channel_daily_challenge_name">Reto diario</string>
+    <string name="notification_channel_daily_challenge_description">Recordatorios sobre el reto diario de hoy</string>
+    <string name="notification_channel_reengagement_name">Vuelve a jugar</string>
+    <string name="notification_channel_reengagement_description">Recordatorios amistosos tras unos días de inactividad</string>
+    <string name="notification_channel_game_resume_name">Partida sin terminar</string>
+    <string name="notification_channel_game_resume_description">Recordatorios sobre una partida que aún no has terminado</string>
+    <string name="notification_daily_challenge_title">El reto diario de hoy ya está listo</string>
+    <string name="notification_daily_challenge_text">Resuelve el puzle de hoy antes de perder la racha</string>
+    <string name="notification_reengagement_title">¿Extrañas el Sudoku?</string>
+    <string name="notification_reengagement_text">Vuelve para un puzle rápido — tu tablero te espera</string>
+    <string name="notification_game_resume_title">Puzle sin terminar</string>
+    <string name="notification_game_resume_text">Todavía tienes una partida en curso — continúa donde la dejaste</string>
 </resources>

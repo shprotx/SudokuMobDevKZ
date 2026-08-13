@@ -203,4 +203,19 @@
     <string name="settings_show_name_on_leaderboard">Meinen Namen in der globalen Bestenliste anzeigen</string>
     <string name="leaderboard_show_name_sign_in_required">Melde dich an, um deinen Namen in der Bestenliste anzuzeigen</string>
     <string name="leaderboard_rank_divider">⋯</string>
+    <string name="notifications_section_title">Benachrichtigungen</string>
+    <string name="push_notifications">Push-Benachrichtigungen</string>
+    <string name="notifications_permission_denied">Benachrichtigungsberechtigung abgelehnt. Du kannst sie später in den Systemeinstellungen aktivieren.</string>
+    <string name="notification_channel_daily_challenge_name">Tägliche Herausforderung</string>
+    <string name="notification_channel_daily_challenge_description">Erinnerungen an die heutige tägliche Herausforderung</string>
+    <string name="notification_channel_reengagement_name">Komm zurück zum Spielen</string>
+    <string name="notification_channel_reengagement_description">Freundliche Erinnerungen nach ein paar Tagen Inaktivität</string>
+    <string name="notification_channel_game_resume_name">Unbeendetes Spiel</string>
+    <string name="notification_channel_game_resume_description">Erinnerungen an ein noch nicht beendetes Spiel</string>
+    <string name="notification_daily_challenge_title">Die heutige tägliche Herausforderung ist bereit</string>
+    <string name="notification_daily_challenge_text">Löse das heutige Rätsel, bevor die Serie zurückgesetzt wird</string>
+    <string name="notification_reengagement_title">Vermisst du Sudoku?</string>
+    <string name="notification_reengagement_text">Komm zurück für ein schnelles Rätsel — dein Feld wartet</string>
+    <string name="notification_game_resume_title">Unbeendetes Rätsel</string>
+    <string name="notification_game_resume_text">Du hast noch ein Spiel in Bearbeitung — mach weiter, wo du aufgehört hast</string>
 </resources>

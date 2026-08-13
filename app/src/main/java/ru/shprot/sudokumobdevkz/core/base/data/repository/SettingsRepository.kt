@@ -57,6 +57,7 @@ class SettingsRepository @Inject constructor(
                 prefs[Keys.SELECTED_DIFFICULTY] = newSettings.selectedDifficultyOrdinal
                 prefs[Keys.HINT_MODE] = newSettings.hintMode.name
                 prefs[Keys.SHOW_NAME_ON_LEADERBOARD] = newSettings.showNameOnLeaderboard
+                prefs[Keys.NOTIFICATIONS_ENABLED] = newSettings.notificationsEnabled
             }
         }
     }
@@ -85,6 +86,7 @@ class SettingsRepository @Inject constructor(
         selectedDifficultyOrdinal = this[Keys.SELECTED_DIFFICULTY] ?: 0,
         hintMode = HintMode.from(this[Keys.HINT_MODE]),
         showNameOnLeaderboard = this[Keys.SHOW_NAME_ON_LEADERBOARD] ?: false,
+        notificationsEnabled = this[Keys.NOTIFICATIONS_ENABLED] ?: true,
     )
 
     private fun Preferences.resolveThemeModeId(): String =
@@ -109,6 +111,7 @@ class SettingsRepository @Inject constructor(
         val SELECTED_DIFFICULTY = intPreferencesKey("selected_difficulty")
         val HINT_MODE = stringPreferencesKey("hint_mode")
         val SHOW_NAME_ON_LEADERBOARD = booleanPreferencesKey("show_name_on_leaderboard")
+        val NOTIFICATIONS_ENABLED = booleanPreferencesKey("notifications_enabled")
     }
 
     private object LeaderboardKeys {

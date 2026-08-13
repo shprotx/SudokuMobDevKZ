@@ -367,4 +367,19 @@
     <string name="theme_palette_tokyo_night">Токио түні</string>
     <string name="settings_show_name_on_leaderboard">Атымды жаһандық рейтингте көрсету</string>
     <string name="leaderboard_show_name_sign_in_required">Рейтингте атыңызды көрсету үшін аккаунтқа кіріңіз</string>
+    <string name="notifications_section_title">Хабарландырулар</string>
+    <string name="push_notifications">Пуш-хабарландырулар</string>
+    <string name="notifications_permission_denied">Хабарландыруға рұқсат берілмеді. Оны кейінірек жүйе баптауларынан қосуға болады.</string>
+    <string name="notification_channel_daily_challenge_name">Күнделікті тапсырма</string>
+    <string name="notification_channel_daily_challenge_description">Бүгінгі күнделікті тапсырма туралы еске салулар</string>
+    <string name="notification_channel_reengagement_name">Ойынға оралыңыз</string>
+    <string name="notification_channel_reengagement_description">Бірнеше күн белсенді болмағаннан кейінгі жанашыр еске салулар</string>
+    <string name="notification_channel_game_resume_name">Аяқталмаған партия</string>
+    <string name="notification_channel_game_resume_description">Аяқталмаған партия туралы еске салулар</string>
+    <string name="notification_daily_challenge_title">Бүгінгі күнделікті тапсырма дайын</string>
+    <string name="notification_daily_challenge_text">Топтаманы үзбеу үшін бүгінгі басқатырғышты шешіңіз</string>
+    <string name="notification_reengagement_title">Судокуды сағындыңыз ба?</string>
+    <string name="notification_reengagement_text">Қайта оралыңыз — жылдам басқатырғыш сізді күтіп тұр</string>
+    <string name="notification_game_resume_title">Аяқталмаған басқатырғыш</string>
+    <string name="notification_game_resume_text">Сізде аяқталмаған партия бар — тоқтаған жерден жалғастырыңыз</string>
 </resources>
