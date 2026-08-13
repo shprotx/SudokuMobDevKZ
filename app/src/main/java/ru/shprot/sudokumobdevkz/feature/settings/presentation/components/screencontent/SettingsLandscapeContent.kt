@@ -19,6 +19,7 @@ import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonDefault
 import ru.shprot.sudokumobdevkz.core.uicommon.toolbar.ToolbarDefault
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.HintModeSection
+import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.NotificationsSection
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.cloud.CloudSection
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsSectionHeader
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsVersionFooter
@@ -79,6 +80,8 @@ internal fun SettingsLandscapeContent(
                 AppearanceSettingsCard(uiState = uiState, onEvent = onEvent)
 
                 CloudSection(uiState = uiState, onEvent = onEvent)
+
+                NotificationsSection(uiState = uiState, onEvent = onEvent)
 
                 SettingsSectionHeader(modifier = Modifier, title = stringResource(R.string.other))
 

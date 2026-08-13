@@ -1,5 +1,9 @@
 package ru.shprot.sudokumobdevkz.feature.settings.presentation.screen
 
+import android.Manifest
+import android.os.Build
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -16,6 +20,7 @@ import ru.shprot.sudokumobdevkz.core.base.presentation.util.ShareLauncher
 import ru.shprot.sudokumobdevkz.feature.feedback.presentation.navigation.FeedbackRoutes
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.screencontent.SettingsScreenContent
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.contract.SettingsUIEffect
+import ru.shprot.sudokumobdevkz.feature.settings.presentation.contract.SettingsUIEvent
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.navigation.SettingsRoutes
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.viewmodel.SettingsViewModel
 import ru.shprot.sudokumobdevkz.feature.themebuilder.presentation.navigation.ThemeBuilderRoutes
@@ -30,6 +35,13 @@ fun SettingsScreen(
     val shareText = stringResource(R.string.share_app_text)
     val shareSubject = stringResource(R.string.share_app_subject)
     val shareChooserTitle = stringResource(R.string.share_app_chooser_title)
+
+    val notificationPermissionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission(),
+        onResult = { granted ->
+            viewModel.setEvent(SettingsUIEvent.NotificationPermissionResult(granted))
+        },
+    )
 
     LaunchedEffect(viewModel.effect) {
         viewModel.effect.collectLatest { effect ->
@@ -78,6 +90,13 @@ fun SettingsScreen(
 
                 is SettingsUIEffect.NavigateToEditTheme ->
                     navController.navigate(ThemeBuilderRoutes.ThemeBuilderScreen(themeId = effect.themeId))
+
+                SettingsUIEffect.RequestNotificationPermission ->
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                    } else {
+                        viewModel.setEvent(SettingsUIEvent.NotificationPermissionResult(granted = true))
+                    }
             }
         }
     }

@@ -9,6 +9,8 @@ import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.CloudGameServices
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.CloudProgressMerger
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.SignInResult
+import ru.shprot.sudokumobdevkz.core.base.data.notification.NotificationPermissionChecker
+import ru.shprot.sudokumobdevkz.core.base.data.notification.NotificationScheduler
 import ru.shprot.sudokumobdevkz.core.base.domain.model.AppSettings
 import ru.shprot.sudokumobdevkz.core.base.data.repository.IThemeRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SettingsRepository
@@ -34,6 +36,8 @@ class SettingsViewModel @Inject constructor(
     private val syncToCloud: SyncToCloudUseCase,
     private val toggleShowNameOnLeaderboard: ToggleShowNameOnLeaderboardUseCase,
     private val themeRepository: IThemeRepository,
+    private val notificationScheduler: NotificationScheduler,
+    private val notificationPermissionChecker: NotificationPermissionChecker,
 ) : BaseViewModel<SettingsUIEvent, SettingsUIState, SettingsUIEffect>(
     SettingsUIState()
 ) {
@@ -157,6 +161,9 @@ class SettingsViewModel @Inject constructor(
             SettingsUIEvent.ToggleShowNameOnLeaderboard ->
                 handleToggleShowNameOnLeaderboard()
 
+            SettingsUIEvent.NotificationsToggleClicked ->
+                handleNotificationsToggleClicked()
+
             SettingsUIEvent.NavigateToThemeBuilder ->
                 setEffect(SettingsUIEffect.NavigateToThemeBuilder)
 
@@ -177,6 +184,9 @@ class SettingsViewModel @Inject constructor(
 
             is SettingsUIEvent.RequestDeleteTheme ->
                 updateState { copy(showDeleteThemeDialog = true, themeToDeleteId = event.themeId) }
+
+            is SettingsUIEvent.NotificationPermissionResult ->
+                handleNotificationPermissionResult(event.granted)
         }
 
     private fun handleConfirmDeleteTheme() {
@@ -282,6 +292,33 @@ class SettingsViewModel @Inject constructor(
 
     private fun handleToggleShowNameOnLeaderboard() {
         viewModelScope.launch { toggleShowNameOnLeaderboard() }
+    }
+
+    private fun handleNotificationsToggleClicked() {
+        if (currentState.settings.notificationsEnabled) {
+            disableNotifications()
+        } else if (notificationPermissionChecker.isGranted()) {
+            enableNotifications()
+        } else {
+            setEffect(SettingsUIEffect.RequestNotificationPermission)
+        }
+    }
+
+    private fun handleNotificationPermissionResult(granted: Boolean) {
+        if (granted) {
+            enableNotifications()
+        } else {
+            setEffect(SettingsUIEffect.ShowMessage(R.string.notifications_permission_denied))
+        }
+    }
+
+    private fun enableNotifications() {
+        settingsRepository.setNotificationsEnabled(true)
+    }
+
+    private fun disableNotifications() {
+        settingsRepository.setNotificationsEnabled(false)
+        notificationScheduler.cancelAll()
     }
 
     private enum class ImportChoice { MERGE, KEEP_LOCAL, USE_CLOUD }

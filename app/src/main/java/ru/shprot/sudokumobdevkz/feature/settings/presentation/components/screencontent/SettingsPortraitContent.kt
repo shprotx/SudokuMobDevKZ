@@ -43,6 +43,7 @@ import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonText
 import ru.shprot.sudokumobdevkz.core.uicommon.dropdown.AppDropdown
 import ru.shprot.sudokumobdevkz.core.uicommon.toolbar.ToolbarDefault
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.HintModeSection
+import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.NotificationsSection
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.cloud.CloudSection
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsCard
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsDivider
@@ -90,6 +91,8 @@ internal fun SettingsPortraitContent(
             AppearanceSettingsCard(uiState = uiState, onEvent = onEvent)
 
             CloudSection(uiState = uiState, onEvent = onEvent)
+
+            NotificationsSection(uiState = uiState, onEvent = onEvent)
 
             SettingsSectionHeader(modifier = Modifier, title = stringResource(R.string.other))
 
