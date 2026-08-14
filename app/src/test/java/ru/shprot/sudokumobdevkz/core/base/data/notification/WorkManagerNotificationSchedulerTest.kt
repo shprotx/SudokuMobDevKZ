@@ -8,7 +8,6 @@ import org.junit.Before
 import org.junit.Test
 import ru.shprot.sudokumobdevkz.core.base.data.repository.ISettingsRepository
 import ru.shprot.sudokumobdevkz.core.base.domain.model.AppSettings
-import java.util.concurrent.TimeUnit
 
 class WorkManagerNotificationSchedulerTest {
 
@@ -29,47 +28,51 @@ class WorkManagerNotificationSchedulerTest {
 
         scheduler.scheduleDailyReminder(hour = 20, minute = 0)
 
-        assertTrue(workGateway.periodicCalls.isEmpty())
+        assertTrue(workGateway.dailyReminderCalls.isEmpty())
     }
 
     @Test
-    fun `scheduleDailyReminder enqueues periodic work when notifications enabled`() {
+    fun `scheduleDailyReminder enqueues daily reminder when notifications enabled`() {
         scheduler.scheduleDailyReminder(hour = 20, minute = 0)
 
-        assertEquals(1, workGateway.periodicCalls.size)
-        assertEquals(NotificationType.DAILY_CHALLENGE.workTag, workGateway.periodicCalls.first().uniqueName)
-        assertEquals(NotificationType.DAILY_CHALLENGE.name, workGateway.periodicCalls.first().notificationType)
+        assertEquals(1, workGateway.dailyReminderCalls.size)
     }
 
     @Test
     fun `scheduleReengagement does nothing when notifications disabled`() {
         settingsRepository.setNotificationsEnabled(false)
 
-        scheduler.scheduleReengagement(afterDays = 3)
+        scheduler.scheduleReengagement(afterDays = 3, hour = 19, minute = 0)
 
-        assertTrue(workGateway.oneTimeCalls.isEmpty())
+        assertTrue(workGateway.reengagementCalls.isEmpty())
     }
 
     @Test
-    fun `scheduleReengagement enqueues one-time work in days when notifications enabled`() {
-        scheduler.scheduleReengagement(afterDays = 3)
+    fun `scheduleReengagement enqueues one-time work roughly N days ahead when notifications enabled`() {
+        scheduler.scheduleReengagement(afterDays = 3, hour = 19, minute = 0)
 
-        assertEquals(1, workGateway.oneTimeCalls.size)
-        val call = workGateway.oneTimeCalls.first()
-        assertEquals(NotificationType.REENGAGEMENT.workTag, call.uniqueName)
-        assertEquals(3L, call.initialDelay)
-        assertEquals(TimeUnit.DAYS, call.timeUnit)
+        assertEquals(1, workGateway.reengagementCalls.size)
+        val delayMillis = workGateway.reengagementCalls.first()
+        val twoDaysMillis = 2L * 24 * 60 * 60 * 1000
+        val fourDaysMillis = 4L * 24 * 60 * 60 * 1000
+        assertTrue(delayMillis in twoDaysMillis..fourDaysMillis)
     }
 
     @Test
     fun `scheduleGameResumeReminder enqueues one-time work in hours when notifications enabled`() {
         scheduler.scheduleGameResumeReminder(delayHours = 6)
 
-        assertEquals(1, workGateway.oneTimeCalls.size)
-        val call = workGateway.oneTimeCalls.first()
-        assertEquals(NotificationType.GAME_RESUME.workTag, call.uniqueName)
-        assertEquals(6L, call.initialDelay)
-        assertEquals(TimeUnit.HOURS, call.timeUnit)
+        assertEquals(1, workGateway.gameResumeCalls.size)
+        assertEquals(6L, workGateway.gameResumeCalls.first())
+    }
+
+    @Test
+    fun `scheduleGameResumeReminder does nothing when notifications disabled`() {
+        settingsRepository.setNotificationsEnabled(false)
+
+        scheduler.scheduleGameResumeReminder(delayHours = 6)
+
+        assertTrue(workGateway.gameResumeCalls.isEmpty())
     }
 
     @Test
@@ -104,19 +107,21 @@ class WorkManagerNotificationSchedulerTest {
 }
 
 private class FakeNotificationWorkGateway : NotificationWorkGateway {
-    data class PeriodicCall(val uniqueName: String, val initialDelayMillis: Long, val notificationType: String)
-    data class OneTimeCall(val uniqueName: String, val initialDelay: Long, val timeUnit: TimeUnit, val notificationType: String)
-
-    val periodicCalls = mutableListOf<PeriodicCall>()
-    val oneTimeCalls = mutableListOf<OneTimeCall>()
+    val dailyReminderCalls = mutableListOf<Long>()
+    val reengagementCalls = mutableListOf<Long>()
+    val gameResumeCalls = mutableListOf<Long>()
     val cancelledUniqueNames = mutableListOf<String>()
 
-    override fun enqueuePeriodicDaily(uniqueName: String, initialDelayMillis: Long, notificationType: String) {
-        periodicCalls += PeriodicCall(uniqueName, initialDelayMillis, notificationType)
+    override fun enqueueDailyReminder(initialDelayMillis: Long) {
+        dailyReminderCalls += initialDelayMillis
     }
 
-    override fun enqueueOneTime(uniqueName: String, initialDelay: Long, timeUnit: TimeUnit, notificationType: String) {
-        oneTimeCalls += OneTimeCall(uniqueName, initialDelay, timeUnit, notificationType)
+    override fun enqueueReengagement(initialDelayMillis: Long) {
+        reengagementCalls += initialDelayMillis
+    }
+
+    override fun enqueueGameResume(delayHours: Long) {
+        gameResumeCalls += delayHours
     }
 
     override fun cancelUniqueWork(uniqueName: String) {

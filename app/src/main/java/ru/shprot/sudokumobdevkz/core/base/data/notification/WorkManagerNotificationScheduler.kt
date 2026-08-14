@@ -2,7 +2,6 @@ package ru.shprot.sudokumobdevkz.core.base.data.notification
 
 import ru.shprot.sudokumobdevkz.core.base.data.repository.ISettingsRepository
 import java.util.Calendar
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class WorkManagerNotificationScheduler @Inject constructor(
@@ -12,31 +11,17 @@ class WorkManagerNotificationScheduler @Inject constructor(
 
     override fun scheduleDailyReminder(hour: Int, minute: Int) {
         if (!settingsRepository.currentSettings.notificationsEnabled) return
-        workGateway.enqueuePeriodicDaily(
-            uniqueName = NotificationType.DAILY_CHALLENGE.workTag,
-            initialDelayMillis = initialDelayMillisFor(hour, minute),
-            notificationType = NotificationType.DAILY_CHALLENGE.name,
-        )
+        workGateway.enqueueDailyReminder(initialDelayMillisFor(daysAhead = 0, hour = hour, minute = minute))
     }
 
-    override fun scheduleReengagement(afterDays: Int) {
+    override fun scheduleReengagement(afterDays: Int, hour: Int, minute: Int) {
         if (!settingsRepository.currentSettings.notificationsEnabled) return
-        workGateway.enqueueOneTime(
-            uniqueName = NotificationType.REENGAGEMENT.workTag,
-            initialDelay = afterDays.toLong(),
-            timeUnit = TimeUnit.DAYS,
-            notificationType = NotificationType.REENGAGEMENT.name,
-        )
+        workGateway.enqueueReengagement(initialDelayMillisFor(daysAhead = afterDays, hour = hour, minute = minute))
     }
 
     override fun scheduleGameResumeReminder(delayHours: Int) {
         if (!settingsRepository.currentSettings.notificationsEnabled) return
-        workGateway.enqueueOneTime(
-            uniqueName = NotificationType.GAME_RESUME.workTag,
-            initialDelay = delayHours.toLong(),
-            timeUnit = TimeUnit.HOURS,
-            notificationType = NotificationType.GAME_RESUME.name,
-        )
+        workGateway.enqueueGameResume(delayHours.toLong())
     }
 
     override fun cancelAll() {
@@ -47,15 +32,16 @@ class WorkManagerNotificationScheduler @Inject constructor(
         workGateway.cancelUniqueWork(type.workTag)
     }
 
-    private fun initialDelayMillisFor(hour: Int, minute: Int): Long {
+    private fun initialDelayMillisFor(daysAhead: Int, hour: Int, minute: Int): Long {
         val now = Calendar.getInstance()
         val target = Calendar.getInstance().apply {
+            add(Calendar.DAY_OF_YEAR, daysAhead)
             set(Calendar.HOUR_OF_DAY, hour)
             set(Calendar.MINUTE, minute)
             set(Calendar.SECOND, 0)
             set(Calendar.MILLISECOND, 0)
-            if (before(now)) add(Calendar.DAY_OF_YEAR, 1)
+            if (daysAhead == 0 && before(now)) add(Calendar.DAY_OF_YEAR, 1)
         }
-        return target.timeInMillis - now.timeInMillis
+        return maxOf(target.timeInMillis - now.timeInMillis, 0L)
     }
 }

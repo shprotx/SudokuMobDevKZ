@@ -10,7 +10,6 @@ enum class NotificationType(
     @StringRes val channelNameRes: Int,
     @StringRes val channelDescriptionRes: Int,
     @StringRes val titleRes: Int,
-    @StringRes val textRes: Int,
 ) {
     DAILY_CHALLENGE(
         channelId = "daily_challenge",
@@ -19,7 +18,6 @@ enum class NotificationType(
         channelNameRes = R.string.notification_channel_daily_challenge_name,
         channelDescriptionRes = R.string.notification_channel_daily_challenge_description,
         titleRes = R.string.notification_daily_challenge_title,
-        textRes = R.string.notification_daily_challenge_text,
     ),
     REENGAGEMENT(
         channelId = "reengagement",
@@ -28,7 +26,6 @@ enum class NotificationType(
         channelNameRes = R.string.notification_channel_reengagement_name,
         channelDescriptionRes = R.string.notification_channel_reengagement_description,
         titleRes = R.string.notification_reengagement_title,
-        textRes = R.string.notification_reengagement_text,
     ),
     GAME_RESUME(
         channelId = "game_resume",
@@ -37,6 +34,9 @@ enum class NotificationType(
         channelNameRes = R.string.notification_channel_game_resume_name,
         channelDescriptionRes = R.string.notification_channel_game_resume_description,
         titleRes = R.string.notification_game_resume_title,
-        textRes = R.string.notification_game_resume_text,
-    ),
+    );
+
+    companion object {
+        const val EXTRA_NOTIFICATION_TYPE = "extra_notification_type"
+    }
 }

@@ -6,9 +6,11 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ru.shprot.sudokumobdevkz.core.base.data.notification.AndroidNotificationPermissionChecker
 import ru.shprot.sudokumobdevkz.core.base.data.notification.AndroidNotificationWorkGateway
+import ru.shprot.sudokumobdevkz.core.base.data.notification.NotificationClock
 import ru.shprot.sudokumobdevkz.core.base.data.notification.NotificationPermissionChecker
 import ru.shprot.sudokumobdevkz.core.base.data.notification.NotificationScheduler
 import ru.shprot.sudokumobdevkz.core.base.data.notification.NotificationWorkGateway
+import ru.shprot.sudokumobdevkz.core.base.data.notification.SystemNotificationClock
 import ru.shprot.sudokumobdevkz.core.base.data.notification.WorkManagerNotificationScheduler
 import javax.inject.Singleton
 
@@ -29,4 +31,8 @@ abstract class NotificationModule {
     abstract fun bindNotificationPermissionChecker(
         impl: AndroidNotificationPermissionChecker,
     ): NotificationPermissionChecker
+
+    @Binds
+    @Singleton
+    abstract fun bindNotificationClock(impl: SystemNotificationClock): NotificationClock
 }
