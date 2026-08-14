@@ -382,4 +382,14 @@
     <string name="notification_reengagement_text">Қайта оралыңыз — жылдам басқатырғыш сізді күтіп тұр</string>
     <string name="notification_game_resume_title">Аяқталмаған басқатырғыш</string>
     <string name="notification_game_resume_text">Сізде аяқталмаған партия бар — тоқтаған жерден жалғастырыңыз</string>
+
+    <string name="layout_edit_pause_button">Орналасуды баптау</string>
+    <string name="layout_edit_title">Экран орналасуы</string>
+    <string name="layout_edit_subtitle">Блоктарды ыңғайлы ретпен сүйреңіз</string>
+    <string name="layout_reset">Қалпына келтіру</string>
+    <string name="layout_done">Дайын</string>
+    <string name="layout_block_status">Күй: уақыт және қателер</string>
+    <string name="layout_block_grid">Ойын тақтасы</string>
+    <string name="layout_block_number_pad">Сандар тақтасы</string>
+    <string name="layout_block_actions">Әрекет түймелері</string>
 </resources>

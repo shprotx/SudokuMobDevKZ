@@ -17,10 +17,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Rect
-import androidx.compose.ui.layout.boundsInWindow
-import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.res.stringResource
-import ru.shprot.sudokumobdevkz.R
+import ru.shprot.sudokumobdevkz.core.base.domain.model.GameBlockId
 import ru.shprot.sudokumobdevkz.core.base.presentation.util.deviceFitsTwoRowInPortrait
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameUIEvent
@@ -39,6 +36,8 @@ internal fun GamePortraitContent(
         modifier = Modifier
             .fillMaxSize()
             .background(AppTheme.colors.background)
+            .navigationBarsPadding()
+            .padding(bottom = AppTheme.paddings.medium)
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = null,
@@ -59,39 +58,29 @@ internal fun GamePortraitContent(
             onSettingsClick = { onEvent(GameUIEvent.SettingsClicked) },
         )
 
-        WeightSpacer()
+        if (uiState.isLayoutEditMode) {
+            LayoutEditContent(
+                modifier = Modifier,
+                blockOrder = uiState.blockOrder,
+                onBlockMoved = { from, to -> onEvent(GameUIEvent.BlockMoved(from, to)) },
+                onReset = { onEvent(GameUIEvent.LayoutResetClicked) },
+                onDone = { onEvent(GameUIEvent.LayoutEditDone) },
+            )
+        } else {
+            uiState.blockOrder.forEachIndexed { index, blockId ->
+                if (uiState.blockOrder.getOrNull(index - 1) != GameBlockId.STATUS_BAR) {
+                    WeightSpacer()
+                }
 
-        GameStatusBar(
-            modifier = Modifier,
-            difficultyLabel = stringResource(uiState.difficulty.titleRes),
-            errors = uiState.errors,
-            maxErrors = uiState.maxErrors,
-            lives = uiState.maxErrors - uiState.errors,
-            timer = uiState.timer,
-        )
-
-        SudokuGrid(
-            modifier = Modifier
-                .padding(
-                    top = AppTheme.paddings.default,
-                    start = AppTheme.paddings.medium,
-                    end = AppTheme.paddings.medium,
+                GameBlockContent(
+                    blockId = blockId,
+                    uiState = uiState,
+                    useCompactPad = useCompactPad,
+                    onGridPositioned = { gridBounds = it },
+                    onEvent = onEvent,
                 )
-                .onGloballyPositioned { coords ->
-                    gridBounds = coords.boundsInWindow()
-                },
-            cells = uiState.cells,
-            selectedRow = uiState.selectedRow,
-            selectedCol = uiState.selectedCol,
-            isPaused = uiState.isPaused,
-            highlightedNumber = uiState.highlightedNumber,
-            onCellClick = { row, col ->
-                onEvent(GameUIEvent.CellClicked(row, col))
-            },
-            onCellLongClick = { row, col ->
-                onEvent(GameUIEvent.CellLongPressed(row, col))
-            },
-        )
+            }
+        }
 
         if (uiState.draftPopupVisible && uiState.draftPopupRow in 0..8 && uiState.draftPopupCol in 0..8) {
             DraftNotesPopup(
@@ -103,41 +92,6 @@ internal fun GamePortraitContent(
                 onDismiss = { onEvent(GameUIEvent.DismissDraftPopup) },
             )
         }
-
-        WeightSpacer()
-
-        if (useCompactPad) {
-            NumberPadTwoRow(
-                modifier = Modifier.padding(horizontal = AppTheme.paddings.medium),
-                availableNumbers = uiState.availableNumbers,
-                isNotesMode = uiState.isNotesEnabled,
-                onNumberClick = { onEvent(GameUIEvent.NumberClicked(it)) },
-            )
-        } else {
-            NumberPanel(
-                modifier = Modifier.padding(horizontal = AppTheme.paddings.medium),
-                availableNumbers = uiState.availableNumbers,
-                isNotesMode = uiState.isNotesEnabled,
-                onNumberClick = { onEvent(GameUIEvent.NumberClicked(it)) },
-            )
-        }
-
-        WeightSpacer()
-
-        GameActionsBar(
-            modifier = Modifier
-                .navigationBarsPadding()
-                .padding(horizontal = if (useCompactPad) AppTheme.paddings.medium else AppTheme.paddings.large)
-                .padding(bottom = AppTheme.paddings.medium),
-            isNotesEnabled = uiState.isNotesEnabled,
-            hintsRemaining = uiState.hintsRemaining,
-            isHintModeActive = uiState.isHintModeActive,
-            stretched = useCompactPad,
-            onUndoClick = { onEvent(GameUIEvent.UndoClicked) },
-            onEraseClick = { onEvent(GameUIEvent.EraseClicked) },
-            onNotesClick = { onEvent(GameUIEvent.NotesToggled) },
-            onHintClick = { onEvent(GameUIEvent.HintClicked) },
-        )
     }
 }
 

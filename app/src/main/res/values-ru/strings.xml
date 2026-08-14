@@ -384,4 +384,14 @@
     <string name="notification_reengagement_text">Возвращайтесь — быстрая головоломка уже ждёт</string>
     <string name="notification_game_resume_title">Незавершённая головоломка</string>
     <string name="notification_game_resume_text">У вас есть незавершённая партия — продолжите с того места, где остановились</string>
+
+    <string name="layout_edit_pause_button">Настроить раскладку</string>
+    <string name="layout_edit_title">Раскладка экрана</string>
+    <string name="layout_edit_subtitle">Перетащите блоки в удобном порядке</string>
+    <string name="layout_reset">Сбросить</string>
+    <string name="layout_done">Готово</string>
+    <string name="layout_block_status">Статус: время и ошибки</string>
+    <string name="layout_block_grid">Игровое поле</string>
+    <string name="layout_block_number_pad">Панель цифр</string>
+    <string name="layout_block_actions">Кнопки действий</string>
 </resources>

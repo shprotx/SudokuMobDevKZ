@@ -16,6 +16,7 @@ data class AppSettings(
     val hintMode: HintMode = HintMode.SINGLE_SHOT,
     val showNameOnLeaderboard: Boolean = false,
     val notificationsEnabled: Boolean = true,
+    val gameBlockOrder: List<GameBlockId> = GameBlockId.DEFAULT_ORDER,
 ) {
     val isStandardMode: Boolean get() = checkErrors && !unlimitedErrors && !unlimitedHints
 }

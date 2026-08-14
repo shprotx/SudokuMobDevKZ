@@ -27,10 +27,15 @@ sealed interface GameUIEvent : UIEvent {
     data object TimerSuspend : GameUIEvent
     data object TimerResume : GameUIEvent
 
+    data object LayoutEditClicked : GameUIEvent
+    data object LayoutEditDone : GameUIEvent
+    data object LayoutResetClicked : GameUIEvent
+
     class CellClicked(val row: Int, val col: Int) : GameUIEvent
     class NumberClicked(val number: Int) : GameUIEvent
     class StartNewGame(val difficultyOrdinal: Int) : GameUIEvent
     class ThemeSelected(val themeId: String) : GameUIEvent
     class CellLongPressed(val row: Int, val col: Int) : GameUIEvent
     class DraftNoteToggled(val number: Int) : GameUIEvent
+    class BlockMoved(val from: Int, val to: Int) : GameUIEvent
 }

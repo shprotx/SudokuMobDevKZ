@@ -40,6 +40,7 @@ fun PauseDialog(
     maxErrors: Int,
     onResume: () -> Unit,
     onRestart: () -> Unit,
+    onLayoutEdit: () -> Unit,
     onExit: () -> Unit,
 ) {
 
@@ -137,6 +138,12 @@ fun PauseDialog(
                     modifier = Modifier.padding(top = AppTheme.paddings.default),
                     text = stringResource(R.string.restart),
                     onClick = onRestart,
+                )
+
+                ButtonOutlined(
+                    modifier = Modifier.padding(top = AppTheme.paddings.default),
+                    text = stringResource(R.string.layout_edit_pause_button),
+                    onClick = onLayoutEdit,
                 )
 
                 ButtonText(
