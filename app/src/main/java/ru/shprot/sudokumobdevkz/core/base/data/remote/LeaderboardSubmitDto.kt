@@ -10,4 +10,5 @@ data class LeaderboardSubmitDto(
     val avatarUrl: String?,
     val scoreDelta: Long,
     val gameContext: GameContextDto? = null,
+    val achievementsCount: Int? = null,
 )

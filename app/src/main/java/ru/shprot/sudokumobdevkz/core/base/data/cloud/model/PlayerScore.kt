@@ -6,4 +6,5 @@ data class PlayerScore(
     val displayScore: String,
     val displayName: String,
     val avatarUrl: String?,
+    val achievementsCount: Int? = null,
 )
