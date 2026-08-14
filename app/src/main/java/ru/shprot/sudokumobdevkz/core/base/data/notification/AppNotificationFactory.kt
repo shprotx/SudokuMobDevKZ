@@ -47,16 +47,18 @@ class AppNotificationFactory @Inject constructor(
         return if (variant.streak > 0) String.format(template, variant.streak) else template
     }
 
-    private fun dailyReminderText(variant: NotificationContentVariant.DailyReminder): String =
-        if (variant.streak > 0) {
-            context.getString(R.string.notification_daily_challenge_text_streak, variant.streak)
-        } else {
-            context.getString(R.string.notification_daily_challenge_text)
-        }
+    private fun dailyReminderText(variant: NotificationContentVariant.DailyReminder): String {
+        val templates = context.resources.getStringArray(R.array.notification_daily_texts_streak)
+        return String.format(templates[variant.dayIndex.mod(templates.size)], variant.streak)
+    }
 
     private fun gameResumeText(variant: NotificationContentVariant.GameResume): String {
         val difficulty = Difficulty.fromOrdinal(variant.difficultyOrdinal)
-        return context.getString(R.string.notification_game_resume_text, context.getString(difficulty.titleRes))
+        val templates = context.resources.getStringArray(R.array.notification_resume_texts)
+        return String.format(
+            templates[variant.dayIndex.mod(templates.size)],
+            context.getString(difficulty.titleRes),
+        )
     }
 
     private fun contentIntentFor(type: NotificationType): PendingIntent {

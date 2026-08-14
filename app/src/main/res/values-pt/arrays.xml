@@ -13,4 +13,15 @@
         <item>%1$d dias seguidos! Continue a sequência hoje.</item>
     </string-array>
 
+    <string-array name="notification_daily_texts_streak">
+        <item>O desafio de hoje ainda não foi resolvido — sua sequência de %1$d dias está em jogo.</item>
+        <item>Uma sequência de %1$d dias merece mais um dia. O desafio leva só alguns minutos.</item>
+        <item>Não deixe %1$d dias de desafios terminarem hoje — o quebra-cabeça ainda está aberto.</item>
+    </string-array>
+
+    <string-array name="notification_resume_texts">
+        <item>Você tem um jogo pausado (%1$s). Vai terminar?</item>
+        <item>Um quebra-cabeça %1$s inacabado espera por você. Alguns movimentos e pronto.</item>
+        <item>Você estava quase lá — seu jogo (%1$s) não foi concluído.</item>
+    </string-array>
 </resources>

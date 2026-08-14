@@ -211,12 +211,9 @@
     <string name="notification_channel_game_resume_name">Незавершена партія</string>
     <string name="notification_channel_game_resume_description">Нагадування про незавершену партію</string>
     <string name="notification_daily_challenge_title">Сьогоднішній щоденний виклик готовий</string>
-    <string name="notification_daily_challenge_text">Розв\'яжіть сьогоднішню головоломку, щоб не втратити серію</string>
-    <string name="notification_daily_challenge_text_streak">Щоденний виклик ще не пройдено! Серія: %1$d днів.</string>
     <string name="notification_reengagement_title">Скучили за судоку?</string>
     <string name="notification_reengagement_text">Повертайтесь на швидку головоломку — ваше поле чекає</string>
     <string name="notification_game_resume_title">Незавершена головоломка</string>
-    <string name="notification_game_resume_text">У вас є партія на паузі (рівень: %1$s). Завершите?</string>
 
     <string name="layout_edit_subtitle">Перетягніть блоки. Торкніться статусу чи кнопок, щоб упорядкувати їх вміст</string>
     <string name="layout_reset">Скинути</string>

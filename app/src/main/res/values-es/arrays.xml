@@ -13,4 +13,15 @@
         <item>¡%1$d días seguidos! Sigue la racha hoy.</item>
     </string-array>
 
+    <string-array name="notification_daily_texts_streak">
+        <item>El reto diario de hoy sigue sin resolver — tu racha de %1$d días está en juego.</item>
+        <item>Una racha de %1$d días merece un día más. El reto diario toma solo unos minutos.</item>
+        <item>No dejes que %1$d días de retos terminen hoy — el puzle sigue abierto.</item>
+    </string-array>
+
+    <string-array name="notification_resume_texts">
+        <item>Tienes una partida en pausa (%1$s). ¿La terminas?</item>
+        <item>Un puzle %1$s sin terminar te espera. Unos movimientos y listo.</item>
+        <item>Estabas muy cerca — tu partida (%1$s) no está terminada.</item>
+    </string-array>
 </resources>

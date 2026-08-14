@@ -7,6 +7,7 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
+import java.time.LocalDate
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.SavedGameDao
 import ru.shprot.sudokumobdevkz.core.base.data.notification.AppNotificationFactory
 import ru.shprot.sudokumobdevkz.core.base.data.notification.NotificationClock
@@ -84,7 +85,10 @@ class ResumeGameWorker @AssistedInject constructor(
 
     private fun showNotification(difficultyOrdinal: Int) {
         try {
-            val variant = NotificationContentVariant.GameResume(difficultyOrdinal = difficultyOrdinal)
+            val variant = NotificationContentVariant.GameResume(
+                difficultyOrdinal = difficultyOrdinal,
+                dayIndex = LocalDate.now().dayOfYear,
+            )
             val notification = notificationFactory.build(NotificationType.GAME_RESUME, variant)
             NotificationManagerCompat.from(applicationContext)
                 .notify(NotificationType.GAME_RESUME.notificationId, notification)

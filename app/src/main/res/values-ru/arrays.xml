@@ -13,4 +13,15 @@
         <item>%1$d дней подряд! Не останавливайся — продолжи сегодня.</item>
     </string-array>
 
+    <string-array name="notification_daily_texts_streak">
+        <item>Сегодняшний дейлик ещё не решён — серия %1$d дней на кону.</item>
+        <item>Серия из %1$d дней заслуживает продолжения. Дейлик — это пара минут.</item>
+        <item>Не дай %1$d дням дейликов оборваться — сегодняшний ещё открыт.</item>
+    </string-array>
+
+    <string-array name="notification_resume_texts">
+        <item>Партия на паузе (%1$s). Дорешаешь?</item>
+        <item>Незаконченная партия ждёт: %1$s. Пара ходов — и готово.</item>
+        <item>Ты почти у цели — партия (%1$s) не завершена.</item>
+    </string-array>
 </resources>

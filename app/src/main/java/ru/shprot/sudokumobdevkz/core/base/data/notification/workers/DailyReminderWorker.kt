@@ -7,6 +7,7 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
+import java.time.LocalDate
 import ru.shprot.sudokumobdevkz.core.base.data.notification.AppNotificationFactory
 import ru.shprot.sudokumobdevkz.core.base.data.notification.NotificationClock
 import ru.shprot.sudokumobdevkz.core.base.data.notification.NotificationContentVariant
@@ -54,7 +55,10 @@ class DailyReminderWorker @AssistedInject constructor(
 
     private fun showNotification(streak: Int) {
         try {
-            val variant = NotificationContentVariant.DailyReminder(streak = streak)
+            val variant = NotificationContentVariant.DailyReminder(
+                streak = streak,
+                dayIndex = LocalDate.now().dayOfYear,
+            )
             val notification = notificationFactory.build(NotificationType.DAILY_CHALLENGE, variant)
             NotificationManagerCompat.from(applicationContext)
                 .notify(NotificationType.DAILY_CHALLENGE.notificationId, notification)

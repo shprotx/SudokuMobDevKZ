@@ -36,4 +36,15 @@
         <item>%1$d days strong! Keep the streak going today.</item>
     </string-array>
 
+    <string-array name="notification_daily_texts_streak">
+        <item>Today\'s daily isn\'t solved yet — your %1$d-day streak is on the line.</item>
+        <item>A %1$d-day streak deserves one more day. The daily takes just a few minutes.</item>
+        <item>Don\'t let %1$d days of dailies end today — the puzzle is still open.</item>
+    </string-array>
+
+    <string-array name="notification_resume_texts">
+        <item>You have a game on pause (%1$s). Finish it?</item>
+        <item>An unfinished %1$s puzzle is waiting. A few moves and it\'s done.</item>
+        <item>You were almost there — your %1$s game isn\'t finished yet.</item>
+    </string-array>
 </resources>

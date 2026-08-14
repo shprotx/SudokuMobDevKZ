@@ -13,4 +13,15 @@
         <item>%1$d днів поспіль! Продовжте серію сьогодні.</item>
     </string-array>
 
+    <string-array name="notification_daily_texts_streak">
+        <item>Сьогоднішній дейлік ще не розв\'язано — серія %1$d днів на кону.</item>
+        <item>Серія з %1$d днів заслуговує на продовження. Дейлік — це кілька хвилин.</item>
+        <item>Не дай %1$d дням дейліків обірватися — сьогоднішній ще відкритий.</item>
+    </string-array>
+
+    <string-array name="notification_resume_texts">
+        <item>Партія на паузі (%1$s). Дограєш?</item>
+        <item>Незавершена партія чекає: %1$s. Кілька ходів — і готово.</item>
+        <item>Ти майже біля мети — партія (%1$s) не завершена.</item>
+    </string-array>
 </resources>

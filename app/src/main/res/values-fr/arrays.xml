@@ -13,4 +13,15 @@
         <item>%1$d jours d\'affilée ! Continuez la série aujourd\'hui.</item>
     </string-array>
 
+    <string-array name="notification_daily_texts_streak">
+        <item>Le défi du jour n\'est pas encore résolu — votre série de %1$d jours est en jeu.</item>
+        <item>Une série de %1$d jours mérite un jour de plus. Le défi ne prend que quelques minutes.</item>
+        <item>Ne laissez pas %1$d jours de défis s\'arrêter aujourd\'hui — la grille est encore ouverte.</item>
+    </string-array>
+
+    <string-array name="notification_resume_texts">
+        <item>Vous avez une partie en pause (%1$s). Vous la terminez ?</item>
+        <item>Une grille %1$s inachevée vous attend. Quelques coups et c\'est fait.</item>
+        <item>Vous y étiez presque — votre partie (%1$s) n\'est pas terminée.</item>
+    </string-array>
 </resources>

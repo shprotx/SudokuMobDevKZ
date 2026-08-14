@@ -13,4 +13,15 @@
         <item>%1$d Tage in Folge! Setz die Serie heute fort.</item>
     </string-array>
 
+    <string-array name="notification_daily_texts_streak">
+        <item>Das heutige Daily ist noch offen — deine Serie von %1$d Tagen steht auf dem Spiel.</item>
+        <item>Eine Serie von %1$d Tagen verdient einen weiteren Tag. Das Daily dauert nur ein paar Minuten.</item>
+        <item>Lass %1$d Tage Daily-Serie nicht heute enden — das Rätsel ist noch offen.</item>
+    </string-array>
+
+    <string-array name="notification_resume_texts">
+        <item>Du hast ein pausiertes Spiel (%1$s). Machst du es fertig?</item>
+        <item>Ein unvollendetes %1$s-Rätsel wartet. Ein paar Züge und es ist geschafft.</item>
+        <item>Du warst fast am Ziel — dein %1$s-Spiel ist noch nicht beendet.</item>
+    </string-array>
 </resources>
