@@ -13,9 +13,11 @@ import ru.shprot.sudokumobdevkz.core.base.data.notification.NotificationClock
 import ru.shprot.sudokumobdevkz.core.base.data.notification.NotificationContentVariant
 import ru.shprot.sudokumobdevkz.core.base.data.notification.NotificationScheduler
 import ru.shprot.sudokumobdevkz.core.base.data.notification.NotificationType
+import ru.shprot.sudokumobdevkz.core.base.data.repository.DailyChallengeRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.INotificationHistoryRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.ISettingsRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.IVisitStreakRepository
+import ru.shprot.sudokumobdevkz.core.base.domain.notification.DailyReminderRules
 import ru.shprot.sudokumobdevkz.core.base.domain.notification.GameResumeRules
 
 @HiltWorker
@@ -25,6 +27,7 @@ class ResumeGameWorker @AssistedInject constructor(
     private val settingsRepository: ISettingsRepository,
     private val visitStreakRepository: IVisitStreakRepository,
     private val savedGameDao: SavedGameDao,
+    private val dailyChallengeRepository: DailyChallengeRepository,
     private val notificationHistoryRepository: INotificationHistoryRepository,
     private val notificationScheduler: NotificationScheduler,
     private val notificationFactory: AppNotificationFactory,
@@ -36,9 +39,18 @@ class ResumeGameWorker @AssistedInject constructor(
 
         val today = clock.today().toString()
         val savedGame = savedGameDao.get()
-        val visitedToday = visitStreakRepository.currentStreak().lastVisitDate == today
+        val streak = visitStreakRepository.currentStreak()
+        val visitedToday = streak.lastVisitDate == today
         val alreadyNotified = notificationHistoryRepository.lastGameResumeNotifiedTimestamp()
         val remainingCapSlots = notificationHistoryRepository.remainingCapSlots(today)
+
+        val challenge = dailyChallengeRepository.getTodayChallenge()
+        val dailyStreak = dailyChallengeRepository.getCurrentStreak()
+        val dailyReminderPending = DailyReminderRules.isEligibleIgnoringCap(
+            visitedToday = visitedToday,
+            isDailyChallengeCompleted = challenge.isCompleted,
+            currentStreak = dailyStreak,
+        )
 
         val decision = GameResumeRules.evaluate(
             hasSavedGame = savedGame != null,
@@ -46,14 +58,19 @@ class ResumeGameWorker @AssistedInject constructor(
             alreadyNotifiedTimestamp = alreadyNotified,
             difficultyOrdinal = savedGame?.difficulty ?: 0,
             visitedToday = visitedToday,
+            visitStreak = streak.currentStreak,
             remainingCapSlots = remainingCapSlots,
+            higherPriorityPending = dailyReminderPending,
         )
 
         when (decision) {
             is GameResumeRules.Decision.Send -> {
-                notificationHistoryRepository.consumeCapSlot(today)
-                savedGame?.timestamp?.let { timestamp -> notificationHistoryRepository.recordGameResumeNotified(timestamp) }
-                showNotification(decision.difficultyOrdinal)
+                if (notificationHistoryRepository.tryConsumeCapSlot(today)) {
+                    savedGame?.timestamp?.let { timestamp -> notificationHistoryRepository.recordGameResumeNotified(timestamp) }
+                    showNotification(decision.difficultyOrdinal)
+                } else {
+                    notificationScheduler.scheduleGameResumeReminder(delayHours = GameResumeRules.POSTPONE_HOURS)
+                }
             }
 
             is GameResumeRules.Decision.Postpone ->

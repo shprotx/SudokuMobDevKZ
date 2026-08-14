@@ -1,6 +1,8 @@
 package ru.shprot.sudokumobdevkz.core.base.domain.notification
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class GameResumeRulesTest {
@@ -13,7 +15,9 @@ class GameResumeRulesTest {
             alreadyNotifiedTimestamp = null,
             difficultyOrdinal = 0,
             visitedToday = false,
-            remainingCapSlots = 2,
+            visitStreak = 25,
+            remainingCapSlots = 1,
+            higherPriorityPending = false,
         )
 
         assertEquals(GameResumeRules.Decision.Skip, decision)
@@ -27,7 +31,9 @@ class GameResumeRulesTest {
             alreadyNotifiedTimestamp = null,
             difficultyOrdinal = 0,
             visitedToday = false,
-            remainingCapSlots = 2,
+            visitStreak = 25,
+            remainingCapSlots = 1,
+            higherPriorityPending = false,
         )
 
         assertEquals(GameResumeRules.Decision.Skip, decision)
@@ -41,7 +47,25 @@ class GameResumeRulesTest {
             alreadyNotifiedTimestamp = 1_000L,
             difficultyOrdinal = 1,
             visitedToday = false,
-            remainingCapSlots = 2,
+            visitStreak = 25,
+            remainingCapSlots = 1,
+            higherPriorityPending = false,
+        )
+
+        assertEquals(GameResumeRules.Decision.Skip, decision)
+    }
+
+    @Test
+    fun `skips when the visit streak is below the loyalty threshold`() {
+        val decision = GameResumeRules.evaluate(
+            hasSavedGame = true,
+            savedGameTimestamp = 1_000L,
+            alreadyNotifiedTimestamp = null,
+            difficultyOrdinal = 1,
+            visitedToday = false,
+            visitStreak = 19,
+            remainingCapSlots = 1,
+            higherPriorityPending = false,
         )
 
         assertEquals(GameResumeRules.Decision.Skip, decision)
@@ -55,7 +79,9 @@ class GameResumeRulesTest {
             alreadyNotifiedTimestamp = null,
             difficultyOrdinal = 1,
             visitedToday = true,
-            remainingCapSlots = 2,
+            visitStreak = 25,
+            remainingCapSlots = 1,
+            higherPriorityPending = false,
         )
 
         assertEquals(GameResumeRules.Decision.Postpone(afterHours = 24), decision)
@@ -69,7 +95,25 @@ class GameResumeRulesTest {
             alreadyNotifiedTimestamp = null,
             difficultyOrdinal = 1,
             visitedToday = false,
+            visitStreak = 25,
             remainingCapSlots = 0,
+            higherPriorityPending = false,
+        )
+
+        assertEquals(GameResumeRules.Decision.Postpone(afterHours = 24), decision)
+    }
+
+    @Test
+    fun `postpones by twenty four hours when the daily reminder has higher priority today`() {
+        val decision = GameResumeRules.evaluate(
+            hasSavedGame = true,
+            savedGameTimestamp = 1_000L,
+            alreadyNotifiedTimestamp = null,
+            difficultyOrdinal = 1,
+            visitedToday = false,
+            visitStreak = 25,
+            remainingCapSlots = 1,
+            higherPriorityPending = true,
         )
 
         assertEquals(GameResumeRules.Decision.Postpone(afterHours = 24), decision)
@@ -83,7 +127,9 @@ class GameResumeRulesTest {
             alreadyNotifiedTimestamp = null,
             difficultyOrdinal = 2,
             visitedToday = false,
+            visitStreak = 25,
             remainingCapSlots = 1,
+            higherPriorityPending = false,
         )
 
         assertEquals(GameResumeRules.Decision.Send(difficultyOrdinal = 2), decision)
@@ -97,9 +143,37 @@ class GameResumeRulesTest {
             alreadyNotifiedTimestamp = 1_000L,
             difficultyOrdinal = 0,
             visitedToday = false,
-            remainingCapSlots = 2,
+            visitStreak = 25,
+            remainingCapSlots = 1,
+            higherPriorityPending = false,
         )
 
         assertEquals(GameResumeRules.Decision.Send(difficultyOrdinal = 0), decision)
+    }
+
+    @Test
+    fun `isEligibleIgnoringCap is false below the loyalty threshold`() {
+        assertFalse(
+            GameResumeRules.isEligibleIgnoringCap(
+                hasSavedGame = true,
+                savedGameTimestamp = 1_000L,
+                alreadyNotifiedTimestamp = null,
+                visitedToday = false,
+                visitStreak = 5,
+            )
+        )
+    }
+
+    @Test
+    fun `isEligibleIgnoringCap is true for a loyal user with an unnotified saved game`() {
+        assertTrue(
+            GameResumeRules.isEligibleIgnoringCap(
+                hasSavedGame = true,
+                savedGameTimestamp = 1_000L,
+                alreadyNotifiedTimestamp = null,
+                visitedToday = false,
+                visitStreak = 20,
+            )
+        )
     }
 }

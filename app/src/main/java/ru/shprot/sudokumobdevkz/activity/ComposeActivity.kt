@@ -84,6 +84,7 @@ class ComposeActivity : ComponentActivity() {
                 WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_ALWAYS
         }
         val notificationDeepLinkRoute = deepLinkRouteForNotification(intent)
+        intent?.removeExtra(NotificationType.EXTRA_NOTIFICATION_TYPE)
         setContent {
             val settings by settingsRepository.settings.collectAsStateWithLifecycle(
                 initialValue = settingsRepository.currentSettings,

@@ -13,9 +13,19 @@ object DailyReminderRules {
         currentStreak: Int,
         remainingCapSlots: Int,
     ): Decision {
-        if (visitedToday) return Decision.Skip
-        if (isDailyChallengeCompleted) return Decision.Skip
+        if (!isEligibleIgnoringCap(visitedToday, isDailyChallengeCompleted, currentStreak)) return Decision.Skip
         if (remainingCapSlots <= 0) return Decision.Skip
         return Decision.Send(streak = currentStreak)
+    }
+
+    fun isEligibleIgnoringCap(
+        visitedToday: Boolean,
+        isDailyChallengeCompleted: Boolean,
+        currentStreak: Int,
+    ): Boolean {
+        if (visitedToday) return false
+        if (isDailyChallengeCompleted) return false
+        if (currentStreak < LoyaltyGate.STREAK_THRESHOLD) return false
+        return true
     }
 }

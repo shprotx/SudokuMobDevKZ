@@ -28,13 +28,22 @@ class NotificationHistoryRepository @Inject constructor(
         )
     }
 
-    override suspend fun consumeCapSlot(today: String) {
+    override suspend fun tryConsumeCapSlot(today: String): Boolean {
+        var consumed = false
         context.notificationHistoryDataStore.edit { prefs ->
-            val isSameDay = prefs[Keys.CAP_DATE] == today
-            val nextCount = if (isSameDay) (prefs[Keys.CAP_COUNT] ?: 0) + 1 else 1
-            prefs[Keys.CAP_DATE] = today
-            prefs[Keys.CAP_COUNT] = nextCount
+            val remaining = NotificationRateLimiter.remainingSlots(
+                today = today,
+                lastSlotDate = prefs[Keys.CAP_DATE],
+                slotsUsedOnLastDate = prefs[Keys.CAP_COUNT] ?: 0,
+            )
+            consumed = remaining > 0
+            if (consumed) {
+                val isSameDay = prefs[Keys.CAP_DATE] == today
+                prefs[Keys.CAP_DATE] = today
+                prefs[Keys.CAP_COUNT] = if (isSameDay) (prefs[Keys.CAP_COUNT] ?: 0) + 1 else 1
+            }
         }
+        return consumed
     }
 
     override suspend fun reengagementConsecutiveCount(): Int =

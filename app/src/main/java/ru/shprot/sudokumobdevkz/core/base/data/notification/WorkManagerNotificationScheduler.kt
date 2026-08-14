@@ -1,26 +1,21 @@
 package ru.shprot.sudokumobdevkz.core.base.data.notification
 
-import ru.shprot.sudokumobdevkz.core.base.data.repository.ISettingsRepository
 import java.util.Calendar
 import javax.inject.Inject
 
 class WorkManagerNotificationScheduler @Inject constructor(
     private val workGateway: NotificationWorkGateway,
-    private val settingsRepository: ISettingsRepository,
 ) : NotificationScheduler {
 
     override fun scheduleDailyReminder(hour: Int, minute: Int) {
-        if (!settingsRepository.currentSettings.notificationsEnabled) return
         workGateway.enqueueDailyReminder(initialDelayMillisFor(daysAhead = 0, hour = hour, minute = minute))
     }
 
     override fun scheduleReengagement(afterDays: Int, hour: Int, minute: Int) {
-        if (!settingsRepository.currentSettings.notificationsEnabled) return
         workGateway.enqueueReengagement(initialDelayMillisFor(daysAhead = afterDays, hour = hour, minute = minute))
     }
 
     override fun scheduleGameResumeReminder(delayHours: Int) {
-        if (!settingsRepository.currentSettings.notificationsEnabled) return
         workGateway.enqueueGameResume(delayHours.toLong())
     }
 

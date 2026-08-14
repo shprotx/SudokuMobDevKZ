@@ -45,8 +45,7 @@ class DailyReminderWorker @AssistedInject constructor(
             remainingCapSlots = remainingCapSlots,
         )
 
-        if (decision is DailyReminderRules.Decision.Send) {
-            notificationHistoryRepository.consumeCapSlot(today)
+        if (decision is DailyReminderRules.Decision.Send && notificationHistoryRepository.tryConsumeCapSlot(today)) {
             showNotification(decision.streak)
         }
 

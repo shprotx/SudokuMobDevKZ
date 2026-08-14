@@ -316,7 +316,7 @@ class SettingsViewModel @Inject constructor(
 
     private fun enableNotifications() {
         settingsRepository.setNotificationsEnabled(true)
-        viewModelScope.launch(exceptionHandler) { reengagementScheduler.rescheduleAll() }
+        viewModelScope.launch(exceptionHandler) { reengagementScheduler.rescheduleAll(notificationsEnabled = true) }
     }
 
     private fun disableNotifications() {

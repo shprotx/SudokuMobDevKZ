@@ -15,7 +15,8 @@ class ReengagementRulesTest {
             lastVisitDate = null,
             currentStreak = 0,
             consecutiveSentCount = 0,
-            remainingCapSlots = 2,
+            remainingCapSlots = 1,
+            higherPriorityPending = false,
         )
 
         assertEquals(ReengagementRules.Decision.Send(streak = 0, consecutiveCount = 1, rescheduleAfterDays = 3), decision)
@@ -28,7 +29,8 @@ class ReengagementRulesTest {
             lastVisitDate = today.minusDays(3),
             currentStreak = 5,
             consecutiveSentCount = 0,
-            remainingCapSlots = 2,
+            remainingCapSlots = 1,
+            higherPriorityPending = false,
         )
 
         assertEquals(ReengagementRules.Decision.Send(streak = 5, consecutiveCount = 1, rescheduleAfterDays = 3), decision)
@@ -41,7 +43,8 @@ class ReengagementRulesTest {
             lastVisitDate = today,
             currentStreak = 0,
             consecutiveSentCount = 0,
-            remainingCapSlots = 2,
+            remainingCapSlots = 1,
+            higherPriorityPending = false,
         )
 
         assertEquals(ReengagementRules.Decision.Postpone(afterDays = 1), decision)
@@ -55,6 +58,21 @@ class ReengagementRulesTest {
             currentStreak = 0,
             consecutiveSentCount = 0,
             remainingCapSlots = 0,
+            higherPriorityPending = false,
+        )
+
+        assertEquals(ReengagementRules.Decision.Postpone(afterDays = 1), decision)
+    }
+
+    @Test
+    fun `postpones by one day when a higher priority scenario is pending today`() {
+        val decision = ReengagementRules.evaluate(
+            today = today,
+            lastVisitDate = today.minusDays(3),
+            currentStreak = 0,
+            consecutiveSentCount = 0,
+            remainingCapSlots = 1,
+            higherPriorityPending = true,
         )
 
         assertEquals(ReengagementRules.Decision.Postpone(afterDays = 1), decision)
@@ -67,7 +85,22 @@ class ReengagementRulesTest {
             lastVisitDate = today.minusDays(3),
             currentStreak = 0,
             consecutiveSentCount = 3,
-            remainingCapSlots = 2,
+            remainingCapSlots = 1,
+            higherPriorityPending = false,
+        )
+
+        assertEquals(ReengagementRules.Decision.Stop, decision)
+    }
+
+    @Test
+    fun `stops even when a higher priority scenario is pending once maxed out`() {
+        val decision = ReengagementRules.evaluate(
+            today = today,
+            lastVisitDate = today.minusDays(3),
+            currentStreak = 0,
+            consecutiveSentCount = 3,
+            remainingCapSlots = 1,
+            higherPriorityPending = true,
         )
 
         assertEquals(ReengagementRules.Decision.Stop, decision)
@@ -80,7 +113,8 @@ class ReengagementRulesTest {
             lastVisitDate = today.minusDays(3),
             currentStreak = 0,
             consecutiveSentCount = 1,
-            remainingCapSlots = 2,
+            remainingCapSlots = 1,
+            higherPriorityPending = false,
         )
 
         assertEquals(ReengagementRules.Decision.Send(streak = 0, consecutiveCount = 2, rescheduleAfterDays = 3), decision)
@@ -93,7 +127,8 @@ class ReengagementRulesTest {
             lastVisitDate = today.minusDays(3),
             currentStreak = 0,
             consecutiveSentCount = 2,
-            remainingCapSlots = 2,
+            remainingCapSlots = 1,
+            higherPriorityPending = false,
         )
 
         assertEquals(ReengagementRules.Decision.Send(streak = 0, consecutiveCount = 3, rescheduleAfterDays = null), decision)
@@ -106,7 +141,8 @@ class ReengagementRulesTest {
             lastVisitDate = today.minusDays(1),
             currentStreak = 0,
             consecutiveSentCount = 0,
-            remainingCapSlots = 2,
+            remainingCapSlots = 1,
+            higherPriorityPending = false,
         )
 
         assertEquals(ReengagementRules.Decision.Send(streak = 0, consecutiveCount = 1, rescheduleAfterDays = 3), decision)

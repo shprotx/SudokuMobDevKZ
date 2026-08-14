@@ -20,10 +20,11 @@ object ReengagementRules {
         currentStreak: Int,
         consecutiveSentCount: Int,
         remainingCapSlots: Int,
+        higherPriorityPending: Boolean,
     ): Decision {
         if (consecutiveSentCount >= MAX_CONSECUTIVE_SENDS) return Decision.Stop
         if (lastVisitDate == today) return Decision.Postpone(POSTPONE_DAYS)
-        if (remainingCapSlots <= 0) return Decision.Postpone(POSTPONE_DAYS)
+        if (remainingCapSlots <= 0 || higherPriorityPending) return Decision.Postpone(POSTPONE_DAYS)
 
         val nextConsecutiveCount = consecutiveSentCount + 1
         val rescheduleAfterDays = if (nextConsecutiveCount < MAX_CONSECUTIVE_SENDS) AFTER_DAYS else null

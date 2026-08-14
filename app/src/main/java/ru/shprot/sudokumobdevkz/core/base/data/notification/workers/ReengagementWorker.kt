@@ -10,12 +10,16 @@ import dagger.assisted.AssistedInject
 import ru.shprot.sudokumobdevkz.core.base.data.notification.AppNotificationFactory
 import ru.shprot.sudokumobdevkz.core.base.data.notification.NotificationClock
 import ru.shprot.sudokumobdevkz.core.base.data.notification.NotificationContentVariant
+import ru.shprot.sudokumobdevkz.core.base.data.database.dao.SavedGameDao
 import ru.shprot.sudokumobdevkz.core.base.data.notification.NotificationSchedule
 import ru.shprot.sudokumobdevkz.core.base.data.notification.NotificationScheduler
 import ru.shprot.sudokumobdevkz.core.base.data.notification.NotificationType
+import ru.shprot.sudokumobdevkz.core.base.data.repository.DailyChallengeRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.INotificationHistoryRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.ISettingsRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.IVisitStreakRepository
+import ru.shprot.sudokumobdevkz.core.base.domain.notification.DailyReminderRules
+import ru.shprot.sudokumobdevkz.core.base.domain.notification.GameResumeRules
 import ru.shprot.sudokumobdevkz.core.base.domain.notification.ReengagementRules
 import java.time.LocalDate
 
@@ -25,6 +29,8 @@ class ReengagementWorker @AssistedInject constructor(
     @Assisted params: WorkerParameters,
     private val settingsRepository: ISettingsRepository,
     private val visitStreakRepository: IVisitStreakRepository,
+    private val dailyChallengeRepository: DailyChallengeRepository,
+    private val savedGameDao: SavedGameDao,
     private val notificationHistoryRepository: INotificationHistoryRepository,
     private val notificationScheduler: NotificationScheduler,
     private val notificationFactory: AppNotificationFactory,
@@ -37,8 +43,27 @@ class ReengagementWorker @AssistedInject constructor(
         val today = clock.today()
         val streak = visitStreakRepository.currentStreak()
         val lastVisitDate = streak.lastVisitDate?.let(LocalDate::parse)
+        val visitedToday = lastVisitDate == today
         val consecutiveCount = notificationHistoryRepository.reengagementConsecutiveCount()
         val remainingCapSlots = notificationHistoryRepository.remainingCapSlots(today.toString())
+
+        val challenge = dailyChallengeRepository.getTodayChallenge()
+        val dailyStreak = dailyChallengeRepository.getCurrentStreak()
+        val dailyReminderPending = DailyReminderRules.isEligibleIgnoringCap(
+            visitedToday = visitedToday,
+            isDailyChallengeCompleted = challenge.isCompleted,
+            currentStreak = dailyStreak,
+        )
+
+        val savedGame = savedGameDao.get()
+        val alreadyNotifiedGameResume = notificationHistoryRepository.lastGameResumeNotifiedTimestamp()
+        val gameResumePending = GameResumeRules.isEligibleIgnoringCap(
+            hasSavedGame = savedGame != null,
+            savedGameTimestamp = savedGame?.timestamp,
+            alreadyNotifiedTimestamp = alreadyNotifiedGameResume,
+            visitedToday = visitedToday,
+            visitStreak = streak.currentStreak,
+        )
 
         val decision = ReengagementRules.evaluate(
             today = today,
@@ -46,14 +71,18 @@ class ReengagementWorker @AssistedInject constructor(
             currentStreak = streak.currentStreak,
             consecutiveSentCount = consecutiveCount,
             remainingCapSlots = remainingCapSlots,
+            higherPriorityPending = dailyReminderPending || gameResumePending,
         )
 
         when (decision) {
             is ReengagementRules.Decision.Send -> {
-                notificationHistoryRepository.consumeCapSlot(today.toString())
-                notificationHistoryRepository.recordReengagementSent(decision.consecutiveCount)
-                showNotification(decision.streak, decision.consecutiveCount)
-                decision.rescheduleAfterDays?.let { afterDays -> rescheduleReengagement(afterDays) }
+                if (notificationHistoryRepository.tryConsumeCapSlot(today.toString())) {
+                    notificationHistoryRepository.recordReengagementSent(decision.consecutiveCount)
+                    showNotification(decision.streak, decision.consecutiveCount)
+                    decision.rescheduleAfterDays?.let { afterDays -> rescheduleReengagement(afterDays) }
+                } else {
+                    rescheduleReengagement(ReengagementRules.POSTPONE_DAYS)
+                }
             }
 
             is ReengagementRules.Decision.Postpone ->

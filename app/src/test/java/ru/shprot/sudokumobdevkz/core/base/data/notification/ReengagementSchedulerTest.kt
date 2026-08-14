@@ -101,6 +101,42 @@ class ReengagementSchedulerTest {
 
         assertEquals(1, notificationScheduler.gameResumeCalls.size)
     }
+
+    @Test
+    fun `rescheduleAll uses the explicit enabled flag instead of the possibly stale repository value`() = runTest {
+        settingsRepository.setNotificationsEnabled(false)
+
+        scheduler.rescheduleAll(notificationsEnabled = true)
+
+        assertEquals(1, notificationScheduler.reengagementCalls.size)
+        assertEquals(1, notificationScheduler.dailyReminderCalls.size)
+    }
+
+    @Test
+    fun `rescheduleAll with an explicit false flag cancels and schedules nothing`() = runTest {
+        scheduler.rescheduleAll(notificationsEnabled = false)
+
+        assertTrue(notificationScheduler.cancelAllCalled)
+        assertTrue(notificationScheduler.reengagementCalls.isEmpty())
+        assertTrue(notificationScheduler.dailyReminderCalls.isEmpty())
+    }
+
+    @Test
+    fun `scheduleGameResumeAfterSave schedules a fresh reminder when notifications are enabled`() = runTest {
+        scheduler.scheduleGameResumeAfterSave()
+
+        assertEquals(1, notificationScheduler.gameResumeCalls.size)
+        assertEquals(24, notificationScheduler.gameResumeCalls.first())
+    }
+
+    @Test
+    fun `scheduleGameResumeAfterSave does nothing when notifications are disabled`() = runTest {
+        settingsRepository.setNotificationsEnabled(false)
+
+        scheduler.scheduleGameResumeAfterSave()
+
+        assertTrue(notificationScheduler.gameResumeCalls.isEmpty())
+    }
 }
 
 private class FakeNotificationScheduler : NotificationScheduler {
@@ -165,8 +201,10 @@ private class FakeNotificationHistoryRepository : INotificationHistoryRepository
 
     override suspend fun remainingCapSlots(today: String): Int = remainingSlots
 
-    override suspend fun consumeCapSlot(today: String) {
-        remainingSlots = (remainingSlots - 1).coerceAtLeast(0)
+    override suspend fun tryConsumeCapSlot(today: String): Boolean {
+        if (remainingSlots <= 0) return false
+        remainingSlots -= 1
+        return true
     }
 
     override suspend fun reengagementConsecutiveCount(): Int = consecutiveCount

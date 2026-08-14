@@ -14,9 +14,11 @@ class ReengagementScheduler @Inject constructor(
     private val clock: NotificationClock,
 ) {
 
-    suspend fun rescheduleAll() {
+    suspend fun rescheduleAll(
+        notificationsEnabled: Boolean = settingsRepository.currentSettings.notificationsEnabled,
+    ) {
         notificationScheduler.cancelAll()
-        if (!settingsRepository.currentSettings.notificationsEnabled) return
+        if (!notificationsEnabled) return
 
         notificationHistoryRepository.resetReengagementConsecutiveCount()
         notificationScheduler.scheduleReengagement(
@@ -29,6 +31,11 @@ class ReengagementScheduler @Inject constructor(
             minute = NotificationSchedule.DAILY_REMINDER_MINUTE,
         )
         scheduleGameResumeIfNeeded()
+    }
+
+    suspend fun scheduleGameResumeAfterSave() {
+        if (!settingsRepository.currentSettings.notificationsEnabled) return
+        notificationScheduler.scheduleGameResumeReminder(delayHours = NotificationSchedule.GAME_RESUME_AFTER_HOURS)
     }
 
     private suspend fun scheduleGameResumeIfNeeded() {
