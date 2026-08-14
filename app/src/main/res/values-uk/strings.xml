@@ -217,13 +217,8 @@
     <string name="notification_game_resume_title">Незавершена головоломка</string>
     <string name="notification_game_resume_text">У вас є незавершена партія — продовжте з того місця, де зупинились</string>
 
-    <string name="layout_edit_pause_button">Налаштувати розкладку</string>
-    <string name="layout_edit_title">Розкладка екрана</string>
     <string name="layout_edit_subtitle">Перетягніть блоки у зручному порядку</string>
     <string name="layout_reset">Скинути</string>
-    <string name="layout_done">Готово</string>
-    <string name="layout_block_status">Статус: час і помилки</string>
-    <string name="layout_block_grid">Ігрове поле</string>
-    <string name="layout_block_number_pad">Панель цифр</string>
-    <string name="layout_block_actions">Кнопки дій</string>
+    <string name="layout_block_spacer">Проміжок</string>
+    <string name="layout_edit_title">Розкладка екрана</string>
 </resources>

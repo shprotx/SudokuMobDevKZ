@@ -392,13 +392,8 @@
     <string name="notification_game_resume_title">Unfinished puzzle</string>
     <string name="notification_game_resume_text">You still have a game in progress — pick up where you left off</string>
 
-    <string name="layout_edit_pause_button">Customize layout</string>
-    <string name="layout_edit_title">Screen layout</string>
     <string name="layout_edit_subtitle">Drag the blocks into the order you like</string>
     <string name="layout_reset">Reset</string>
-    <string name="layout_done">Done</string>
-    <string name="layout_block_status">Status: timer and errors</string>
-    <string name="layout_block_grid">Game board</string>
-    <string name="layout_block_number_pad">Number pad</string>
-    <string name="layout_block_actions">Action buttons</string>
+    <string name="layout_block_spacer">Spacer</string>
+    <string name="layout_edit_title">Screen layout</string>
 </resources>

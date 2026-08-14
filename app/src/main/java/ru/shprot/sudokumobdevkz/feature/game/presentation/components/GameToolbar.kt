@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Build
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Palette
 import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.Refresh
@@ -29,9 +31,11 @@ fun GameToolbar(
     modifier: Modifier,
     themePopupExpanded: Boolean,
     selectedThemeId: String,
+    isLayoutEditMode: Boolean,
     onBackClick: () -> Unit,
     onRestartClick: () -> Unit,
     onPauseClick: () -> Unit,
+    onLayoutEditClick: () -> Unit,
     onPaletteClick: () -> Unit,
     onThemeSelected: (String) -> Unit,
     onDismissThemePopup: () -> Unit,
@@ -77,6 +81,13 @@ fun GameToolbar(
             icon = Icons.Filled.Pause,
             contentDescription = stringResource(R.string.pause),
             onClick = onPauseClick,
+        )
+
+        ToolbarCircleButton(
+            modifier = Modifier,
+            icon = if (isLayoutEditMode) Icons.Filled.Check else Icons.Filled.Build,
+            contentDescription = stringResource(R.string.layout_edit_title),
+            onClick = onLayoutEditClick,
         )
 
         Box {

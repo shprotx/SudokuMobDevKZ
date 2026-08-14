@@ -86,5 +86,10 @@ internal fun GameBlockContent(
             onNotesClick = { onEvent(GameUIEvent.NotesToggled) },
             onHintClick = { onEvent(GameUIEvent.HintClicked) },
         )
+
+        GameBlockId.SPACER_1,
+        GameBlockId.SPACER_2,
+        GameBlockId.SPACER_3,
+        -> Unit
     }
 }

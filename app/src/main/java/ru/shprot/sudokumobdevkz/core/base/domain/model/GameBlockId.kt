@@ -5,10 +5,23 @@ enum class GameBlockId {
     GRID,
     NUMBER_PAD,
     ACTIONS_BAR,
+    SPACER_1,
+    SPACER_2,
+    SPACER_3,
     ;
 
+    val isSpacer: Boolean get() = this == SPACER_1 || this == SPACER_2 || this == SPACER_3
+
     companion object {
-        val DEFAULT_ORDER: List<GameBlockId> = listOf(STATUS_BAR, GRID, NUMBER_PAD, ACTIONS_BAR)
+        val DEFAULT_ORDER: List<GameBlockId> = listOf(
+            SPACER_1,
+            STATUS_BAR,
+            GRID,
+            SPACER_2,
+            NUMBER_PAD,
+            SPACER_3,
+            ACTIONS_BAR,
+        )
 
         fun parseOrder(raw: String?): List<GameBlockId> {
             if (raw.isNullOrBlank()) return DEFAULT_ORDER

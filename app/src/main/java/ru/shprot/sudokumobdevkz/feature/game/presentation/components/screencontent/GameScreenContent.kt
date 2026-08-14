@@ -64,9 +64,6 @@ fun GameScreenContent(
             onRestart = {
                 onEvent(GameUIEvent.ShowNewGameDialog)
             },
-            onLayoutEdit = {
-                onEvent(GameUIEvent.LayoutEditClicked)
-            },
             onExit = {
                 onEvent(GameUIEvent.ExitGame)
             },

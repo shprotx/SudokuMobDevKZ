@@ -28,7 +28,6 @@ sealed interface GameUIEvent : UIEvent {
     data object TimerResume : GameUIEvent
 
     data object LayoutEditClicked : GameUIEvent
-    data object LayoutEditDone : GameUIEvent
     data object LayoutResetClicked : GameUIEvent
 
     class CellClicked(val row: Int, val col: Int) : GameUIEvent

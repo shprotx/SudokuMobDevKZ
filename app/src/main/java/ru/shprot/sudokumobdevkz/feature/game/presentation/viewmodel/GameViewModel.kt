@@ -109,10 +109,7 @@ class GameViewModel @Inject constructor(
                 setState(currentState.copy(showPauseDialog = false))
 
             GameUIEvent.LayoutEditClicked ->
-                setState(currentState.copy(showPauseDialog = false, isLayoutEditMode = true))
-
-            GameUIEvent.LayoutEditDone ->
-                handleLayoutEditDone()
+                handleLayoutEditToggle()
 
             GameUIEvent.LayoutResetClicked ->
                 handleBlockOrderChange(GameBlockId.DEFAULT_ORDER)
@@ -178,9 +175,14 @@ class GameViewModel @Inject constructor(
         setState(currentState.copy(showPauseDialog = true))
     }
 
-    private fun handleLayoutEditDone() {
-        setState(currentState.copy(isLayoutEditMode = false))
-        onResume()
+    private fun handleLayoutEditToggle() {
+        if (currentState.isLayoutEditMode) {
+            setState(currentState.copy(isLayoutEditMode = false))
+            onResume()
+        } else {
+            onPause()
+            setState(currentState.copy(isLayoutEditMode = true))
+        }
     }
 
     private fun handleBlockMoved(from: Int, to: Int) {

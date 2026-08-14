@@ -239,13 +239,8 @@
     <string name="notification_game_resume_title">Grille inachevée</string>
     <string name="notification_game_resume_text">Vous avez une partie en cours — reprenez là où vous vous étiez arrêté</string>
 
-    <string name="layout_edit_pause_button">Personnaliser la disposition</string>
-    <string name="layout_edit_title">Disposition de l\'écran</string>
     <string name="layout_edit_subtitle">Faites glisser les blocs dans l\'ordre souhaité</string>
     <string name="layout_reset">Réinitialiser</string>
-    <string name="layout_done">Terminé</string>
-    <string name="layout_block_status">Statut : temps et erreurs</string>
-    <string name="layout_block_grid">Plateau de jeu</string>
-    <string name="layout_block_number_pad">Pavé numérique</string>
-    <string name="layout_block_actions">Boutons d\'action</string>
+    <string name="layout_block_spacer">Espace</string>
+    <string name="layout_edit_title">Disposition de l\'écran</string>
 </resources>

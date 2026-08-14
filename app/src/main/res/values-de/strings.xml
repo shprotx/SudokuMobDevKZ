@@ -219,13 +219,8 @@
     <string name="notification_game_resume_title">Unbeendetes Rätsel</string>
     <string name="notification_game_resume_text">Du hast noch ein Spiel in Bearbeitung — mach weiter, wo du aufgehört hast</string>
 
-    <string name="layout_edit_pause_button">Layout anpassen</string>
-    <string name="layout_edit_title">Bildschirmlayout</string>
     <string name="layout_edit_subtitle">Ziehe die Blöcke in die gewünschte Reihenfolge</string>
     <string name="layout_reset">Zurücksetzen</string>
-    <string name="layout_done">Fertig</string>
-    <string name="layout_block_status">Status: Zeit und Fehler</string>
-    <string name="layout_block_grid">Spielfeld</string>
-    <string name="layout_block_number_pad">Zahlenfeld</string>
-    <string name="layout_block_actions">Aktionstasten</string>
+    <string name="layout_block_spacer">Abstand</string>
+    <string name="layout_edit_title">Bildschirmlayout</string>
 </resources>

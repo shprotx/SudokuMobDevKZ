@@ -237,13 +237,8 @@
     <string name="notification_game_resume_title">Puzle sin terminar</string>
     <string name="notification_game_resume_text">Todavía tienes una partida en curso — continúa donde la dejaste</string>
 
-    <string name="layout_edit_pause_button">Personalizar diseño</string>
-    <string name="layout_edit_title">Diseño de pantalla</string>
     <string name="layout_edit_subtitle">Arrastra los bloques en el orden que prefieras</string>
     <string name="layout_reset">Restablecer</string>
-    <string name="layout_done">Listo</string>
-    <string name="layout_block_status">Estado: tiempo y errores</string>
-    <string name="layout_block_grid">Tablero de juego</string>
-    <string name="layout_block_number_pad">Panel de números</string>
-    <string name="layout_block_actions">Botones de acción</string>
+    <string name="layout_block_spacer">Espacio</string>
+    <string name="layout_edit_title">Diseño de pantalla</string>
 </resources>
