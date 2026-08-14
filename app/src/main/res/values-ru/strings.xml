@@ -384,4 +384,9 @@
     <string name="notification_reengagement_text">Возвращайтесь — быстрая головоломка уже ждёт</string>
     <string name="notification_game_resume_title">Незавершённая головоломка</string>
     <string name="notification_game_resume_text">У вас есть незавершённая партия — продолжите с того места, где остановились</string>
+
+    <string name="layout_edit_subtitle">Перетащите блоки в удобном порядке</string>
+    <string name="layout_reset">Сбросить</string>
+    <string name="layout_block_spacer">Пробел</string>
+    <string name="layout_edit_title">Раскладка экрана</string>
 </resources>

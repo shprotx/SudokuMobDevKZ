@@ -218,4 +218,9 @@
     <string name="notification_reengagement_text">Komm zurück für ein schnelles Rätsel — dein Feld wartet</string>
     <string name="notification_game_resume_title">Unbeendetes Rätsel</string>
     <string name="notification_game_resume_text">Du hast noch ein Spiel in Bearbeitung — mach weiter, wo du aufgehört hast</string>
+
+    <string name="layout_edit_subtitle">Ziehe die Blöcke in die gewünschte Reihenfolge</string>
+    <string name="layout_reset">Zurücksetzen</string>
+    <string name="layout_block_spacer">Abstand</string>
+    <string name="layout_edit_title">Bildschirmlayout</string>
 </resources>

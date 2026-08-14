@@ -236,4 +236,9 @@
     <string name="notification_reengagement_text">Vuelve para un puzle rápido — tu tablero te espera</string>
     <string name="notification_game_resume_title">Puzle sin terminar</string>
     <string name="notification_game_resume_text">Todavía tienes una partida en curso — continúa donde la dejaste</string>
+
+    <string name="layout_edit_subtitle">Arrastra los bloques en el orden que prefieras</string>
+    <string name="layout_reset">Restablecer</string>
+    <string name="layout_block_spacer">Espacio</string>
+    <string name="layout_edit_title">Diseño de pantalla</string>
 </resources>

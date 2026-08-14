@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.shprot.sudokumobdevkz.R
+import ru.shprot.sudokumobdevkz.core.base.domain.model.GameBlockId
 import ru.shprot.sudokumobdevkz.core.base.domain.model.GameSaveData
 import ru.shprot.sudokumobdevkz.core.base.domain.model.HintMode
 import ru.shprot.sudokumobdevkz.core.base.data.util.DateTimeUtils
@@ -65,6 +66,7 @@ class GameViewModel @Inject constructor(
                     copy(
                         compactNumberPadPreference = settings.compactNumberPad,
                         selectedThemeId = settings.themeModeId,
+                        blockOrder = settings.gameBlockOrder,
                     )
                 }
             }
@@ -105,6 +107,15 @@ class GameViewModel @Inject constructor(
 
             GameUIEvent.DismissPauseDialog ->
                 setState(currentState.copy(showPauseDialog = false))
+
+            GameUIEvent.LayoutEditClicked ->
+                handleLayoutEditToggle()
+
+            GameUIEvent.LayoutResetClicked ->
+                handleBlockOrderChange(GameBlockId.DEFAULT_ORDER)
+
+            is GameUIEvent.BlockMoved ->
+                handleBlockMoved(event.from, event.to)
 
             GameUIEvent.ShowNewGameDialog ->
                 setState(currentState.copy(showNewGameDialog = true, showPauseDialog = false))
@@ -162,6 +173,28 @@ class GameViewModel @Inject constructor(
     private fun handleShowPauseDialog() {
         onPause()
         setState(currentState.copy(showPauseDialog = true))
+    }
+
+    private fun handleLayoutEditToggle() {
+        if (currentState.isLayoutEditMode) {
+            setState(currentState.copy(isLayoutEditMode = false))
+            onResume()
+        } else {
+            onPause()
+            setState(currentState.copy(isLayoutEditMode = true))
+        }
+    }
+
+    private fun handleBlockMoved(from: Int, to: Int) {
+        val order = currentState.blockOrder.toMutableList()
+        if (from !in order.indices || to !in order.indices) return
+        order.add(to, order.removeAt(from))
+        handleBlockOrderChange(order)
+    }
+
+    private fun handleBlockOrderChange(order: List<GameBlockId>) {
+        setState(currentState.copy(blockOrder = order))
+        settingsRepository.update { copy(gameBlockOrder = order) }
     }
 
     private fun handleExitGame() {

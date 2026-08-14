@@ -238,4 +238,9 @@
     <string name="notification_reengagement_text">Revenez pour une grille rapide — votre grille vous attend</string>
     <string name="notification_game_resume_title">Grille inachevée</string>
     <string name="notification_game_resume_text">Vous avez une partie en cours — reprenez là où vous vous étiez arrêté</string>
+
+    <string name="layout_edit_subtitle">Faites glisser les blocs dans l\'ordre souhaité</string>
+    <string name="layout_reset">Réinitialiser</string>
+    <string name="layout_block_spacer">Espace</string>
+    <string name="layout_edit_title">Disposition de l\'écran</string>
 </resources>
