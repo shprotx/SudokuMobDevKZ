@@ -11,6 +11,7 @@ import ru.shprot.sudokumobdevkz.core.base.data.cloud.CloudProgressMerger
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.SignInResult
 import ru.shprot.sudokumobdevkz.core.base.data.notification.NotificationPermissionChecker
 import ru.shprot.sudokumobdevkz.core.base.data.notification.NotificationScheduler
+import ru.shprot.sudokumobdevkz.core.base.data.notification.ReengagementScheduler
 import ru.shprot.sudokumobdevkz.core.base.domain.model.AppSettings
 import ru.shprot.sudokumobdevkz.core.base.data.repository.IThemeRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SettingsRepository
@@ -38,6 +39,7 @@ class SettingsViewModel @Inject constructor(
     private val themeRepository: IThemeRepository,
     private val notificationScheduler: NotificationScheduler,
     private val notificationPermissionChecker: NotificationPermissionChecker,
+    private val reengagementScheduler: ReengagementScheduler,
 ) : BaseViewModel<SettingsUIEvent, SettingsUIState, SettingsUIEffect>(
     SettingsUIState()
 ) {
@@ -314,6 +316,7 @@ class SettingsViewModel @Inject constructor(
 
     private fun enableNotifications() {
         settingsRepository.setNotificationsEnabled(true)
+        viewModelScope.launch(exceptionHandler) { reengagementScheduler.rescheduleAll() }
     }
 
     private fun disableNotifications() {
