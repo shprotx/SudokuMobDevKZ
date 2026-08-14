@@ -24,4 +24,16 @@
         <item>uk</item>
     </string-array>
 
+    <string-array name="notification_reengagement_texts_default">
+        <item>Miss Sudoku? A quick puzzle takes just 5 minutes.</item>
+        <item>An expert-level puzzle is waiting for you. Solve it today?</item>
+        <item>Your board is exactly how you left it — come finish it.</item>
+    </string-array>
+
+    <string-array name="notification_reengagement_texts_streak">
+        <item>Your %1$d-day streak is at risk! Come back and finish at least one game.</item>
+        <item>Don\'t lose your %1$d-day streak — a quick puzzle keeps it alive.</item>
+        <item>%1$d days strong! Keep the streak going today.</item>
+    </string-array>
+
 </resources>

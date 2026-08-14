@@ -380,10 +380,11 @@
     <string name="notification_channel_game_resume_description">Напоминания о незавершённой партии</string>
     <string name="notification_daily_challenge_title">Сегодняшняя ежедневная задача готова</string>
     <string name="notification_daily_challenge_text">Реши сегодняшнюю задачу, чтобы не потерять серию</string>
+    <string name="notification_daily_challenge_text_streak">Ежедневный челлендж ещё не пройден! Серия: %1$d дней.</string>
     <string name="notification_reengagement_title">Соскучились по судоку?</string>
     <string name="notification_reengagement_text">Возвращайтесь — быстрая головоломка уже ждёт</string>
     <string name="notification_game_resume_title">Незавершённая головоломка</string>
-    <string name="notification_game_resume_text">У вас есть незавершённая партия — продолжите с того места, где остановились</string>
+    <string name="notification_game_resume_text">У тебя на паузе партия (уровень: %1$s). Дорешишь?</string>
 
     <string name="layout_edit_subtitle">Перетащите блоки. Тап по статусу или кнопкам — настроить их состав</string>
     <string name="layout_reset">Сбросить</string>

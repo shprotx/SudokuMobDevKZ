@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="notification_reengagement_texts_default">
+        <item>Vermisst du Sudoku? Eine Runde dauert nur 5 Minuten.</item>
+        <item>Ein Rätsel für Experten wartet auf dich. Heute lösen?</item>
+        <item>Dein Feld ist noch genauso, wie du es verlassen hast — komm und mach weiter.</item>
+    </string-array>
+
+    <string-array name="notification_reengagement_texts_streak">
+        <item>Deine %1$d-Tage-Serie ist in Gefahr! Komm zurück und beende mindestens ein Spiel.</item>
+        <item>Verliere deine %1$d-Tage-Serie nicht — eine schnelle Runde hält sie am Leben.</item>
+        <item>%1$d Tage in Folge! Setz die Serie heute fort.</item>
+    </string-array>
+
+</resources>

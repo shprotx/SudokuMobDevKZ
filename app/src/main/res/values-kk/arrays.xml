@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="notification_reengagement_texts_default">
+        <item>Судокуды сағындыңыз ба? Жылдам партия небәрі 5 минут алады.</item>
+        <item>Сарапшы деңгейіндегі басқатырғыш сізді күтіп тұр. Бүгін шешесіз бе?</item>
+        <item>Тақтаңыз тоқтаған қалпында тұр — келіп аяқтаңыз.</item>
+    </string-array>
+
+    <string-array name="notification_reengagement_texts_streak">
+        <item>Сіздің %1$d күндік сериясыңыз қауіп төндіріп тұр! Қайта оралып, кемінде бір партияны аяқтаңыз.</item>
+        <item>%1$d күндік сериядан айырылмаңыз — жылдам партия оны сақтап қалады.</item>
+        <item>%1$d күн қатарынан! Бүгін серияны жалғастырыңыз.</item>
+    </string-array>
+
+</resources>

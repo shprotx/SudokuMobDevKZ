@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="notification_reengagement_texts_default">
+        <item>¿Echas de menos Sudoku? Una partida rápida son solo 5 minutos.</item>
+        <item>Un puzle de nivel experto te espera. ¿Lo resuelves hoy?</item>
+        <item>Tu tablero sigue tal como lo dejaste — ven a terminarlo.</item>
+    </string-array>
+
+    <string-array name="notification_reengagement_texts_streak">
+        <item>¡Tu racha de %1$d días está en peligro! Vuelve y termina al menos una partida.</item>
+        <item>No pierdas tu racha de %1$d días — una partida rápida la mantiene viva.</item>
+        <item>¡%1$d días seguidos! Sigue la racha hoy.</item>
+    </string-array>
+
+</resources>

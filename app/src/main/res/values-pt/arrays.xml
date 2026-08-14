@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="notification_reengagement_texts_default">
+        <item>Sente falta do Sudoku? Uma partida rápida leva só 5 minutos.</item>
+        <item>Um quebra-cabeça de nível especialista está esperando. Vai resolver hoje?</item>
+        <item>Seu tabuleiro está exatamente como você deixou — venha terminá-lo.</item>
+    </string-array>
+
+    <string-array name="notification_reengagement_texts_streak">
+        <item>Sua sequência de %1$d dias está em risco! Volte e termine pelo menos uma partida.</item>
+        <item>Não perca sua sequência de %1$d dias — uma partida rápida a mantém viva.</item>
+        <item>%1$d dias seguidos! Continue a sequência hoje.</item>
+    </string-array>
+
+</resources>

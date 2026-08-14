@@ -234,10 +234,11 @@
     <string name="notification_channel_game_resume_description">Rappels concernant une partie non terminée</string>
     <string name="notification_daily_challenge_title">Le défi du jour est prêt</string>
     <string name="notification_daily_challenge_text">Résolvez la grille du jour avant la fin de votre série</string>
+    <string name="notification_daily_challenge_text_streak">Le défi du jour n\'est pas encore terminé ! Série : %1$d jours.</string>
     <string name="notification_reengagement_title">Le Sudoku vous manque ?</string>
     <string name="notification_reengagement_text">Revenez pour une grille rapide — votre grille vous attend</string>
     <string name="notification_game_resume_title">Grille inachevée</string>
-    <string name="notification_game_resume_text">Vous avez une partie en cours — reprenez là où vous vous étiez arrêté</string>
+    <string name="notification_game_resume_text">Vous avez une partie en pause (difficulté : %1$s). La terminer ?</string>
 
     <string name="layout_edit_subtitle">Faites glisser les blocs. Touchez la ligne de statut ou d\'actions pour organiser ses éléments</string>
     <string name="layout_reset">Réinitialiser</string>

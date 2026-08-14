@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="notification_reengagement_texts_default">
+        <item>Скучаем! Партия Sudoku — это всего 5 минут.</item>
+        <item>Эксперт ждёт. Решишь сегодня?</item>
+        <item>Судоку без тебя скучает. Заходи на одну быструю партию.</item>
+    </string-array>
+
+    <string-array name="notification_reengagement_texts_streak">
+        <item>Твоя серия в %1$d дней в опасности. Заходи закончить хотя бы одну игру.</item>
+        <item>Не дай серии из %1$d дней прерваться — сыграй одну партию.</item>
+        <item>%1$d дней подряд! Не останавливайся — продолжи сегодня.</item>
+    </string-array>
+
+</resources>

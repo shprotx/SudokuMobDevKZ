@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="notification_reengagement_texts_default">
+        <item>Скучили за судоку? Швидка партія — це всього 5 хвилин.</item>
+        <item>Головоломка для експертів чекає на вас. Розв\'яжете сьогодні?</item>
+        <item>Ваше поле залишилося таким, яким ви його залишили — заверште гру.</item>
+    </string-array>
+
+    <string-array name="notification_reengagement_texts_streak">
+        <item>Ваша серія в %1$d днів під загрозою! Поверніться і заверште хоча б одну партію.</item>
+        <item>Не втрачайте серію з %1$d днів — швидка партія збереже її.</item>
+        <item>%1$d днів поспіль! Продовжте серію сьогодні.</item>
+    </string-array>
+
+</resources>

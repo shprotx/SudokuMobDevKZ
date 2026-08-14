@@ -378,10 +378,11 @@
     <string name="notification_channel_game_resume_description">Аяқталмаған партия туралы еске салулар</string>
     <string name="notification_daily_challenge_title">Бүгінгі күнделікті тапсырма дайын</string>
     <string name="notification_daily_challenge_text">Топтаманы үзбеу үшін бүгінгі басқатырғышты шешіңіз</string>
+    <string name="notification_daily_challenge_text_streak">Күнделікті сынақ әлі шешілмеді! Серия: %1$d күн.</string>
     <string name="notification_reengagement_title">Судокуды сағындыңыз ба?</string>
     <string name="notification_reengagement_text">Қайта оралыңыз — жылдам басқатырғыш сізді күтіп тұр</string>
     <string name="notification_game_resume_title">Аяқталмаған басқатырғыш</string>
-    <string name="notification_game_resume_text">Сізде аяқталмаған партия бар — тоқтаған жерден жалғастырыңыз</string>
+    <string name="notification_game_resume_text">Кідірткен партияңыз бар (деңгей: %1$s). Аяқтайсыз ба?</string>
 
     <string name="layout_edit_subtitle">Блоктарды сүйреңіз. Күй немесе түймелер жолын түртіп, ішін реттеңіз</string>
     <string name="layout_reset">Қалпына келтіру</string>
