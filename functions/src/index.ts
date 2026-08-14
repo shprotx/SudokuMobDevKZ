@@ -4,6 +4,7 @@ import { logger } from "firebase-functions/v2";
 import { initializeApp } from "firebase-admin/app";
 import { getDatabase } from "firebase-admin/database";
 import { createHash, timingSafeEqual } from "node:crypto";
+import { sanitizeAchievementsCount } from "./leaderboardValidation.js";
 
 initializeApp();
 
@@ -191,6 +192,7 @@ interface LeaderboardBody {
     avatarUrl?: unknown;
     scoreDelta?: unknown;
     gameContext?: unknown;
+    achievementsCount?: unknown;
 }
 
 interface GameContext {
@@ -214,6 +216,7 @@ type LeaderboardEntry = {
     displayName?: string;
     avatarUrl?: string | null;
     updatedAt?: number;
+    achievementsCount?: number;
 } | null;
 
 export const submitLeaderboard = onRequest(
@@ -273,6 +276,7 @@ export const submitLeaderboard = onRequest(
         const avatarUrl = typeof body.avatarUrl === "string" && body.avatarUrl.startsWith("http")
             ? body.avatarUrl
             : null;
+        const achievementsCount = sanitizeAchievementsCount(body.achievementsCount);
 
         const nodeKey = sha256hex(stableId);
         const ref = getDatabase().ref(`/leaderboard/${nodeKey}`);
@@ -281,11 +285,13 @@ export const submitLeaderboard = onRequest(
             await ref.transaction((current: LeaderboardEntry) => {
                 const prev = current ?? { score: 0 };
                 return {
+                    ...prev,
                     platform,
                     displayName,
                     avatarUrl,
                     score: (prev.score ?? 0) + clampedDelta,
                     updatedAt: Date.now(),
+                    ...(achievementsCount !== undefined ? { achievementsCount } : {}),
                 };
             });
             res.status(200).send("OK");
@@ -401,6 +407,7 @@ interface IdentityBody {
     platform?: unknown;
     displayName?: unknown;
     avatarUrl?: unknown;
+    achievementsCount?: unknown;
 }
 
 export const updateLeaderboardIdentity = onRequest(
@@ -436,6 +443,7 @@ export const updateLeaderboardIdentity = onRequest(
         const avatarUrl = typeof body.avatarUrl === "string" && body.avatarUrl.startsWith("http")
             ? body.avatarUrl
             : null;
+        const achievementsCount = sanitizeAchievementsCount(body.achievementsCount);
 
         const nodeKey = sha256hex(stableId);
         const ref = getDatabase().ref(`/leaderboard/${nodeKey}`);
@@ -452,6 +460,7 @@ export const updateLeaderboardIdentity = onRequest(
                         displayName,
                         avatarUrl,
                         updatedAt: Date.now(),
+                        ...(achievementsCount !== undefined ? { achievementsCount } : {}),
                     };
                 }
                 if (migratedScore <= 0) return current;
@@ -461,6 +470,7 @@ export const updateLeaderboardIdentity = onRequest(
                     avatarUrl,
                     score: migratedScore,
                     updatedAt: Date.now(),
+                    ...(achievementsCount !== undefined ? { achievementsCount } : {}),
                 };
             });
             res.status(200).send("OK");

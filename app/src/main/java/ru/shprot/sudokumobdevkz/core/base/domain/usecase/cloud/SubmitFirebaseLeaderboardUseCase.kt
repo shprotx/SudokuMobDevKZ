@@ -5,6 +5,7 @@ import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.SignInState
 import ru.shprot.sudokumobdevkz.core.base.data.remote.GameContextDto
 import ru.shprot.sudokumobdevkz.core.base.data.remote.LeaderboardCfApiHolder
 import ru.shprot.sudokumobdevkz.core.base.data.remote.LeaderboardSubmitDto
+import ru.shprot.sudokumobdevkz.core.base.data.repository.AchievementsRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SettingsRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.StableIdProvider
 import ru.shprot.sudokumobdevkz.core.base.domain.model.Difficulty
@@ -15,6 +16,7 @@ class SubmitFirebaseLeaderboardUseCase @Inject constructor(
     private val stableIdProvider: StableIdProvider,
     private val cloud: CloudGameServices,
     private val settingsRepository: SettingsRepository,
+    private val achievementsRepository: AchievementsRepository,
 ) {
 
     suspend operator fun invoke(
@@ -42,6 +44,8 @@ class SubmitFirebaseLeaderboardUseCase @Inject constructor(
             null
         }
 
+        val achievementsCount = runCatching { achievementsRepository.unlockedCount() }.getOrNull()
+
         val body = LeaderboardSubmitDto(
             stableId = stableIdProvider.current(),
             platform = PLATFORM,
@@ -55,6 +59,7 @@ class SubmitFirebaseLeaderboardUseCase @Inject constructor(
                 hintsUsed = hintsUsed,
                 isDaily = isDaily,
             ),
+            achievementsCount = achievementsCount,
         )
 
         runCatching { api.submit(body) }

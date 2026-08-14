@@ -4,7 +4,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.EmojiEvents
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -67,6 +71,24 @@ fun LeaderboardRowItem(
             overflow = TextOverflow.Ellipsis,
             fontWeight = if (row.isCurrentPlayer) FontWeight.SemiBold else FontWeight.Normal,
         )
+
+        if (row.achievementsCount != null) {
+            Icon(
+                modifier = Modifier
+                    .padding(end = AppTheme.paddings.small)
+                    .size(AppTheme.sizes.iconSmall),
+                imageVector = Icons.Filled.EmojiEvents,
+                contentDescription = null,
+                tint = AppTheme.colors.textSecondary,
+            )
+
+            Text(
+                modifier = Modifier.padding(end = AppTheme.paddings.default),
+                text = row.achievementsCount.toString(),
+                style = AppTheme.typography.body3,
+                color = AppTheme.colors.textSecondary,
+            )
+        }
 
         Text(
             text = row.displayScore,

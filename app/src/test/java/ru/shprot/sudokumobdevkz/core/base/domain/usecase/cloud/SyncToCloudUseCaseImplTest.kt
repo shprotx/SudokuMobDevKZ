@@ -131,6 +131,7 @@ internal class EmptyAchievementUnlockedDao : AchievementUnlockedDao {
     override fun observeAll(): Flow<List<AchievementUnlockedEntity>> = MutableStateFlow(emptyList())
     override suspend fun getAll(): List<AchievementUnlockedEntity> = emptyList()
     override suspend fun existsById(id: String): Boolean = false
+    override suspend fun countUnlocked(): Int = 0
     override suspend fun insert(entity: AchievementUnlockedEntity) = Unit
 }
 

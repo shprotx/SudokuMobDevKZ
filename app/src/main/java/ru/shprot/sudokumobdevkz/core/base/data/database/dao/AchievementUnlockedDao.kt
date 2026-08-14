@@ -19,6 +19,9 @@ interface AchievementUnlockedDao {
     @Query("SELECT EXISTS(SELECT 1 FROM achievement_unlocked_table WHERE id = :id)")
     suspend fun existsById(id: String): Boolean
 
+    @Query("SELECT COUNT(*) FROM achievement_unlocked_table")
+    suspend fun countUnlocked(): Int
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(entity: AchievementUnlockedEntity)
 }
