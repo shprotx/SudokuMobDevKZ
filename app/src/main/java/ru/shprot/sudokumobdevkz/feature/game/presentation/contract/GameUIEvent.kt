@@ -1,5 +1,6 @@
 package ru.shprot.sudokumobdevkz.feature.game.presentation.contract
 
+import ru.shprot.sudokumobdevkz.core.base.domain.model.GameBlockId
 import ru.shprot.sudokumobdevkz.core.base.presentation.contract.UIEvent
 
 sealed interface GameUIEvent : UIEvent {
@@ -37,4 +38,6 @@ sealed interface GameUIEvent : UIEvent {
     class CellLongPressed(val row: Int, val col: Int) : GameUIEvent
     class DraftNoteToggled(val number: Int) : GameUIEvent
     class BlockMoved(val from: Int, val to: Int) : GameUIEvent
+    class EditBlockTapped(val blockId: GameBlockId) : GameUIEvent
+    class InnerItemMoved(val blockId: GameBlockId, val from: Int, val to: Int) : GameUIEvent
 }

@@ -219,7 +219,7 @@
     <string name="notification_game_resume_title">Unbeendetes Rätsel</string>
     <string name="notification_game_resume_text">Du hast noch ein Spiel in Bearbeitung — mach weiter, wo du aufgehört hast</string>
 
-    <string name="layout_edit_subtitle">Ziehe die Blöcke in die gewünschte Reihenfolge</string>
+    <string name="layout_edit_subtitle">Blöcke ziehen. Status- oder Aktionszeile antippen, um deren Elemente zu ordnen</string>
     <string name="layout_reset">Zurücksetzen</string>
     <string name="layout_block_spacer">Abstand</string>
     <string name="layout_edit_title">Bildschirmlayout</string>

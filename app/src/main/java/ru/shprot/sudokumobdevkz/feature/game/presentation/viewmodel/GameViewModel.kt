@@ -11,8 +11,10 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.shprot.sudokumobdevkz.R
+import ru.shprot.sudokumobdevkz.core.base.domain.model.ActionButtonId
 import ru.shprot.sudokumobdevkz.core.base.domain.model.GameBlockId
 import ru.shprot.sudokumobdevkz.core.base.domain.model.GameSaveData
+import ru.shprot.sudokumobdevkz.core.base.domain.model.StatusItemId
 import ru.shprot.sudokumobdevkz.core.base.domain.model.HintMode
 import ru.shprot.sudokumobdevkz.core.base.data.util.DateTimeUtils
 import ru.shprot.sudokumobdevkz.core.base.data.util.safeRunCatching
@@ -67,6 +69,8 @@ class GameViewModel @Inject constructor(
                         compactNumberPadPreference = settings.compactNumberPad,
                         selectedThemeId = settings.themeModeId,
                         blockOrder = settings.gameBlockOrder,
+                        actionButtonOrder = settings.actionButtonOrder,
+                        statusItemOrder = settings.statusItemOrder,
                     )
                 }
             }
@@ -112,10 +116,16 @@ class GameViewModel @Inject constructor(
                 handleLayoutEditToggle()
 
             GameUIEvent.LayoutResetClicked ->
-                handleBlockOrderChange(GameBlockId.DEFAULT_ORDER)
+                handleLayoutReset()
 
             is GameUIEvent.BlockMoved ->
                 handleBlockMoved(event.from, event.to)
+
+            is GameUIEvent.EditBlockTapped ->
+                handleEditBlockTapped(event.blockId)
+
+            is GameUIEvent.InnerItemMoved ->
+                handleInnerItemMoved(event.blockId, event.from, event.to)
 
             GameUIEvent.ShowNewGameDialog ->
                 setState(currentState.copy(showNewGameDialog = true, showPauseDialog = false))
@@ -177,7 +187,7 @@ class GameViewModel @Inject constructor(
 
     private fun handleLayoutEditToggle() {
         if (currentState.isLayoutEditMode) {
-            setState(currentState.copy(isLayoutEditMode = false))
+            setState(currentState.copy(isLayoutEditMode = false, expandedEditBlock = null))
             onResume()
         } else {
             onPause()
@@ -185,16 +195,58 @@ class GameViewModel @Inject constructor(
         }
     }
 
+    private fun handleLayoutReset() {
+        setState(
+            currentState.copy(
+                blockOrder = GameBlockId.DEFAULT_ORDER,
+                actionButtonOrder = ActionButtonId.DEFAULT_ORDER,
+                statusItemOrder = StatusItemId.DEFAULT_ORDER,
+                expandedEditBlock = null,
+            ),
+        )
+        settingsRepository.update {
+            copy(
+                gameBlockOrder = GameBlockId.DEFAULT_ORDER,
+                actionButtonOrder = ActionButtonId.DEFAULT_ORDER,
+                statusItemOrder = StatusItemId.DEFAULT_ORDER,
+            )
+        }
+    }
+
     private fun handleBlockMoved(from: Int, to: Int) {
         val order = currentState.blockOrder.toMutableList()
         if (from !in order.indices || to !in order.indices) return
         order.add(to, order.removeAt(from))
-        handleBlockOrderChange(order)
-    }
-
-    private fun handleBlockOrderChange(order: List<GameBlockId>) {
         setState(currentState.copy(blockOrder = order))
         settingsRepository.update { copy(gameBlockOrder = order) }
+    }
+
+    private fun handleEditBlockTapped(blockId: GameBlockId) {
+        if (blockId != GameBlockId.ACTIONS_BAR && blockId != GameBlockId.STATUS_BAR) return
+        val expanded = if (currentState.expandedEditBlock == blockId) null else blockId
+        setState(currentState.copy(expandedEditBlock = expanded))
+    }
+
+    private fun handleInnerItemMoved(blockId: GameBlockId, from: Int, to: Int) {
+        when (blockId) {
+            GameBlockId.ACTIONS_BAR -> {
+                val order = currentState.actionButtonOrder.toMutableList()
+                if (from !in order.indices || to !in order.indices) return
+                order.add(to, order.removeAt(from))
+                setState(currentState.copy(actionButtonOrder = order))
+                settingsRepository.update { copy(actionButtonOrder = order) }
+            }
+
+            GameBlockId.STATUS_BAR -> {
+                val order = currentState.statusItemOrder.toMutableList()
+                if (from !in order.indices || to !in order.indices) return
+                order.add(to, order.removeAt(from))
+                setState(currentState.copy(statusItemOrder = order))
+                settingsRepository.update { copy(statusItemOrder = order) }
+            }
+
+            else -> Unit
+        }
     }
 
     private fun handleExitGame() {

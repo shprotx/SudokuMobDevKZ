@@ -383,7 +383,7 @@
     <string name="notification_game_resume_title">Аяқталмаған басқатырғыш</string>
     <string name="notification_game_resume_text">Сізде аяқталмаған партия бар — тоқтаған жерден жалғастырыңыз</string>
 
-    <string name="layout_edit_subtitle">Блоктарды ыңғайлы ретпен сүйреңіз</string>
+    <string name="layout_edit_subtitle">Блоктарды сүйреңіз. Күй немесе түймелер жолын түртіп, ішін реттеңіз</string>
     <string name="layout_reset">Қалпына келтіру</string>
     <string name="layout_block_spacer">Аралық</string>
     <string name="layout_edit_title">Экран орналасуы</string>

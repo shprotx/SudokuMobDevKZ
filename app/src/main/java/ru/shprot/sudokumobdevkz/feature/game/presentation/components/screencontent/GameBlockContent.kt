@@ -28,6 +28,7 @@ internal fun GameBlockContent(
     when (blockId) {
         GameBlockId.STATUS_BAR -> GameStatusBar(
             modifier = Modifier.padding(vertical = AppTheme.paddings.medium),
+            items = uiState.statusItemOrder,
             difficultyLabel = stringResource(uiState.difficulty.titleRes),
             errors = uiState.errors,
             maxErrors = uiState.maxErrors,
@@ -85,6 +86,7 @@ internal fun GameBlockContent(
                     horizontal = if (useCompactPad) AppTheme.paddings.medium else AppTheme.paddings.large,
                     vertical = if (useCompactPad) AppTheme.paddings.small else AppTheme.paddings.medium,
                 ),
+            order = uiState.actionButtonOrder,
             isNotesEnabled = uiState.isNotesEnabled,
             hintsRemaining = uiState.hintsRemaining,
             isHintModeActive = uiState.isHintModeActive,

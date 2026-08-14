@@ -219,7 +219,7 @@
     <string name="notification_game_resume_title">Quebra-cabeça não concluído</string>
     <string name="notification_game_resume_text">Você ainda tem uma partida em andamento — continue de onde parou</string>
 
-    <string name="layout_edit_subtitle">Arraste os blocos na ordem que preferir</string>
+    <string name="layout_edit_subtitle">Arraste os blocos. Toque na linha de status ou ações para organizar seus itens</string>
     <string name="layout_reset">Redefinir</string>
     <string name="layout_block_spacer">Espaço</string>
     <string name="layout_edit_title">Layout da tela</string>

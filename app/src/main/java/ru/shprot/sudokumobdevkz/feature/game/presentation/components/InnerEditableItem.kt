@@ -11,7 +11,6 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
@@ -22,62 +21,52 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.graphicsLayer
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 
-private const val WIGGLE_DEGREES = 0.4f
-private const val WIGGLE_DURATION_MS = 190
-private const val WIGGLE_PHASE_STEP_MS = 60
+private const val INNER_WIGGLE_DEGREES = 1.2f
+private const val INNER_WIGGLE_DURATION_MS = 160
+private const val INNER_WIGGLE_PHASE_STEP_MS = 45
 
 @Composable
-internal fun LayoutEditableElement(
+internal fun InnerEditableItem(
     modifier: Modifier,
     overlayModifier: Modifier,
     wiggleIndex: Int,
     isDragging: Boolean,
-    isExpanded: Boolean = false,
-    onTap: () -> Unit = {},
     content: @Composable () -> Unit,
 ) {
-    val transition = rememberInfiniteTransition(label = "layoutWiggle")
+    val transition = rememberInfiniteTransition(label = "innerWiggle")
     val angle by transition.animateFloat(
-        initialValue = -WIGGLE_DEGREES,
-        targetValue = WIGGLE_DEGREES,
+        initialValue = -INNER_WIGGLE_DEGREES,
+        targetValue = INNER_WIGGLE_DEGREES,
         animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = WIGGLE_DURATION_MS, easing = LinearEasing),
+            animation = tween(durationMillis = INNER_WIGGLE_DURATION_MS, easing = LinearEasing),
             repeatMode = RepeatMode.Reverse,
-            initialStartOffset = StartOffset(wiggleIndex * WIGGLE_PHASE_STEP_MS),
+            initialStartOffset = StartOffset(wiggleIndex * INNER_WIGGLE_PHASE_STEP_MS),
         ),
-        label = "layoutWiggleAngle",
+        label = "innerWiggleAngle",
     )
-    val borderColor = when {
-        isExpanded || isDragging -> AppTheme.colors.primary
-        else -> AppTheme.colors.textSecondary.copy(alpha = 0.4f)
-    }
+    val borderColor = if (isDragging) AppTheme.colors.primary else AppTheme.colors.textSecondary.copy(alpha = 0.4f)
 
     Box(
         modifier = modifier
-            .fillMaxWidth()
-            .graphicsLayer { rotationZ = if (isDragging || isExpanded) 0f else angle }
-            .clip(RoundedCornerShape(AppTheme.sizes.cornerRadiusMedium))
+            .graphicsLayer { rotationZ = if (isDragging) 0f else angle }
+            .clip(RoundedCornerShape(AppTheme.sizes.cornerRadiusSmall))
             .border(
                 width = AppTheme.sizes.dividerThickness,
                 color = borderColor,
-                shape = RoundedCornerShape(AppTheme.sizes.cornerRadiusMedium),
+                shape = RoundedCornerShape(AppTheme.sizes.cornerRadiusSmall),
             )
-            .padding(vertical = AppTheme.paddings.small),
+            .padding(AppTheme.paddings.small),
     ) {
         content()
 
-        if (!isExpanded) {
-            Box(
-                modifier = Modifier
-                    .matchParentSize()
-                    .then(overlayModifier)
-                    .clickable(
-                        interactionSource = remember { MutableInteractionSource() },
-                        indication = null,
-                    ) {
-                        onTap()
-                    },
-            )
-        }
+        Box(
+            modifier = Modifier
+                .matchParentSize()
+                .then(overlayModifier)
+                .clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = null,
+                ) {},
+        )
     }
 }

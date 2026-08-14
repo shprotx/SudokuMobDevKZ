@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import ru.shprot.sudokumobdevkz.R
+import ru.shprot.sudokumobdevkz.core.base.domain.model.StatusItemId
 import ru.shprot.sudokumobdevkz.core.base.domain.model.ThemeColors
 import ru.shprot.sudokumobdevkz.core.base.domain.model.toAppColors
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
@@ -35,6 +36,7 @@ internal fun PickerThemePreview(
         ) {
             GameStatusBar(
                 modifier = Modifier,
+                items = StatusItemId.DEFAULT_ORDER,
                 difficultyLabel = stringResource(R.string.difficulty_middle),
                 errors = PREVIEW_ERRORS,
                 maxErrors = PREVIEW_MAX_ERRORS,
