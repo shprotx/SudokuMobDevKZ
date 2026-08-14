@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import ru.shprot.sudokumobdevkz.core.base.data.StatisticSync
+import ru.shprot.sudokumobdevkz.core.base.data.notification.ReengagementScheduler
 import ru.shprot.sudokumobdevkz.core.base.data.repository.AchievementsRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.DailyChallengeRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.IVisitStreakRepository
@@ -27,6 +28,7 @@ class MenuViewModel @Inject constructor(
     private val statisticSync: StatisticSync,
     private val reviewRepository: ReviewRepository,
     private val shouldRequestReviewUseCase: ShouldRequestReviewUseCase,
+    private val reengagementScheduler: ReengagementScheduler,
 ) : BaseViewModel<MenuUIEvent, MenuUIState, MenuUIEffect>(MenuUIState()) {
 
     init {
@@ -103,6 +105,7 @@ class MenuViewModel @Inject constructor(
     private fun recordVisitAndCheckAchievements() {
         viewModelScope.launch(exceptionHandler) {
             visitStreakRepository.recordVisit()
+            reengagementScheduler.rescheduleAll()
             val unlocked = achievementsRepository.checkAndUnlock(emitToFlow = false)
             when {
                 unlocked.isEmpty() -> Unit

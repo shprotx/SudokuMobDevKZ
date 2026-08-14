@@ -12,6 +12,7 @@ import kotlinx.serialization.json.Json
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.GameHistoryDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.SavedGameDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.StatisticDao
+import ru.shprot.sudokumobdevkz.core.base.data.notification.ReengagementScheduler
 import ru.shprot.sudokumobdevkz.core.base.domain.usecase.cloud.RatingCalculator
 import ru.shprot.sudokumobdevkz.core.base.domain.usecase.cloud.SubmitFirebaseLeaderboardUseCase
 import ru.shprot.sudokumobdevkz.core.base.domain.usecase.cloud.SubmitOverallScoreUseCase
@@ -46,6 +47,7 @@ class SudokuRepository @Inject constructor(
     private val submitFirebaseLeaderboard: SubmitFirebaseLeaderboardUseCase,
     private val leaderboardRepository: LeaderboardRepository,
     private val stableIdProvider: StableIdProvider,
+    private val reengagementScheduler: ReengagementScheduler,
 ) {
 
     private val syncScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
@@ -218,6 +220,7 @@ class SudokuRepository @Inject constructor(
             )
         )
         syncToCloud.trigger()
+        reengagementScheduler.scheduleGameResumeAfterSave()
     }
 
     suspend fun loadSavedGame(): GameSaveData? {

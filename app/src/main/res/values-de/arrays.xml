@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="notification_reengagement_texts_default">
+        <item>Vermisst du Sudoku? Eine Runde dauert nur 5 Minuten.</item>
+        <item>Ein Rätsel für Experten wartet auf dich. Heute lösen?</item>
+        <item>Dein Feld ist noch genauso, wie du es verlassen hast — komm und mach weiter.</item>
+    </string-array>
+
+    <string-array name="notification_reengagement_texts_streak">
+        <item>Deine %1$d-Tage-Serie ist in Gefahr! Komm zurück und beende mindestens ein Spiel.</item>
+        <item>Verliere deine %1$d-Tage-Serie nicht — eine schnelle Runde hält sie am Leben.</item>
+        <item>%1$d Tage in Folge! Setz die Serie heute fort.</item>
+    </string-array>
+
+    <string-array name="notification_daily_texts_streak">
+        <item>Das heutige Daily ist noch offen — deine Serie von %1$d Tagen steht auf dem Spiel.</item>
+        <item>Eine Serie von %1$d Tagen verdient einen weiteren Tag. Das Daily dauert nur ein paar Minuten.</item>
+        <item>Lass %1$d Tage Daily-Serie nicht heute enden — das Rätsel ist noch offen.</item>
+    </string-array>
+
+    <string-array name="notification_resume_texts">
+        <item>Du hast ein pausiertes Spiel (%1$s). Machst du es fertig?</item>
+        <item>Ein unvollendetes %1$s-Rätsel wartet. Ein paar Züge und es ist geschafft.</item>
+        <item>Du warst fast am Ziel — dein %1$s-Spiel ist noch nicht beendet.</item>
+    </string-array>
+</resources>

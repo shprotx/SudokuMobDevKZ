@@ -213,11 +213,9 @@
     <string name="notification_channel_game_resume_name">Partida não concluída</string>
     <string name="notification_channel_game_resume_description">Lembretes sobre uma partida que você ainda não terminou</string>
     <string name="notification_daily_challenge_title">O desafio diário de hoje está pronto</string>
-    <string name="notification_daily_challenge_text">Resolva o quebra-cabeça de hoje antes que a sequência seja reiniciada</string>
     <string name="notification_reengagement_title">Sentindo falta do Sudoku?</string>
     <string name="notification_reengagement_text">Volte para um quebra-cabeça rápido — seu tabuleiro está esperando</string>
     <string name="notification_game_resume_title">Quebra-cabeça não concluído</string>
-    <string name="notification_game_resume_text">Você ainda tem uma partida em andamento — continue de onde parou</string>
 
     <string name="layout_edit_subtitle">Arraste os blocos. Toque na linha de status ou ações para organizar seus itens</string>
     <string name="layout_reset">Redefinir</string>

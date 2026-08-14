@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="notification_reengagement_texts_default">
+        <item>Судокуды сағындыңыз ба? Жылдам партия небәрі 5 минут алады.</item>
+        <item>Сарапшы деңгейіндегі басқатырғыш сізді күтіп тұр. Бүгін шешесіз бе?</item>
+        <item>Тақтаңыз тоқтаған қалпында тұр — келіп аяқтаңыз.</item>
+    </string-array>
+
+    <string-array name="notification_reengagement_texts_streak">
+        <item>Сіздің %1$d күндік сериясыңыз қауіп төндіріп тұр! Қайта оралып, кемінде бір партияны аяқтаңыз.</item>
+        <item>%1$d күндік сериядан айырылмаңыз — жылдам партия оны сақтап қалады.</item>
+        <item>%1$d күн қатарынан! Бүгін серияны жалғастырыңыз.</item>
+    </string-array>
+
+    <string-array name="notification_daily_texts_streak">
+        <item>Бүгінгі күнделікті жұмбақ әлі шешілмеді — %1$d күндік серия қауіпте.</item>
+        <item>%1$d күндік серия жалғасуға лайық. Күнделікті жұмбақ — бірнеше минут қана.</item>
+        <item>%1$d күндік серияны бүгін үзіп алма — жұмбақ әлі ашық.</item>
+    </string-array>
+
+    <string-array name="notification_resume_texts">
+        <item>Ойын кідіртілген (%1$s). Аяқтайсың ба?</item>
+        <item>Аяқталмаған ойын күтіп тұр: %1$s. Бірнеше жүріс — және дайын.</item>
+        <item>Мақсатқа жақын қалдың — %1$s ойыны аяқталмаған.</item>
+    </string-array>
+</resources>

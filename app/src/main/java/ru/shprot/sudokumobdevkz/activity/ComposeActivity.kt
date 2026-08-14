@@ -1,6 +1,7 @@
 package ru.shprot.sudokumobdevkz.activity
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.WindowManager
@@ -10,8 +11,12 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -20,6 +25,8 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavDestination.Companion.hasRoute
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
@@ -27,12 +34,15 @@ import kotlinx.coroutines.launch
 import ru.shprot.sudokumobdevkz.activity.achievement.AchievementUnlockedHost
 import ru.shprot.sudokumobdevkz.activity.navigation.SudokuNavHost
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.CloudGameServices
+import ru.shprot.sudokumobdevkz.core.base.data.notification.NotificationType
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SettingsRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.IThemeRepository
 import ru.shprot.sudokumobdevkz.core.base.presentation.navigation.NavRoute
 import ru.shprot.sudokumobdevkz.core.theme.AppColors
 import ru.shprot.sudokumobdevkz.core.theme.SudokuTheme
 import ru.shprot.sudokumobdevkz.core.uicommon.snackbar.AppSnackbarHost
+import ru.shprot.sudokumobdevkz.feature.dailychallenge.presentation.navigation.DailyChallengeRoutes
+import ru.shprot.sudokumobdevkz.feature.game.presentation.navigation.GameRoutes
 import ru.shprot.sudokumobdevkz.feature.menu.presentation.navigation.MenuRoutes
 import ru.shprot.sudokumobdevkz.feature.splash.presentation.navigation.SplashRoutes
 import javax.inject.Inject
@@ -73,6 +83,8 @@ class ComposeActivity : ComponentActivity() {
             window.attributes.layoutInDisplayCutoutMode =
                 WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_ALWAYS
         }
+        val notificationDeepLinkRoute = deepLinkRouteForNotification(intent)
+        intent?.removeExtra(NotificationType.EXTRA_NOTIFICATION_TYPE)
         setContent {
             val settings by settingsRepository.settings.collectAsStateWithLifecycle(
                 initialValue = settingsRepository.currentSettings,
@@ -100,6 +112,18 @@ class ComposeActivity : ComponentActivity() {
                     MenuRoutes.MenuScreen
                 } else {
                     SplashRoutes.SplashScreen
+                }
+                var pendingDeepLinkRoute by remember { mutableStateOf(notificationDeepLinkRoute) }
+                val currentBackStackEntry by navController.currentBackStackEntryAsState()
+                LaunchedEffect(currentBackStackEntry, pendingDeepLinkRoute) {
+                    val route = pendingDeepLinkRoute
+                    val isOnMenuScreen = currentBackStackEntry
+                        ?.destination
+                        ?.hasRoute(MenuRoutes.MenuScreen::class) == true
+                    if (route != null && isOnMenuScreen) {
+                        pendingDeepLinkRoute = null
+                        navController.navigate(route)
+                    }
                 }
                 Box(modifier = Modifier.fillMaxSize()) {
                     AchievementUnlockedHost(
@@ -135,6 +159,18 @@ class ComposeActivity : ComponentActivity() {
             val g = color.green * 0.7152f
             val b = color.blue * 0.0722f
             return (r + g + b) < 0.35f
+        }
+
+        fun deepLinkRouteForNotification(intent: Intent?): NavRoute? {
+            val type = intent
+                ?.getStringExtra(NotificationType.EXTRA_NOTIFICATION_TYPE)
+                ?.let { name -> runCatching { NotificationType.valueOf(name) }.getOrNull() }
+                ?: return null
+            return when (type) {
+                NotificationType.DAILY_CHALLENGE -> DailyChallengeRoutes.DailyChallengeScreen
+                NotificationType.GAME_RESUME -> GameRoutes.GameScreen(continueGame = true)
+                NotificationType.REENGAGEMENT -> null
+            }
         }
     }
 }

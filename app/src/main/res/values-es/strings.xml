@@ -231,11 +231,9 @@
     <string name="notification_channel_game_resume_name">Partida sin terminar</string>
     <string name="notification_channel_game_resume_description">Recordatorios sobre una partida que aún no has terminado</string>
     <string name="notification_daily_challenge_title">El reto diario de hoy ya está listo</string>
-    <string name="notification_daily_challenge_text">Resuelve el puzle de hoy antes de perder la racha</string>
     <string name="notification_reengagement_title">¿Extrañas el Sudoku?</string>
     <string name="notification_reengagement_text">Vuelve para un puzle rápido — tu tablero te espera</string>
     <string name="notification_game_resume_title">Puzle sin terminar</string>
-    <string name="notification_game_resume_text">Todavía tienes una partida en curso — continúa donde la dejaste</string>
 
     <string name="layout_edit_subtitle">Arrastra los bloques. Toca la fila de estado o acciones para ordenar sus elementos</string>
     <string name="layout_reset">Restablecer</string>

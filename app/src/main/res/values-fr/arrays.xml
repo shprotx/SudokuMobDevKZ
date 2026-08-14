@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="notification_reengagement_texts_default">
+        <item>La grille vous manque ? Une partie rapide ne prend que 5 minutes.</item>
+        <item>Une grille de niveau expert vous attend. La résoudre aujourd\'hui ?</item>
+        <item>Votre grille est restée telle que vous l\'avez laissée — venez la terminer.</item>
+    </string-array>
+
+    <string-array name="notification_reengagement_texts_streak">
+        <item>Votre série de %1$d jours est en danger ! Revenez terminer au moins une partie.</item>
+        <item>Ne perdez pas votre série de %1$d jours — une partie rapide la maintient en vie.</item>
+        <item>%1$d jours d\'affilée ! Continuez la série aujourd\'hui.</item>
+    </string-array>
+
+    <string-array name="notification_daily_texts_streak">
+        <item>Le défi du jour n\'est pas encore résolu — votre série de %1$d jours est en jeu.</item>
+        <item>Une série de %1$d jours mérite un jour de plus. Le défi ne prend que quelques minutes.</item>
+        <item>Ne laissez pas %1$d jours de défis s\'arrêter aujourd\'hui — la grille est encore ouverte.</item>
+    </string-array>
+
+    <string-array name="notification_resume_texts">
+        <item>Vous avez une partie en pause (%1$s). Vous la terminez ?</item>
+        <item>Une grille %1$s inachevée vous attend. Quelques coups et c\'est fait.</item>
+        <item>Vous y étiez presque — votre partie (%1$s) n\'est pas terminée.</item>
+    </string-array>
+</resources>

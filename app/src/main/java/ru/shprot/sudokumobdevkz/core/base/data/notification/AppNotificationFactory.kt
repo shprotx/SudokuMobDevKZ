@@ -9,15 +9,16 @@ import androidx.core.content.ContextCompat
 import dagger.hilt.android.qualifiers.ApplicationContext
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.activity.ComposeActivity
+import ru.shprot.sudokumobdevkz.core.base.domain.model.Difficulty
 import javax.inject.Inject
 
 class AppNotificationFactory @Inject constructor(
     @ApplicationContext private val context: Context,
 ) {
 
-    fun build(type: NotificationType): Notification {
+    fun build(type: NotificationType, variant: NotificationContentVariant): Notification {
         val title = context.getString(type.titleRes)
-        val text = context.getString(type.textRes)
+        val text = resolveText(variant)
         return NotificationCompat.Builder(context, type.channelId)
             .setSmallIcon(R.drawable.ic_notification_small)
             .setColor(ContextCompat.getColor(context, R.color.notification_accent))
@@ -30,9 +31,40 @@ class AppNotificationFactory @Inject constructor(
             .build()
     }
 
+    private fun resolveText(variant: NotificationContentVariant): String = when (variant) {
+        is NotificationContentVariant.Reengagement -> reengagementText(variant)
+        is NotificationContentVariant.DailyReminder -> dailyReminderText(variant)
+        is NotificationContentVariant.GameResume -> gameResumeText(variant)
+    }
+
+    private fun reengagementText(variant: NotificationContentVariant.Reengagement): String {
+        val templates = if (variant.streak > 0) {
+            context.resources.getStringArray(R.array.notification_reengagement_texts_streak)
+        } else {
+            context.resources.getStringArray(R.array.notification_reengagement_texts_default)
+        }
+        val template = templates[variant.dayIndex.mod(templates.size)]
+        return if (variant.streak > 0) String.format(template, variant.streak) else template
+    }
+
+    private fun dailyReminderText(variant: NotificationContentVariant.DailyReminder): String {
+        val templates = context.resources.getStringArray(R.array.notification_daily_texts_streak)
+        return String.format(templates[variant.dayIndex.mod(templates.size)], variant.streak)
+    }
+
+    private fun gameResumeText(variant: NotificationContentVariant.GameResume): String {
+        val difficulty = Difficulty.fromOrdinal(variant.difficultyOrdinal)
+        val templates = context.resources.getStringArray(R.array.notification_resume_texts)
+        return String.format(
+            templates[variant.dayIndex.mod(templates.size)],
+            context.getString(difficulty.titleRes),
+        )
+    }
+
     private fun contentIntentFor(type: NotificationType): PendingIntent {
         val intent = Intent(context, ComposeActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            putExtra(NotificationType.EXTRA_NOTIFICATION_TYPE, type.name)
         }
         return PendingIntent.getActivity(
             context,
