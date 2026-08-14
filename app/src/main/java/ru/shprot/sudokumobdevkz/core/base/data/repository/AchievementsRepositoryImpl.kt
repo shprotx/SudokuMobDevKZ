@@ -102,6 +102,8 @@ class AchievementsRepositoryImpl @Inject constructor(
         _retroactiveBatch.emit(count)
     }
 
+    override suspend fun unlockedCount(): Int = achievementUnlockedDao.countUnlocked()
+
     private suspend fun buildContextOnce(): AchievementContext {
         val stats = statisticDao.getAll()
         val dailies = dailyChallengeDao.getAllCompleted()

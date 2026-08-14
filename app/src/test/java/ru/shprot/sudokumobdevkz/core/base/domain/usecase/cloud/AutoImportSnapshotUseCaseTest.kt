@@ -251,6 +251,7 @@ internal class SnapshotAchievementUnlockedDao : AchievementUnlockedDao {
     override fun observeAll(): Flow<List<AchievementUnlockedEntity>> = MutableStateFlow(storage.toList())
     override suspend fun getAll(): List<AchievementUnlockedEntity> = storage.toList()
     override suspend fun existsById(id: String): Boolean = storage.any { it.id == id }
+    override suspend fun countUnlocked(): Int = storage.size
     override suspend fun insert(entity: AchievementUnlockedEntity) {
         if (storage.none { it.id == entity.id }) storage.add(entity)
     }

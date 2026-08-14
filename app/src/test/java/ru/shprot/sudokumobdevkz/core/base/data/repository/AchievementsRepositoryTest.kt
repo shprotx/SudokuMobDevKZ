@@ -241,6 +241,8 @@ internal class FakeAchievementUnlockedDao : AchievementUnlockedDao {
 
     override suspend fun existsById(id: String): Boolean = storage.any { it.id == id }
 
+    override suspend fun countUnlocked(): Int = storage.size
+
     override suspend fun insert(entity: AchievementUnlockedEntity) {
         if (storage.none { it.id == entity.id }) {
             storage.add(entity)
