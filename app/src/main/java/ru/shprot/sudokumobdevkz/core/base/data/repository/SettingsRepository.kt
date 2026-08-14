@@ -1,9 +1,11 @@
 package ru.shprot.sudokumobdevkz.core.base.data.repository
 
 import android.content.Context
+import ru.shprot.sudokumobdevkz.core.base.domain.model.ActionButtonId
 import ru.shprot.sudokumobdevkz.core.base.domain.model.AppSettings
 import ru.shprot.sudokumobdevkz.core.base.domain.model.GameBlockId
 import ru.shprot.sudokumobdevkz.core.base.domain.model.HintMode
+import ru.shprot.sudokumobdevkz.core.base.domain.model.StatusItemId
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey
@@ -60,6 +62,8 @@ class SettingsRepository @Inject constructor(
                 prefs[Keys.SHOW_NAME_ON_LEADERBOARD] = newSettings.showNameOnLeaderboard
                 prefs[Keys.NOTIFICATIONS_ENABLED] = newSettings.notificationsEnabled
                 prefs[Keys.GAME_BLOCK_ORDER] = GameBlockId.serializeOrder(newSettings.gameBlockOrder)
+                prefs[Keys.ACTION_BUTTON_ORDER] = ActionButtonId.serializeOrder(newSettings.actionButtonOrder)
+                prefs[Keys.STATUS_ITEM_ORDER] = StatusItemId.serializeOrder(newSettings.statusItemOrder)
             }
         }
     }
@@ -90,6 +94,8 @@ class SettingsRepository @Inject constructor(
         showNameOnLeaderboard = this[Keys.SHOW_NAME_ON_LEADERBOARD] ?: false,
         notificationsEnabled = this[Keys.NOTIFICATIONS_ENABLED] ?: true,
         gameBlockOrder = GameBlockId.parseOrder(this[Keys.GAME_BLOCK_ORDER]),
+        actionButtonOrder = ActionButtonId.parseOrder(this[Keys.ACTION_BUTTON_ORDER]),
+        statusItemOrder = StatusItemId.parseOrder(this[Keys.STATUS_ITEM_ORDER]),
     )
 
     private fun Preferences.resolveThemeModeId(): String =
@@ -116,6 +122,8 @@ class SettingsRepository @Inject constructor(
         val SHOW_NAME_ON_LEADERBOARD = booleanPreferencesKey("show_name_on_leaderboard")
         val NOTIFICATIONS_ENABLED = booleanPreferencesKey("notifications_enabled")
         val GAME_BLOCK_ORDER = stringPreferencesKey("game_block_order")
+        val ACTION_BUTTON_ORDER = stringPreferencesKey("action_button_order")
+        val STATUS_ITEM_ORDER = stringPreferencesKey("status_item_order")
     }
 
     private object LeaderboardKeys {

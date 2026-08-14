@@ -392,7 +392,7 @@
     <string name="notification_game_resume_title">Unfinished puzzle</string>
     <string name="notification_game_resume_text">You still have a game in progress — pick up where you left off</string>
 
-    <string name="layout_edit_subtitle">Drag the blocks into the order you like</string>
+    <string name="layout_edit_subtitle">Drag blocks to reorder. Tap the status or action row to arrange its items</string>
     <string name="layout_reset">Reset</string>
     <string name="layout_block_spacer">Spacer</string>
     <string name="layout_edit_title">Screen layout</string>

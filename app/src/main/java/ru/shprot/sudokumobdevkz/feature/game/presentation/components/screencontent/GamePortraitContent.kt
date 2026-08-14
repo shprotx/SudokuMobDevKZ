@@ -108,16 +108,39 @@ internal fun GamePortraitContent(
                 },
             ) { index, blockId, isDragging ->
                 key(blockId) {
+                    val isExpanded = uiState.expandedEditBlock == blockId
+
                     LayoutEditableElement(
                         modifier = Modifier,
                         overlayModifier = Modifier.draggableHandle(),
                         wiggleIndex = index,
                         isDragging = isDragging,
+                        isExpanded = isExpanded,
+                        onTap = { onEvent(GameUIEvent.EditBlockTapped(blockId)) },
                     ) {
-                        if (blockId.isSpacer) {
-                            LayoutSpacerPlaceholder(modifier = Modifier)
-                        } else {
-                            GameBlockContent(
+                        when {
+                            blockId.isSpacer ->
+                                LayoutSpacerPlaceholder(modifier = Modifier)
+
+                            isExpanded && blockId == GameBlockId.STATUS_BAR ->
+                                StatusBarEditContent(
+                                    modifier = Modifier,
+                                    uiState = uiState,
+                                    onItemMoved = { from, to ->
+                                        onEvent(GameUIEvent.InnerItemMoved(blockId, from, to))
+                                    },
+                                )
+
+                            isExpanded && blockId == GameBlockId.ACTIONS_BAR ->
+                                ActionsBarEditContent(
+                                    modifier = Modifier,
+                                    uiState = uiState,
+                                    onItemMoved = { from, to ->
+                                        onEvent(GameUIEvent.InnerItemMoved(blockId, from, to))
+                                    },
+                                )
+
+                            else -> GameBlockContent(
                                 blockId = blockId,
                                 uiState = uiState,
                                 useCompactPad = useCompactPad,
