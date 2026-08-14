@@ -27,7 +27,7 @@ internal fun GameBlockContent(
 ) {
     when (blockId) {
         GameBlockId.STATUS_BAR -> GameStatusBar(
-            modifier = Modifier,
+            modifier = Modifier.padding(vertical = AppTheme.paddings.medium),
             difficultyLabel = stringResource(uiState.difficulty.titleRes),
             errors = uiState.errors,
             maxErrors = uiState.maxErrors,
@@ -38,9 +38,8 @@ internal fun GameBlockContent(
         GameBlockId.GRID -> SudokuGrid(
             modifier = Modifier
                 .padding(
-                    top = AppTheme.paddings.default,
-                    start = AppTheme.paddings.medium,
-                    end = AppTheme.paddings.medium,
+                    horizontal = AppTheme.paddings.medium,
+                    vertical = AppTheme.paddings.small,
                 )
                 .onGloballyPositioned { coords ->
                     onGridPositioned(coords.boundsInWindow())
@@ -60,14 +59,20 @@ internal fun GameBlockContent(
 
         GameBlockId.NUMBER_PAD -> if (useCompactPad) {
             NumberPadTwoRow(
-                modifier = Modifier.padding(horizontal = AppTheme.paddings.medium),
+                modifier = Modifier.padding(
+                    horizontal = AppTheme.paddings.medium,
+                    vertical = AppTheme.paddings.small,
+                ),
                 availableNumbers = uiState.availableNumbers,
                 isNotesMode = uiState.isNotesEnabled,
                 onNumberClick = { onEvent(GameUIEvent.NumberClicked(it)) },
             )
         } else {
             NumberPanel(
-                modifier = Modifier.padding(horizontal = AppTheme.paddings.medium),
+                modifier = Modifier.padding(
+                    horizontal = AppTheme.paddings.medium,
+                    vertical = AppTheme.paddings.small,
+                ),
                 availableNumbers = uiState.availableNumbers,
                 isNotesMode = uiState.isNotesEnabled,
                 onNumberClick = { onEvent(GameUIEvent.NumberClicked(it)) },
@@ -76,7 +81,10 @@ internal fun GameBlockContent(
 
         GameBlockId.ACTIONS_BAR -> GameActionsBar(
             modifier = Modifier
-                .padding(horizontal = if (useCompactPad) AppTheme.paddings.medium else AppTheme.paddings.large),
+                .padding(
+                    horizontal = if (useCompactPad) AppTheme.paddings.medium else AppTheme.paddings.large,
+                    vertical = if (useCompactPad) AppTheme.paddings.small else AppTheme.paddings.medium,
+                ),
             isNotesEnabled = uiState.isNotesEnabled,
             hintsRemaining = uiState.hintsRemaining,
             isHintModeActive = uiState.isHintModeActive,
