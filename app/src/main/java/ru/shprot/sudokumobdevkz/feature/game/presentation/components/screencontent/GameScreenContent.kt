@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
@@ -44,8 +45,15 @@ fun GameScreenContent(
         }
     } else {
         when (LocalConfiguration.current.orientation) {
-            Configuration.ORIENTATION_LANDSCAPE ->
+            Configuration.ORIENTATION_LANDSCAPE -> {
+                LaunchedEffect(uiState.isLayoutEditMode) {
+                    if (uiState.isLayoutEditMode) {
+                        onEvent(GameUIEvent.LayoutEditExitRequested)
+                    }
+                }
+
                 GameLandscapeContent(uiState = uiState, onEvent = onEvent)
+            }
 
             else ->
                 GamePortraitContent(uiState = uiState, onEvent = onEvent)

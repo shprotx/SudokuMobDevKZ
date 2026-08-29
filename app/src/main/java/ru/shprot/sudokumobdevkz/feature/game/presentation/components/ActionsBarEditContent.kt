@@ -43,7 +43,6 @@ internal fun ActionsBarEditContent(
                     isNotesEnabled = uiState.isNotesEnabled,
                     hintsRemaining = uiState.hintsRemaining,
                     isHintModeActive = uiState.isHintModeActive,
-                    stretched = false,
                     onClick = {},
                 )
             }

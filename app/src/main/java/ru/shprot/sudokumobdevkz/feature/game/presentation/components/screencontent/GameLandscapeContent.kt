@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -24,15 +25,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Pause
-import androidx.compose.material.icons.filled.Refresh
-import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.Lightbulb
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.automirrored.filled.Undo
-import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -45,7 +37,9 @@ import androidx.compose.ui.unit.dp
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.base.domain.model.Difficulty
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
-import ru.shprot.sudokumobdevkz.core.uicommon.button.ToolbarCircleButton
+import ru.shprot.sudokumobdevkz.core.uicommon.button.ToolbarPillButton
+import ru.shprot.sudokumobdevkz.core.uicommon.glass.glassBar
+import ru.shprot.sudokumobdevkz.core.uicommon.icon.AppIcons
 import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameUIEvent
 import ru.shprot.sudokumobdevkz.feature.game.presentation.contract.GameUIState
 
@@ -55,6 +49,7 @@ internal fun GameLandscapeContent(
     onEvent: (GameUIEvent) -> Unit,
 ) {
     var gridBounds by remember { mutableStateOf(Rect.Zero) }
+    val barShape = RoundedCornerShape(AppTheme.sizes.cornerRadiusFull)
 
     Row(
         modifier = Modifier
@@ -78,34 +73,36 @@ internal fun GameLandscapeContent(
         Column(
             modifier = Modifier
                 .fillMaxHeight()
-                .width(48.dp),
+                .width(56.dp)
+                .glassBar(shape = barShape)
+                .padding(vertical = AppTheme.paddings.medium),
             verticalArrangement = Arrangement.SpaceEvenly,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            ToolbarCircleButton(
+            ToolbarPillButton(
                 modifier = Modifier,
-                icon = Icons.AutoMirrored.Filled.ArrowBack,
+                icon = AppIcons.Back,
                 contentDescription = stringResource(R.string.go_back),
                 onClick = { onEvent(GameUIEvent.BackClicked) },
             )
 
-            ToolbarCircleButton(
+            ToolbarPillButton(
                 modifier = Modifier,
-                icon = Icons.Filled.Refresh,
+                icon = AppIcons.Restart,
                 contentDescription = stringResource(R.string.restart),
                 onClick = { onEvent(GameUIEvent.NewGameClicked) },
             )
 
-            ToolbarCircleButton(
+            ToolbarPillButton(
                 modifier = Modifier,
-                icon = Icons.Filled.Pause,
+                icon = AppIcons.Pause,
                 contentDescription = stringResource(R.string.pause),
                 onClick = { onEvent(GameUIEvent.ShowPauseDialog) },
             )
 
-            ToolbarCircleButton(
+            ToolbarPillButton(
                 modifier = Modifier,
-                icon = Icons.Filled.Settings,
+                icon = AppIcons.Settings,
                 contentDescription = stringResource(R.string.settings),
                 onClick = { onEvent(GameUIEvent.SettingsClicked) },
             )
@@ -187,43 +184,46 @@ internal fun GameLandscapeContent(
         Column(
             modifier = Modifier
                 .fillMaxHeight()
-                .width(64.dp),
+                .width(80.dp)
+                .glassBar(shape = barShape)
+                .padding(
+                    horizontal = AppTheme.paddings.medium,
+                    vertical = AppTheme.paddings.medium,
+                ),
             verticalArrangement = Arrangement.SpaceEvenly,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             ActionButton(
-                icon = Icons.AutoMirrored.Filled.Undo,
+                icon = AppIcons.Undo,
                 label = stringResource(R.string.undo),
                 onClick = { onEvent(GameUIEvent.UndoClicked) },
             )
 
             ActionButton(
-                icon = Icons.Outlined.Delete,
+                icon = AppIcons.Erase,
                 label = stringResource(R.string.erase),
                 onClick = { onEvent(GameUIEvent.EraseClicked) },
             )
 
             ActionButton(
-                icon = Icons.Filled.Edit,
+                icon = AppIcons.Note,
                 label = stringResource(R.string.note),
-                badge = when (uiState.isNotesEnabled) {
-                    true -> stringResource(R.string.on_label)
-                    false -> stringResource(R.string.off_label)
-                },
                 isHighlighted = uiState.isNotesEnabled,
                 onClick = { onEvent(GameUIEvent.NotesToggled) },
             )
 
             val hintLabel = stringResource(R.string.hint)
             ActionButton(
-                icon = Icons.Filled.Lightbulb,
+                icon = AppIcons.Hint,
                 label = hintLabel,
-                badge = if (uiState.hintsRemaining == Int.MAX_VALUE) null else uiState.hintsRemaining.toString(),
+                badge = when (uiState.hintsRemaining) {
+                    Int.MAX_VALUE -> null
+                    else -> uiState.hintsRemaining.toString()
+                },
                 isHighlighted = uiState.isHintModeActive,
-                contentDescription = if (uiState.isHintModeActive) {
-                    stringResource(R.string.hint_mode_active_description)
-                } else {
-                    hintLabel
+                contentDescription = when (uiState.isHintModeActive) {
+                    true -> stringResource(R.string.hint_mode_active_description)
+                    false -> hintLabel
                 },
                 onClick = { onEvent(GameUIEvent.HintClicked) },
             )

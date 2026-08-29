@@ -5,10 +5,12 @@ import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import ru.shprot.sudokumobdevkz.core.base.domain.model.ActionButtonId
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
+import ru.shprot.sudokumobdevkz.core.uicommon.glass.glassBar
 
 @Composable
 fun GameActionsBar(
@@ -32,9 +34,19 @@ fun GameActionsBar(
         }
     }
 
+    val barShape = RoundedCornerShape(AppTheme.sizes.cornerRadiusFull)
+
     if (stretched) {
         val spacing = AppTheme.paddings.small
-        BoxWithConstraints(modifier = modifier.fillMaxWidth()) {
+        BoxWithConstraints(
+            modifier = modifier
+                .fillMaxWidth()
+                .glassBar(shape = barShape)
+                .padding(
+                    horizontal = AppTheme.paddings.small,
+                    vertical = AppTheme.paddings.small,
+                ),
+        ) {
             val sidePadding = (maxWidth + spacing) / 10
             Row(
                 modifier = Modifier
@@ -49,7 +61,6 @@ fun GameActionsBar(
                         isNotesEnabled = isNotesEnabled,
                         hintsRemaining = hintsRemaining,
                         isHintModeActive = isHintModeActive,
-                        stretched = true,
                         onClick = clickFor(buttonId),
                     )
                 }
@@ -57,7 +68,13 @@ fun GameActionsBar(
         }
     } else {
         Row(
-            modifier = modifier.fillMaxWidth(),
+            modifier = modifier
+                .fillMaxWidth()
+                .glassBar(shape = barShape)
+                .padding(
+                    horizontal = AppTheme.paddings.medium,
+                    vertical = AppTheme.paddings.small,
+                ),
             horizontalArrangement = Arrangement.SpaceEvenly,
         ) {
             order.forEach { buttonId ->
@@ -67,7 +84,6 @@ fun GameActionsBar(
                     isNotesEnabled = isNotesEnabled,
                     hintsRemaining = hintsRemaining,
                     isHintModeActive = isHintModeActive,
-                    stretched = false,
                     onClick = clickFor(buttonId),
                 )
             }

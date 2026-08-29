@@ -6,9 +6,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,6 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.base.domain.model.StatusItemId
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
+import ru.shprot.sudokumobdevkz.core.uicommon.icon.AppIcons
 
 @Composable
 internal fun StatusItemContent(
@@ -61,7 +59,7 @@ internal fun StatusItemContent(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Icon(
-                imageVector = Icons.Filled.Favorite,
+                imageVector = AppIcons.Heart,
                 contentDescription = null,
                 tint = AppTheme.colors.error,
                 modifier = Modifier.size(AppTheme.sizes.iconSmall),
@@ -81,7 +79,7 @@ internal fun StatusItemContent(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Icon(
-                imageVector = Icons.Filled.Schedule,
+                imageVector = AppIcons.Clock,
                 contentDescription = null,
                 tint = AppTheme.colors.textSecondary,
                 modifier = Modifier.size(AppTheme.sizes.iconSmall),

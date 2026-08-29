@@ -27,12 +27,15 @@ class LeaderboardsViewModel @Inject constructor(
     private val toggleShowNameOnLeaderboard: ToggleShowNameOnLeaderboardUseCase,
 ) : BaseViewModel<LeaderboardsUIEvent, LeaderboardsUIState, LeaderboardsUIEffect>(LeaderboardsUIState()) {
 
+    private var identityPushed = false
+
     init {
         observeSignInState()
         observeRepository()
         observeNameConsent()
         observeSettings()
         leaderboardRepository.refresh()
+        pushIdentityIfPossible()
     }
 
     override fun handleUIEvent(event: LeaderboardsUIEvent) =
@@ -81,7 +84,19 @@ class LeaderboardsViewModel @Inject constructor(
         viewModelScope.launch {
             cloud.signInState.collect { state ->
                 updateState { copy(isSignedIn = state is SignInState.SignedIn) }
+                pushIdentityIfPossible()
             }
+        }
+    }
+
+    private fun pushIdentityIfPossible() {
+        if (identityPushed) return
+        val showName = settingsRepository.currentSettings.showNameOnLeaderboard
+        if (showName && !currentState.isSignedIn) return
+        identityPushed = true
+        viewModelScope.launch {
+            updateLeaderboardIdentity(showName = showName)
+            leaderboardRepository.refresh()
         }
     }
 
