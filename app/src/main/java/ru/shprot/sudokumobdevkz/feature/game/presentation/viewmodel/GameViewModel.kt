@@ -115,6 +115,9 @@ class GameViewModel @Inject constructor(
             GameUIEvent.LayoutEditClicked ->
                 handleLayoutEditToggle()
 
+            GameUIEvent.LayoutEditExitRequested ->
+                handleLayoutEditExit()
+
             GameUIEvent.LayoutResetClicked ->
                 handleLayoutReset()
 
@@ -193,6 +196,12 @@ class GameViewModel @Inject constructor(
             onPause()
             setState(currentState.copy(isLayoutEditMode = true))
         }
+    }
+
+    private fun handleLayoutEditExit() {
+        if (!currentState.isLayoutEditMode) return
+        setState(currentState.copy(isLayoutEditMode = false, expandedEditBlock = null))
+        onResume()
     }
 
     private fun handleLayoutReset() {

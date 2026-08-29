@@ -37,6 +37,7 @@ data class Size(
     val colorSwatch: Dp = 36.dp,
     val colorPickerPreview: Dp = 150.dp,
     val themePickerWidth: Dp = 260.dp,
+    val badgeSize: Dp = 16.dp,
 )
 
 internal val LocalAppSizes = staticCompositionLocalOf { Size() }

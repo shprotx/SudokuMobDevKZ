@@ -1,1 +1,1 @@
-New: 10 daily visit achievements — from a sprout for 5 days in a row to the world tree for two years. Plus a notifications toggle in settings.
+Refreshed game screen: floating pill bars instead of bulky buttons, a compact bottom bar with labels, and a brand-new custom icon set. The layout editor now fits the whole screen and stays in portrait. The leaderboard achievements counter updates when you open the standings.

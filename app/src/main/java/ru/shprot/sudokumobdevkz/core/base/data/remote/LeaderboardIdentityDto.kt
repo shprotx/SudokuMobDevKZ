@@ -8,4 +8,5 @@ data class LeaderboardIdentityDto(
     val platform: String,
     val displayName: String,
     val avatarUrl: String?,
+    val achievementsCount: Int? = null,
 )

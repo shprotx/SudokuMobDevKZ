@@ -13,9 +13,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
@@ -29,6 +26,7 @@ import androidx.compose.ui.res.stringResource
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.base.domain.model.ThemeMode
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
+import ru.shprot.sudokumobdevkz.core.uicommon.icon.AppIcons
 import ru.shprot.sudokumobdevkz.core.theme.ThemePalette
 import ru.shprot.sudokumobdevkz.core.theme.ThemePalettes
 
@@ -55,7 +53,7 @@ internal fun ThemeQuickPicker(
                 ) {
                     Icon(
                         modifier = Modifier.size(AppTheme.sizes.iconMedium),
-                        imageVector = Icons.Filled.Close,
+                        imageVector = AppIcons.Close,
                         contentDescription = stringResource(R.string.go_back),
                         tint = AppTheme.colors.iconTint,
                     )
@@ -122,7 +120,7 @@ internal fun ThemeRow(
         if (isSelected) {
             Icon(
                 modifier = Modifier.size(AppTheme.sizes.iconMedium),
-                imageVector = Icons.Filled.Check,
+                imageVector = AppIcons.Check,
                 contentDescription = null,
                 tint = AppTheme.colors.primary,
             )

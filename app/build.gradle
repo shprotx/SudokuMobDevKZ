@@ -24,8 +24,8 @@ android {
         applicationId = "ru.shprot.sudokumobdevkz"
         minSdk = 29
         targetSdk = 37
-        versionCode = 74
-        versionName = "2.12.0"
+        versionCode = 75
+        versionName = "2.13.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -172,8 +172,6 @@ dependencies {
     // --- Drag-and-drop reorder (game layout editor) ---
     implementation 'sh.calvin.reorderable:reorderable:2.5.1'
 
-
-    // --- Testing ---
     // --- Testing ---
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2'
