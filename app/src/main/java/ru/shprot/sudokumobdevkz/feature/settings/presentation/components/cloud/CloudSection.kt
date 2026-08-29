@@ -1,12 +1,11 @@
 package ru.shprot.sudokumobdevkz.feature.settings.presentation.components.cloud
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.EmojiEvents
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.SignInState
+import ru.shprot.sudokumobdevkz.core.uicommon.icon.AppIcons
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsCard
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsDivider
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsSectionHeader
@@ -58,7 +57,7 @@ fun CloudSection(
 
                 SettingsToggleItem(
                     modifier = Modifier,
-                    icon = Icons.Filled.EmojiEvents,
+                    icon = AppIcons.Trophy,
                     title = stringResource(R.string.settings_show_name_on_leaderboard),
                     checked = uiState.settings.showNameOnLeaderboard,
                     onCheckedChange = { onEvent(SettingsUIEvent.ToggleShowNameOnLeaderboard) },

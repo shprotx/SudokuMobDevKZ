@@ -10,8 +10,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Palette
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -31,6 +29,7 @@ import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonDefault
 import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonText
+import ru.shprot.sudokumobdevkz.core.uicommon.icon.AppIcons
 
 @Composable
 internal fun SaveThemeDialog(
@@ -62,7 +61,7 @@ internal fun SaveThemeDialog(
                 ) {
                     Icon(
                         modifier = Modifier.size(AppTheme.sizes.iconLarge),
-                        imageVector = Icons.Filled.Palette,
+                        imageVector = AppIcons.Palette,
                         contentDescription = null,
                         tint = AppTheme.colors.primary,
                     )

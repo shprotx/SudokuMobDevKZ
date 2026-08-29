@@ -6,10 +6,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.filled.ChevronRight
-import androidx.compose.material.icons.filled.LocalFireDepartment
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -21,6 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
+import ru.shprot.sudokumobdevkz.core.uicommon.icon.AppIcons
 
 @Composable
 fun DailyChallengeCard(
@@ -46,7 +43,7 @@ fun DailyChallengeCard(
         ) {
             Icon(
                 modifier = Modifier.size(AppTheme.sizes.iconLarge),
-                imageVector = Icons.Filled.LocalFireDepartment,
+                imageVector = AppIcons.Fire,
                 contentDescription = null,
                 tint = AppTheme.colors.warning,
             )
@@ -73,7 +70,7 @@ fun DailyChallengeCard(
             if (isCompleted) {
                 Icon(
                     modifier = Modifier.size(AppTheme.sizes.iconMedium),
-                    imageVector = Icons.Filled.CheckCircle,
+                    imageVector = AppIcons.CheckCircle,
                     contentDescription = null,
                     tint = AppTheme.colors.primary,
                 )
@@ -89,7 +86,7 @@ fun DailyChallengeCard(
 
             Icon(
                 modifier = Modifier,
-                imageVector = Icons.Filled.ChevronRight,
+                imageVector = AppIcons.ChevronRight,
                 contentDescription = null,
                 tint = AppTheme.colors.textSecondary,
             )

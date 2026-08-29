@@ -11,9 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -28,6 +25,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
+import ru.shprot.sudokumobdevkz.core.uicommon.icon.AppIcons
 
 @Composable
 fun NewGameButton(
@@ -64,7 +62,7 @@ fun NewGameButton(
                 contentAlignment = Alignment.Center,
             ) {
                 Icon(
-                    imageVector = Icons.Filled.Add,
+                    imageVector = AppIcons.Plus,
                     contentDescription = null,
                     tint = AppTheme.colors.textOnPrimary,
                     modifier = Modifier.size(AppTheme.sizes.iconMedium),
@@ -90,7 +88,7 @@ fun NewGameButton(
             }
 
             Icon(
-                imageVector = Icons.Filled.ChevronRight,
+                imageVector = AppIcons.ChevronRight,
                 contentDescription = null,
                 tint = AppTheme.colors.textOnPrimary.copy(alpha = 0.7f),
                 modifier = Modifier.size(AppTheme.sizes.iconMedium),

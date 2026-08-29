@@ -7,10 +7,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -20,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
+import ru.shprot.sudokumobdevkz.core.uicommon.icon.AppIcons
 
 @Composable
 fun DailyResultCard(
@@ -46,7 +43,7 @@ fun DailyResultCard(
             ) {
                 Icon(
                     modifier = Modifier.size(AppTheme.sizes.iconSmall),
-                    imageVector = Icons.Filled.CheckCircle,
+                    imageVector = AppIcons.CheckCircle,
                     contentDescription = null,
                     tint = AppTheme.colors.primary,
                 )
@@ -68,14 +65,14 @@ fun DailyResultCard(
             ) {
                 ResultStat(
                     modifier = Modifier,
-                    icon = Icons.Filled.Timer,
+                    icon = AppIcons.Stopwatch,
                     label = timeLabel,
                     value = timeValue,
                 )
 
                 ResultStat(
                     modifier = Modifier,
-                    icon = Icons.Filled.Favorite,
+                    icon = AppIcons.Heart,
                     label = errorsLabel,
                     value = errorsValue,
                 )

@@ -1,11 +1,10 @@
 package ru.shprot.sudokumobdevkz.feature.settings.presentation.components
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import ru.shprot.sudokumobdevkz.R
+import ru.shprot.sudokumobdevkz.core.uicommon.icon.AppIcons
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsCard
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsSectionHeader
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsToggleItem
@@ -25,7 +24,7 @@ fun NotificationsSection(
     SettingsCard(modifier = Modifier) {
         SettingsToggleItem(
             modifier = Modifier,
-            icon = Icons.Filled.Notifications,
+            icon = AppIcons.Bell,
             title = stringResource(R.string.push_notifications),
             checked = uiState.settings.notificationsEnabled,
             onCheckedChange = { onEvent(SettingsUIEvent.NotificationsToggleClicked) },

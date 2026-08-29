@@ -8,8 +8,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.EmojiEvents
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -25,6 +23,7 @@ import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.LeaderboardData
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonText
+import ru.shprot.sudokumobdevkz.core.uicommon.icon.AppIcons
 
 @Composable
 internal fun LeaderboardPreviewCard(
@@ -52,7 +51,7 @@ internal fun LeaderboardPreviewCard(
 
                 Icon(
                     modifier = Modifier.size(AppTheme.sizes.iconMedium),
-                    imageVector = Icons.Filled.EmojiEvents,
+                    imageVector = AppIcons.Trophy,
                     contentDescription = null,
                     tint = AppTheme.colors.primary,
                 )

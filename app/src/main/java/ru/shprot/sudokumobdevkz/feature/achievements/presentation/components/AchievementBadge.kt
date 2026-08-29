@@ -6,9 +6,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,6 +16,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
+import ru.shprot.sudokumobdevkz.core.uicommon.icon.AppIcons
 
 enum class AchievementBadgeVariant {
     UNLOCKED,
@@ -39,8 +37,8 @@ internal fun AchievementBadge(
         AchievementBadgeVariant.SECRET -> AppTheme.colors.textSecondary
     }
     val icon = when (variant) {
-        AchievementBadgeVariant.UNLOCKED -> Icons.Filled.CheckCircle
-        AchievementBadgeVariant.SECRET -> Icons.Filled.Lock
+        AchievementBadgeVariant.UNLOCKED -> AppIcons.CheckCircle
+        AchievementBadgeVariant.SECRET -> AppIcons.Lock
     }
     val textRes = when (variant) {
         AchievementBadgeVariant.UNLOCKED -> R.string.achievements_section_unlocked

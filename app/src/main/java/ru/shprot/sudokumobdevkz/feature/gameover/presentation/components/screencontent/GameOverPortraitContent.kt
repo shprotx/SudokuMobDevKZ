@@ -9,12 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.EmojiEvents
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.SentimentDissatisfied
-import androidx.compose.material.icons.filled.SignalCellularAlt
-import androidx.compose.material.icons.filled.Timer
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -23,6 +17,7 @@ import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonDefault
 import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonOutlined
+import ru.shprot.sudokumobdevkz.core.uicommon.icon.AppIcons
 import ru.shprot.sudokumobdevkz.feature.gameover.presentation.components.ResultHeader
 import ru.shprot.sudokumobdevkz.feature.gameover.presentation.components.StatCard
 import ru.shprot.sudokumobdevkz.feature.gameover.presentation.components.StreakBanner
@@ -48,8 +43,8 @@ internal fun GameOverPortraitContent(
             ResultHeader(
                 modifier = Modifier,
                 icon = when (uiState.isWin) {
-                    true -> Icons.Filled.EmojiEvents
-                    false -> Icons.Filled.SentimentDissatisfied
+                    true -> AppIcons.Trophy
+                    false -> AppIcons.Sad
                 },
                 title = when (uiState.isWin) {
                     true -> stringResource(R.string.you_won)
@@ -86,7 +81,7 @@ internal fun GameOverPortraitContent(
             ) {
                 StatCard(
                     modifier = Modifier.weight(1f),
-                    icon = Icons.Filled.Timer,
+                    icon = AppIcons.Stopwatch,
                     iconTint = Color(0xFF039FE0),
                     label = stringResource(R.string.time_label),
                     value = uiState.time,
@@ -94,7 +89,7 @@ internal fun GameOverPortraitContent(
 
                 StatCard(
                     modifier = Modifier.weight(1f),
-                    icon = Icons.Filled.Favorite,
+                    icon = AppIcons.Heart,
                     iconTint = AppTheme.colors.error,
                     label = stringResource(R.string.errors_label),
                     value = "${uiState.errors}",
@@ -102,7 +97,7 @@ internal fun GameOverPortraitContent(
 
                 StatCard(
                     modifier = Modifier.weight(1f),
-                    icon = Icons.Filled.SignalCellularAlt,
+                    icon = AppIcons.Signal,
                     iconTint = AppTheme.colors.primary,
                     label = stringResource(R.string.difficulty_label),
                     value = uiState.difficulty.emoji,

@@ -1,1 +1,1 @@
-Refreshed game screen: floating pill bars instead of bulky buttons, a compact bottom bar with labels, and a brand-new custom icon set. The layout editor now fits the whole screen and stays in portrait. The leaderboard achievements counter updates when you open the standings.
+Every icon in the app is now hand-drawn in one style — menu, statistics, achievements, settings, daily challenge and end-of-game screens. No more stock system glyphs.

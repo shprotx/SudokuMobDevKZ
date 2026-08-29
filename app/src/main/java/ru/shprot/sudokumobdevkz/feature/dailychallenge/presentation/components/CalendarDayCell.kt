@@ -8,8 +8,6 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,6 +20,7 @@ import androidx.compose.ui.text.style.TextAlign
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.base.domain.model.dotColor
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
+import ru.shprot.sudokumobdevkz.core.uicommon.icon.AppIcons
 import ru.shprot.sudokumobdevkz.feature.dailychallenge.presentation.contract.DayCellState
 import ru.shprot.sudokumobdevkz.feature.dailychallenge.presentation.contract.DayCellUiModel
 
@@ -64,7 +63,7 @@ internal fun CalendarDayCell(
         ) {
             if (state is DayCellState.Completed) {
                 Icon(
-                    imageVector = Icons.Rounded.Check,
+                    imageVector = AppIcons.Check,
                     contentDescription = stringResource(R.string.daily_calendar_completed),
                     tint = AppTheme.colors.textOnPrimary,
                     modifier = Modifier.fillMaxSize(0.5f),
