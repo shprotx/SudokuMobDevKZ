@@ -6,8 +6,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,6 +17,7 @@ import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
+import ru.shprot.sudokumobdevkz.core.uicommon.icon.AppIcons
 
 @Composable
 internal fun <T : DropdownItem> AppDropdownHeader(
@@ -63,7 +62,7 @@ internal fun <T : DropdownItem> AppDropdownHeader(
             modifier = Modifier
                 .size(AppTheme.sizes.iconMedium)
                 .rotate(arrowRotation),
-            imageVector = Icons.Filled.KeyboardArrowDown,
+            imageVector = AppIcons.ChevronDown,
             contentDescription = null,
             tint = if (enabled) AppTheme.colors.text else AppTheme.colors.textSecondary,
         )

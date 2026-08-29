@@ -5,8 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -18,6 +16,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import ru.shprot.sudokumobdevkz.core.base.domain.achievement.AchievementIconKey
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
+import ru.shprot.sudokumobdevkz.core.uicommon.icon.AppIcons
 
 @Composable
 internal fun LockedAchievementIcon(
@@ -58,7 +57,7 @@ internal fun LockedAchievementIcon(
             contentAlignment = Alignment.Center,
         ) {
             Icon(
-                imageVector = Icons.Filled.Lock,
+                imageVector = AppIcons.Lock,
                 contentDescription = null,
                 tint = AppTheme.colors.textSecondary,
                 modifier = Modifier.size(lockSize),

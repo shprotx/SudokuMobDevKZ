@@ -8,9 +8,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -24,6 +21,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
+import ru.shprot.sudokumobdevkz.core.uicommon.icon.AppIcons
 import ru.shprot.sudokumobdevkz.feature.dailychallenge.presentation.contract.DayCellUiModel
 
 @Composable
@@ -63,7 +61,7 @@ internal fun DailyCalendar(
                 ) {
                     Icon(
                         modifier = Modifier.size(AppTheme.sizes.iconMedium),
-                        imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
+                        imageVector = AppIcons.ChevronLeft,
                         contentDescription = stringResource(R.string.daily_calendar_prev_month),
                         tint = if (canGoPrev) AppTheme.colors.iconTint else AppTheme.colors.textSecondary,
                     )
@@ -94,7 +92,7 @@ internal fun DailyCalendar(
                 ) {
                     Icon(
                         modifier = Modifier.size(AppTheme.sizes.iconMedium),
-                        imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                        imageVector = AppIcons.ChevronRight,
                         contentDescription = stringResource(R.string.daily_calendar_next_month),
                         tint = if (canGoNext) AppTheme.colors.iconTint else AppTheme.colors.textSecondary,
                     )

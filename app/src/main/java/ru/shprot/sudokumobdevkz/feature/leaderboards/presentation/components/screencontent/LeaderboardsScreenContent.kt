@@ -12,8 +12,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.EmojiEvents
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -28,6 +26,7 @@ import androidx.compose.ui.text.style.TextAlign
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.LeaderboardMappers.ownRowOutsideTop
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
+import ru.shprot.sudokumobdevkz.core.uicommon.icon.AppIcons
 import ru.shprot.sudokumobdevkz.core.uicommon.toolbar.ToolbarDefault
 import ru.shprot.sudokumobdevkz.feature.leaderboards.presentation.components.LeaderboardRowItem
 import ru.shprot.sudokumobdevkz.feature.leaderboards.presentation.contract.LeaderboardsUIEvent
@@ -55,7 +54,7 @@ fun LeaderboardsScreenContent(
 
         SettingsToggleItem(
             modifier = Modifier.padding(horizontal = AppTheme.paddings.large),
-            icon = Icons.Filled.EmojiEvents,
+            icon = AppIcons.Trophy,
             title = stringResource(R.string.settings_show_name_on_leaderboard),
             checked = uiState.showNameOnLeaderboard,
             onCheckedChange = { onEvent(LeaderboardsUIEvent.ToggleShowName) },

@@ -4,8 +4,6 @@ import android.graphics.drawable.Drawable
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -27,6 +25,7 @@ import androidx.core.net.toUri
 import coil.compose.AsyncImage
 import com.google.android.gms.common.images.ImageManager
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
+import ru.shprot.sudokumobdevkz.core.uicommon.icon.AppIcons
 
 @Composable
 fun PgsAvatar(
@@ -35,7 +34,7 @@ fun PgsAvatar(
     avatarUrl: String?,
     tint: Color = AppTheme.colors.textSecondary,
 ) {
-    val personPainter = rememberVectorPainter(Icons.Filled.Person)
+    val personPainter = rememberVectorPainter(AppIcons.Person)
     val avatarModifier = modifier
         .size(size)
         .clip(CircleShape)

@@ -10,8 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,6 +21,7 @@ import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.base.domain.model.ThemeColors
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonDefault
+import ru.shprot.sudokumobdevkz.core.uicommon.icon.AppIcons
 import ru.shprot.sudokumobdevkz.core.uicommon.toolbar.ToolbarDefault
 import ru.shprot.sudokumobdevkz.feature.themebuilder.presentation.components.ColorCategoryList
 import ru.shprot.sudokumobdevkz.feature.themebuilder.presentation.components.ColorPickerSheet
@@ -57,7 +56,7 @@ fun ThemeBuilderScreenContent(
             ) {
                 Icon(
                     modifier = Modifier.size(AppTheme.sizes.iconSmall),
-                    imageVector = Icons.Filled.Warning,
+                    imageVector = AppIcons.Warning,
                     contentDescription = null,
                     tint = AppTheme.colors.warning,
                 )

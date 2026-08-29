@@ -5,8 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -15,6 +13,7 @@ import androidx.compose.ui.res.stringResource
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 import ru.shprot.sudokumobdevkz.core.uicommon.button.ToolbarCircleButton
+import ru.shprot.sudokumobdevkz.core.uicommon.icon.AppIcons
 
 @Composable
 fun MenuHeader(
@@ -43,7 +42,7 @@ fun MenuHeader(
 
         ToolbarCircleButton(
             modifier = Modifier,
-            icon = Icons.Filled.Settings,
+            icon = AppIcons.Settings,
             contentDescription = stringResource(R.string.settings),
             onClick = onSettingsClick,
         )

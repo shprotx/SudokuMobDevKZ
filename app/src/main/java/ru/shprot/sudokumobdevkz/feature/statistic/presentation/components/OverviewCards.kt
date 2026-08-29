@@ -4,17 +4,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.filled.EmojiEvents
-import androidx.compose.material.icons.filled.Schedule
-import androidx.compose.material.icons.filled.Timer
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
+import ru.shprot.sudokumobdevkz.core.uicommon.icon.AppIcons
 
 @Composable
 fun OverviewCards(
@@ -34,7 +30,7 @@ fun OverviewCards(
         ) {
             OverviewCard(
                 modifier = Modifier.weight(1f),
-                icon = Icons.Filled.Timer,
+                icon = AppIcons.Stopwatch,
                 iconTint = Color(0xFF039FE0),
                 label = stringResource(R.string.best_time_label),
                 value = bestTime,
@@ -42,7 +38,7 @@ fun OverviewCards(
 
             OverviewCard(
                 modifier = Modifier.weight(1f),
-                icon = Icons.Filled.Schedule,
+                icon = AppIcons.Clock,
                 iconTint = Color(0xFF636AE8),
                 label = stringResource(R.string.average_time_label),
                 value = averageTime,
@@ -55,7 +51,7 @@ fun OverviewCards(
         ) {
             OverviewCard(
                 modifier = Modifier.weight(1f),
-                icon = Icons.Filled.EmojiEvents,
+                icon = AppIcons.Trophy,
                 iconTint = AppTheme.colors.warning,
                 label = stringResource(R.string.win_percent_label),
                 value = percentOfWins,
@@ -63,7 +59,7 @@ fun OverviewCards(
 
             OverviewCard(
                 modifier = Modifier.weight(1f),
-                icon = Icons.Filled.CheckCircle,
+                icon = AppIcons.CheckCircle,
                 iconTint = AppTheme.colors.primary,
                 label = stringResource(R.string.wins_no_errors_label),
                 value = winsWithoutErrors,
