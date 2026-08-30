@@ -96,6 +96,7 @@ object ThemePalettes {
                 cellFixed = cellFixed,
                 cellEditable = cellEditable,
                 draftText = textSecondary,
+                draftHighlight = text,
                 divider = divider,
                 iconTint = textSecondary,
                 bottomNavSelected = primary,

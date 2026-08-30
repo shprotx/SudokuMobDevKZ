@@ -10,9 +10,6 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.LocalFireDepartment
-import androidx.compose.material.icons.filled.MilitaryTech
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -20,6 +17,7 @@ import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.base.data.util.DateTimeUtils
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonDefault
+import ru.shprot.sudokumobdevkz.core.uicommon.icon.AppIcons
 import ru.shprot.sudokumobdevkz.core.uicommon.toolbar.ToolbarDefault
 import ru.shprot.sudokumobdevkz.feature.dailychallenge.presentation.components.DailyCalendar
 import ru.shprot.sudokumobdevkz.feature.dailychallenge.presentation.components.DailyHeroCard
@@ -68,7 +66,7 @@ fun DailyChallengeScreenContent(
                     modifier = Modifier.weight(1f),
                     streak = uiState.currentStreak,
                     label = stringResource(R.string.daily_streak_label),
-                    icon = Icons.Filled.LocalFireDepartment,
+                    icon = AppIcons.Fire,
                     iconTint = AppTheme.colors.warning,
                 )
 
@@ -76,7 +74,7 @@ fun DailyChallengeScreenContent(
                     modifier = Modifier.weight(1f),
                     streak = uiState.longestStreak,
                     label = stringResource(R.string.daily_best_streak_label),
-                    icon = Icons.Filled.MilitaryTech,
+                    icon = AppIcons.Medal,
                     iconTint = AppTheme.colors.primary,
                 )
             }

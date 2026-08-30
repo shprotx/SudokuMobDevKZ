@@ -1,4 +1,5 @@
 package ru.shprot.sudokumobdevkz.feature.howtoplay.presentation.components.screencontent
+import ru.shprot.sudokumobdevkz.core.uicommon.icon.AppIcons
 import ru.shprot.sudokumobdevkz.feature.howtoplay.presentation.components.*
 
 import androidx.compose.foundation.background
@@ -12,11 +13,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AutoFixHigh
-import androidx.compose.material.icons.filled.Lightbulb
-import androidx.compose.material.icons.filled.Speed
-import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -121,28 +117,28 @@ internal fun HowToPlayLandscapeContent(
 
                 TipCard(
                     modifier = Modifier.padding(top = AppTheme.paddings.large),
-                    icon = Icons.Filled.Lightbulb,
+                    icon = AppIcons.Hint,
                     title = stringResource(R.string.tip_start_simple),
                     description = stringResource(R.string.tip_start_simple_desc),
                 )
 
                 TipCard(
                     modifier = Modifier.padding(top = AppTheme.paddings.default),
-                    icon = Icons.Filled.AutoFixHigh,
+                    icon = AppIcons.Wand,
                     title = stringResource(R.string.tip_elimination),
                     description = stringResource(R.string.tip_elimination_desc),
                 )
 
                 TipCard(
                     modifier = Modifier.padding(top = AppTheme.paddings.default),
-                    icon = Icons.Filled.Speed,
+                    icon = AppIcons.Speed,
                     title = stringResource(R.string.tip_no_guessing),
                     description = stringResource(R.string.tip_no_guessing_desc),
                 )
 
                 TipCard(
                     modifier = Modifier.padding(top = AppTheme.paddings.default),
-                    icon = Icons.Filled.Timer,
+                    icon = AppIcons.Stopwatch,
                     title = stringResource(R.string.tip_speed),
                     description = stringResource(R.string.tip_speed_desc),
                 )

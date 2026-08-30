@@ -10,10 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Pause
-import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
@@ -29,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
+import ru.shprot.sudokumobdevkz.core.uicommon.icon.AppIcons
 import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonDefault
 import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonOutlined
 import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonText
@@ -67,7 +64,7 @@ fun PauseDialog(
 
                     Icon(
                         modifier = Modifier.size(AppTheme.sizes.iconLarge),
-                        imageVector = Icons.Filled.Pause,
+                        imageVector = AppIcons.Pause,
                         contentDescription = null,
                         tint = AppTheme.colors.primary,
                     )
@@ -89,7 +86,7 @@ fun PauseDialog(
 
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(
-                            imageVector = Icons.Filled.Timer,
+                            imageVector = AppIcons.Clock,
                             contentDescription = null,
                             tint = AppTheme.colors.textSecondary,
                             modifier = Modifier.size(AppTheme.sizes.iconSmall),
@@ -106,7 +103,7 @@ fun PauseDialog(
 
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(
-                            imageVector = Icons.Filled.Favorite,
+                            imageVector = AppIcons.Heart,
                             contentDescription = null,
                             tint = AppTheme.colors.error,
                             modifier = Modifier.size(AppTheme.sizes.iconSmall),

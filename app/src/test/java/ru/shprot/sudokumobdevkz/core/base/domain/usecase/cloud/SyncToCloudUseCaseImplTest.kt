@@ -27,6 +27,8 @@ import ru.shprot.sudokumobdevkz.core.base.data.database.entity.CustomThemeEntity
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.DailyChallengeEntity
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.SavedGameEntity
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.StatisticEntity
+import ru.shprot.sudokumobdevkz.core.base.data.repository.IVisitStreakRepository
+import ru.shprot.sudokumobdevkz.core.base.domain.model.VisitStreak
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class SyncToCloudUseCaseImplTest {
@@ -44,6 +46,7 @@ class SyncToCloudUseCaseImplTest {
             dailyChallengeDao = EmptyDailyChallengeDao(),
             savedGameDao = EmptySavedGameDao(),
             customThemeDao = EmptyCustomThemeDao(),
+            visitStreakRepository = EmptyVisitStreakRepository(),
         )
     }
 
@@ -128,6 +131,7 @@ internal class EmptyAchievementUnlockedDao : AchievementUnlockedDao {
     override fun observeAll(): Flow<List<AchievementUnlockedEntity>> = MutableStateFlow(emptyList())
     override suspend fun getAll(): List<AchievementUnlockedEntity> = emptyList()
     override suspend fun existsById(id: String): Boolean = false
+    override suspend fun countUnlocked(): Int = 0
     override suspend fun insert(entity: AchievementUnlockedEntity) = Unit
 }
 
@@ -153,4 +157,16 @@ internal class EmptyCustomThemeDao : CustomThemeDao {
     override suspend fun upsert(entity: CustomThemeEntity) = Unit
     override suspend fun deleteById(id: String) = Unit
     override suspend fun exists(id: String): Int = 0
+}
+
+internal class EmptyVisitStreakRepository : IVisitStreakRepository {
+    override val streak: Flow<VisitStreak> = MutableStateFlow(VisitStreak())
+    override suspend fun currentStreak(): VisitStreak = VisitStreak()
+    override suspend fun recordVisit(): VisitStreak = currentStreak()
+
+    override suspend fun mergeFromCloud(
+        cloudCurrentStreak: Int,
+        cloudBestStreak: Int,
+        cloudLastVisitDate: String?,
+    ): Unit = Unit
 }

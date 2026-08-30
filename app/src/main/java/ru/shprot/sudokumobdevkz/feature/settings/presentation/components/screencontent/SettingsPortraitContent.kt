@@ -10,20 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.BarChart
-import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.filled.ContentCopy
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Feedback
-import androidx.compose.material.icons.filled.GridView
-import androidx.compose.material.icons.filled.Lightbulb
-import androidx.compose.material.icons.filled.Palette
-import androidx.compose.material.icons.filled.Save
-import androidx.compose.material.icons.filled.Schedule
-import androidx.compose.material.icons.filled.Security
-import androidx.compose.material.icons.filled.Share
-import androidx.compose.material.icons.filled.StarRate
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -34,13 +20,17 @@ import androidx.compose.ui.res.stringResource
 import kotlinx.collections.immutable.toImmutableList
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.base.domain.model.ThemeMode
+import ru.shprot.sudokumobdevkz.core.base.domain.model.isDark
 import ru.shprot.sudokumobdevkz.core.base.presentation.util.deviceFitsTwoRowInPortrait
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 import ru.shprot.sudokumobdevkz.core.theme.ThemePalettes
 import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonDefault
+import ru.shprot.sudokumobdevkz.core.uicommon.button.ButtonText
 import ru.shprot.sudokumobdevkz.core.uicommon.dropdown.AppDropdown
+import ru.shprot.sudokumobdevkz.core.uicommon.icon.AppIcons
 import ru.shprot.sudokumobdevkz.core.uicommon.toolbar.ToolbarDefault
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.HintModeSection
+import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.NotificationsSection
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.cloud.CloudSection
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsCard
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsDivider
@@ -48,6 +38,7 @@ import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.setting
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsSectionHeader
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsToggleItem
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.settings.SettingsVersionFooter
+import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.theme.ThemeItemActions
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.components.theme.ThemeModeDropdownItem
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.contract.SettingsUIEvent
 import ru.shprot.sudokumobdevkz.feature.settings.presentation.contract.SettingsUIState
@@ -88,6 +79,8 @@ internal fun SettingsPortraitContent(
 
             CloudSection(uiState = uiState, onEvent = onEvent)
 
+            NotificationsSection(uiState = uiState, onEvent = onEvent)
+
             SettingsSectionHeader(modifier = Modifier, title = stringResource(R.string.other))
 
             OtherSettingsCard(onEvent = onEvent)
@@ -118,7 +111,7 @@ internal fun GameSettingsCard(
     SettingsCard(modifier = Modifier) {
         SettingsToggleItem(
             modifier = Modifier,
-            icon = Icons.Filled.CheckCircle,
+            icon = AppIcons.CheckCircle,
             title = stringResource(R.string.check_errors),
             checked = uiState.settings.checkErrors,
             onCheckedChange = { onEvent(SettingsUIEvent.ToggleCheckErrors) },
@@ -128,7 +121,7 @@ internal fun GameSettingsCard(
 
         SettingsToggleItem(
             modifier = Modifier,
-            icon = Icons.Filled.ContentCopy,
+            icon = AppIcons.Copy,
             title = stringResource(R.string.highlight_duplicates),
             checked = uiState.settings.highlightDuplicates,
             onCheckedChange = { onEvent(SettingsUIEvent.ToggleHighlightDuplicates) },
@@ -138,7 +131,7 @@ internal fun GameSettingsCard(
 
         SettingsToggleItem(
             modifier = Modifier,
-            icon = Icons.Filled.Save,
+            icon = AppIcons.Save,
             title = stringResource(R.string.auto_save),
             checked = uiState.settings.autoSave,
             onCheckedChange = { onEvent(SettingsUIEvent.ToggleAutoSave) },
@@ -148,7 +141,7 @@ internal fun GameSettingsCard(
 
         SettingsToggleItem(
             modifier = Modifier,
-            icon = Icons.Filled.Schedule,
+            icon = AppIcons.Clock,
             title = stringResource(R.string.show_timer),
             checked = uiState.settings.showTimer,
             onCheckedChange = { onEvent(SettingsUIEvent.ToggleShowTimer) },
@@ -158,7 +151,7 @@ internal fun GameSettingsCard(
 
         SettingsToggleItem(
             modifier = Modifier,
-            icon = Icons.Filled.Favorite,
+            icon = AppIcons.Heart,
             iconTint = AppTheme.colors.error,
             title = stringResource(R.string.show_errors),
             checked = uiState.settings.showErrors,
@@ -169,7 +162,7 @@ internal fun GameSettingsCard(
 
         SettingsToggleItem(
             modifier = Modifier,
-            icon = Icons.Filled.Favorite,
+            icon = AppIcons.Heart,
             iconTint = AppTheme.colors.warning,
             title = stringResource(R.string.unlimited_errors),
             checked = uiState.settings.unlimitedErrors,
@@ -180,7 +173,7 @@ internal fun GameSettingsCard(
 
         SettingsToggleItem(
             modifier = Modifier,
-            icon = Icons.Filled.Lightbulb,
+            icon = AppIcons.Hint,
             iconTint = AppTheme.colors.warning,
             title = stringResource(R.string.unlimited_hints),
             checked = uiState.settings.unlimitedHints,
@@ -191,7 +184,7 @@ internal fun GameSettingsCard(
 
         SettingsToggleItem(
             modifier = Modifier,
-            icon = Icons.Filled.BarChart,
+            icon = AppIcons.BarChart,
             title = stringResource(R.string.track_statistics),
             checked = uiState.settings.trackStatistics && uiState.settings.isStandardMode,
             enabled = uiState.settings.isStandardMode,
@@ -204,7 +197,7 @@ internal fun GameSettingsCard(
 
         SettingsToggleItem(
             modifier = Modifier,
-            icon = Icons.Filled.GridView,
+            icon = AppIcons.Grid,
             title = stringResource(R.string.compact_number_pad),
             checked = uiState.settings.compactNumberPad && compactPadAvailable,
             enabled = compactPadAvailable,
@@ -221,7 +214,15 @@ internal fun AppearanceSettingsCard(
     val presetItems = ThemePalettes.all.map { palette ->
         ThemeModeDropdownItem(ThemeMode.Custom(palette.id, stringResource(palette.labelRes), palette.isDark))
     }
-    val themeItems = (ThemeMode.builtIn().map(::ThemeModeDropdownItem) + presetItems).toImmutableList()
+    val userThemes = remember(uiState.customThemes) {
+        uiState.customThemes.filter { !it.isBuiltIn }
+    }
+    val userThemeIds = remember(userThemes) { userThemes.map { it.id }.toSet() }
+    val userThemeItems = userThemes.map { theme ->
+        ThemeModeDropdownItem(ThemeMode.Custom(theme.id, theme.name, theme.isDark))
+    }
+    val themeItems =
+        (ThemeMode.builtIn().map(::ThemeModeDropdownItem) + presetItems + userThemeItems).toImmutableList()
     val selectedItem = themeItems.firstOrNull { it.id == uiState.settings.themeModeId } ?: themeItems.first()
 
     SettingsCard(modifier = Modifier) {
@@ -233,7 +234,7 @@ internal fun AppearanceSettingsCard(
         ) {
             Icon(
                 modifier = Modifier.size(AppTheme.sizes.iconMedium),
-                imageVector = Icons.Filled.Palette,
+                imageVector = AppIcons.Palette,
                 contentDescription = null,
                 tint = AppTheme.colors.primary,
             )
@@ -253,6 +254,23 @@ internal fun AppearanceSettingsCard(
             items = themeItems,
             selected = selectedItem,
             onSelect = { item -> onEvent(SettingsUIEvent.SelectThemeMode(item.mode)) },
+            trailingContent = { item ->
+                val mode = item.mode
+                if (mode is ThemeMode.Custom && mode.id in userThemeIds) {
+                    ThemeItemActions(
+                        onEdit = { onEvent(SettingsUIEvent.NavigateToEditTheme(mode.id)) },
+                        onDelete = { onEvent(SettingsUIEvent.RequestDeleteTheme(mode.id)) },
+                    )
+                }
+            },
+        )
+
+        SettingsDivider(modifier = Modifier)
+
+        ButtonText(
+            modifier = Modifier.fillMaxWidth(),
+            text = stringResource(R.string.theme_list_add_theme),
+            onClick = { onEvent(SettingsUIEvent.NavigateToThemeBuilder) },
         )
     }
 }
@@ -264,7 +282,7 @@ internal fun OtherSettingsCard(
     SettingsCard(modifier = Modifier) {
         SettingsNavItem(
             modifier = Modifier,
-            icon = Icons.Filled.StarRate,
+            icon = AppIcons.Star,
             title = stringResource(R.string.settings_rate_app),
             onClick = { onEvent(SettingsUIEvent.RateAppClicked) },
         )
@@ -273,7 +291,7 @@ internal fun OtherSettingsCard(
 
         SettingsNavItem(
             modifier = Modifier,
-            icon = Icons.Filled.Share,
+            icon = AppIcons.Share,
             title = stringResource(R.string.share_app),
             onClick = { onEvent(SettingsUIEvent.ShareAppClicked) },
         )
@@ -282,7 +300,7 @@ internal fun OtherSettingsCard(
 
         SettingsNavItem(
             modifier = Modifier,
-            icon = Icons.Filled.Security,
+            icon = AppIcons.Shield,
             title = stringResource(R.string.privacy_policy),
             onClick = { onEvent(SettingsUIEvent.NavigateToPrivacyPolicy) },
         )
@@ -291,7 +309,7 @@ internal fun OtherSettingsCard(
 
         SettingsNavItem(
             modifier = Modifier,
-            icon = Icons.Filled.Feedback,
+            icon = AppIcons.Feedback,
             title = stringResource(R.string.feedback),
             onClick = { onEvent(SettingsUIEvent.NavigateToFeedback) },
         )

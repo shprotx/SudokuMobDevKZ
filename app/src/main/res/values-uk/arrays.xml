@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="notification_reengagement_texts_default">
+        <item>Скучили за судоку? Швидка партія — це всього 5 хвилин.</item>
+        <item>Головоломка для експертів чекає на вас. Розв\'яжете сьогодні?</item>
+        <item>Ваше поле залишилося таким, яким ви його залишили — заверште гру.</item>
+    </string-array>
+
+    <string-array name="notification_reengagement_texts_streak">
+        <item>Ваша серія в %1$d днів під загрозою! Поверніться і заверште хоча б одну партію.</item>
+        <item>Не втрачайте серію з %1$d днів — швидка партія збереже її.</item>
+        <item>%1$d днів поспіль! Продовжте серію сьогодні.</item>
+    </string-array>
+
+    <string-array name="notification_daily_texts_streak">
+        <item>Сьогоднішній дейлік ще не розв\'язано — серія %1$d днів на кону.</item>
+        <item>Серія з %1$d днів заслуговує на продовження. Дейлік — це кілька хвилин.</item>
+        <item>Не дай %1$d дням дейліків обірватися — сьогоднішній ще відкритий.</item>
+    </string-array>
+
+    <string-array name="notification_resume_texts">
+        <item>Партія на паузі (%1$s). Дограєш?</item>
+        <item>Незавершена партія чекає: %1$s. Кілька ходів — і готово.</item>
+        <item>Ти майже біля мети — партія (%1$s) не завершена.</item>
+    </string-array>
+</resources>

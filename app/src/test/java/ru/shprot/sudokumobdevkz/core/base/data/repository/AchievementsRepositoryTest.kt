@@ -8,6 +8,7 @@ import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
@@ -21,6 +22,7 @@ import ru.shprot.sudokumobdevkz.core.base.data.database.entity.GameHistoryEntity
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.StatisticEntity
 import ru.shprot.sudokumobdevkz.core.base.domain.achievement.UnlockedAchievement
 import ru.shprot.sudokumobdevkz.core.base.domain.model.Difficulty
+import ru.shprot.sudokumobdevkz.core.base.domain.model.VisitStreak
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class AchievementsRepositoryTest {
@@ -29,6 +31,7 @@ class AchievementsRepositoryTest {
     private lateinit var dailyDao: FakeDailyChallengeDao
     private lateinit var gameHistoryDao: FakeGameHistoryDao
     private lateinit var achievementsDao: FakeAchievementUnlockedDao
+    private lateinit var visitStreakRepository: FakeVisitStreakRepository
     private lateinit var repository: AchievementsRepositoryImpl
 
     @Before
@@ -37,12 +40,14 @@ class AchievementsRepositoryTest {
         dailyDao = FakeDailyChallengeDao()
         gameHistoryDao = FakeGameHistoryDao()
         achievementsDao = FakeAchievementUnlockedDao()
+        visitStreakRepository = FakeVisitStreakRepository()
         repository = AchievementsRepositoryImpl(
             statisticDao = statisticDao,
             dailyChallengeDao = dailyDao,
             gameHistoryDao = gameHistoryDao,
             achievementUnlockedDao = achievementsDao,
             syncToCloud = NoOpSyncToCloudUseCase,
+            visitStreakRepository = visitStreakRepository,
         )
     }
 
@@ -122,6 +127,20 @@ class AchievementsRepositoryTest {
         assertTrue(collected.isEmpty())
         job.cancel()
     }
+
+    @Test
+    fun checkAndUnlock_unlocksVisitStreak5_whenBestVisitStreakMeetsTarget() = runTest {
+        visitStreakRepository.seed(VisitStreak(currentStreak = 5, bestStreak = 5))
+        val result = repository.checkAndUnlock()
+        assertTrue(result.any { it.achievement.id == "visit_streak_5" })
+    }
+
+    @Test
+    fun checkAndUnlock_doesNotUnlockVisitStreak15_belowTarget() = runTest {
+        visitStreakRepository.seed(VisitStreak(currentStreak = 14, bestStreak = 14))
+        val result = repository.checkAndUnlock()
+        assertFalse(result.any { it.achievement.id == "visit_streak_15" })
+    }
 }
 
 internal class FakeStatisticDao : StatisticDao {
@@ -193,6 +212,12 @@ internal class FakeGameHistoryDao : GameHistoryDao {
 
     override suspend fun getAllStandardWins(): List<GameHistoryEntity> = flow.value.filter { it.isStandardMode }
 
+    override fun observeWinsWithoutHintsCount(): Flow<Int> =
+        MutableStateFlow(flow.value.count { it.isWin && it.hintsUsed == 0 })
+
+    override suspend fun countWinsWithoutHints(): Int =
+        flow.value.count { it.isWin && it.hintsUsed == 0 }
+
     override suspend fun insert(entry: GameHistoryEntity): Unit =
         error("not used in test: insert")
 
@@ -216,10 +241,33 @@ internal class FakeAchievementUnlockedDao : AchievementUnlockedDao {
 
     override suspend fun existsById(id: String): Boolean = storage.any { it.id == id }
 
+    override suspend fun countUnlocked(): Int = storage.size
+
     override suspend fun insert(entity: AchievementUnlockedEntity) {
         if (storage.none { it.id == entity.id }) {
             storage.add(entity)
             flow.value = storage.toList()
         }
     }
+}
+
+internal class FakeVisitStreakRepository : IVisitStreakRepository {
+
+    private val state = MutableStateFlow(VisitStreak())
+
+    fun seed(streak: VisitStreak) {
+        state.value = streak
+    }
+
+    override val streak: Flow<VisitStreak> = state
+
+    override suspend fun currentStreak(): VisitStreak = state.value
+
+    override suspend fun recordVisit(): VisitStreak = state.value
+
+    override suspend fun mergeFromCloud(
+        cloudCurrentStreak: Int,
+        cloudBestStreak: Int,
+        cloudLastVisitDate: String?,
+    ): Unit = error("not used in test: mergeFromCloud")
 }

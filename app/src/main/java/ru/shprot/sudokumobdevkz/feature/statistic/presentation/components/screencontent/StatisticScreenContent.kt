@@ -1,4 +1,5 @@
 package ru.shprot.sudokumobdevkz.feature.statistic.presentation.components.screencontent
+import ru.shprot.sudokumobdevkz.core.uicommon.icon.AppIcons
 import ru.shprot.sudokumobdevkz.feature.statistic.presentation.components.*
 
 import androidx.compose.foundation.background
@@ -12,9 +13,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -118,7 +116,7 @@ fun StatisticScreenContent(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Icon(
-                    imageVector = Icons.Filled.Refresh,
+                    imageVector = AppIcons.Restart,
                     contentDescription = null,
                     tint = AppTheme.colors.textSecondary,
                     modifier = Modifier.size(AppTheme.sizes.iconSmall),
@@ -139,7 +137,7 @@ fun StatisticScreenContent(
                         bottom = AppTheme.paddings.xxxl,
                     ),
                 text = stringResource(R.string.go_to_main_page),
-                icon = Icons.Filled.Home,
+                icon = AppIcons.Home,
                 onClick = { onEvent(StatisticUIEvent.BackClicked) },
             )
         }

@@ -11,7 +11,10 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.shprot.sudokumobdevkz.R
+import ru.shprot.sudokumobdevkz.core.base.domain.model.ActionButtonId
+import ru.shprot.sudokumobdevkz.core.base.domain.model.GameBlockId
 import ru.shprot.sudokumobdevkz.core.base.domain.model.GameSaveData
+import ru.shprot.sudokumobdevkz.core.base.domain.model.StatusItemId
 import ru.shprot.sudokumobdevkz.core.base.domain.model.HintMode
 import ru.shprot.sudokumobdevkz.core.base.data.util.DateTimeUtils
 import ru.shprot.sudokumobdevkz.core.base.data.util.safeRunCatching
@@ -43,13 +46,14 @@ class GameViewModel @Inject constructor(
     private val route = savedStateHandle.toRoute<GameRoutes.GameScreen>()
     private val difficulty: Difficulty = Difficulty.fromOrdinal(route.difficultyOrdinal)
     private val continueGame: Boolean = route.continueGame
-    private val isDailyChallenge: Boolean = route.isDailyChallenge
+    private var isDailyChallenge: Boolean = route.isDailyChallenge
+    private var dailyDateKey: String = route.dailyDateKey
     private val undoStack = mutableListOf<UndoEntry>()
     private var timerJob: Job? = null
 
     init {
         viewModelScope.launch(exceptionHandler) {
-            if (continueGame && !isDailyChallenge) {
+            if (continueGame) {
                 val saved = repository.loadSavedGame()
                 if (saved != null) {
                     restoreGame(saved)
@@ -64,6 +68,9 @@ class GameViewModel @Inject constructor(
                     copy(
                         compactNumberPadPreference = settings.compactNumberPad,
                         selectedThemeId = settings.themeModeId,
+                        blockOrder = settings.gameBlockOrder,
+                        actionButtonOrder = settings.actionButtonOrder,
+                        statusItemOrder = settings.statusItemOrder,
                     )
                 }
             }
@@ -105,6 +112,24 @@ class GameViewModel @Inject constructor(
             GameUIEvent.DismissPauseDialog ->
                 setState(currentState.copy(showPauseDialog = false))
 
+            GameUIEvent.LayoutEditClicked ->
+                handleLayoutEditToggle()
+
+            GameUIEvent.LayoutEditExitRequested ->
+                handleLayoutEditExit()
+
+            GameUIEvent.LayoutResetClicked ->
+                handleLayoutReset()
+
+            is GameUIEvent.BlockMoved ->
+                handleBlockMoved(event.from, event.to)
+
+            is GameUIEvent.EditBlockTapped ->
+                handleEditBlockTapped(event.blockId)
+
+            is GameUIEvent.InnerItemMoved ->
+                handleInnerItemMoved(event.blockId, event.from, event.to)
+
             GameUIEvent.ShowNewGameDialog ->
                 setState(currentState.copy(showNewGameDialog = true, showPauseDialog = false))
 
@@ -128,6 +153,12 @@ class GameViewModel @Inject constructor(
 
             GameUIEvent.DismissDraftPopup ->
                 updateState { copy(draftPopupVisible = false) }
+
+            GameUIEvent.TimerSuspend ->
+                onTimerSuspend()
+
+            GameUIEvent.TimerResume ->
+                onTimerResume()
 
             is GameUIEvent.CellClicked ->
                 onCellClicked(event.row, event.col)
@@ -157,6 +188,76 @@ class GameViewModel @Inject constructor(
         setState(currentState.copy(showPauseDialog = true))
     }
 
+    private fun handleLayoutEditToggle() {
+        if (currentState.isLayoutEditMode) {
+            setState(currentState.copy(isLayoutEditMode = false, expandedEditBlock = null))
+            onResume()
+        } else {
+            onPause()
+            setState(currentState.copy(isLayoutEditMode = true))
+        }
+    }
+
+    private fun handleLayoutEditExit() {
+        if (!currentState.isLayoutEditMode) return
+        setState(currentState.copy(isLayoutEditMode = false, expandedEditBlock = null))
+        onResume()
+    }
+
+    private fun handleLayoutReset() {
+        setState(
+            currentState.copy(
+                blockOrder = GameBlockId.DEFAULT_ORDER,
+                actionButtonOrder = ActionButtonId.DEFAULT_ORDER,
+                statusItemOrder = StatusItemId.DEFAULT_ORDER,
+                expandedEditBlock = null,
+            ),
+        )
+        settingsRepository.update {
+            copy(
+                gameBlockOrder = GameBlockId.DEFAULT_ORDER,
+                actionButtonOrder = ActionButtonId.DEFAULT_ORDER,
+                statusItemOrder = StatusItemId.DEFAULT_ORDER,
+            )
+        }
+    }
+
+    private fun handleBlockMoved(from: Int, to: Int) {
+        val order = currentState.blockOrder.toMutableList()
+        if (from !in order.indices || to !in order.indices) return
+        order.add(to, order.removeAt(from))
+        setState(currentState.copy(blockOrder = order))
+        settingsRepository.update { copy(gameBlockOrder = order) }
+    }
+
+    private fun handleEditBlockTapped(blockId: GameBlockId) {
+        if (blockId != GameBlockId.ACTIONS_BAR && blockId != GameBlockId.STATUS_BAR) return
+        val expanded = if (currentState.expandedEditBlock == blockId) null else blockId
+        setState(currentState.copy(expandedEditBlock = expanded))
+    }
+
+    private fun handleInnerItemMoved(blockId: GameBlockId, from: Int, to: Int) {
+        when (blockId) {
+            GameBlockId.ACTIONS_BAR -> {
+                val order = currentState.actionButtonOrder.toMutableList()
+                if (from !in order.indices || to !in order.indices) return
+                order.add(to, order.removeAt(from))
+                setState(currentState.copy(actionButtonOrder = order))
+                settingsRepository.update { copy(actionButtonOrder = order) }
+            }
+
+            GameBlockId.STATUS_BAR -> {
+                val order = currentState.statusItemOrder.toMutableList()
+                if (from !in order.indices || to !in order.indices) return
+                order.add(to, order.removeAt(from))
+                setState(currentState.copy(statusItemOrder = order))
+                settingsRepository.update { copy(statusItemOrder = order) }
+            }
+
+            else -> Unit
+        }
+    }
+
     private fun handleExitGame() {
         setState(currentState.copy(showPauseDialog = false))
         setEffect(GameUIEffect.NavigateBack)
@@ -183,13 +284,12 @@ class GameViewModel @Inject constructor(
                 isDailyChallenge = isDailyChallenge,
             )
         )
-        if (!isDailyChallenge) {
-            countAbandonedGame()
-            repository.deleteSavedGame()
-        }
+        countAbandonedGame()
+        repository.deleteSavedGame()
 
         val puzzle = if (isDailyChallenge) {
-            val dateKey = route.dailyDateKey.ifEmpty { dailyChallengeRepository.todayDateKey() }
+            val dateKey = resolvedDailyDateKey()
+            dailyDateKey = dateKey
             val seed = dailyChallengeRepository.dailySeed(dateKey)
             SudokuGenerator.generate(difficulty, seed)
         } else {
@@ -218,6 +318,7 @@ class GameViewModel @Inject constructor(
 
     private suspend fun countAbandonedGame() {
         val saved = repository.loadSavedGame() ?: return
+        if (saved.isDailyChallenge) return
         val savedDifficulty = Difficulty.fromFirebaseKey(saved.difficulty) ?: return
         if (saved.isStandardMode) {
             repository.updateStatistic(
@@ -236,6 +337,8 @@ class GameViewModel @Inject constructor(
             row.map { s -> CellData(s.value, s.isGiven, s.isError, s.notes) }
         }
         val restoredDifficulty = Difficulty.fromFirebaseKey(data.difficulty) ?: difficulty
+        isDailyChallenge = data.isDailyChallenge
+        dailyDateKey = data.dailyDateKey
 
         setState(
             currentState.copy(
@@ -249,6 +352,7 @@ class GameViewModel @Inject constructor(
                 hintsRemaining = data.hintsRemaining,
                 isNotesEnabled = data.isNotesEnabled,
                 isStandardMode = data.isStandardMode,
+                isDailyChallenge = data.isDailyChallenge,
                 isGenerating = false,
                 availableNumbers = calcAvailableNumbers(cells),
             )
@@ -259,7 +363,7 @@ class GameViewModel @Inject constructor(
 
     private suspend fun saveGameStateSync() {
         val state = currentState
-        if (state.isGenerating || state.isGameOver || state.isDailyChallenge) return
+        if (state.isGenerating || state.isGameOver) return
 
         repository.saveGame(
             GameSaveData(
@@ -274,9 +378,14 @@ class GameViewModel @Inject constructor(
                 },
                 solution = state.solution,
                 isStandardMode = state.isStandardMode,
+                isDailyChallenge = state.isDailyChallenge,
+                dailyDateKey = if (state.isDailyChallenge) resolvedDailyDateKey() else "",
             )
         )
     }
+
+    private fun resolvedDailyDateKey(): String =
+        dailyDateKey.ifEmpty { dailyChallengeRepository.todayDateKey() }
 
     override fun onCleared() {
         super.onCleared()
@@ -530,6 +639,16 @@ class GameViewModel @Inject constructor(
         startTimer()
     }
 
+    private fun onTimerSuspend() {
+        timerJob?.cancel()
+    }
+
+    private fun onTimerResume() {
+        if (!currentState.isPaused && !currentState.isGameOver && !currentState.isGenerating) {
+            startTimer()
+        }
+    }
+
     private fun startTimer() {
         timerJob?.cancel()
         timerJob = viewModelScope.launch {
@@ -554,6 +673,7 @@ class GameViewModel @Inject constructor(
 
         viewModelScope.launch(exceptionHandler) {
             if (isWin) reviewRepository.markSessionWon()
+            repository.deleteSavedGame()
 
             val newStreak = when {
                 isDailyChallenge && isWin ->
@@ -586,21 +706,20 @@ class GameViewModel @Inject constructor(
     }
 
     private suspend fun persistRegularGameResult(isWin: Boolean): Int {
-        repository.deleteSavedGame()
-
+        val resultDifficulty = currentState.difficulty
         if (currentState.isStandardMode) {
             repository.updateStatistic(
-                difficulty = difficulty,
+                difficulty = resultDifficulty,
                 isWin = isWin,
                 timeSeconds = currentState.timeSeconds,
                 errorCount = currentState.errors,
             )
         } else {
-            repository.incrementCasualGames(difficulty)
+            repository.incrementCasualGames(resultDifficulty)
         }
 
         repository.saveGameResult(
-            difficulty = difficulty,
+            difficulty = resultDifficulty,
             timeSeconds = currentState.timeSeconds,
             errors = currentState.errors,
             isWin = isWin,
@@ -611,7 +730,7 @@ class GameViewModel @Inject constructor(
 
         if (isWin && currentState.timeSeconds > 0 && currentState.isStandardMode) {
             repository.submitLeaderboardForWin(
-                difficulty = difficulty,
+                difficulty = resultDifficulty,
                 timeSeconds = currentState.timeSeconds,
                 errors = currentState.errors,
                 hintsUsed = calculateHintsUsed(),
@@ -623,7 +742,8 @@ class GameViewModel @Inject constructor(
     }
 
     private suspend fun persistDailyChallengeWin(): Int {
-        val dateKey = route.dailyDateKey.ifEmpty { dailyChallengeRepository.todayDateKey() }
+        val resultDifficulty = currentState.difficulty
+        val dateKey = resolvedDailyDateKey()
         val streak = dailyChallengeRepository.markCompleted(
             dateKey = dateKey,
             timeSeconds = currentState.timeSeconds,
@@ -631,7 +751,7 @@ class GameViewModel @Inject constructor(
         )
 
         repository.saveGameResult(
-            difficulty = difficulty,
+            difficulty = resultDifficulty,
             timeSeconds = currentState.timeSeconds,
             errors = currentState.errors,
             isWin = true,
@@ -642,7 +762,7 @@ class GameViewModel @Inject constructor(
 
         if (currentState.timeSeconds > 0) {
             repository.submitLeaderboardForWin(
-                difficulty = difficulty,
+                difficulty = resultDifficulty,
                 timeSeconds = currentState.timeSeconds,
                 errors = currentState.errors,
                 hintsUsed = calculateHintsUsed(),

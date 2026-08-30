@@ -29,8 +29,16 @@ fun GameScreen(
 
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_STOP) {
-                viewModel.setEvent(GameUIEvent.SaveState)
+            when (event) {
+                Lifecycle.Event.ON_STOP -> {
+                    viewModel.setEvent(GameUIEvent.SaveState)
+                    viewModel.setEvent(GameUIEvent.TimerSuspend)
+                }
+
+                Lifecycle.Event.ON_START ->
+                    viewModel.setEvent(GameUIEvent.TimerResume)
+
+                else -> Unit
             }
         }
         lifecycleOwner.lifecycle.addObserver(observer)

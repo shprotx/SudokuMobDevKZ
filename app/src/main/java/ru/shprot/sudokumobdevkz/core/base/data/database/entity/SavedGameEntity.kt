@@ -15,5 +15,7 @@ data class SavedGameEntity(
     val cellsJson: String = "",
     val solutionJson: String = "",
     val isStandardMode: Boolean = true,
+    val isDailyChallenge: Boolean = false,
+    val dailyDateKey: String = "",
     val timestamp: Long = System.currentTimeMillis(),
 )

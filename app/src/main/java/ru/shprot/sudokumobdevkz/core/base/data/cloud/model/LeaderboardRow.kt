@@ -7,4 +7,5 @@ data class LeaderboardRow(
     val rawScore: Long,
     val displayScore: String,
     val isCurrentPlayer: Boolean,
+    val achievementsCount: Int? = null,
 )

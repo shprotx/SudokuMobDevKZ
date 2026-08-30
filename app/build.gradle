@@ -1,9 +1,9 @@
 import com.github.triplet.gradle.androidpublisher.ReleaseStatus
 import com.github.triplet.gradle.androidpublisher.ResolutionStrategy
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
     id 'org.jetbrains.kotlin.plugin.compose'
     id 'org.jetbrains.kotlin.plugin.serialization'
     id 'com.google.devtools.ksp'
@@ -18,16 +18,16 @@ if (localPropertiesFile.exists()) {
 }
 
 android {
-    compileSdk 36
+    compileSdk = 37
 
     defaultConfig {
-        applicationId "ru.shprot.sudokumobdevkz"
-        minSdk 29
-        targetSdk 36
-        versionCode 67
-        versionName "2.9.2"
+        applicationId = "ru.shprot.sudokumobdevkz"
+        minSdk = 29
+        targetSdk = 37
+        versionCode = 78
+        versionName = "2.15.1"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "FIREBASE_DB_URL",
                 "\"${localProperties.getProperty('FIREBASE_DB_URL', System.getenv('FIREBASE_DB_URL') ?: '')}\""
@@ -40,40 +40,42 @@ android {
 
     signingConfigs {
         release {
-            storeFile file(localProperties.getProperty('KEYSTORE_FILE', System.getenv('KEYSTORE_FILE') ?: 'keystore.jks').trim())
-            storePassword localProperties.getProperty('KEYSTORE_PASS', System.getenv('KEYSTORE_PASS') ?: '').trim()
-            keyAlias localProperties.getProperty('KEYSTORE_ALIAS', System.getenv('KEYSTORE_ALIAS') ?: '').trim()
-            keyPassword localProperties.getProperty('KEYSTORE_ALIAS_PASS', System.getenv('KEYSTORE_ALIAS_PASS') ?: '').trim()
+            storeFile = file(localProperties.getProperty('KEYSTORE_FILE', System.getenv('KEYSTORE_FILE') ?: 'keystore.jks').trim())
+            storePassword = localProperties.getProperty('KEYSTORE_PASS', System.getenv('KEYSTORE_PASS') ?: '').trim()
+            keyAlias = localProperties.getProperty('KEYSTORE_ALIAS', System.getenv('KEYSTORE_ALIAS') ?: '').trim()
+            keyPassword = localProperties.getProperty('KEYSTORE_ALIAS_PASS', System.getenv('KEYSTORE_ALIAS_PASS') ?: '').trim()
         }
     }
 
     buildTypes {
         debug {
-            debuggable true
-            minifyEnabled false
+            debuggable = true
+            minifyEnabled = false
         }
         release {
-            signingConfig signingConfigs.release
-            debuggable false
-            minifyEnabled true
-            shrinkResources true
+            signingConfig = signingConfigs.release
+            debuggable = false
+            minifyEnabled = true
+            shrinkResources = true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
-    }
-
-    kotlinOptions {
-        jvmTarget = '17'
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     buildFeatures {
-        buildConfig true
-        compose true
+        buildConfig = true
+        compose = true
     }
-    namespace 'ru.shprot.sudokumobdevkz'
+    namespace = 'ru.shprot.sudokumobdevkz'
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_17
+    }
 }
 
 play {
@@ -107,7 +109,6 @@ dependencies {
     implementation 'androidx.compose.ui:ui-graphics'
     implementation 'androidx.compose.ui:ui-tooling-preview'
     implementation 'androidx.compose.material3:material3'
-    implementation 'androidx.compose.material:material-icons-extended'
     debugImplementation 'androidx.compose.ui:ui-tooling'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
@@ -131,12 +132,17 @@ dependencies {
     androidTestImplementation "androidx.room:room-testing:$room_version"
 
     // --- Hilt ---
-    implementation 'com.google.dagger:hilt-android:2.58'
-    ksp 'com.google.dagger:hilt-compiler:2.58'
+    implementation 'com.google.dagger:hilt-android:2.60.1'
+    ksp 'com.google.dagger:hilt-compiler:2.60.1'
     implementation 'androidx.hilt:hilt-navigation-compose:1.2.0'
+    implementation 'androidx.hilt:hilt-work:1.4.0'
+    ksp 'androidx.hilt:hilt-compiler:1.4.0'
 
     // --- DataStore ---
     implementation 'androidx.datastore:datastore-preferences:1.1.7'
+
+    // --- WorkManager (local notifications scheduling) ---
+    implementation 'androidx.work:work-runtime-ktx:2.10.2'
 
     // --- Coroutines ---
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2'
@@ -162,8 +168,9 @@ dependencies {
     // --- Color picker ---
     implementation 'com.github.skydoves:colorpicker-compose:1.1.2'
 
+    // --- Drag-and-drop reorder (game layout editor) ---
+    implementation 'sh.calvin.reorderable:reorderable:2.5.1'
 
-    // --- Testing ---
     // --- Testing ---
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2'

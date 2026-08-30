@@ -30,6 +30,7 @@ class AchievementsRepositoryImpl @Inject constructor(
     private val gameHistoryDao: GameHistoryDao,
     private val achievementUnlockedDao: AchievementUnlockedDao,
     private val syncToCloud: SyncToCloudUseCase,
+    private val visitStreakRepository: IVisitStreakRepository,
 ) : AchievementsRepository {
 
     private val _newlyUnlocked = MutableSharedFlow<UnlockedAchievement>(
@@ -50,13 +51,18 @@ class AchievementsRepositoryImpl @Inject constructor(
             dailyChallengeDao.observeAllCompleted(),
             gameHistoryDao.observeRecentWins(RECENT_WINS_LIMIT),
             achievementUnlockedDao.observeAll(),
-        ) { stats, dailies, recentWins, unlocked ->
+            gameHistoryDao.observeWinsWithoutHintsCount(),
+        ) { stats, dailies, recentWins, unlocked, noHintsWinsCount ->
+            AchievementRawInputs(stats, dailies, recentWins, unlocked, noHintsWinsCount)
+        }.combine(visitStreakRepository.streak) { inputs, visitStreak ->
             val context = buildContext(
-                stats = stats,
-                dailies = dailies,
-                recentWins = recentWins,
+                stats = inputs.stats,
+                dailies = inputs.dailies,
+                recentWins = inputs.recentWins,
+                noHintsWinsCount = inputs.noHintsWinsCount,
+                bestVisitStreak = visitStreak.bestStreak,
             )
-            val unlockedById = unlocked.associateBy { it.id }
+            val unlockedById = inputs.unlocked.associateBy { it.id }
             AchievementsRegistry.all.map { achievement ->
                 AchievementState(
                     achievement = achievement,
@@ -96,17 +102,28 @@ class AchievementsRepositoryImpl @Inject constructor(
         _retroactiveBatch.emit(count)
     }
 
+    override suspend fun unlockedCount(): Int = achievementUnlockedDao.countUnlocked()
+
     private suspend fun buildContextOnce(): AchievementContext {
         val stats = statisticDao.getAll()
         val dailies = dailyChallengeDao.getAllCompleted()
         val recentWins = gameHistoryDao.getRecentWins(RECENT_WINS_LIMIT)
-        return buildContext(stats = stats, dailies = dailies, recentWins = recentWins)
+        val noHintsWinsCount = gameHistoryDao.countWinsWithoutHints()
+        return buildContext(
+            stats = stats,
+            dailies = dailies,
+            recentWins = recentWins,
+            noHintsWinsCount = noHintsWinsCount,
+            bestVisitStreak = visitStreakRepository.currentStreak().bestStreak,
+        )
     }
 
     private fun buildContext(
         stats: List<StatisticEntity>,
         dailies: List<DailyChallengeEntity>,
         recentWins: List<GameHistoryEntity>,
+        noHintsWinsCount: Int,
+        bestVisitStreak: Int,
     ): AchievementContext {
         val statsMap = Difficulty.entries.associateWith { diff ->
             stats.firstOrNull { it.difficulty == diff.firebaseKey }
@@ -120,6 +137,8 @@ class AchievementsRepositoryImpl @Inject constructor(
             dailyCurrentStreak = dailyStreaks.current,
             dailyBestStreak = dailyStreaks.best,
             recentWins = recentWins,
+            noHintsWinsCount = noHintsWinsCount,
+            bestVisitStreak = bestVisitStreak,
         )
     }
 
@@ -154,6 +173,14 @@ class AchievementsRepositoryImpl @Inject constructor(
     }
 
     private data class DailyStreaks(val current: Int, val best: Int)
+
+    private data class AchievementRawInputs(
+        val stats: List<StatisticEntity>,
+        val dailies: List<DailyChallengeEntity>,
+        val recentWins: List<GameHistoryEntity>,
+        val unlocked: List<AchievementUnlockedEntity>,
+        val noHintsWinsCount: Int,
+    )
 
     private companion object {
         const val RECENT_WINS_LIMIT = 200

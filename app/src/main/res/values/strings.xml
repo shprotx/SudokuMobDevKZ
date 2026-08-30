@@ -202,6 +202,67 @@
     <string name="achievement_secret_night_owl_desc">Win a game between midnight and 5 AM</string>
     <string name="achievement_secret_early_bird_title">Early bird</string>
     <string name="achievement_secret_early_bird_desc">Win a game between 5 AM and 8 AM</string>
+
+    <string name="achievement_wins_100_title">Adept</string>
+    <string name="achievement_wins_100_desc">Win 100 games</string>
+    <string name="achievement_wins_300_title">Champion</string>
+    <string name="achievement_wins_300_desc">Win 300 games</string>
+    <string name="achievement_wins_750_title">Mythic</string>
+    <string name="achievement_wins_750_desc">Win 750 games</string>
+    <string name="achievement_marathon_10h_title">Marathoner</string>
+    <string name="achievement_marathon_10h_desc">Play for 10 hours in total</string>
+
+    <string name="achievement_diff_universal_50_title">World class</string>
+    <string name="achievement_diff_universal_50_desc">Win 50 games on each difficulty</string>
+
+    <string name="achievement_perfect_25_title">Precise</string>
+    <string name="achievement_perfect_25_desc">Win 25 games without mistakes</string>
+    <string name="achievement_perfect_100_title">Untouchable</string>
+    <string name="achievement_perfect_100_desc">Win 100 games without mistakes</string>
+    <string name="achievement_no_hints_25_title">Self-reliant</string>
+    <string name="achievement_no_hints_25_desc">Win 25 games without using hints</string>
+
+    <string name="achievement_speed_elite_easy_title">Turbo</string>
+    <string name="achievement_speed_elite_easy_desc">Finish an easy game in 1:30 or less</string>
+    <string name="achievement_speed_elite_medium_title">Rocket</string>
+    <string name="achievement_speed_elite_medium_desc">Finish a medium game in 3:00 or less</string>
+    <string name="achievement_speed_elite_hard_title">Supersonic</string>
+    <string name="achievement_speed_elite_hard_desc">Finish a hard game in 5:00 or less</string>
+
+    <string name="achievement_streak_50_title">Relentless</string>
+    <string name="achievement_streak_50_desc">Win 50 games in a row</string>
+
+    <string name="achievement_daily_streak_14_title">Two weeks</string>
+    <string name="achievement_daily_streak_14_desc">14-day daily streak</string>
+    <string name="achievement_daily_25_title">Regular</string>
+    <string name="achievement_daily_25_desc">Complete 25 daily challenges</string>
+    <string name="achievement_daily_100_title">Centennial</string>
+    <string name="achievement_daily_100_desc">Complete 100 daily challenges</string>
+
+    <string name="achievement_secret_on_the_edge_title">On the edge</string>
+    <string name="achievement_secret_on_the_edge_desc">Win a game with exactly 2 mistakes</string>
+
+    <string name="achievement_visit_streak_5_title">Welcome back</string>
+    <string name="achievement_visit_streak_5_desc">Open the app 5 days in a row</string>
+    <string name="achievement_visit_streak_15_title">Regular visitor</string>
+    <string name="achievement_visit_streak_15_desc">Open the app 15 days in a row</string>
+    <string name="achievement_visit_streak_25_title">Habit forming</string>
+    <string name="achievement_visit_streak_25_desc">Open the app 25 days in a row</string>
+    <string name="achievement_visit_streak_50_title">Loyal player</string>
+    <string name="achievement_visit_streak_50_desc">Open the app 50 days in a row</string>
+    <string name="achievement_visit_streak_100_title">Centurion</string>
+    <string name="achievement_visit_streak_100_desc">Open the app 100 days in a row</string>
+    <string name="achievement_visit_streak_150_title">Devoted</string>
+    <string name="achievement_visit_streak_150_desc">Open the app 150 days in a row</string>
+    <string name="achievement_visit_streak_200_title">Dedicated</string>
+    <string name="achievement_visit_streak_200_desc">Open the app 200 days in a row</string>
+    <string name="achievement_visit_streak_300_title">Year-rounder</string>
+    <string name="achievement_visit_streak_300_desc">Open the app 300 days in a row</string>
+    <string name="achievement_visit_streak_365_title">Full circle</string>
+    <string name="achievement_visit_streak_365_desc">Open the app 365 days in a row</string>
+    <string name="achievement_visit_streak_730_title">Two-year veteran</string>
+    <string name="achievement_visit_streak_730_desc">Open the app 730 days in a row</string>
+
     <string name="gms_app_id" translatable="false">847632350121</string>
 
     <string name="cloud_section_title">Cloud sync</string>
@@ -228,6 +289,7 @@
     <string name="leaderboard_open_settings">Go to Settings</string>
     <string name="leaderboard_open_full">Open full ranking</string>
     <string name="leaderboard_your_place">… your place: #%1$d · %2$s</string>
+    <string name="leaderboard_rank_divider">⋯</string>
     <string name="leaderboard_empty">No scores yet — finish a game to claim a spot.</string>
     <string name="leaderboards_title">Leaderboards</string>
     <string name="leaderboard_load_error">Could not load the leaderboard. Pull to refresh.</string>
@@ -236,6 +298,7 @@
     <string name="leaderboard_consent_confirm">Yes, show my name</string>
     <string name="leaderboard_consent_dismiss">Stay anonymous</string>
     <string name="settings_show_name_on_leaderboard">Show my name in global ranking</string>
+    <string name="leaderboard_show_name_sign_in_required">Sign in to show your name on the leaderboard</string>
     <string name="reset_statistics_cloud_warning">Note: your best scores will stay in the Google Play Games leaderboard.</string>
     <string name="hint_mode_section_title">Hint mode</string>
     <string name="hint_mode_single_shot_title">Single tap</string>
@@ -270,6 +333,7 @@
     <string name="theme_builder_color_cell_fixed">Cell Fixed</string>
     <string name="theme_builder_color_cell_editable">Cell Editable</string>
     <string name="theme_builder_color_cell_error">Cell Error</string>
+    <string name="theme_builder_color_draft_highlight">Draft Highlight</string>
     <string name="theme_builder_color_grid_line">Grid Line</string>
     <string name="theme_builder_color_divider">Divider</string>
     <string name="theme_builder_color_accent">Accent</string>
@@ -312,4 +376,22 @@
     <string name="theme_deleted_fallback">Theme deleted. Switched to Light.</string>
     <string name="theme_saved">Theme saved</string>
     <string name="draft_notes_popup_number_description">Note %1$d</string>
+    <string name="notifications_section_title">Notifications</string>
+    <string name="push_notifications">Push notifications</string>
+    <string name="notifications_permission_denied">Notifications permission denied. You can enable it later in system settings.</string>
+    <string name="notification_channel_daily_challenge_name">Daily challenge</string>
+    <string name="notification_channel_daily_challenge_description">Reminders about today\'s daily challenge puzzle</string>
+    <string name="notification_channel_reengagement_name">Come back to play</string>
+    <string name="notification_channel_reengagement_description">Friendly nudges after a few days of inactivity</string>
+    <string name="notification_channel_game_resume_name">Unfinished game</string>
+    <string name="notification_channel_game_resume_description">Reminders about a game you haven\'t finished yet</string>
+    <string name="notification_daily_challenge_title">Today\'s daily challenge is ready</string>
+    <string name="notification_reengagement_title">Miss Sudoku?</string>
+    <string name="notification_reengagement_text">Come back for a quick puzzle — your board is waiting</string>
+    <string name="notification_game_resume_title">Unfinished puzzle</string>
+
+    <string name="layout_edit_subtitle">Drag blocks to reorder. Tap the status or action row to arrange its items</string>
+    <string name="layout_reset">Reset</string>
+    <string name="layout_block_spacer">Spacer</string>
+    <string name="layout_edit_title">Screen layout</string>
 </resources>

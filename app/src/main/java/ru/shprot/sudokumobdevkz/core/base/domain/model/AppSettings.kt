@@ -15,6 +15,10 @@ data class AppSettings(
     val selectedDifficultyOrdinal: Int = 0,
     val hintMode: HintMode = HintMode.SINGLE_SHOT,
     val showNameOnLeaderboard: Boolean = false,
+    val notificationsEnabled: Boolean = true,
+    val gameBlockOrder: List<GameBlockId> = GameBlockId.DEFAULT_ORDER,
+    val actionButtonOrder: List<ActionButtonId> = ActionButtonId.DEFAULT_ORDER,
+    val statusItemOrder: List<StatusItemId> = StatusItemId.DEFAULT_ORDER,
 ) {
     val isStandardMode: Boolean get() = checkErrors && !unlimitedErrors && !unlimitedHints
 }

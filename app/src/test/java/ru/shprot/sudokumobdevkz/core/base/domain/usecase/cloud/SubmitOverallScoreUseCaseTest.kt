@@ -81,5 +81,7 @@ private class FakeGameHistoryDao(private val standardWins: List<GameHistoryEntit
     override suspend fun getAllWins(): List<GameHistoryEntity> = standardWins
     override suspend fun getAllStandardWins(): List<GameHistoryEntity> =
         standardWins.filter { it.isStandardMode }
+    override fun observeWinsWithoutHintsCount(): Flow<Int> = MutableStateFlow(0)
+    override suspend fun countWinsWithoutHints(): Int = 0
     override suspend fun deleteByDifficulty(difficulty: Int) = Unit
 }

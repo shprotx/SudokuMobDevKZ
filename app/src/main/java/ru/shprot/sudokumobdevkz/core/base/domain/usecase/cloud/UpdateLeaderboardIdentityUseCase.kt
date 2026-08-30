@@ -4,16 +4,22 @@ import ru.shprot.sudokumobdevkz.core.base.data.cloud.CloudGameServices
 import ru.shprot.sudokumobdevkz.core.base.data.cloud.model.SignInState
 import ru.shprot.sudokumobdevkz.core.base.data.remote.LeaderboardCfApiHolder
 import ru.shprot.sudokumobdevkz.core.base.data.remote.LeaderboardIdentityDto
+import ru.shprot.sudokumobdevkz.core.base.data.repository.AchievementsRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.StableIdProvider
 import javax.inject.Inject
 
-class UpdateLeaderboardIdentityUseCase @Inject constructor(
+interface UpdateLeaderboardIdentityUseCase {
+    suspend operator fun invoke(showName: Boolean)
+}
+
+class UpdateLeaderboardIdentityUseCaseImpl @Inject constructor(
     private val cfApiHolder: LeaderboardCfApiHolder,
     private val stableIdProvider: StableIdProvider,
     private val cloud: CloudGameServices,
-) {
+    private val achievementsRepository: AchievementsRepository,
+) : UpdateLeaderboardIdentityUseCase {
 
-    suspend operator fun invoke(showName: Boolean) {
+    override suspend fun invoke(showName: Boolean) {
         val api = cfApiHolder.value ?: return
         val signedIn = cloud.signInState.value
         val displayName = if (showName && signedIn is SignInState.SignedIn) {
@@ -26,11 +32,14 @@ class UpdateLeaderboardIdentityUseCase @Inject constructor(
         } else {
             null
         }
+        val achievementsCount = runCatching { achievementsRepository.unlockedCount() }.getOrNull()
+
         val body = LeaderboardIdentityDto(
             stableId = stableIdProvider.current(),
             platform = PLATFORM,
             displayName = displayName,
             avatarUrl = avatarUrl,
+            achievementsCount = achievementsCount,
         )
         runCatching { api.updateIdentity(body) }
     }

@@ -4,9 +4,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -17,13 +14,14 @@ import androidx.compose.ui.text.style.TextAlign
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
 import ru.shprot.sudokumobdevkz.core.uicommon.button.ToolbarCircleButton
+import ru.shprot.sudokumobdevkz.core.uicommon.icon.AppIcons
 
 @Composable
 fun ToolbarDefault(
     modifier: Modifier,
     title: String,
-    leadIcon: ImageVector = Icons.AutoMirrored.Filled.ArrowBack,
-    endIcon: ImageVector = Icons.Filled.Settings,
+    leadIcon: ImageVector = AppIcons.Back,
+    endIcon: ImageVector = AppIcons.Settings,
     onLeadIconClick: () -> Unit,
     onEndIconClick: (() -> Unit)? = null,
 ) {

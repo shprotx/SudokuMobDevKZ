@@ -4,10 +4,16 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import ru.shprot.sudokumobdevkz.core.base.data.repository.ILeaderboardRepository
+import ru.shprot.sudokumobdevkz.core.base.data.repository.INotificationHistoryRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.ISettingsRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.IThemeRepository
+import ru.shprot.sudokumobdevkz.core.base.data.repository.IVisitStreakRepository
+import ru.shprot.sudokumobdevkz.core.base.data.repository.LeaderboardRepository
+import ru.shprot.sudokumobdevkz.core.base.data.repository.NotificationHistoryRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.SettingsRepository
 import ru.shprot.sudokumobdevkz.core.base.data.repository.ThemeRepository
+import ru.shprot.sudokumobdevkz.core.base.data.repository.VisitStreakRepository
 import javax.inject.Singleton
 
 @Module
@@ -21,4 +27,18 @@ abstract class RepositoryBindingsModule {
     @Binds
     @Singleton
     abstract fun bindSettingsRepository(impl: SettingsRepository): ISettingsRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindLeaderboardRepository(impl: LeaderboardRepository): ILeaderboardRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindVisitStreakRepository(impl: VisitStreakRepository): IVisitStreakRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindNotificationHistoryRepository(
+        impl: NotificationHistoryRepository,
+    ): INotificationHistoryRepository
 }

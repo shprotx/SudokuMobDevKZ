@@ -10,5 +10,7 @@ data class AchievementContext(
     val dailyCurrentStreak: Int,
     val dailyBestStreak: Int,
     val recentWins: List<GameHistoryEntity>,
+    val noHintsWinsCount: Int = 0,
+    val bestVisitStreak: Int = 0,
     val flags: AchievementFlags = AchievementFlags(),
 )

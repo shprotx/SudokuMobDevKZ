@@ -1,3 +1,4 @@
-• New global leaderboard — see how you rank against other players, complete with names and avatars (or stay anonymous if you prefer)
-• Daily Challenge calendar — track completed days, replay missed or past puzzles, and follow your monthly progress
-• Localization and theme readability improvements
+• Game screen layout editor: drag panels and buttons around, reorder items inside each block.
+• Smart reminders: notifications for the daily puzzle, an unfinished game and coming back to play.
+• The leaderboard now shows each player's achievement count.
+• Fresh look: glass panels, a custom icon set across the whole app, rounded corners and a soft shadow on the board.

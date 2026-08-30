@@ -18,4 +18,6 @@ interface AchievementsRepository {
     suspend fun emitUnlockedToFlow(events: List<UnlockedAchievement>)
 
     suspend fun emitRetroactiveBatch(count: Int)
+
+    suspend fun unlockedCount(): Int
 }

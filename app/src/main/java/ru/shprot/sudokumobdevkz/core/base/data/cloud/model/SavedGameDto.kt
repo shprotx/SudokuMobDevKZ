@@ -14,4 +14,6 @@ data class SavedGameDto(
     val solutionJson: String,
     val isStandardMode: Boolean,
     val timestamp: Long,
+    val isDailyChallenge: Boolean = false,
+    val dailyDateKey: String = "",
 )

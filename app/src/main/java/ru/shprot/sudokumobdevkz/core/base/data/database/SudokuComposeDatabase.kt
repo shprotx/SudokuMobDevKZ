@@ -24,7 +24,7 @@ import ru.shprot.sudokumobdevkz.core.base.data.database.entity.StatisticEntity
         AchievementUnlockedEntity::class,
         CustomThemeEntity::class,
     ],
-    version = 8,
+    version = 9,
     exportSchema = false,
 )
 abstract class SudokuComposeDatabase : RoomDatabase() {

@@ -28,7 +28,7 @@ jobs:
       - name: Extract version from build.gradle
         id: version
         run: |
-          VERSION_NAME=$(grep -oP 'versionName "\K[^"]+' app/build.gradle)
+          VERSION_NAME=$(grep -oP 'versionName\s*=?\s*"\K[^"]+' app/build.gradle)
           echo "name=$VERSION_NAME" >> "$GITHUB_OUTPUT"
 
       - name: Decode keystore

@@ -6,8 +6,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.EmojiEvents
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -19,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import ru.shprot.sudokumobdevkz.R
 import ru.shprot.sudokumobdevkz.core.theme.AppTheme
+import ru.shprot.sudokumobdevkz.core.uicommon.icon.AppIcons
 
 @Composable
 internal fun AchievementUnlockedSnackbar(
@@ -37,7 +36,7 @@ internal fun AchievementUnlockedSnackbar(
             horizontalArrangement = Arrangement.spacedBy(AppTheme.paddings.medium),
         ) {
             Icon(
-                imageVector = Icons.Filled.EmojiEvents,
+                imageVector = AppIcons.Trophy,
                 contentDescription = null,
                 tint = AppTheme.colors.primary,
                 modifier = Modifier.size(AppTheme.sizes.iconLarge),

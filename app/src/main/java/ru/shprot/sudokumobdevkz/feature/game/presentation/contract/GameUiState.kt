@@ -1,6 +1,9 @@
 package ru.shprot.sudokumobdevkz.feature.game.presentation.contract
 
+import ru.shprot.sudokumobdevkz.core.base.domain.model.ActionButtonId
 import ru.shprot.sudokumobdevkz.core.base.domain.model.Difficulty
+import ru.shprot.sudokumobdevkz.core.base.domain.model.GameBlockId
+import ru.shprot.sudokumobdevkz.core.base.domain.model.StatusItemId
 import ru.shprot.sudokumobdevkz.core.base.domain.model.ThemeMode
 import ru.shprot.sudokumobdevkz.core.base.presentation.contract.UIState
 import ru.shprot.sudokumobdevkz.feature.game.domain.model.CellData
@@ -34,4 +37,9 @@ data class GameUIState(
     val draftPopupVisible: Boolean = false,
     val draftPopupRow: Int = -1,
     val draftPopupCol: Int = -1,
+    val blockOrder: List<GameBlockId> = GameBlockId.DEFAULT_ORDER,
+    val actionButtonOrder: List<ActionButtonId> = ActionButtonId.DEFAULT_ORDER,
+    val statusItemOrder: List<StatusItemId> = StatusItemId.DEFAULT_ORDER,
+    val isLayoutEditMode: Boolean = false,
+    val expandedEditBlock: GameBlockId? = null,
 ) : UIState
