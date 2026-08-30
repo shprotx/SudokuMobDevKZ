@@ -4,12 +4,17 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalDensity
@@ -52,11 +57,19 @@ fun SudokuGrid(
     val textMeasurer = rememberTextMeasurer()
     val density = LocalDensity.current
     val hapticFeedback = LocalHapticFeedback.current
+    val cornerRadius = AppTheme.sizes.cornerRadiusMedium
+    val gridShape = RoundedCornerShape(cornerRadius)
+    val cornerRadiusPx = with(density) { cornerRadius.toPx() }
 
     Canvas(
         modifier = modifier
             .fillMaxWidth()
             .aspectRatio(1f)
+            .shadow(
+                elevation = AppTheme.sizes.elevationSmall,
+                shape = gridShape,
+            )
+            .clip(gridShape)
             .pointerInput(onCellLongClick) {
                 detectTapGestures(
                     onTap = { offset ->
@@ -87,7 +100,7 @@ fun SudokuGrid(
             drawNumbers(cells, cellSize, fixedColor, editableColor, errorColor, draftColor, draftHighlightColor, highlightedNumber, textMeasurer, density)
         }
 
-        drawGridLines(cellSize, gridLine, gridLineBold)
+        drawGridLines(cellSize, gridLine, gridLineBold, cornerRadiusPx)
     }
 }
 
@@ -227,8 +240,9 @@ private fun DrawScope.drawGridLines(
     cellSize: Float,
     thinColor: Color,
     boldColor: Color,
+    cornerRadiusPx: Float,
 ) {
-    for (i in 0..9) {
+    for (i in 1 until 9) {
         val pos = i * cellSize
         val isBold = i % 3 == 0
         val color = if (isBold) boldColor else thinColor
@@ -238,4 +252,15 @@ private fun DrawScope.drawGridLines(
 
         drawLine(color, Offset(0f, pos), Offset(size.width, pos), width)
     }
+
+    val borderWidth = 3f
+    val inset = borderWidth / 2f
+
+    drawRoundRect(
+        color = boldColor,
+        topLeft = Offset(inset, inset),
+        size = Size(size.width - borderWidth, size.height - borderWidth),
+        cornerRadius = CornerRadius(cornerRadiusPx - inset),
+        style = Stroke(width = borderWidth),
+    )
 }

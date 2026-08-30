@@ -1,1 +1,4 @@
-Every icon in the app is now hand-drawn in one style — menu, statistics, achievements, settings, daily challenge and end-of-game screens. No more stock system glyphs.
+• Game screen layout editor: drag panels and buttons around, reorder items inside each block.
+• Smart reminders: notifications for the daily puzzle, an unfinished game and coming back to play.
+• The leaderboard now shows each player's achievement count.
+• Fresh look: glass panels, a custom icon set across the whole app, rounded corners and a soft shadow on the board.

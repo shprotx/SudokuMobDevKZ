@@ -1,1 +1,4 @@
-New: 10 daily visit achievements — from a sprout for 5 days in a row to the world tree for two years. Plus a notifications toggle in settings.
+• Game screen layout editor: drag panels and buttons around, reorder items inside each block.
+• Smart reminders: notifications for the daily puzzle, an unfinished game and coming back to play.
+• The leaderboard now shows each player's achievement count.
+• Fresh look: glass panels, a custom icon set across the whole app, rounded corners and a soft shadow on the board.
