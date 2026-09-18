@@ -5,12 +5,14 @@ import androidx.room.RoomDatabase
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.AchievementUnlockedDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.CustomThemeDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.DailyChallengeDao
+import ru.shprot.sudokumobdevkz.core.base.data.database.dao.DailyPlaytimeDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.GameHistoryDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.SavedGameDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.StatisticDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.AchievementUnlockedEntity
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.CustomThemeEntity
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.DailyChallengeEntity
+import ru.shprot.sudokumobdevkz.core.base.data.database.entity.DailyPlaytimeEntity
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.GameHistoryEntity
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.SavedGameEntity
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.StatisticEntity
@@ -23,9 +25,10 @@ import ru.shprot.sudokumobdevkz.core.base.data.database.entity.StatisticEntity
         DailyChallengeEntity::class,
         AchievementUnlockedEntity::class,
         CustomThemeEntity::class,
+        DailyPlaytimeEntity::class,
     ],
-    version = 9,
-    exportSchema = false,
+    version = 10,
+    exportSchema = true,
 )
 abstract class SudokuComposeDatabase : RoomDatabase() {
     abstract fun statisticDao(): StatisticDao
@@ -34,4 +37,5 @@ abstract class SudokuComposeDatabase : RoomDatabase() {
     abstract fun dailyChallengeDao(): DailyChallengeDao
     abstract fun achievementUnlockedDao(): AchievementUnlockedDao
     abstract fun customThemeDao(): CustomThemeDao
+    abstract fun dailyPlaytimeDao(): DailyPlaytimeDao
 }

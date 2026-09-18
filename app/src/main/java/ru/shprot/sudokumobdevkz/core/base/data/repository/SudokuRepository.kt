@@ -9,6 +9,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import ru.shprot.sudokumobdevkz.core.base.data.database.dao.DailyPlaytimeDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.GameHistoryDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.SavedGameDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.StatisticDao
@@ -17,6 +18,7 @@ import ru.shprot.sudokumobdevkz.core.base.domain.usecase.cloud.RatingCalculator
 import ru.shprot.sudokumobdevkz.core.base.domain.usecase.cloud.SubmitFirebaseLeaderboardUseCase
 import ru.shprot.sudokumobdevkz.core.base.domain.usecase.cloud.SubmitOverallScoreUseCase
 import ru.shprot.sudokumobdevkz.core.base.domain.usecase.cloud.SyncToCloudUseCase
+import ru.shprot.sudokumobdevkz.core.base.data.database.entity.DailyPlaytimeEntity
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.GameHistoryEntity
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.SavedGameEntity
 import ru.shprot.sudokumobdevkz.core.base.data.database.entity.StatisticEntity
@@ -27,7 +29,6 @@ import ru.shprot.sudokumobdevkz.core.base.domain.model.DailyPlaytime
 import ru.shprot.sudokumobdevkz.core.base.domain.model.GameSaveData
 import ru.shprot.sudokumobdevkz.core.base.domain.model.PercentileResult
 import ru.shprot.sudokumobdevkz.core.base.domain.model.Difficulty
-import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
 import java.time.temporal.ChronoUnit
@@ -38,6 +39,7 @@ import javax.inject.Singleton
 class SudokuRepository @Inject constructor(
     private val statisticDao: StatisticDao,
     private val gameHistoryDao: GameHistoryDao,
+    private val dailyPlaytimeDao: DailyPlaytimeDao,
     private val savedGameDao: SavedGameDao,
     private val firebaseApi: FirebaseApi,
     private val json: Json,
@@ -55,30 +57,42 @@ class SudokuRepository @Inject constructor(
 
     suspend fun syncStatisticsFromFirebase() = withContext(Dispatchers.IO) {
         safeRunCatching {
-            val stats = firebaseApi.getOwnStats(stableIdProvider.current()) ?: return@withContext
+            val stats = firebaseApi.getOwnStats(stableIdProvider.current()) ?: return@safeRunCatching
             for ((diffKey, dto) in stats) {
                 val diffKeyInt = diffKey.toIntOrNull() ?: continue
                 val difficulty = Difficulty.fromFirebaseKey(diffKeyInt) ?: continue
                 if (dto.gamesStarted <= 0) continue
-                val existing = statisticDao.getByDifficulty(difficulty.firebaseKey)
-                statisticDao.upsert(
-                    StatisticEntity(
-                        difficulty = difficulty.firebaseKey,
-                        bestTime = dto.bestTime,
-                        averageTime = dto.averageTime,
-                        gamesStarted = dto.gamesStarted,
-                        gamesWon = dto.gamesWon,
-                        percentOfWins = if (dto.gamesStarted > 0) (100 * dto.gamesWon) / dto.gamesStarted else 0,
-                        winsWithoutErrors = dto.winsWithoutErrors,
-                        bestWinsLine = dto.bestWinsLine,
-                        currentWinsLine = existing?.currentWinsLine ?: 0,
-                        casualGamesPlayed = existing?.casualGamesPlayed ?: 0,
-                        allTime = dto.averageTime.toLong() * dto.gamesWon,
-                    ),
-                )
+                val remote = dto.toEntity(difficulty.firebaseKey)
+                val local = statisticDao.getByDifficulty(difficulty.firebaseKey)
+                val merged = local?.mergedWith(remote) ?: remote
+                statisticDao.upsert(merged)
+                if (merged.toFirebaseDto() != dto) {
+                    syncToFirebase(merged)
+                }
             }
         }
     }
+
+    private fun FirebaseStatDto.toEntity(difficultyKey: Int): StatisticEntity = StatisticEntity(
+        difficulty = difficultyKey,
+        bestTime = bestTime,
+        averageTime = averageTime,
+        gamesStarted = gamesStarted,
+        gamesWon = gamesWon,
+        percentOfWins = if (gamesStarted > 0) (100 * gamesWon) / gamesStarted else 0,
+        winsWithoutErrors = winsWithoutErrors,
+        bestWinsLine = bestWinsLine,
+        allTime = averageTime.toLong() * gamesWon,
+    )
+
+    private fun StatisticEntity.toFirebaseDto(): FirebaseStatDto = FirebaseStatDto(
+        averageTime = averageTime,
+        bestTime = bestTime,
+        gamesWon = gamesWon,
+        gamesStarted = gamesStarted,
+        winsWithoutErrors = winsWithoutErrors,
+        bestWinsLine = bestWinsLine,
+    )
 
     suspend fun getStatistic(difficulty: Difficulty): StatisticEntity? =
         statisticDao.getByDifficulty(difficulty.firebaseKey)
@@ -143,6 +157,7 @@ class SudokuRepository @Inject constructor(
     suspend fun resetStatistic(difficulty: Difficulty) {
         statisticDao.deleteByDifficulty(difficulty.firebaseKey)
         gameHistoryDao.deleteByDifficulty(difficulty.firebaseKey)
+        dailyPlaytimeDao.deleteByDifficulty(difficulty.firebaseKey)
         clearFirebaseStatistic(difficulty)
         syncToCloud.trigger()
     }
@@ -157,6 +172,7 @@ class SudokuRepository @Inject constructor(
         hintsUsed: Int = 0,
         isDaily: Boolean = false,
         isStandardMode: Boolean,
+        timestamp: Long = System.currentTimeMillis(),
     ) {
         gameHistoryDao.insert(
             GameHistoryEntity(
@@ -167,6 +183,7 @@ class SudokuRepository @Inject constructor(
                 hintsUsed = hintsUsed,
                 isDaily = isDaily,
                 isStandardMode = isStandardMode,
+                timestamp = timestamp,
             )
         )
     }
@@ -176,24 +193,36 @@ class SudokuRepository @Inject constructor(
 
     fun observeDailyPlaytime(): Flow<List<DailyPlaytime>> {
         val zone = ZoneId.systemDefault()
-        return gameHistoryDao.observeSince(0L).map { games ->
-            aggregateDailyPlaytime(games, zone)
+        return dailyPlaytimeDao.observeAll().map { rows ->
+            aggregateDailyPlaytime(rows, zone)
         }
     }
 
+    suspend fun addPlaytime(difficulty: Difficulty, seconds: Int) {
+        if (seconds <= 0) return
+        dailyPlaytimeDao.addSeconds(
+            dateKey = LocalDate.now(ZoneId.systemDefault()).toString(),
+            difficulty = difficulty.firebaseKey,
+            seconds = seconds,
+        )
+    }
+
     private fun aggregateDailyPlaytime(
-        games: List<GameHistoryEntity>,
+        rows: List<DailyPlaytimeEntity>,
         zone: ZoneId,
     ): List<DailyPlaytime> {
-        if (games.isEmpty()) return emptyList()
+        if (rows.isEmpty()) return emptyList()
 
-        val totalsByDate = games
-            .groupBy { Instant.ofEpochMilli(it.timestamp).atZone(zone).toLocalDate() }
-            .mapValues { (_, list) -> list.sumOf { it.timeSeconds } }
+        val totalsByDate = rows
+            .mapNotNull { row -> runCatching { LocalDate.parse(row.dateKey) }.getOrNull()?.to(row.totalSeconds) }
+            .groupBy({ it.first }, { it.second })
+            .mapValues { (_, list) -> list.sum() }
+        if (totalsByDate.isEmpty()) return emptyList()
 
         val today = LocalDate.now(zone)
         val startDate = totalsByDate.keys.min()
-        val totalDays = ChronoUnit.DAYS.between(startDate, today).toInt() + 1
+        val lastDate = maxOf(today, totalsByDate.keys.max())
+        val totalDays = ChronoUnit.DAYS.between(startDate, lastDate).toInt() + 1
 
         return (0 until totalDays).map { offset ->
             val date = startDate.plusDays(offset.toLong())
@@ -238,6 +267,7 @@ class SudokuRepository @Inject constructor(
                 isStandardMode = entity.isStandardMode,
                 isDailyChallenge = entity.isDailyChallenge,
                 dailyDateKey = entity.dailyDateKey,
+                timestamp = entity.timestamp,
             )
         } catch (_: Exception) {
             savedGameDao.delete()
@@ -259,14 +289,7 @@ class SudokuRepository @Inject constructor(
             firebaseApi.uploadStatistic(
                 deviceId = stableIdProvider.current(),
                 difficulty = stat.difficulty,
-                stat = FirebaseStatDto(
-                    averageTime = stat.averageTime,
-                    bestTime = stat.bestTime,
-                    gamesWon = stat.gamesWon,
-                    gamesStarted = stat.gamesStarted,
-                    winsWithoutErrors = stat.winsWithoutErrors,
-                    bestWinsLine = stat.bestWinsLine,
-                ),
+                stat = stat.toFirebaseDto(),
             )
         } catch (_: Exception) { }
     }

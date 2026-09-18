@@ -15,6 +15,7 @@ data class GameSaveData(
     val isStandardMode: Boolean = true,
     val isDailyChallenge: Boolean = false,
     val dailyDateKey: String = "",
+    val timestamp: Long = 0L,
 ) {
     @Serializable
     data class CellSave(
