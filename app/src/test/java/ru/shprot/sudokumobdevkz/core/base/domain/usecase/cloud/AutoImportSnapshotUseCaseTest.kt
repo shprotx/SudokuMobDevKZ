@@ -225,7 +225,8 @@ internal class SnapshotStatisticDao : StatisticDao {
 
     override suspend fun getAll(): List<StatisticEntity> = storage.toList()
     override fun observeAll(): Flow<List<StatisticEntity>> = MutableStateFlow(storage.toList())
-    override suspend fun getByDifficulty(difficulty: Int): StatisticEntity? = error("unused")
+    override suspend fun getByDifficulty(difficulty: Int): StatisticEntity? =
+        storage.firstOrNull { it.difficulty == difficulty }
     override fun observeByDifficulty(difficulty: Int): Flow<StatisticEntity?> = error("unused")
     override suspend fun deleteByDifficulty(difficulty: Int) = error("unused")
 }

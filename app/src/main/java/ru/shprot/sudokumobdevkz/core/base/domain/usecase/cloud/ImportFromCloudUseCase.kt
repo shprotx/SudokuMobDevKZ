@@ -53,7 +53,9 @@ class ImportFromCloudUseCase @Inject constructor(
 
     suspend fun applyProgress(progress: CloudProgress) = syncToCloud.withImport {
         progress.statistics.forEach { (difficultyKey, dto) ->
-            statisticDao.upsert(dto.toEntity(difficultyKey))
+            val remote = dto.toEntity(difficultyKey)
+            val local = statisticDao.getByDifficulty(difficultyKey)
+            statisticDao.upsert(local?.mergedWith(remote) ?: remote)
         }
         progress.unlockedAchievements.forEach { dto ->
             achievementUnlockedDao.insert(dto.toEntity())
@@ -61,7 +63,13 @@ class ImportFromCloudUseCase @Inject constructor(
         progress.dailyChallenges.forEach { dto ->
             dailyChallengeDao.upsert(dto.toEntity())
         }
-        progress.savedGame?.let { savedGameDao.save(it.toEntity()) }
+        progress.savedGame?.let { dto ->
+            val remote = dto.toEntity()
+            val local = savedGameDao.get()
+            if (local == null || remote.timestamp > local.timestamp) {
+                savedGameDao.save(remote)
+            }
+        }
         progress.customThemes.forEach { dto ->
             if (isValidCustomThemeDto(dto)) {
                 customThemeDao.upsert(dto.toEntity())

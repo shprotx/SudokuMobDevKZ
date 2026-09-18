@@ -11,6 +11,7 @@ import ru.shprot.sudokumobdevkz.core.base.data.database.SudokuComposeDatabase
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.AchievementUnlockedDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.CustomThemeDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.DailyChallengeDao
+import ru.shprot.sudokumobdevkz.core.base.data.database.dao.DailyPlaytimeDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.GameHistoryDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.SavedGameDao
 import ru.shprot.sudokumobdevkz.core.base.data.database.dao.StatisticDao
@@ -20,6 +21,7 @@ import ru.shprot.sudokumobdevkz.core.base.data.database.migration.MIGRATION_5_6
 import ru.shprot.sudokumobdevkz.core.base.data.database.migration.MIGRATION_6_7
 import ru.shprot.sudokumobdevkz.core.base.data.database.migration.MIGRATION_7_8
 import ru.shprot.sudokumobdevkz.core.base.data.database.migration.MIGRATION_8_9
+import ru.shprot.sudokumobdevkz.core.base.data.database.migration.MIGRATION_9_10
 import javax.inject.Singleton
 
 @Module
@@ -37,6 +39,7 @@ object DatabaseModule {
                 MIGRATION_6_7,
                 MIGRATION_7_8,
                 MIGRATION_8_9,
+                MIGRATION_9_10,
             )
             .fallbackToDestructiveMigration()
             .build()
@@ -59,4 +62,7 @@ object DatabaseModule {
 
     @Provides
     fun provideCustomThemeDao(db: SudokuComposeDatabase): CustomThemeDao = db.customThemeDao()
+
+    @Provides
+    fun provideDailyPlaytimeDao(db: SudokuComposeDatabase): DailyPlaytimeDao = db.dailyPlaytimeDao()
 }

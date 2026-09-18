@@ -17,6 +17,34 @@ data class StatisticEntity(
     val currentWinsLine: Int = 0,
     val casualGamesPlayed: Int = 0,
 ) {
+    fun mergedWith(other: StatisticEntity): StatisticEntity {
+        val mergedGamesStarted = maxOf(gamesStarted, other.gamesStarted)
+        val mergedGamesWon = maxOf(gamesWon, other.gamesWon)
+        val mergedAllTime = maxOf(allTime, other.allTime)
+        val mergedBestTime = when {
+            bestTime == 0 -> other.bestTime
+            other.bestTime == 0 -> bestTime
+            else -> minOf(bestTime, other.bestTime)
+        }
+        val mergedAverageTime = when {
+            mergedGamesWon > 0 && mergedAllTime > 0 -> (mergedAllTime / mergedGamesWon).toInt()
+            else -> maxOf(averageTime, other.averageTime)
+        }
+
+        return copy(
+            allTime = mergedAllTime,
+            bestTime = mergedBestTime,
+            averageTime = mergedAverageTime,
+            gamesStarted = mergedGamesStarted,
+            gamesWon = mergedGamesWon,
+            percentOfWins = if (mergedGamesStarted > 0) (100 * mergedGamesWon) / mergedGamesStarted else 0,
+            winsWithoutErrors = maxOf(winsWithoutErrors, other.winsWithoutErrors),
+            bestWinsLine = maxOf(bestWinsLine, other.bestWinsLine),
+            currentWinsLine = currentWinsLine,
+            casualGamesPlayed = maxOf(casualGamesPlayed, other.casualGamesPlayed),
+        )
+    }
+
     fun updated(win: Boolean, timeSeconds: Int, errorCount: Int): StatisticEntity {
         val newGamesStarted = gamesStarted + 1
         val newGamesWon = if (win) gamesWon + 1 else gamesWon
